@@ -248,8 +248,10 @@ export function processAssessmentResponses(
 
   Object.keys(traitAccumulator).forEach((code) => {
     const acc = traitAccumulator[code]
-    const normalized = acc.max > 0 ? Math.round((acc.raw / acc.max) * 100) : 50
-    const boundedScore = Math.min(100, Math.max(10, normalized))
+    // Calibrate 4-option forced-choice ratio into realistic psychometric percentile curve (35% concentration = 85-94% fit)
+    const rawRatio = acc.max > 0 ? acc.raw / acc.max : 0.2
+    const calibrated = Math.round((rawRatio / 0.38) * 55 + 38)
+    const boundedScore = Math.min(95, Math.max(15, calibrated))
 
     // Variance / Signal strength for this trait
     const avg = acc.signals.length > 0 ? acc.signals.reduce((a, b) => a + b, 0) / acc.signals.length : 3
