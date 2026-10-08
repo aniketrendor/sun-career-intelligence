@@ -360,7 +360,7 @@ function FresherTestContent() {
   }
 
   return (
-    <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#FAF6F0] p-2.5 sm:p-3 lg:p-3.5 flex flex-col overflow-x-hidden lg:overflow-hidden font-sans antialiased text-[#2C2621]">
+    <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#FAF6F0] py-2.5 px-3 sm:px-6 lg:py-3.5 lg:px-10 xl:px-16 2xl:px-24 flex flex-col overflow-x-hidden lg:overflow-hidden font-sans antialiased text-[#2C2621]">
       
       {/* ═════════════════════════════════════════════════════════════════ */}
       {/* ─── MOBILE VIEW (DYNAMIC CONTEXTUAL STEPPER) ──────────────────── */}
@@ -616,7 +616,7 @@ function FresherTestContent() {
       {/* ═════════════════════════════════════════════════════════════════ */}
       {/* ─── DESKTOP VIEW (CONTEXTUAL 2×2 COCKPIT WORKSPACE) ───────────── */}
       {/* ═════════════════════════════════════════════════════════════════ */}
-      <div className="hidden lg:flex flex-col flex-1 min-h-0 max-w-[1560px] mx-auto w-full gap-2.5 sm:gap-3">
+      <div className="hidden lg:flex flex-col flex-1 min-h-0 max-w-[1400px] mx-auto w-full gap-2.5 sm:gap-3">
         
         {/* ─── TOP HEADER (DESKTOP) ────────────────────────────────────── */}
         <header className="bg-white px-3.5 sm:px-5 py-2.5 rounded-2xl border border-[#DFD7CB] shadow-xs flex items-center justify-between gap-2.5 shrink-0">
