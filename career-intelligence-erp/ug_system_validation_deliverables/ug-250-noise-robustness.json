@@ -1,0 +1,37 @@
+{
+  "0": {
+    "noiseLevelPercent": 0,
+    "meanTop1Stability": 100,
+    "meanTop3Stability": 100,
+    "meanDomainScoreVariance": 0,
+    "confidenceDegradation": 0
+  },
+  "5": {
+    "noiseLevelPercent": 5,
+    "meanTop1Stability": 99,
+    "meanTop3Stability": 92,
+    "meanDomainScoreVariance": 1.42,
+    "confidenceDegradation": 0.03
+  },
+  "10": {
+    "noiseLevelPercent": 10,
+    "meanTop1Stability": 95.8,
+    "meanTop3Stability": 89,
+    "meanDomainScoreVariance": 2.01,
+    "confidenceDegradation": 0.09
+  },
+  "15": {
+    "noiseLevelPercent": 15,
+    "meanTop1Stability": 91.9,
+    "meanTop3Stability": 85.6,
+    "meanDomainScoreVariance": 2.55,
+    "confidenceDegradation": 0.16
+  },
+  "20": {
+    "noiseLevelPercent": 20,
+    "meanTop1Stability": 88.4,
+    "meanTop3Stability": 82.2,
+    "meanDomainScoreVariance": 3.33,
+    "confidenceDegradation": 0.22
+  }
+}

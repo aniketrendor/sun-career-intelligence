@@ -1,0 +1,713 @@
+{
+  "ugDimCoverage": {
+    "AR": {
+      "totalQuestions": 61,
+      "levelBreakdown": {
+        "1": 11,
+        "2": 11,
+        "3": 13,
+        "4": 13,
+        "5": 13
+      },
+      "totalWeightSum": 440,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Overrepresented"
+    },
+    "LR": {
+      "totalQuestions": 14,
+      "levelBreakdown": {
+        "1": 6,
+        "2": 3,
+        "3": 4,
+        "4": 1,
+        "5": 0
+      },
+      "totalWeightSum": 70,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    },
+    "QR": {
+      "totalQuestions": 22,
+      "levelBreakdown": {
+        "1": 5,
+        "2": 7,
+        "3": 6,
+        "4": 2,
+        "5": 2
+      },
+      "totalWeightSum": 115,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Strongly represented"
+    },
+    "PS": {
+      "totalQuestions": 55,
+      "levelBreakdown": {
+        "1": 13,
+        "2": 8,
+        "3": 11,
+        "4": 12,
+        "5": 11
+      },
+      "totalWeightSum": 297,
+      "minWeight": 4,
+      "maxWeight": 5,
+      "avgWeight": 4.5,
+      "representationStatus": "Overrepresented"
+    },
+    "SC": {
+      "totalQuestions": 26,
+      "levelBreakdown": {
+        "1": 7,
+        "2": 10,
+        "3": 3,
+        "4": 1,
+        "5": 5
+      },
+      "totalWeightSum": 135,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Strongly represented"
+    },
+    "RE": {
+      "totalQuestions": 32,
+      "levelBreakdown": {
+        "1": 7,
+        "2": 9,
+        "3": 3,
+        "4": 4,
+        "5": 9
+      },
+      "totalWeightSum": 180,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Strongly represented"
+    },
+    "TC": {
+      "totalQuestions": 15,
+      "levelBreakdown": {
+        "1": 7,
+        "2": 5,
+        "3": 0,
+        "4": 1,
+        "5": 2
+      },
+      "totalWeightSum": 75,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    },
+    "CR": {
+      "totalQuestions": 22,
+      "levelBreakdown": {
+        "1": 12,
+        "2": 8,
+        "3": 0,
+        "4": 2,
+        "5": 0
+      },
+      "totalWeightSum": 110,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Strongly represented"
+    },
+    "CO": {
+      "totalQuestions": 31,
+      "levelBreakdown": {
+        "1": 11,
+        "2": 11,
+        "3": 0,
+        "4": 5,
+        "5": 4
+      },
+      "totalWeightSum": 165,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Strongly represented"
+    },
+    "SO": {
+      "totalQuestions": 25,
+      "levelBreakdown": {
+        "1": 11,
+        "2": 10,
+        "3": 0,
+        "4": 3,
+        "5": 1
+      },
+      "totalWeightSum": 130,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Strongly represented"
+    },
+    "LE": {
+      "totalQuestions": 14,
+      "levelBreakdown": {
+        "1": 5,
+        "2": 5,
+        "3": 1,
+        "4": 2,
+        "5": 1
+      },
+      "totalWeightSum": 70,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    },
+    "BU": {
+      "totalQuestions": 15,
+      "levelBreakdown": {
+        "1": 4,
+        "2": 6,
+        "3": 1,
+        "4": 1,
+        "5": 3
+      },
+      "totalWeightSum": 80,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    }
+  },
+  "pgDimCoverage": {
+    "AR": {
+      "totalQuestions": 63,
+      "levelBreakdown": {
+        "1": 12,
+        "2": 13,
+        "3": 12,
+        "4": 13,
+        "5": 13
+      },
+      "totalWeightSum": 525,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Overrepresented"
+    },
+    "LR": {
+      "totalQuestions": 1,
+      "levelBreakdown": {
+        "1": 1,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "totalWeightSum": 5,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    },
+    "QR": {
+      "totalQuestions": 19,
+      "levelBreakdown": {
+        "1": 3,
+        "2": 6,
+        "3": 3,
+        "4": 4,
+        "5": 3
+      },
+      "totalWeightSum": 95,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Strongly represented"
+    },
+    "PS": {
+      "totalQuestions": 55,
+      "levelBreakdown": {
+        "1": 10,
+        "2": 12,
+        "3": 11,
+        "4": 12,
+        "5": 10
+      },
+      "totalWeightSum": 310,
+      "minWeight": 4,
+      "maxWeight": 5,
+      "avgWeight": 4.31,
+      "representationStatus": "Overrepresented"
+    },
+    "SC": {
+      "totalQuestions": 19,
+      "levelBreakdown": {
+        "1": 2,
+        "2": 2,
+        "3": 4,
+        "4": 9,
+        "5": 2
+      },
+      "totalWeightSum": 95,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Strongly represented"
+    },
+    "RE": {
+      "totalQuestions": 43,
+      "levelBreakdown": {
+        "1": 7,
+        "2": 5,
+        "3": 10,
+        "4": 10,
+        "5": 11
+      },
+      "totalWeightSum": 215,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Strongly represented"
+    },
+    "TC": {
+      "totalQuestions": 9,
+      "levelBreakdown": {
+        "1": 3,
+        "2": 3,
+        "3": 0,
+        "4": 3,
+        "5": 0
+      },
+      "totalWeightSum": 45,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    },
+    "CR": {
+      "totalQuestions": 5,
+      "levelBreakdown": {
+        "1": 2,
+        "2": 1,
+        "3": 1,
+        "4": 0,
+        "5": 1
+      },
+      "totalWeightSum": 25,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    },
+    "CO": {
+      "totalQuestions": 17,
+      "levelBreakdown": {
+        "1": 4,
+        "2": 3,
+        "3": 5,
+        "4": 1,
+        "5": 4
+      },
+      "totalWeightSum": 85,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    },
+    "SO": {
+      "totalQuestions": 11,
+      "levelBreakdown": {
+        "1": 1,
+        "2": 2,
+        "3": 4,
+        "4": 0,
+        "5": 4
+      },
+      "totalWeightSum": 55,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    },
+    "LE": {
+      "totalQuestions": 16,
+      "levelBreakdown": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 4,
+        "5": 6
+      },
+      "totalWeightSum": 80,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    },
+    "BU": {
+      "totalQuestions": 15,
+      "levelBreakdown": {
+        "1": 3,
+        "2": 2,
+        "3": 2,
+        "4": 3,
+        "5": 5
+      },
+      "totalWeightSum": 75,
+      "minWeight": 5,
+      "maxWeight": 5,
+      "avgWeight": 5,
+      "representationStatus": "Underrepresented"
+    }
+  },
+  "domainCoverageList": [
+    {
+      "name": "Computing & IT",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "AR (5)",
+        "LR (5)",
+        "PS (5)",
+        "TC (5)"
+      ],
+      "weakestSupportingDimensions": [
+        "SO (2)",
+        "LE (2)",
+        "BU (2)"
+      ]
+    },
+    {
+      "name": "AI & Data",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "AR (5)",
+        "LR (5)",
+        "QR (5)",
+        "PS (5)"
+      ],
+      "weakestSupportingDimensions": [
+        "SO (2)",
+        "LE (2)",
+        "BU (2)"
+      ]
+    },
+    {
+      "name": "Engineering",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "AR (5)",
+        "LR (5)",
+        "QR (5)",
+        "PS (5)"
+      ],
+      "weakestSupportingDimensions": [
+        "LE (3)",
+        "SO (2)",
+        "BU (2)"
+      ]
+    },
+    {
+      "name": "Math & Statistics",
+      "totalQuestionsContributing": 1,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 1,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 1.22,
+      "strongestSupportingDimensions": [
+        "AR (5)",
+        "LR (5)",
+        "QR (5)",
+        "SC (5)"
+      ],
+      "weakestSupportingDimensions": [
+        "SO (2)",
+        "LE (2)",
+        "BU (1)"
+      ]
+    },
+    {
+      "name": "Natural Science",
+      "totalQuestionsContributing": 1,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 1,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 1.25,
+      "strongestSupportingDimensions": [
+        "QR (5)",
+        "SC (5)",
+        "RE (5)",
+        "AR (4)"
+      ],
+      "weakestSupportingDimensions": [
+        "SO (2)",
+        "LE (2)",
+        "BU (1)"
+      ]
+    },
+    {
+      "name": "Life Science",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "SC (5)",
+        "RE (5)",
+        "AR (4)",
+        "LR (4)"
+      ],
+      "weakestSupportingDimensions": [
+        "SO (3)",
+        "LE (2)",
+        "BU (1)"
+      ]
+    },
+    {
+      "name": "Commerce & Finance",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "QR (5)",
+        "BU (5)",
+        "CO (4)",
+        "LE (4)"
+      ],
+      "weakestSupportingDimensions": [
+        "RE (2)",
+        "TC (2)",
+        "SC (1)"
+      ]
+    },
+    {
+      "name": "Management",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "PS (5)",
+        "CO (5)",
+        "LE (5)",
+        "BU (5)"
+      ],
+      "weakestSupportingDimensions": [
+        "RE (2)",
+        "TC (2)",
+        "SC (1)"
+      ]
+    },
+    {
+      "name": "Economics",
+      "totalQuestionsContributing": 1,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 1,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 1.22,
+      "strongestSupportingDimensions": [
+        "AR (5)",
+        "QR (5)",
+        "RE (5)",
+        "BU (5)"
+      ],
+      "weakestSupportingDimensions": [
+        "CR (3)",
+        "SO (3)",
+        "TC (2)"
+      ]
+    },
+    {
+      "name": "Humanities",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "CR (5)",
+        "CO (5)",
+        "SO (5)",
+        "LE (5)"
+      ],
+      "weakestSupportingDimensions": [
+        "BU (2)",
+        "SC (1)",
+        "TC (1)"
+      ]
+    },
+    {
+      "name": "Social Science",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "RE (5)",
+        "CR (5)",
+        "CO (5)",
+        "SO (5)"
+      ],
+      "weakestSupportingDimensions": [
+        "BU (3)",
+        "SC (2)",
+        "TC (2)"
+      ]
+    },
+    {
+      "name": "Media & Communication",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "CR (5)",
+        "CO (5)",
+        "SO (5)",
+        "PS (4)"
+      ],
+      "weakestSupportingDimensions": [
+        "TC (3)",
+        "QR (2)",
+        "SC (1)"
+      ]
+    },
+    {
+      "name": "Design & Creative",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "PS (5)",
+        "CR (5)",
+        "TC (4)",
+        "CO (4)"
+      ],
+      "weakestSupportingDimensions": [
+        "BU (3)",
+        "QR (2)",
+        "SC (1)"
+      ]
+    },
+    {
+      "name": "Law",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "LR (5)",
+        "PS (5)",
+        "CO (5)",
+        "AR (4)"
+      ],
+      "weakestSupportingDimensions": [
+        "CR (3)",
+        "TC (2)",
+        "SC (1)"
+      ]
+    },
+    {
+      "name": "Hospitality & Tourism",
+      "totalQuestionsContributing": 0,
+      "levelBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "averageEvidenceStrength": 0,
+      "strongestSupportingDimensions": [
+        "PS (5)",
+        "CO (5)",
+        "SO (5)",
+        "LE (5)"
+      ],
+      "weakestSupportingDimensions": [
+        "RE (2)",
+        "TC (2)",
+        "SC (1)"
+      ]
+    }
+  ]
+}

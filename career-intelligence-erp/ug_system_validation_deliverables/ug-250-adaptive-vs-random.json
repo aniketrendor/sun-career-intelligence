@@ -1,0 +1,227 @@
+[
+  {
+    "studentId": "STUDENT_01_CS_IT",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 1,
+    "adaptiveTop1Margin": 1,
+    "randomMeanTop1Hit": 1,
+    "randomMeanTop3Recall": 1,
+    "randomMeanTop1Margin": 2.03
+  },
+  {
+    "studentId": "STUDENT_02_AI_DATA",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 1,
+    "adaptiveTop1Margin": 1,
+    "randomMeanTop1Hit": 0.13,
+    "randomMeanTop3Recall": 0.77,
+    "randomMeanTop1Margin": 0.7
+  },
+  {
+    "studentId": "STUDENT_03_ENG",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 1,
+    "randomMeanTop1Hit": 0.2,
+    "randomMeanTop3Recall": 0.67,
+    "randomMeanTop1Margin": 0.5
+  },
+  {
+    "studentId": "STUDENT_04_MATH_STAT",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 0,
+    "randomMeanTop1Hit": 1,
+    "randomMeanTop3Recall": 0.53,
+    "randomMeanTop1Margin": 0.87
+  },
+  {
+    "studentId": "STUDENT_05_NAT_SCI",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 1,
+    "adaptiveTop1Margin": 0,
+    "randomMeanTop1Hit": 0,
+    "randomMeanTop3Recall": 0.98,
+    "randomMeanTop1Margin": 0.5
+  },
+  {
+    "studentId": "STUDENT_06_LIFE_SCI",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 0,
+    "randomMeanTop1Hit": 0.1,
+    "randomMeanTop3Recall": 0.67,
+    "randomMeanTop1Margin": 0.43
+  },
+  {
+    "studentId": "STUDENT_07_COMM_FIN",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 2,
+    "randomMeanTop1Hit": 1,
+    "randomMeanTop3Recall": 0.98,
+    "randomMeanTop1Margin": 2.2
+  },
+  {
+    "studentId": "STUDENT_08_MGMT",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 1,
+    "adaptiveTop1Margin": 0,
+    "randomMeanTop1Hit": 0.37,
+    "randomMeanTop3Recall": 1,
+    "randomMeanTop1Margin": 0.77
+  },
+  {
+    "studentId": "STUDENT_09_ECON",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 1,
+    "adaptiveTop1Margin": 2,
+    "randomMeanTop1Hit": 0.77,
+    "randomMeanTop3Recall": 0.82,
+    "randomMeanTop1Margin": 1.33
+  },
+  {
+    "studentId": "STUDENT_10_HUMANITIES",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 1,
+    "adaptiveTop1Margin": 5,
+    "randomMeanTop1Hit": 1,
+    "randomMeanTop3Recall": 1,
+    "randomMeanTop1Margin": 4.47
+  },
+  {
+    "studentId": "STUDENT_11_SOC_SCI",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 4,
+    "randomMeanTop1Hit": 0,
+    "randomMeanTop3Recall": 0.67,
+    "randomMeanTop1Margin": 3.87
+  },
+  {
+    "studentId": "STUDENT_12_MEDIA_COMM",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 5,
+    "randomMeanTop1Hit": 0,
+    "randomMeanTop3Recall": 0.67,
+    "randomMeanTop1Margin": 4.4
+  },
+  {
+    "studentId": "STUDENT_13_DESIGN",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 2,
+    "randomMeanTop1Hit": 0.97,
+    "randomMeanTop3Recall": 0.71,
+    "randomMeanTop1Margin": 2.37
+  },
+  {
+    "studentId": "STUDENT_14_LAW",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 0.33,
+    "adaptiveTop1Margin": 2,
+    "randomMeanTop1Hit": 0.8,
+    "randomMeanTop3Recall": 0.49,
+    "randomMeanTop1Margin": 1.33
+  },
+  {
+    "studentId": "STUDENT_15_HOSP_TOUR",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 2,
+    "randomMeanTop1Hit": 0.6,
+    "randomMeanTop3Recall": 0.67,
+    "randomMeanTop1Margin": 1
+  },
+  {
+    "studentId": "STUDENT_16_TECH_BUS",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 1,
+    "adaptiveTop1Margin": 2,
+    "randomMeanTop1Hit": 0.17,
+    "randomMeanTop3Recall": 0.76,
+    "randomMeanTop1Margin": 1.03
+  },
+  {
+    "studentId": "STUDENT_17_DATA_BUS",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.33,
+    "adaptiveTop1Margin": 2,
+    "randomMeanTop1Hit": 0.03,
+    "randomMeanTop3Recall": 0.41,
+    "randomMeanTop1Margin": 1
+  },
+  {
+    "studentId": "STUDENT_18_TECH_DESIGN",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 2,
+    "randomMeanTop1Hit": 0.9,
+    "randomMeanTop3Recall": 0.8,
+    "randomMeanTop1Margin": 2.37
+  },
+  {
+    "studentId": "STUDENT_19_SCI_DATA",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 1,
+    "adaptiveTop1Margin": 0,
+    "randomMeanTop1Hit": 0.3,
+    "randomMeanTop3Recall": 0.8,
+    "randomMeanTop1Margin": 0.43
+  },
+  {
+    "studentId": "STUDENT_20_LAW_SOC",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 1,
+    "randomMeanTop1Hit": 0.07,
+    "randomMeanTop3Recall": 0.97,
+    "randomMeanTop1Margin": 1.83
+  },
+  {
+    "studentId": "STUDENT_21_ENG_MGMT",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 0,
+    "randomMeanTop1Hit": 0,
+    "randomMeanTop3Recall": 0.64,
+    "randomMeanTop1Margin": 0.93
+  },
+  {
+    "studentId": "STUDENT_22_ECON_SOC",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.33,
+    "adaptiveTop1Margin": 1,
+    "randomMeanTop1Hit": 0.33,
+    "randomMeanTop3Recall": 0.44,
+    "randomMeanTop1Margin": 0.7
+  },
+  {
+    "studentId": "STUDENT_23_BIO_AI",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.33,
+    "adaptiveTop1Margin": 1,
+    "randomMeanTop1Hit": 0,
+    "randomMeanTop3Recall": 0.23,
+    "randomMeanTop1Margin": 0.63
+  },
+  {
+    "studentId": "STUDENT_24_MEDIA_TECH",
+    "adaptiveTop1Hit": false,
+    "adaptiveTop3Recall": 0.67,
+    "adaptiveTop1Margin": 3,
+    "randomMeanTop1Hit": 0,
+    "randomMeanTop3Recall": 0.64,
+    "randomMeanTop1Margin": 1.27
+  },
+  {
+    "studentId": "STUDENT_25_AGRO_TECH",
+    "adaptiveTop1Hit": true,
+    "adaptiveTop3Recall": 0.33,
+    "adaptiveTop1Margin": 1,
+    "randomMeanTop1Hit": 0.37,
+    "randomMeanTop3Recall": 0.34,
+    "randomMeanTop1Margin": 0.5
+  }
+]

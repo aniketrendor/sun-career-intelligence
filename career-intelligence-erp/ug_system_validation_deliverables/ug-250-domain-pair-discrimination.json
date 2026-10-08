@@ -1,0 +1,842 @@
+[
+  {
+    "domainA": "Computing & IT",
+    "domainB": "AI & Data",
+    "weightVectorCosineSimilarity": 0.986,
+    "weightVectorEuclideanDistance": 2.45,
+    "discriminatorQuestionsCount": 28,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Engineering",
+    "weightVectorCosineSimilarity": 0.974,
+    "weightVectorEuclideanDistance": 3.32,
+    "discriminatorQuestionsCount": 36,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Math & Statistics",
+    "weightVectorCosineSimilarity": 0.937,
+    "weightVectorEuclideanDistance": 4.58,
+    "discriminatorQuestionsCount": 24,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Natural Science",
+    "weightVectorCosineSimilarity": 0.927,
+    "weightVectorEuclideanDistance": 4.8,
+    "discriminatorQuestionsCount": 38,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Life Science",
+    "weightVectorCosineSimilarity": 0.926,
+    "weightVectorEuclideanDistance": 4.8,
+    "discriminatorQuestionsCount": 27,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Commerce & Finance",
+    "weightVectorCosineSimilarity": 0.87,
+    "weightVectorEuclideanDistance": 6.24,
+    "discriminatorQuestionsCount": 26,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Management",
+    "weightVectorCosineSimilarity": 0.882,
+    "weightVectorEuclideanDistance": 6.4,
+    "discriminatorQuestionsCount": 25,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Economics",
+    "weightVectorCosineSimilarity": 0.914,
+    "weightVectorEuclideanDistance": 5.66,
+    "discriminatorQuestionsCount": 30,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Humanities",
+    "weightVectorCosineSimilarity": 0.789,
+    "weightVectorEuclideanDistance": 8.06,
+    "discriminatorQuestionsCount": 12,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.892,
+    "weightVectorEuclideanDistance": 6.24,
+    "discriminatorQuestionsCount": 28,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.867,
+    "weightVectorEuclideanDistance": 6.63,
+    "discriminatorQuestionsCount": 27,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.928,
+    "weightVectorEuclideanDistance": 4.69,
+    "discriminatorQuestionsCount": 28,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.915,
+    "weightVectorEuclideanDistance": 5.39,
+    "discriminatorQuestionsCount": 43,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Computing & IT",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.834,
+    "weightVectorEuclideanDistance": 7.42,
+    "discriminatorQuestionsCount": 20,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Engineering",
+    "weightVectorCosineSimilarity": 0.977,
+    "weightVectorEuclideanDistance": 3,
+    "discriminatorQuestionsCount": 36,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Math & Statistics",
+    "weightVectorCosineSimilarity": 0.971,
+    "weightVectorEuclideanDistance": 3.32,
+    "discriminatorQuestionsCount": 39,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Natural Science",
+    "weightVectorCosineSimilarity": 0.967,
+    "weightVectorEuclideanDistance": 3.61,
+    "discriminatorQuestionsCount": 54,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Life Science",
+    "weightVectorCosineSimilarity": 0.957,
+    "weightVectorEuclideanDistance": 4.12,
+    "discriminatorQuestionsCount": 43,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Commerce & Finance",
+    "weightVectorCosineSimilarity": 0.861,
+    "weightVectorEuclideanDistance": 7,
+    "discriminatorQuestionsCount": 42,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Management",
+    "weightVectorCosineSimilarity": 0.852,
+    "weightVectorEuclideanDistance": 7.42,
+    "discriminatorQuestionsCount": 42,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Economics",
+    "weightVectorCosineSimilarity": 0.932,
+    "weightVectorEuclideanDistance": 5.1,
+    "discriminatorQuestionsCount": 46,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Humanities",
+    "weightVectorCosineSimilarity": 0.789,
+    "weightVectorEuclideanDistance": 8.54,
+    "discriminatorQuestionsCount": 28,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.897,
+    "weightVectorEuclideanDistance": 6.24,
+    "discriminatorQuestionsCount": 44,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.857,
+    "weightVectorEuclideanDistance": 7.21,
+    "discriminatorQuestionsCount": 43,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.907,
+    "weightVectorEuclideanDistance": 5.83,
+    "discriminatorQuestionsCount": 44,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.905,
+    "weightVectorEuclideanDistance": 5.92,
+    "discriminatorQuestionsCount": 56,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "AI & Data",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.804,
+    "weightVectorEuclideanDistance": 8.43,
+    "discriminatorQuestionsCount": 36,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Math & Statistics",
+    "weightVectorCosineSimilarity": 0.969,
+    "weightVectorEuclideanDistance": 3.46,
+    "discriminatorQuestionsCount": 38,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Natural Science",
+    "weightVectorCosineSimilarity": 0.966,
+    "weightVectorEuclideanDistance": 3.74,
+    "discriminatorQuestionsCount": 51,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Life Science",
+    "weightVectorCosineSimilarity": 0.956,
+    "weightVectorEuclideanDistance": 4.24,
+    "discriminatorQuestionsCount": 41,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Commerce & Finance",
+    "weightVectorCosineSimilarity": 0.862,
+    "weightVectorEuclideanDistance": 7.07,
+    "discriminatorQuestionsCount": 38,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Management",
+    "weightVectorCosineSimilarity": 0.857,
+    "weightVectorEuclideanDistance": 7.35,
+    "discriminatorQuestionsCount": 39,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Economics",
+    "weightVectorCosineSimilarity": 0.92,
+    "weightVectorEuclideanDistance": 5.57,
+    "discriminatorQuestionsCount": 43,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Humanities",
+    "weightVectorCosineSimilarity": 0.773,
+    "weightVectorEuclideanDistance": 8.94,
+    "discriminatorQuestionsCount": 26,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.875,
+    "weightVectorEuclideanDistance": 6.93,
+    "discriminatorQuestionsCount": 42,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.835,
+    "weightVectorEuclideanDistance": 7.81,
+    "discriminatorQuestionsCount": 41,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.889,
+    "weightVectorEuclideanDistance": 6.4,
+    "discriminatorQuestionsCount": 42,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.883,
+    "weightVectorEuclideanDistance": 6.63,
+    "discriminatorQuestionsCount": 56,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Engineering",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.81,
+    "weightVectorEuclideanDistance": 8.37,
+    "discriminatorQuestionsCount": 33,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Natural Science",
+    "weightVectorCosineSimilarity": 0.995,
+    "weightVectorEuclideanDistance": 1.41,
+    "discriminatorQuestionsCount": 28,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Life Science",
+    "weightVectorCosineSimilarity": 0.978,
+    "weightVectorEuclideanDistance": 2.83,
+    "discriminatorQuestionsCount": 29,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Commerce & Finance",
+    "weightVectorCosineSimilarity": 0.817,
+    "weightVectorEuclideanDistance": 7.62,
+    "discriminatorQuestionsCount": 28,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Management",
+    "weightVectorCosineSimilarity": 0.803,
+    "weightVectorEuclideanDistance": 8.37,
+    "discriminatorQuestionsCount": 28,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Economics",
+    "weightVectorCosineSimilarity": 0.923,
+    "weightVectorEuclideanDistance": 5.39,
+    "discriminatorQuestionsCount": 33,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Humanities",
+    "weightVectorCosineSimilarity": 0.765,
+    "weightVectorEuclideanDistance": 8.72,
+    "discriminatorQuestionsCount": 14,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.874,
+    "weightVectorEuclideanDistance": 6.78,
+    "discriminatorQuestionsCount": 30,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.799,
+    "weightVectorEuclideanDistance": 8.31,
+    "discriminatorQuestionsCount": 29,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.828,
+    "weightVectorEuclideanDistance": 7.42,
+    "discriminatorQuestionsCount": 30,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.869,
+    "weightVectorEuclideanDistance": 6.78,
+    "discriminatorQuestionsCount": 44,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Math & Statistics",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.75,
+    "weightVectorEuclideanDistance": 9.27,
+    "discriminatorQuestionsCount": 22,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Life Science",
+    "weightVectorCosineSimilarity": 0.98,
+    "weightVectorEuclideanDistance": 2.45,
+    "discriminatorQuestionsCount": 29,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Commerce & Finance",
+    "weightVectorCosineSimilarity": 0.822,
+    "weightVectorEuclideanDistance": 7.21,
+    "discriminatorQuestionsCount": 42,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Management",
+    "weightVectorCosineSimilarity": 0.8,
+    "weightVectorEuclideanDistance": 8.25,
+    "discriminatorQuestionsCount": 42,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Economics",
+    "weightVectorCosineSimilarity": 0.923,
+    "weightVectorEuclideanDistance": 5.39,
+    "discriminatorQuestionsCount": 46,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Humanities",
+    "weightVectorCosineSimilarity": 0.775,
+    "weightVectorEuclideanDistance": 8.25,
+    "discriminatorQuestionsCount": 28,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.877,
+    "weightVectorEuclideanDistance": 6.63,
+    "discriminatorQuestionsCount": 44,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.807,
+    "weightVectorEuclideanDistance": 7.94,
+    "discriminatorQuestionsCount": 43,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.835,
+    "weightVectorEuclideanDistance": 7,
+    "discriminatorQuestionsCount": 44,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.864,
+    "weightVectorEuclideanDistance": 6.78,
+    "discriminatorQuestionsCount": 56,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Natural Science",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.756,
+    "weightVectorEuclideanDistance": 8.94,
+    "discriminatorQuestionsCount": 36,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Life Science",
+    "domainB": "Commerce & Finance",
+    "weightVectorCosineSimilarity": 0.811,
+    "weightVectorEuclideanDistance": 7.35,
+    "discriminatorQuestionsCount": 31,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Life Science",
+    "domainB": "Management",
+    "weightVectorCosineSimilarity": 0.829,
+    "weightVectorEuclideanDistance": 7.62,
+    "discriminatorQuestionsCount": 31,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Life Science",
+    "domainB": "Economics",
+    "weightVectorCosineSimilarity": 0.918,
+    "weightVectorEuclideanDistance": 5.57,
+    "discriminatorQuestionsCount": 35,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Life Science",
+    "domainB": "Humanities",
+    "weightVectorCosineSimilarity": 0.831,
+    "weightVectorEuclideanDistance": 7.07,
+    "discriminatorQuestionsCount": 17,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Life Science",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.918,
+    "weightVectorEuclideanDistance": 5.48,
+    "discriminatorQuestionsCount": 32,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Life Science",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.861,
+    "weightVectorEuclideanDistance": 6.71,
+    "discriminatorQuestionsCount": 32,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Life Science",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.879,
+    "weightVectorEuclideanDistance": 5.92,
+    "discriminatorQuestionsCount": 33,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Life Science",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.887,
+    "weightVectorEuclideanDistance": 6.16,
+    "discriminatorQuestionsCount": 48,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Life Science",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.802,
+    "weightVectorEuclideanDistance": 8,
+    "discriminatorQuestionsCount": 25,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Commerce & Finance",
+    "domainB": "Management",
+    "weightVectorCosineSimilarity": 0.966,
+    "weightVectorEuclideanDistance": 3.74,
+    "discriminatorQuestionsCount": 29,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Commerce & Finance",
+    "domainB": "Economics",
+    "weightVectorCosineSimilarity": 0.958,
+    "weightVectorEuclideanDistance": 4.36,
+    "discriminatorQuestionsCount": 21,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Commerce & Finance",
+    "domainB": "Humanities",
+    "weightVectorCosineSimilarity": 0.881,
+    "weightVectorEuclideanDistance": 5.83,
+    "discriminatorQuestionsCount": 16,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Commerce & Finance",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.921,
+    "weightVectorEuclideanDistance": 5.48,
+    "discriminatorQuestionsCount": 32,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Commerce & Finance",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.925,
+    "weightVectorEuclideanDistance": 5,
+    "discriminatorQuestionsCount": 31,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Commerce & Finance",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.903,
+    "weightVectorEuclideanDistance": 5.2,
+    "discriminatorQuestionsCount": 32,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Commerce & Finance",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.945,
+    "weightVectorEuclideanDistance": 4.47,
+    "discriminatorQuestionsCount": 47,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Commerce & Finance",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.942,
+    "weightVectorEuclideanDistance": 4.47,
+    "discriminatorQuestionsCount": 24,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Management",
+    "domainB": "Economics",
+    "weightVectorCosineSimilarity": 0.94,
+    "weightVectorEuclideanDistance": 4.8,
+    "discriminatorQuestionsCount": 35,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Management",
+    "domainB": "Humanities",
+    "weightVectorCosineSimilarity": 0.926,
+    "weightVectorEuclideanDistance": 5.1,
+    "discriminatorQuestionsCount": 16,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Management",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.952,
+    "weightVectorEuclideanDistance": 4.24,
+    "discriminatorQuestionsCount": 32,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Management",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.964,
+    "weightVectorEuclideanDistance": 3.61,
+    "discriminatorQuestionsCount": 31,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Management",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.949,
+    "weightVectorEuclideanDistance": 4.36,
+    "discriminatorQuestionsCount": 32,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Management",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.978,
+    "weightVectorEuclideanDistance": 2.83,
+    "discriminatorQuestionsCount": 49,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Management",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.989,
+    "weightVectorEuclideanDistance": 2,
+    "discriminatorQuestionsCount": 15,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Economics",
+    "domainB": "Humanities",
+    "weightVectorCosineSimilarity": 0.883,
+    "weightVectorEuclideanDistance": 6.56,
+    "discriminatorQuestionsCount": 21,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Economics",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.951,
+    "weightVectorEuclideanDistance": 4.36,
+    "discriminatorQuestionsCount": 37,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Economics",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.92,
+    "weightVectorEuclideanDistance": 5.48,
+    "discriminatorQuestionsCount": 34,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Economics",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.905,
+    "weightVectorEuclideanDistance": 6,
+    "discriminatorQuestionsCount": 35,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Economics",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.961,
+    "weightVectorEuclideanDistance": 3.87,
+    "discriminatorQuestionsCount": 50,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Economics",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.906,
+    "weightVectorEuclideanDistance": 5.92,
+    "discriminatorQuestionsCount": 29,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Humanities",
+    "domainB": "Social Science",
+    "weightVectorCosineSimilarity": 0.972,
+    "weightVectorEuclideanDistance": 3.46,
+    "discriminatorQuestionsCount": 18,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Humanities",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.968,
+    "weightVectorEuclideanDistance": 3.32,
+    "discriminatorQuestionsCount": 16,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Humanities",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.914,
+    "weightVectorEuclideanDistance": 5,
+    "discriminatorQuestionsCount": 17,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Humanities",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.924,
+    "weightVectorEuclideanDistance": 5.1,
+    "discriminatorQuestionsCount": 34,
+    "classification": "STRONG"
+  },
+  {
+    "domainA": "Humanities",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.94,
+    "weightVectorEuclideanDistance": 4.47,
+    "discriminatorQuestionsCount": 10,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Social Science",
+    "domainB": "Media & Communication",
+    "weightVectorCosineSimilarity": 0.982,
+    "weightVectorEuclideanDistance": 2.65,
+    "discriminatorQuestionsCount": 33,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Social Science",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.953,
+    "weightVectorEuclideanDistance": 4.36,
+    "discriminatorQuestionsCount": 34,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Social Science",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.973,
+    "weightVectorEuclideanDistance": 3.16,
+    "discriminatorQuestionsCount": 36,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Social Science",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.946,
+    "weightVectorEuclideanDistance": 4.47,
+    "discriminatorQuestionsCount": 26,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Media & Communication",
+    "domainB": "Design & Creative",
+    "weightVectorCosineSimilarity": 0.972,
+    "weightVectorEuclideanDistance": 3.16,
+    "discriminatorQuestionsCount": 17,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Media & Communication",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.963,
+    "weightVectorEuclideanDistance": 3.61,
+    "discriminatorQuestionsCount": 46,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Media & Communication",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.974,
+    "weightVectorEuclideanDistance": 3,
+    "discriminatorQuestionsCount": 25,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Design & Creative",
+    "domainB": "Law",
+    "weightVectorCosineSimilarity": 0.947,
+    "weightVectorEuclideanDistance": 4.36,
+    "discriminatorQuestionsCount": 47,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Design & Creative",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.944,
+    "weightVectorEuclideanDistance": 4.36,
+    "discriminatorQuestionsCount": 26,
+    "classification": "MODERATE"
+  },
+  {
+    "domainA": "Law",
+    "domainB": "Hospitality & Tourism",
+    "weightVectorCosineSimilarity": 0.96,
+    "weightVectorEuclideanDistance": 3.74,
+    "discriminatorQuestionsCount": 43,
+    "classification": "MODERATE"
+  }
+]

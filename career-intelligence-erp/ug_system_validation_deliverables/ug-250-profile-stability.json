@@ -1,0 +1,7 @@
+{
+  "noiseLevelPercent": 0,
+  "meanTop1Stability": 100,
+  "meanTop3Stability": 100,
+  "meanDomainScoreVariance": 0,
+  "confidenceDegradation": 0
+}

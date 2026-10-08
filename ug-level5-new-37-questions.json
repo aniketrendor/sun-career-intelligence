@@ -1,0 +1,3678 @@
+[
+  {
+    "question_id": "UG_L5_NEW_001",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "University Transformation Project",
+    "question_text": "A major university is launching an integrated digital campus platform uniting student course registration, AI career advising, financial aid, and health services. As a lead student fellow on the steering council, which executive responsibility would you own?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_001_OPT_A",
+        "option_text": "Architect the secure data pipelines, cloud database schema, and machine-learning recommendation models that power personalized advising.",
+        "evidence_type": "technical_architecture",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "AI & Data"
+        ],
+        "role_title": "Chief Technical & Data Architect"
+      },
+      {
+        "option_id": "UG_L5_NEW_001_OPT_B",
+        "option_text": "Direct user experience research, design intuitive mobile interfaces, and conduct accessibility audits for diverse student cohorts.",
+        "evidence_type": "ux_design_direction",
+        "dimension_evidence": {
+          "CR": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Media & Communication"
+        ],
+        "role_title": "Head of Experience Design & Adoption"
+      },
+      {
+        "option_id": "UG_L5_NEW_001_OPT_C",
+        "option_text": "Oversee the multi-million dollar capital budget, vendor software procurement contracts, and rollout timeline milestones.",
+        "evidence_type": "program_management",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Management",
+          "Commerce & Finance"
+        ],
+        "role_title": "Program Director & Financial Controller"
+      },
+      {
+        "option_id": "UG_L5_NEW_001_OPT_D",
+        "option_text": "Ensure student privacy compliance under data protection statutes, establish algorithmic audit ethics, and facilitate student union town halls.",
+        "evidence_type": "legal_ethics_governance",
+        "dimension_evidence": {
+          "LR": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Social Science"
+        ],
+        "role_title": "Ethics & Governance Ombudsman"
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "QR": 4,
+      "CR": 5,
+      "CO": 4,
+      "BU": 5,
+      "LE": 4,
+      "LR": 5,
+      "SO": 4
+    },
+    "domain_tags": [
+      "Computing & IT",
+      "Design & Creative",
+      "Management",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_DIGITAL_TRANSFORMATION",
+      "TECH_VS_DESIGN_VS_MGMT_VS_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Computing & IT",
+    "secondary_domain": "Design & Creative",
+    "contrast_domain": "Management",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Computing & IT vs AI & Data",
+    "validation_target": "TC + QR technology/data profile vs CR + CO creative profile",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "CR",
+    "scenario_context": "University-wide multi-million dollar digital platform combining technical infrastructure, UX design, capital budgeting, and statutory privacy governance.",
+    "required_tradeoff": "Deep technical/data architecture (TC/QR) vs user experience design (CR/CO) vs project capital management (BU/LE) vs legal ethics & policy (LR/SO).",
+    "similarity_group": "L5_CAPSTONE_CAMPUS_DIGITAL_TRANSFORMATION",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_002",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Sustainable Infrastructure",
+    "question_text": "A metropolitan region is deploying an integrated autonomous electric bus network to replace diesel buses, connecting underserved suburbs to downtown hospital corridors. Which primary project dimension would you direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_002_OPT_A",
+        "option_text": "Engineer the high-voltage rapid charging depots, grid load balancing inverters, and physical vehicle chassis safety systems.",
+        "evidence_type": "engineering_infrastructure",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ],
+        "role_title": "Lead Infrastructure & Fleet Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_002_OPT_B",
+        "option_text": "Develop real-time fleet scheduling neural networks, route optimization algorithms, and predictive transit demand heatmaps.",
+        "evidence_type": "mobility_algorithms",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT"
+        ],
+        "role_title": "Head of Transit AI & Fleet Optimization"
+      },
+      {
+        "option_id": "UG_L5_NEW_002_OPT_C",
+        "option_text": "Structure public-private partnership debt financing, model farebox revenue recovery, and manage municipal subsidy contracts.",
+        "evidence_type": "infrastructure_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "AR": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Economics"
+        ],
+        "role_title": "Infrastructure Finance Director"
+      },
+      {
+        "option_id": "UG_L5_NEW_002_OPT_D",
+        "option_text": "Conduct suburban community mobility surveys, ensure transit equity for low-income shift workers, and resolve neighborhood accessibility disputes.",
+        "evidence_type": "civic_equity",
+        "dimension_evidence": {
+          "SO": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Management"
+        ],
+        "role_title": "Community Equity & Public Policy Lead"
+      }
+    ],
+    "dimension_evidence": {
+      "PS": 5,
+      "TC": 5,
+      "QR": 4,
+      "BU": 5,
+      "AR": 4,
+      "SO": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Engineering",
+      "AI & Data",
+      "Commerce & Finance",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_SMART_CITY",
+      "HARDWARE_VS_AI_VS_FINANCE_VS_EQUITY"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Engineering",
+    "secondary_domain": "AI & Data",
+    "contrast_domain": "Social Science",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "AI & Data vs Engineering",
+    "validation_target": "TC + PS engineering profile vs SO + LE policy profile",
+    "target_dimension_1": "PS",
+    "target_dimension_2": "SO",
+    "scenario_context": "Metropolitan transition to autonomous electric public transit balancing electrical grid engineering, route AI, infrastructure finance, and community social equity.",
+    "required_tradeoff": "Physical power/fleet engineering (PS) vs routing data algorithms (TC/QR) vs infrastructure project finance (BU/AR) vs social equity & labor transition (SO/LE).",
+    "similarity_group": "L5_CAPSTONE_SMART_TRANSIT_GRID",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_003",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Healthcare/Science Innovation",
+    "question_text": "An international health alliance is launching an early-warning genomic sequencing and rapid mRNA vaccine synthesis network for emergent zoonotic pathogens. Which core scientific pillar would you spearhead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_003_OPT_A",
+        "option_text": "Investigate viral spike glycoprotein structural mutagenesis, cell-entry receptor binding assays, and in-vitro neutralization antibody kinetics.",
+        "evidence_type": "virology_research",
+        "dimension_evidence": {
+          "RE": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science"
+        ],
+        "role_title": "Lead Molecular Virologist & Target Discovery"
+      },
+      {
+        "option_id": "UG_L5_NEW_003_OPT_B",
+        "option_text": "Develop lipid nanoparticle chemical formulation encapsulation protocols and optimize synthetic mRNA enzymatic transcription yields.",
+        "evidence_type": "nanomedicine_chemistry",
+        "dimension_evidence": {
+          "SC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Engineering"
+        ],
+        "role_title": "Director of Chemical Formulation & Synthesis"
+      },
+      {
+        "option_id": "UG_L5_NEW_003_OPT_C",
+        "option_text": "Lead global public health crisis communications, combat vaccine misinformation on digital media, and produce transparent medical briefings.",
+        "evidence_type": "crisis_health_communication",
+        "dimension_evidence": {
+          "CO": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Social Science"
+        ],
+        "role_title": "Chief Communications Officer"
+      },
+      {
+        "option_id": "UG_L5_NEW_003_OPT_D",
+        "option_text": "Negotiate World Health Organization patent-pooling waivers, emergency regulatory authorization dossiers, and cross-border clinical trial treaties.",
+        "evidence_type": "global_health_treaty",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "International Regulatory & Treaty Counsel"
+      }
+    ],
+    "dimension_evidence": {
+      "RE": 5,
+      "SC": 5,
+      "QR": 4,
+      "CO": 5,
+      "SO": 4,
+      "LR": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Life Science",
+      "Natural Science",
+      "Media & Communication",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_GLOBAL_HEALTH",
+      "VIROLOGY_VS_CHEMISTRY_VS_COMM_VS_TREATY"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Life Science",
+    "secondary_domain": "Natural Science",
+    "contrast_domain": "Media & Communication",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Natural Science vs Life Science",
+    "validation_target": "SC + RE scientific research profile vs CO + SO health communication profile",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "CO",
+    "scenario_context": "Global epidemic surveillance initiative balancing molecular virology, chemical nanoparticle synthesis, crisis public communication, and international treaty regulation.",
+    "required_tradeoff": "Biological viral genomics (RE/SC) vs physical nanomedicine chemistry (SC/QR) vs crisis media communication (CO/SO) vs statutory international health law (LR/LE).",
+    "similarity_group": "L5_CAPSTONE_GLOBAL_HEALTH_VACCINE",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_004",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Sustainable Infrastructure",
+    "question_text": "A national energy commission is executing a $10 billion master plan to decommission coal plants and transition to an offshore wind and utility-scale battery grid. Which executive domain would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_004_OPT_A",
+        "option_text": "Model macroeconomic carbon tax incidence, electricity wholesale market clearing auctions, and general equilibrium regional employment shifts.",
+        "evidence_type": "macro_energy_economics",
+        "dimension_evidence": {
+          "AR": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Economics",
+          "Math & Statistics"
+        ],
+        "role_title": "Chief Energy Economist"
+      },
+      {
+        "option_id": "UG_L5_NEW_004_OPT_B",
+        "option_text": "Structure non-recourse project finance debt syndicates, underwrite private equity returns, and negotiate 20-year Power Purchase Agreements.",
+        "evidence_type": "project_finance_capital",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Management"
+        ],
+        "role_title": "Managing Director of Project Finance"
+      },
+      {
+        "option_id": "UG_L5_NEW_004_OPT_C",
+        "option_text": "Direct the engineering of high-voltage direct-current subsea transmission cables, substation switchyards, and battery thermal cooling systems.",
+        "evidence_type": "power_grid_engineering",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ],
+        "role_title": "Chief Power Systems Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_004_OPT_D",
+        "option_text": "Manage coal-mining community economic transition programs, labor union re-skilling coalitions, and public consultation hearings.",
+        "evidence_type": "just_transition_policy",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Media & Communication"
+        ],
+        "role_title": "Director of Just Transition & Community Relations"
+      }
+    ],
+    "dimension_evidence": {
+      "AR": 5,
+      "QR": 4,
+      "BU": 5,
+      "LE": 4,
+      "PS": 5,
+      "TC": 4,
+      "SO": 5,
+      "CO": 4
+    },
+    "domain_tags": [
+      "Economics",
+      "Commerce & Finance",
+      "Engineering",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_ENERGY_TRANSITION",
+      "ECONOMICS_VS_FINANCE_VS_ENGINEERING_VS_LABOR"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Economics",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Engineering",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Commerce & Finance vs Economics",
+    "validation_target": "BU + AR economics/finance profile vs TC + PS engineering profile",
+    "target_dimension_1": "AR",
+    "target_dimension_2": "PS",
+    "scenario_context": "National clean energy overhaul combining macroeconomic market modeling, private debt financing, high-voltage electrical engineering, and labor union community transitions.",
+    "required_tradeoff": "Macroeconomic market equilibrium (AR/QR) vs corporate debt underwriting (BU/LE) vs power engineering execution (PS/TC) vs social community transition (SO/CO).",
+    "similarity_group": "L5_CAPSTONE_ENERGY_GRID_FINANCE",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_005",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Public Policy Initiative",
+    "question_text": "An international consortium establishes an independent oversight board to audit generative foundation AI models for algorithmic discrimination, intellectual property infringement, and systemic societal risks. Which oversight pillar would you direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_005_OPT_A",
+        "option_text": "Draft binding statutory regulatory compliance standards, legal liability frameworks for autonomous outputs, and cross-border treaty enforcement protocols.",
+        "evidence_type": "ai_statutory_jurisprudence",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "Chief Legal & Compliance Counsel"
+      },
+      {
+        "option_id": "UG_L5_NEW_005_OPT_B",
+        "option_text": "Investigate the sociological displacement of cultural creative workers, demographic bias amplification, and civic trust erosion across vulnerable communities.",
+        "evidence_type": "sociological_ai_impact",
+        "dimension_evidence": {
+          "SO": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Humanities"
+        ],
+        "role_title": "Director of Societal Impact & Ethics Research"
+      },
+      {
+        "option_id": "UG_L5_NEW_005_OPT_C",
+        "option_text": "Develop automated adversarial red-teaming benchmarks, latent representation probing tools, and mathematical watermarking verification algorithms.",
+        "evidence_type": "technical_model_audit",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT"
+        ],
+        "role_title": "Head of Technical Safety & Model Auditing"
+      },
+      {
+        "option_id": "UG_L5_NEW_005_OPT_D",
+        "option_text": "Publish transparent public audit summaries, organize global multi-stakeholder citizen juries, and direct multimedia educational campaigns.",
+        "evidence_type": "public_engagement_media",
+        "dimension_evidence": {
+          "CO": 5,
+          "CR": 4
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Design & Creative"
+        ],
+        "role_title": "Director of Public Engagement & Transparency"
+      }
+    ],
+    "dimension_evidence": {
+      "LR": 5,
+      "LE": 4,
+      "SO": 5,
+      "RE": 4,
+      "TC": 5,
+      "QR": 4,
+      "CO": 5,
+      "CR": 4
+    },
+    "domain_tags": [
+      "Law",
+      "Social Science",
+      "AI & Data",
+      "Media & Communication"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_AI_GOVERNANCE",
+      "LAW_VS_SOCIOLOGY_VS_AI_VS_COMM"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Law",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "AI & Data",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Law vs Social Science",
+    "validation_target": "LR + SO law/social policy profile vs TC + QR algorithmic data profile",
+    "target_dimension_1": "LR",
+    "target_dimension_2": "TC",
+    "scenario_context": "Global artificial intelligence auditing board balancing statutory jurisprudence, sociological impact analysis, algorithmic red-teaming code, and public transparency campaigns.",
+    "required_tradeoff": "Statutory regulation & liability law (LR/LE) vs sociological equity research (SO/RE) vs technical model auditing & math (TC/QR) vs public media diplomacy (CO/CR).",
+    "similarity_group": "L5_CAPSTONE_AI_GOVERNANCE",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_006",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Healthcare/Science Innovation",
+    "question_text": "A major university teaching hospital is restructuring its entire inpatient operation, integrating AI triage, robotic surgical suites, and decentralized nursing wards. Which transformation leadership role would you claim?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_006_OPT_A",
+        "option_text": "Manage hospital emergency department capacity throughput, optimize operating room scheduling logistics, and control $50M operating budgets.",
+        "evidence_type": "healthcare_operations_management",
+        "dimension_evidence": {
+          "LE": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Management",
+          "Commerce & Finance"
+        ],
+        "role_title": "Chief Operating Officer & Healthcare Manager"
+      },
+      {
+        "option_id": "UG_L5_NEW_006_OPT_B",
+        "option_text": "Redesign compassionate bedside care protocols, patient family communication journeys, and nursing staff burnout resilience programs.",
+        "evidence_type": "patient_experience_compassion",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Hospitality & Tourism"
+        ],
+        "role_title": "Director of Patient Experience & Care Empathy"
+      },
+      {
+        "option_id": "UG_L5_NEW_006_OPT_C",
+        "option_text": "Oversee electronic health record integration, zero-latency medical device telemetry networks, and cybersecurity data protection.",
+        "evidence_type": "health_informatics_systems",
+        "dimension_evidence": {
+          "TC": 5,
+          "PS": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "Engineering"
+        ],
+        "role_title": "Chief Healthcare Information Technology Officer"
+      },
+      {
+        "option_id": "UG_L5_NEW_006_OPT_D",
+        "option_text": "Direct hospital clinical research trials, monitor experimental therapeutic protocols, and audit epidemiological infection control data.",
+        "evidence_type": "clinical_scientific_research",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science"
+        ],
+        "role_title": "Director of Clinical Science & Translational Research"
+      }
+    ],
+    "dimension_evidence": {
+      "LE": 5,
+      "BU": 4,
+      "SO": 5,
+      "CO": 4,
+      "TC": 5,
+      "PS": 4,
+      "SC": 5,
+      "RE": 4
+    },
+    "domain_tags": [
+      "Management",
+      "Social Science",
+      "Computing & IT",
+      "Life Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_HOSPITAL_OPERATIONS",
+      "MGMT_VS_PATIENT_CARE_VS_HEALTH_IT_VS_RESEARCH"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Management",
+    "secondary_domain": "Life Science",
+    "contrast_domain": "Social Science",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Management vs Hospitality & Tourism",
+    "validation_target": "BU + LE healthcare management profile vs SO + CO clinical care profile",
+    "target_dimension_1": "LE",
+    "target_dimension_2": "SO",
+    "scenario_context": "Teaching hospital transformation balancing operational capacity management, patient bedside compassion, medical IT networks, and translational scientific trials.",
+    "required_tradeoff": "Operational capacity & financial management (LE/BU) vs human-centric patient empathy (SO/CO) vs clinical IT systems (TC/PS) vs medical clinical trials (SC/RE).",
+    "similarity_group": "L5_CAPSTONE_HOSPITAL_OVERHAUL",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_007",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Environmental Project",
+    "question_text": "An international agricultural development agency establishes a 5-year program to boost food yields in drought-prone regions through precision soil science, climate-resilient crops, micro-irrigation, and farmer microfinance. Which primary pillar would you own?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_007_OPT_A",
+        "option_text": "Conduct soil biogeochemical nutrient profiling, analyze root microbial symbiosis, and optimize organic soil carbon regeneration protocols.",
+        "evidence_type": "soil_chemistry_microbiology",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Life Science"
+        ],
+        "role_title": "Lead Soil & Agricultural Biologist"
+      },
+      {
+        "option_id": "UG_L5_NEW_007_OPT_B",
+        "option_text": "Structure regional farmer cooperative marketing hubs, negotiate bulk seed purchasing discounts, and manage microfinance credit pools.",
+        "evidence_type": "agribusiness_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Management"
+        ],
+        "role_title": "Director of Agribusiness & Cooperative Finance"
+      },
+      {
+        "option_id": "UG_L5_NEW_007_OPT_C",
+        "option_text": "Design solar-powered automated drip irrigation hardware, IoT soil moisture sensor networks, and mechanical crop seeders.",
+        "evidence_type": "agricultural_mechatronics",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering",
+          "Computing & IT"
+        ],
+        "role_title": "Chief Irrigation & Precision Agri-Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_007_OPT_D",
+        "option_text": "Facilitate village farmer participatory field schools, resolve indigenous land tenure disputes, and promote gender-inclusive farming rights.",
+        "evidence_type": "rural_community_sociology",
+        "dimension_evidence": {
+          "SO": 5,
+          "LR": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Law"
+        ],
+        "role_title": "Head of Community Development & Land Rights"
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "RE": 4,
+      "BU": 5,
+      "LE": 4,
+      "PS": 5,
+      "TC": 4,
+      "SO": 5,
+      "LR": 4
+    },
+    "domain_tags": [
+      "Natural Science",
+      "Commerce & Finance",
+      "Engineering",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_AGRI_SECURITY",
+      "SOIL_SCIENCE_VS_AGRIBUSINESS_VS_IRRIGATION_VS_COMMUNITY"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Natural Science",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Social Science",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Natural Science vs Life Science",
+    "validation_target": "SC + RE agricultural science profile vs BU + LE agribusiness profile",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "BU",
+    "scenario_context": "Food security agro-development project integrating soil biogeochemistry, cooperative farm finance, automated drip engineering, and rural community land rights.",
+    "required_tradeoff": "Soil & crop biological science (SC/RE) vs cooperative finance and trade (BU/LE) vs irrigation hardware engineering (PS/TC) vs social community governance (SO/LR).",
+    "similarity_group": "L5_CAPSTONE_AGRI_FOOD_SECURITY",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_008",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Cultural/Humanities Project",
+    "question_text": "UNESCO and an international museum trust are executing a project to digitally preserve, translate, and physically restore ancient endangered manuscripts and monuments across conflict zones. Which domain would you direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_008_OPT_A",
+        "option_text": "Decipher ancient epigraphic paleography, translate fragmented manuscripts, and contextualize socio-historical provenance in academic monographs.",
+        "evidence_type": "philology_archival_research",
+        "dimension_evidence": {
+          "RE": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Humanities",
+          "Social Science"
+        ],
+        "role_title": "Chief Historian & Epigraphic Scholar"
+      },
+      {
+        "option_id": "UG_L5_NEW_008_OPT_B",
+        "option_text": "Develop 3D laser LiDAR scanning pipelines, photogrammetric mesh reconstruction algorithms, and open-access virtual reality museum archives.",
+        "evidence_type": "digital_heritage_tech",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "AI & Data"
+        ],
+        "role_title": "Director of Digital Heritage & 3D Scanning"
+      },
+      {
+        "option_id": "UG_L5_NEW_008_OPT_C",
+        "option_text": "Curate international exhibition galleries, design evocative physical spatial lighting, and orchestrate visitor narrative journeys.",
+        "evidence_type": "museum_scenography_design",
+        "dimension_evidence": {
+          "CR": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Media & Communication"
+        ],
+        "role_title": "Head of Exhibition Curation & Scenography"
+      },
+      {
+        "option_id": "UG_L5_NEW_008_OPT_D",
+        "option_text": "Enforce international cultural property repatriation laws, combat illicit antiquities trafficking, and negotiate restitution treaties.",
+        "evidence_type": "cultural_heritage_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "International Repatriation & Treaty Counsel"
+      }
+    ],
+    "dimension_evidence": {
+      "RE": 5,
+      "SO": 4,
+      "TC": 5,
+      "QR": 4,
+      "CR": 5,
+      "CO": 4,
+      "LR": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Humanities",
+      "Computing & IT",
+      "Design & Creative",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_CULTURAL_HERITAGE",
+      "HUMANITIES_VS_3D_TECH_VS_EXHIBITION_VS_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Humanities",
+    "secondary_domain": "Design & Creative",
+    "contrast_domain": "Computing & IT",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Design & Creative vs Media & Communication",
+    "validation_target": "RE + SO humanities profile vs CR + TC digital design profile",
+    "target_dimension_1": "RE",
+    "target_dimension_2": "CR",
+    "scenario_context": "International cultural preservation campaign balancing epigraphic philological scholarship, 3D LiDAR technical capture, exhibition scenography, and anti-trafficking law.",
+    "required_tradeoff": "Scholarly historical research (RE/SO) vs 3D scanning technology (TC/QR) vs creative exhibition curation (CR/CO) vs international cultural law (LR/LE).",
+    "similarity_group": "L5_CAPSTONE_CULTURAL_HERITAGE",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_009",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Financial/Economic Strategy",
+    "question_text": "A social-impact fintech venture is scaling a mobile micro-lending platform for unbanked micro-entrepreneurs across emerging economies. Which executive leadership role would you claim?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_009_OPT_A",
+        "option_text": "Build predictive credit-scoring econometric models using alternative behavioral data while eliminating predatory bias and default risk.",
+        "evidence_type": "quantitative_credit_modeling",
+        "dimension_evidence": {
+          "QR": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Math & Statistics"
+        ],
+        "role_title": "Chief Risk Officer & Quantitative Modeler"
+      },
+      {
+        "option_id": "UG_L5_NEW_009_OPT_B",
+        "option_text": "Architect ultra-resilient distributed mobile transaction ledgers, biometric offline authentication, and banking API gateways.",
+        "evidence_type": "fintech_cloud_architecture",
+        "dimension_evidence": {
+          "TC": 5,
+          "PS": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "Engineering"
+        ],
+        "role_title": "Chief Technology Officer"
+      },
+      {
+        "option_id": "UG_L5_NEW_009_OPT_C",
+        "option_text": "Conduct participatory borrower financial literacy workshops, evaluate household economic mobility, and lead grassroots user advocacy.",
+        "evidence_type": "financial_inclusion_social_work",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Media & Communication"
+        ],
+        "role_title": "Director of Social Impact & Financial Literacy"
+      },
+      {
+        "option_id": "UG_L5_NEW_009_OPT_D",
+        "option_text": "Navigate central bank microfinance licensing regulations, draft fair-lending interest rate caps, and manage investor capital syndicates.",
+        "evidence_type": "banking_regulatory_strategy",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "General Counsel & Regulatory Strategist"
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 5,
+      "BU": 4,
+      "TC": 5,
+      "PS": 4,
+      "SO": 5,
+      "CO": 4,
+      "LR": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Commerce & Finance",
+      "Computing & IT",
+      "Social Science",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_FINTECH_INCLUSION",
+      "QUANT_FINANCE_VS_TECH_VS_SOCIAL_VS_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Commerce & Finance",
+    "secondary_domain": "Computing & IT",
+    "contrast_domain": "Social Science",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Commerce & Finance vs Economics",
+    "validation_target": "QR + BU financial modeling profile vs SO + LE social impact profile",
+    "target_dimension_1": "BU",
+    "target_dimension_2": "SO",
+    "scenario_context": "Fintech microfinance expansion balancing quantitative credit modeling, distributed ledger engineering, borrower social literacy, and banking statutory regulation.",
+    "required_tradeoff": "Quantitative risk finance (QR/BU) vs backend cloud engineering (TC/PS) vs borrower community social impact (SO/CO) vs statutory banking law (LR/LE).",
+    "similarity_group": "L5_CAPSTONE_FINTECH_MICRO_LENDING",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_010",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Environmental Project",
+    "question_text": "An oceanic governance coalition establishes a protected marine sanctuary spanning 500,000 square kilometers to protect deep-sea benthic ecosystems from industrial seabed mining. Which leadership track would you oversee?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_010_OPT_A",
+        "option_text": "Conduct deep-sea hydrothermal vent chemical analysis, study benthic chemosynthetic organisms, and quantify abiotic mineral sedimentation rates.",
+        "evidence_type": "oceanography_chemical_biology",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Life Science"
+        ],
+        "role_title": "Chief Benthic Oceanographer & Marine Biologist"
+      },
+      {
+        "option_id": "UG_L5_NEW_010_OPT_B",
+        "option_text": "Litigate international maritime boundaries at the International Tribunal for the Law of the Sea and draft high-seas mining prohibition treaties.",
+        "evidence_type": "law_of_the_sea",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "International Maritime Legal Counsel"
+      },
+      {
+        "option_id": "UG_L5_NEW_010_OPT_C",
+        "option_text": "Deploy autonomous underwater robotic gliders, acoustic telemetry buoys, and satellite radar vessel-tracking surveillance networks.",
+        "evidence_type": "ocean_telemetry_robotics",
+        "dimension_evidence": {
+          "TC": 5,
+          "PS": 4
+        },
+        "domain_tags": [
+          "Engineering",
+          "Computing & IT"
+        ],
+        "role_title": "Director of Oceanic Sensing & Robotics"
+      },
+      {
+        "option_id": "UG_L5_NEW_010_OPT_D",
+        "option_text": "Structure sustainable blue-economy eco-tourism concessions and blue carbon bond credit sales to permanently fund sanctuary enforcement.",
+        "evidence_type": "blue_economy_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "AR": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Economics"
+        ],
+        "role_title": "Managing Director of Blue Carbon Finance"
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "RE": 4,
+      "LR": 5,
+      "LE": 4,
+      "TC": 5,
+      "PS": 4,
+      "BU": 5,
+      "AR": 4
+    },
+    "domain_tags": [
+      "Natural Science",
+      "Law",
+      "Engineering",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_MARINE_CONSERVATION",
+      "OCEAN_SCIENCE_VS_MARITIME_LAW_VS_ROBOTICS_VS_FINANCE"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Natural Science",
+    "secondary_domain": "Law",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Natural Science vs Life Science",
+    "validation_target": "SC + RE natural science profile vs LR + BU regulatory economics profile",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "LR",
+    "scenario_context": "Vast marine sanctuary establishment balancing deep-sea hydrothermal biogeochemistry, UN maritime treaty litigation, autonomous ocean robotics, and blue carbon finance.",
+    "required_tradeoff": "Marine natural sciences (SC/RE) vs international law of the sea (LR/LE) vs ocean robotic hardware (TC/PS) vs blue carbon finance & economics (BU/AR).",
+    "similarity_group": "L5_CAPSTONE_DEEP_SEA_CONSERVATION",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_011",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Cross-Functional Organizational Crisis",
+    "question_text": "An international space agency consortium is designing a permanent lunar research outpost. Life-support systems, power, scientific research, and mission logistics must be integrated under strict payload limits. Which mission division would you choose to direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_011_OPT_A",
+        "option_text": "Engineer the closed-loop life-support environmental controls, regolith radiation shielding domes, and surface thermal management systems.",
+        "evidence_type": "aerospace_life_support_engineering",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ],
+        "role_title": "Chief Habitat & Life Support Systems Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_011_OPT_B",
+        "option_text": "Direct scientific drilling into permanently shadowed polar lunar craters to analyze volatile water-ice deposits and solar system formation history.",
+        "evidence_type": "planetary_geology_research",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Life Science"
+        ],
+        "role_title": "Mission Chief Planetary Geoscientist"
+      },
+      {
+        "option_id": "UG_L5_NEW_011_OPT_C",
+        "option_text": "Manage mission flight operations, astronaut psychological workload protocols, emergency communication sequencing, and crew triage.",
+        "evidence_type": "mission_operations_leadership",
+        "dimension_evidence": {
+          "LE": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Management",
+          "Social Science"
+        ],
+        "role_title": "Flight Operations Director & Crew Commander"
+      },
+      {
+        "option_id": "UG_L5_NEW_011_OPT_D",
+        "option_text": "Author the international Artemis accord resource utilization treaties, lunar airspace jurisdiction treaties, and sovereign liability agreements.",
+        "evidence_type": "space_law_diplomacy",
+        "dimension_evidence": {
+          "LR": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Media & Communication"
+        ],
+        "role_title": "Lead Space Law & Treaty Negotiator"
+      }
+    ],
+    "dimension_evidence": {
+      "PS": 5,
+      "TC": 4,
+      "SC": 5,
+      "RE": 4,
+      "LE": 5,
+      "SO": 4,
+      "LR": 5,
+      "CO": 4
+    },
+    "domain_tags": [
+      "Engineering",
+      "Natural Science",
+      "Management",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_SPACE_EXPLORATION",
+      "ENGINEERING_VS_PLANETARY_SCIENCE_VS_FLIGHT_OPS_VS_SPACE_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Engineering",
+    "secondary_domain": "Natural Science",
+    "contrast_domain": "Management",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "AI & Data vs Engineering",
+    "validation_target": "TC + PS aerospace engineering profile vs SC + RE planetary science profile",
+    "target_dimension_1": "PS",
+    "target_dimension_2": "SC",
+    "scenario_context": "Lunar outpost mission integration requiring trade-offs between closed-loop life-support engineering, planetary science drilling, flight crew leadership, and outer space law.",
+    "required_tradeoff": "Habitat life-support physical engineering (PS/TC) vs planetary geosciences (SC/RE) vs mission operational command (LE/SO) vs space treaty law (LR/CO).",
+    "similarity_group": "L5_CAPSTONE_LUNAR_HABITAT",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_012",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Digital Media Initiative",
+    "question_text": "A national non-partisan media and democracy coalition is established to protect election integrity against coordinated viral deepfake campaigns and automated botnet manipulation. Which response pillar would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_012_OPT_A",
+        "option_text": "Direct rapid-response investigative journalism, verify breaking whistleblower leaks, and author high-profile expository fact-checking dispatches.",
+        "evidence_type": "investigative_journalism_integrity",
+        "dimension_evidence": {
+          "CO": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Humanities"
+        ],
+        "role_title": "Chief Investigative Editor & Fact-Check Director"
+      },
+      {
+        "option_id": "UG_L5_NEW_012_OPT_B",
+        "option_text": "Develop real-time graph neural networks and deepfake video forensic detection algorithms to trace foreign botnet coordinated amplification.",
+        "evidence_type": "forensic_media_ai",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT"
+        ],
+        "role_title": "Head of Algorithmic Threat Intelligence"
+      },
+      {
+        "option_id": "UG_L5_NEW_012_OPT_C",
+        "option_text": "Enforce statutory campaign finance reporting mandates, litigate emergency election disinformation injunctions, and advise election boards.",
+        "evidence_type": "election_law_litigation",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "Lead Constitutional & Election Law Counsel"
+      },
+      {
+        "option_id": "UG_L5_NEW_012_OPT_D",
+        "option_text": "Design memorable, viral counter-narrative graphic animations and civic educational comic series for first-time youth voters.",
+        "evidence_type": "civic_visual_design",
+        "dimension_evidence": {
+          "CR": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Social Science"
+        ],
+        "role_title": "Creative Director of Civic Design & Youth Engagement"
+      }
+    ],
+    "dimension_evidence": {
+      "CO": 5,
+      "RE": 4,
+      "TC": 5,
+      "QR": 4,
+      "LR": 5,
+      "LE": 4,
+      "CR": 5,
+      "SO": 4
+    },
+    "domain_tags": [
+      "Media & Communication",
+      "AI & Data",
+      "Law",
+      "Design & Creative"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_MEDIA_INTEGRITY",
+      "JOURNALISM_VS_DEEPFAKE_AI_VS_ELECTION_LAW_VS_CIVIC_DESIGN"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Media & Communication",
+    "secondary_domain": "Law",
+    "contrast_domain": "AI & Data",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Design & Creative vs Media & Communication",
+    "validation_target": "CO + RE media communication profile vs LR + SO legal policy profile",
+    "target_dimension_1": "CO",
+    "target_dimension_2": "LR",
+    "scenario_context": "Election integrity protection coalition integrating rapid investigative reporting, algorithmic deepfake detection, statutory election law, and youth civic visual design.",
+    "required_tradeoff": "Investigative journalistic fact-checking (CO/RE) vs AI media forensic detection (TC/QR) vs statutory election litigation (LR/LE) vs creative civic media (CR/SO).",
+    "similarity_group": "L5_CAPSTONE_ELECTION_MEDIA_INTEGRITY",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_013",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Hospitality/Tourism Transformation",
+    "question_text": "An international resort company is converting an entire private archipelago into a carbon-neutral regenerative luxury destination. Which transformation stream would you take personal ownership of?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_013_OPT_A",
+        "option_text": "Curate bespoke wellness rituals, Michelin-star local gastronomy journeys, and personalized cultural immersion hospitality experiences.",
+        "evidence_type": "luxury_guest_experience",
+        "dimension_evidence": {
+          "SO": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Hospitality & Tourism",
+          "Management"
+        ],
+        "role_title": "Vice President of Guest Experience & Cultural Hospitality"
+      },
+      {
+        "option_id": "UG_L5_NEW_013_OPT_B",
+        "option_text": "Design the biophilic architectural resort villas, tactile sustainable natural materials, ambient circadian lighting, and spatial layouts.",
+        "evidence_type": "biophilic_resort_design",
+        "dimension_evidence": {
+          "CR": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Media & Communication"
+        ],
+        "role_title": "Lead Architect & Biophilic Concept Designer"
+      },
+      {
+        "option_id": "UG_L5_NEW_013_OPT_C",
+        "option_text": "Engineer the closed-loop tidal renewable energy microgrid, zero-discharge wastewater bio-digesters, and seawater heat-pump chillers.",
+        "evidence_type": "resort_environmental_engineering",
+        "dimension_evidence": {
+          "PS": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Engineering",
+          "Natural Science"
+        ],
+        "role_title": "Director of Sustainable Infrastructure & Energy Systems"
+      },
+      {
+        "option_id": "UG_L5_NEW_013_OPT_D",
+        "option_text": "Structure asset-backed resort hospitality REIT financing, negotiate foreign direct investment concessions, and model 15-year equity IRRs.",
+        "evidence_type": "hospitality_asset_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Management"
+        ],
+        "role_title": "Managing Director of Real Estate & Capital Markets"
+      }
+    ],
+    "dimension_evidence": {
+      "SO": 5,
+      "BU": 5,
+      "CR": 5,
+      "CO": 4,
+      "PS": 5,
+      "SC": 4,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Hospitality & Tourism",
+      "Design & Creative",
+      "Engineering",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_HOSPITALITY_RESORT",
+      "HOSPITALITY_VS_DESIGN_VS_ENGINEERING_VS_FINANCE"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Hospitality & Tourism",
+    "secondary_domain": "Management",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Management vs Hospitality & Tourism",
+    "validation_target": "SO + BU hospitality management profile vs CR + CO experiential design profile",
+    "target_dimension_1": "SO",
+    "target_dimension_2": "CR",
+    "scenario_context": "Regenerative luxury island resort development balancing high-touch cultural guest curation, biophilic architectural design, green utility engineering, and real estate finance.",
+    "required_tradeoff": "Curated guest experience & hospitality service (SO/BU) vs biophilic architectural design (CR/CO) vs environmental mechanical engineering (PS/SC) vs real estate asset finance (BU/LE).",
+    "similarity_group": "L5_CAPSTONE_LUXURY_RESORT_TRANSFORMATION",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_014",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Financial/Economic Strategy",
+    "question_text": "A state economic development agency is deploying a $500M fund to revitalize a de-industrialized manufacturing river valley through advanced robotics, worker re-tooling, and clean tech startups. Which leadership domain would you spearhead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_014_OPT_A",
+        "option_text": "Model input-output regional multipliers, tax incentive deadweight loss, and macroeconomic structural supply chain cluster resilience.",
+        "evidence_type": "regional_econometrics",
+        "dimension_evidence": {
+          "AR": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Economics",
+          "Math & Statistics"
+        ],
+        "role_title": "Chief Regional Economist & Policy Modeler"
+      },
+      {
+        "option_id": "UG_L5_NEW_014_OPT_B",
+        "option_text": "Deploy robotic automation workcells, CNC digital fabrication tooling, and additive manufacturing machinery in retrofitted factory plants.",
+        "evidence_type": "manufacturing_mechatronics",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering",
+          "Computing & IT"
+        ],
+        "role_title": "Director of Advanced Manufacturing & Robotics"
+      },
+      {
+        "option_id": "UG_L5_NEW_014_OPT_C",
+        "option_text": "Structure revolving seed capital loans, venture equity matching grants, and commercial real estate incubator leases for hardware startups.",
+        "evidence_type": "venture_economic_development",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Management"
+        ],
+        "role_title": "Managing Director of Industrial Venture Capital"
+      },
+      {
+        "option_id": "UG_L5_NEW_014_OPT_D",
+        "option_text": "Lead labor union re-skilling apprenticeships, coordinate community college trade curricula, and support worker family welfare transitions.",
+        "evidence_type": "labor_workforce_sociology",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Media & Communication"
+        ],
+        "role_title": "Head of Workforce Development & Community Resilience"
+      }
+    ],
+    "dimension_evidence": {
+      "AR": 5,
+      "QR": 4,
+      "PS": 5,
+      "TC": 4,
+      "BU": 5,
+      "LE": 4,
+      "SO": 5,
+      "CO": 4
+    },
+    "domain_tags": [
+      "Economics",
+      "Engineering",
+      "Commerce & Finance",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_REGIONAL_ECONOMICS",
+      "ECONOMICS_VS_MANUFACTURING_VS_VENTURE_VS_WORKFORCE"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Economics",
+    "secondary_domain": "Engineering",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Commerce & Finance vs Economics",
+    "validation_target": "BU + AR economics profile vs PS + TC manufacturing engineering profile",
+    "target_dimension_1": "AR",
+    "target_dimension_2": "PS",
+    "scenario_context": "Industrial regional revitalization combining econometric cluster modeling, automated manufacturing engineering, venture fund structuring, and labor workforce development.",
+    "required_tradeoff": "Macro regional econometric analysis (AR/QR) vs physical robotic factory engineering (PS/TC) vs venture capital fund management (BU/LE) vs labor union workforce development (SO/CO).",
+    "similarity_group": "L5_CAPSTONE_REGIONAL_REVITALIZATION",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_015",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Public Policy Initiative",
+    "question_text": "A river basin authority is negotiating a landmark treaty balancing indigenous sovereign water rights, agricultural irrigation withdrawals, salmon habitat restoration, and hydroelectric dams. Which negotiation stream would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_015_OPT_A",
+        "option_text": "Draft the binding statutory water compacts, adjudicate prior-appropriation doctrine disputes, and establish tribal sovereign water titles.",
+        "evidence_type": "water_law_jurisprudence",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "Lead Water Compact Negotiator & Legal Counsel"
+      },
+      {
+        "option_id": "UG_L5_NEW_015_OPT_B",
+        "option_text": "Model river basin hydrological flow dynamics, groundwater aquifer recharge rates, and salmon spawning temperature thresholds.",
+        "evidence_type": "hydrogeology_ecosystems",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Life Science"
+        ],
+        "role_title": "Chief Hydrologist & Aquatic Ecologist"
+      },
+      {
+        "option_id": "UG_L5_NEW_015_OPT_C",
+        "option_text": "Facilitate tribal elder oral history councils, mediate farmer-tribal dialogue circles, and preserve traditional ecological knowledge stewardship.",
+        "evidence_type": "indigenous_community_consensus",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Humanities"
+        ],
+        "role_title": "Director of Tribal Relations & Community Mediation"
+      },
+      {
+        "option_id": "UG_L5_NEW_015_OPT_D",
+        "option_text": "Design market-based water trading credits, agricultural fallowing compensation funds, and irrigation efficiency subsidy auctions.",
+        "evidence_type": "environmental_water_economics",
+        "dimension_evidence": {
+          "BU": 5,
+          "AR": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Economics"
+        ],
+        "role_title": "Head of Water Market Design & Agricultural Finance"
+      }
+    ],
+    "dimension_evidence": {
+      "LR": 5,
+      "LE": 4,
+      "SC": 5,
+      "RE": 4,
+      "SO": 5,
+      "CO": 4,
+      "BU": 5,
+      "AR": 4
+    },
+    "domain_tags": [
+      "Law",
+      "Natural Science",
+      "Social Science",
+      "Economics"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_WATER_TREATY",
+      "WATER_LAW_VS_HYDROGEOLOGY_VS_TRIBAL_SO_VS_WATER_MARKETS"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Law",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "Natural Science",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Law vs Social Science",
+    "validation_target": "LR + SO environmental law profile vs SC + RE hydrology science profile",
+    "target_dimension_1": "LR",
+    "target_dimension_2": "SC",
+    "scenario_context": "Multi-stakeholder river basin treaty integrating water statutory compacts, hydrological flow modeling, indigenous tribal consensus, and agricultural market economics.",
+    "required_tradeoff": "Statutory water rights adjudication (LR/LE) vs hydrological river science (SC/RE) vs indigenous community consensus (SO/CO) vs water trading market economics (BU/AR).",
+    "similarity_group": "L5_CAPSTONE_INDIGENOUS_WATER_TREATY",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_016",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Healthcare/Science Innovation",
+    "question_text": "A neurotechnology institute is developing an implantable wireless brain-computer interface to restore motor movement and communication for paralyzed patients. Which research division would you choose to lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_016_OPT_A",
+        "option_text": "Develop deep spike-sorting neural networks, real-time motor intent decoding algorithms, and adaptive neural plastic recalibration software.",
+        "evidence_type": "neural_decoding_ai",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT"
+        ],
+        "role_title": "Head of Neural AI & Computational Neuroscience"
+      },
+      {
+        "option_id": "UG_L5_NEW_016_OPT_B",
+        "option_text": "Engineer biocompatible flexible electrode arrays, low-power ASIC wireless telemetry chips, and hermetically sealed titanium skull implants.",
+        "evidence_type": "neural_hardware_microelectronics",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ],
+        "role_title": "Chief Bioelectronics & Implant Hardware Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_016_OPT_C",
+        "option_text": "Investigate cortical neuronal tissue glial scarring responses, foreign-body histopathology, and synaptic neurotransmitter signaling.",
+        "evidence_type": "neurobiology_histopathology",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science"
+        ],
+        "role_title": "Lead Neurobiologist & Tissue Interface Scientist"
+      },
+      {
+        "option_id": "UG_L5_NEW_016_OPT_D",
+        "option_text": "Conduct patient cognitive ethics evaluations, establish informed consent for neural data privacy, and lead disability advocacy panels.",
+        "evidence_type": "neuroethics_patient_advocacy",
+        "dimension_evidence": {
+          "SO": 5,
+          "LR": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Law"
+        ],
+        "role_title": "Director of Neuroethics & Patient Advocacy"
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "QR": 4,
+      "PS": 5,
+      "SC": 5,
+      "RE": 4,
+      "SO": 5,
+      "LR": 4
+    },
+    "domain_tags": [
+      "AI & Data",
+      "Engineering",
+      "Life Science",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_NEURAL_BCI",
+      "NEURAL_AI_VS_IMPLANT_HARDWARE_VS_BIOLOGY_VS_NEUROETHICS"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "AI & Data",
+    "secondary_domain": "Engineering",
+    "contrast_domain": "Life Science",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "AI & Data vs Engineering",
+    "validation_target": "TC + QR bio-AI profile vs PS + SC neural engineering profile",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "PS",
+    "scenario_context": "Implantable neural BCI development balancing computational decoding algorithms, microelectronic electrode hardware, cellular neurobiology, and neuroethical patient rights.",
+    "required_tradeoff": "Neural intent decoding AI (TC/QR) vs implantable microelectronics hardware (PS/TC) vs neurobiology cellular research (SC/RE) vs neuroethics & patient advocacy (SO/LR).",
+    "similarity_group": "L5_CAPSTONE_NEURAL_PROSTHETICS_BCI",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_017",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Sustainable Infrastructure",
+    "question_text": "A multinational consumer goods enterprise is redesigning its entire global packaging portfolio to achieve 100% compostable or closed-loop reusable materials by 2030. Which strategic division would you direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_017_OPT_A",
+        "option_text": "Synthesize bio-derived cellulose and seaweed polymers, measuring oxygen barrier permeability and marine biodegradation kinetics.",
+        "evidence_type": "polymer_chemistry_materials",
+        "dimension_evidence": {
+          "SC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Engineering"
+        ],
+        "role_title": "Lead Polymer Chemist & Materials Scientist"
+      },
+      {
+        "option_id": "UG_L5_NEW_017_OPT_B",
+        "option_text": "Design elegant reusable refill canisters, ergonomic dispensing mechanisms, minimalist typography, and modular structural containers.",
+        "evidence_type": "industrial_packaging_design",
+        "dimension_evidence": {
+          "CR": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Media & Communication"
+        ],
+        "role_title": "Head of Circular Product & Packaging Design"
+      },
+      {
+        "option_id": "UG_L5_NEW_017_OPT_C",
+        "option_text": "Manage global factory tooling transition costs, renegotiate supply chain vendor margins, and optimize inventory reverse logistics.",
+        "evidence_type": "supply_chain_margin_operations",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Management"
+        ],
+        "role_title": "Vice President of Global Supply Chain & Operations"
+      },
+      {
+        "option_id": "UG_L5_NEW_017_OPT_D",
+        "option_text": "Coordinate consumer behavioral change campaigns, eliminate retail plastic disposal habits, and organize municipal recycling coalition pilots.",
+        "evidence_type": "consumer_behavioral_ecology",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Media & Communication"
+        ],
+        "role_title": "Director of Consumer Behavior & Sustainability Impact"
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "QR": 4,
+      "CR": 5,
+      "CO": 4,
+      "BU": 5,
+      "LE": 4,
+      "SO": 5
+    },
+    "domain_tags": [
+      "Natural Science",
+      "Design & Creative",
+      "Management",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_CIRCULAR_PACKAGING",
+      "POLYMER_CHEMISTRY_VS_DESIGN_VS_SUPPLY_CHAIN_VS_BEHAVIOR"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Design & Creative",
+    "secondary_domain": "Management",
+    "contrast_domain": "Natural Science",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Design & Creative vs Media & Communication",
+    "validation_target": "CR + SC sustainable design profile vs BU + LE corporate operations profile",
+    "target_dimension_1": "CR",
+    "target_dimension_2": "BU",
+    "scenario_context": "Global corporate circular packaging transition balancing polymer chemical synthesis, industrial product design, supply chain unit margins, and consumer behavioral adoption.",
+    "required_tradeoff": "Polymer material chemistry (SC/QR) vs industrial structural packaging design (CR/CO) vs supply chain financial operations (BU/LE) vs consumer behavioral ecology (SO/CO).",
+    "similarity_group": "L5_CAPSTONE_CIRCULAR_PACKAGING",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_018",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Technology Implementation",
+    "question_text": "A national critical infrastructure agency is upgrading national electrical grids and financial networks to post-quantum quantum key distribution (QKD) cryptography. Which executive pillar would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_018_OPT_A",
+        "option_text": "Prove mathematical lattice-based cryptographic security proofs and solve asymmetric key distribution number-theoretic bounds.",
+        "evidence_type": "cryptographic_mathematics",
+        "dimension_evidence": {
+          "QR": 5,
+          "LR": 4
+        },
+        "domain_tags": [
+          "Math & Statistics",
+          "Computing & IT"
+        ],
+        "role_title": "Chief Cryptographer & Number Theorist"
+      },
+      {
+        "option_id": "UG_L5_NEW_018_OPT_B",
+        "option_text": "Deploy high-speed hardware security modules (HSM), low-level kernel cryptographic drivers, and fiber-optic photon detectors.",
+        "evidence_type": "quantum_hardware_systems",
+        "dimension_evidence": {
+          "TC": 5,
+          "PS": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "Engineering"
+        ],
+        "role_title": "Head of Cyber Infrastructure & Hardware Security"
+      },
+      {
+        "option_id": "UG_L5_NEW_018_OPT_C",
+        "option_text": "Draft federal cyber defense executive orders, critical infrastructure mandate statutes, and international NATO cyber treaties.",
+        "evidence_type": "national_security_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "Director of National Cyber Legal Policy & Defense Strategy"
+      },
+      {
+        "option_id": "UG_L5_NEW_018_OPT_D",
+        "option_text": "Structure commercial cybersecurity insurance risk underwriting frameworks and private bank compliance certification standards.",
+        "evidence_type": "cyber_insurance_risk_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "AR": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Economics"
+        ],
+        "role_title": "Managing Director of Financial Sector Cyber Risk"
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 5,
+      "LR": 5,
+      "TC": 5,
+      "PS": 4,
+      "LE": 4,
+      "BU": 5,
+      "AR": 4
+    },
+    "domain_tags": [
+      "Math & Statistics",
+      "Computing & IT",
+      "Law",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_QUANTUM_CYBER",
+      "MATH_CRYPTO_VS_HARDWARE_VS_CYBER_LAW_VS_RISK_FINANCE"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Math & Statistics",
+    "secondary_domain": "Computing & IT",
+    "contrast_domain": "Law",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Math & Statistics vs Natural Science",
+    "validation_target": "QR + TC quantitative computing profile vs LR + LE defense governance profile",
+    "target_dimension_1": "QR",
+    "target_dimension_2": "LR",
+    "scenario_context": "Post-quantum cybersecurity infrastructure upgrade balancing lattice mathematical proofs, kernel security hardware, national security law, and corporate financial risk underwriting.",
+    "required_tradeoff": "Lattice mathematical cryptography (QR/LR) vs hardware security engineering (TC/PS) vs national security statutory law (LR/LE) vs financial risk underwriting (BU/AR).",
+    "similarity_group": "L5_CAPSTONE_QUANTUM_CYBER_DEFENSE",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_019",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Social-Impact Initiative",
+    "question_text": "A national non-profit health foundation is launching a confidential digital teletherapy and peer-support platform for rural and low-income youth. Which leadership responsibility would you own?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_019_OPT_A",
+        "option_text": "Design trauma-informed clinical psychological protocols, crisis escalation workflows, and youth peer-support training modules.",
+        "evidence_type": "clinical_psychology_protocols",
+        "dimension_evidence": {
+          "SO": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Life Science"
+        ],
+        "role_title": "Chief Clinical Psychologist & Youth Care Director"
+      },
+      {
+        "option_id": "UG_L5_NEW_019_OPT_B",
+        "option_text": "Architect zero-knowledge encrypted video consultation servers, anonymous credential stores, and low-bandwidth web apps.",
+        "evidence_type": "secure_health_software",
+        "dimension_evidence": {
+          "TC": 5,
+          "PS": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "Engineering"
+        ],
+        "role_title": "Lead Software Architect & Security Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_019_OPT_C",
+        "option_text": "Produce authentic youth storytelling podcasts, social media destigmatization videos, and school district outreach campaigns.",
+        "evidence_type": "stigma_outreach_media",
+        "dimension_evidence": {
+          "CO": 5,
+          "CR": 4
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Design & Creative"
+        ],
+        "role_title": "Director of Youth Storytelling & Public Campaigns"
+      },
+      {
+        "option_id": "UG_L5_NEW_019_OPT_D",
+        "option_text": "Secure multi-year philanthropic endowment grants, negotiate Medicaid reimbursement contracts, and manage organizational cash flows.",
+        "evidence_type": "nonprofit_health_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Management",
+          "Commerce & Finance"
+        ],
+        "role_title": "Chief Financial & Executive Development Officer"
+      }
+    ],
+    "dimension_evidence": {
+      "SO": 5,
+      "SC": 4,
+      "TC": 5,
+      "PS": 4,
+      "CO": 5,
+      "CR": 4,
+      "BU": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Social Science",
+      "Computing & IT",
+      "Media & Communication",
+      "Management"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_YOUTH_MENTAL_HEALTH",
+      "CLINICAL_CARE_VS_SECURE_TECH_VS_MEDIA_VS_NONPROFIT_FINANCE"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Social Science",
+    "secondary_domain": "Media & Communication",
+    "contrast_domain": "Computing & IT",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Design & Creative vs Media & Communication",
+    "validation_target": "SO + CO social health profile vs TC + LE digital health systems profile",
+    "target_dimension_1": "SO",
+    "target_dimension_2": "TC",
+    "scenario_context": "Youth mental teletherapy initiative integrating clinical counseling protocols, end-to-end encrypted software, public media destigmatization, and non-profit grant financing.",
+    "required_tradeoff": "Clinical psychology care (SO/SC) vs secure cloud software engineering (TC/PS) vs youth storytelling media (CO/CR) vs philanthropic finance management (BU/LE).",
+    "similarity_group": "L5_CAPSTONE_YOUTH_MENTAL_HEALTH",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_020",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Business Expansion",
+    "question_text": "A major oceanic deepwater container port is executing a $2 billion expansion, converting manual docks to automated robotic gantry cranes while optimizing global supply chain trade flows. Which executive track would you oversee?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_020_OPT_A",
+        "option_text": "Optimize container terminal queue throughput models, negotiate international shipping line contracts, and manage freight tariffs.",
+        "evidence_type": "port_logistics_operations",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Management",
+          "Commerce & Finance"
+        ],
+        "role_title": "Vice President of Commercial Operations & Port Logistics"
+      },
+      {
+        "option_id": "UG_L5_NEW_020_OPT_B",
+        "option_text": "Engineer automated rail-mounted gantry crane mechatronics, electric container straddle carriers, and LiDAR collision systems.",
+        "evidence_type": "crane_robotics_mechatronics",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ],
+        "role_title": "Chief Port Automation & Mechatronics Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_020_OPT_C",
+        "option_text": "Model global trade macroeconomic shocks, tariff elasticity impacts on national GDP, and maritime shipping fuel emission taxes.",
+        "evidence_type": "maritime_trade_economics",
+        "dimension_evidence": {
+          "AR": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Economics",
+          "Math & Statistics"
+        ],
+        "role_title": "Chief Maritime Economist & Trade Strategist"
+      },
+      {
+        "option_id": "UG_L5_NEW_020_OPT_D",
+        "option_text": "Negotiate longshore dockworker union collective bargaining agreements, pension transitions, and port safety regulations.",
+        "evidence_type": "maritime_labor_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Social Science"
+        ],
+        "role_title": "Director of Labor Relations & Maritime Regulatory Law"
+      }
+    ],
+    "dimension_evidence": {
+      "BU": 5,
+      "LE": 4,
+      "PS": 5,
+      "TC": 4,
+      "AR": 5,
+      "QR": 4,
+      "LR": 5,
+      "SO": 4
+    },
+    "domain_tags": [
+      "Management",
+      "Engineering",
+      "Economics",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_PORT_AUTOMATION",
+      "PORT_OPS_VS_ROBOTICS_VS_MACRO_TRADE_VS_LABOR_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Management",
+    "secondary_domain": "Engineering",
+    "contrast_domain": "Economics",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "AI & Data vs Engineering",
+    "validation_target": "BU + AR international trade profile vs PS + TC industrial robotics profile",
+    "target_dimension_1": "BU",
+    "target_dimension_2": "PS",
+    "scenario_context": "Mega-port transformation balancing terminal operations management, robotic crane engineering, international trade economics, and dockworker labor law.",
+    "required_tradeoff": "Commercial terminal logistics management (BU/LE) vs robotic gantry crane hardware (PS/TC) vs macroeconomic trade modeling (AR/QR) vs collective bargaining labor law (LR/SO).",
+    "similarity_group": "L5_CAPSTONE_PORT_AUTOMATION",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_021",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Sustainable Infrastructure",
+    "question_text": "A municipal urban planning commission is designing a resilient 10,000-unit mixed-income housing district to accommodate families displaced by coastal sea-level rise. Which urban leadership stream would you direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_021_OPT_A",
+        "option_text": "Design climate-resilient modular timber buildings, passive solar ventilation, communal green courtyards, and biophilic facades.",
+        "evidence_type": "climate_architecture_design",
+        "dimension_evidence": {
+          "CR": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Social Science"
+        ],
+        "role_title": "Lead Architect & Urban Placemaker"
+      },
+      {
+        "option_id": "UG_L5_NEW_021_OPT_B",
+        "option_text": "Model municipal land value capture economics, public housing bond debt amortizations, and mixed-income rental subsidies.",
+        "evidence_type": "urban_land_economics",
+        "dimension_evidence": {
+          "AR": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Economics",
+          "Commerce & Finance"
+        ],
+        "role_title": "Chief Urban Economist & Housing Finance Director"
+      },
+      {
+        "option_id": "UG_L5_NEW_021_OPT_C",
+        "option_text": "Engineer the stormwater retention bio-swales, flood barrier levees, and off-grid district wastewater treatment recycling plants.",
+        "evidence_type": "civil_stormwater_engineering",
+        "dimension_evidence": {
+          "PS": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Engineering",
+          "Natural Science"
+        ],
+        "role_title": "Chief Civil & Stormwater Infrastructure Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_021_OPT_D",
+        "option_text": "Draft municipal inclusionary zoning ordinances, protect displaced migrant tenancy legal rights, and litigate fair-housing appeals.",
+        "evidence_type": "housing_rights_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "General Counsel for Housing Justice & Zoning Law"
+      }
+    ],
+    "dimension_evidence": {
+      "CR": 5,
+      "SO": 4,
+      "AR": 5,
+      "BU": 4,
+      "PS": 5,
+      "SC": 4,
+      "LR": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Design & Creative",
+      "Economics",
+      "Engineering",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_CLIMATE_HOUSING",
+      "ARCHITECTURE_VS_HOUSING_ECONOMICS_VS_CIVIL_ENG_VS_ZONING_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Design & Creative",
+    "secondary_domain": "Economics",
+    "contrast_domain": "Law",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Design & Creative vs Media & Communication",
+    "validation_target": "CR + SO urban social design profile vs AR + LR economic policy profile",
+    "target_dimension_1": "CR",
+    "target_dimension_2": "AR",
+    "scenario_context": "Climate-resilient housing district balancing architectural modular placemaking, municipal land economics, civil flood engineering, and fair housing tenancy law.",
+    "required_tradeoff": "Biophilic modular architecture (CR/SO) vs municipal land economics (AR/BU) vs civil stormwater infrastructure (PS/SC) vs statutory zoning & housing law (LR/LE).",
+    "similarity_group": "L5_CAPSTONE_CLIMATE_HOUSING_RESILIENCE",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_022",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Healthcare/Science Innovation",
+    "question_text": "A translational oncology biotechnology consortium is developing customized CRISPR gene-editing therapies tailored to patient-specific glioblastoma tumor mutations. Which scientific enterprise track would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_022_OPT_A",
+        "option_text": "Identify actionable oncogene driver mutations, design guide RNA sequences, and validate off-target DNA cleavage safety in patient organoids.",
+        "evidence_type": "crispr_genomics_oncology",
+        "dimension_evidence": {
+          "RE": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science"
+        ],
+        "role_title": "Head of Target Discovery & Genome Editing"
+      },
+      {
+        "option_id": "UG_L5_NEW_022_OPT_B",
+        "option_text": "Synthesize tumor-penetrating peptide delivery conjugates and optimize lipid nanoparticle encapsulation chemistry.",
+        "evidence_type": "biochemical_conjugate_synthesis",
+        "dimension_evidence": {
+          "SC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Engineering"
+        ],
+        "role_title": "Director of Chemical Drug Delivery & Formulation"
+      },
+      {
+        "option_id": "UG_L5_NEW_022_OPT_C",
+        "option_text": "Structure multi-million dollar pharmaceutical licensing deals, underwrite Series B venture capital, and model drug reimbursement pricing.",
+        "evidence_type": "biotech_venture_capital",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Management"
+        ],
+        "role_title": "Chief Business Officer & Biotech Venture Lead"
+      },
+      {
+        "option_id": "UG_L5_NEW_022_OPT_D",
+        "option_text": "Author compassionate patient clinical trial guides, translate complex genomic risk for families, and coordinate patient advocacy groups.",
+        "evidence_type": "patient_advocacy_genomic_translation",
+        "dimension_evidence": {
+          "CO": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Social Science"
+        ],
+        "role_title": "Director of Patient Engagement & Scientific Communication"
+      }
+    ],
+    "dimension_evidence": {
+      "RE": 5,
+      "SC": 5,
+      "QR": 4,
+      "BU": 5,
+      "LE": 4,
+      "CO": 5,
+      "SO": 4
+    },
+    "domain_tags": [
+      "Life Science",
+      "Natural Science",
+      "Commerce & Finance",
+      "Media & Communication"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_PRECISION_ONCOLOGY",
+      "CRISPR_RESEARCH_VS_CHEMISTRY_VS_BIOTECH_VC_VS_PATIENT_COMM"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Life Science",
+    "secondary_domain": "Natural Science",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Natural Science vs Life Science",
+    "validation_target": "RE + SC biotechnology research profile vs BU + LE pharma commercialization profile",
+    "target_dimension_1": "RE",
+    "target_dimension_2": "BU",
+    "scenario_context": "Precision oncology CRISPR therapeutics initiative integrating genome target research, peptide delivery chemistry, biotech venture financing, and patient advocacy communication.",
+    "required_tradeoff": "CRISPR target genome biology (RE/SC) vs drug chemical formulation (SC/QR) vs biotech venture finance (BU/LE) vs patient advocacy communication (CO/SO).",
+    "similarity_group": "L5_CAPSTONE_PRECISION_ONCOLOGY",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_023",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Cross-Functional Organizational Crisis",
+    "question_text": "Following a major earthquake, an international disaster robotics coalition deploys autonomous quadrupeds and flying drones to locate survivors in collapsed rubble. Which mission domain would you take command of?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_023_OPT_A",
+        "option_text": "Engineer ruggedized carbon-fiber robot chassis, shock-absorbent titanium legs, and thermal camera sensor payload gimbals.",
+        "evidence_type": "disaster_robotics_hardware",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ],
+        "role_title": "Chief Robotics & Mechanical Systems Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_023_OPT_B",
+        "option_text": "Deploy real-time 3D LiDAR SLAM mapping algorithms, survivor thermal anomaly computer vision, and autonomous rubble pathfinding.",
+        "evidence_type": "slam_vision_ai",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT"
+        ],
+        "role_title": "Head of Autonomous Perception & SLAM AI"
+      },
+      {
+        "option_id": "UG_L5_NEW_023_OPT_C",
+        "option_text": "Direct disaster ground-zero command operations, coordinate with military first responders, and allocate search sectors under time limits.",
+        "evidence_type": "incident_command_operations",
+        "dimension_evidence": {
+          "LE": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Management"
+        ],
+        "role_title": "Disaster Incident Commander & Operations Lead"
+      },
+      {
+        "option_id": "UG_L5_NEW_023_OPT_D",
+        "option_text": "Deliver psychological first aid to traumatized survivor families, manage emergency evacuation shelters, and lead community care.",
+        "evidence_type": "disaster_psychology_care",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Media & Communication"
+        ],
+        "role_title": "Director of Family Support & Crisis Care"
+      }
+    ],
+    "dimension_evidence": {
+      "PS": 5,
+      "TC": 5,
+      "QR": 4,
+      "LE": 5,
+      "BU": 4,
+      "SO": 5,
+      "CO": 4
+    },
+    "domain_tags": [
+      "Engineering",
+      "AI & Data",
+      "Management",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_DISASTER_ROBOTICS",
+      "ROBOTIC_HARDWARE_VS_SLAM_AI_VS_INCIDENT_COMMAND_VS_CRISIS_CARE"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Engineering",
+    "secondary_domain": "AI & Data",
+    "contrast_domain": "Management",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "AI & Data vs Engineering",
+    "validation_target": "TC + PS robotics engineering profile vs LE + SO disaster leadership profile",
+    "target_dimension_1": "PS",
+    "target_dimension_2": "LE",
+    "scenario_context": "Disaster search-and-rescue robotics mission balancing rugged mechanical robot design, 3D LiDAR SLAM perception AI, incident tactical command, and family crisis trauma care.",
+    "required_tradeoff": "Robotic mechanical chassis engineering (PS/TC) vs SLAM computer vision algorithms (TC/QR) vs emergency incident command (LE/BU) vs humanitarian trauma support (SO/CO).",
+    "similarity_group": "L5_CAPSTONE_DISASTER_ROBOTICS",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_024",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Financial/Economic Strategy",
+    "question_text": "A national central bank is piloting a sovereign Central Bank Digital Currency (CBDC) to modernize retail payments and preserve monetary sovereignty. Which executive responsibility would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_024_OPT_A",
+        "option_text": "Model macroeconomic monetary velocity, bank disintermediation risks, interest rate transmission channels, and financial stability stress tests.",
+        "evidence_type": "monetary_macroeconomics",
+        "dimension_evidence": {
+          "AR": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Economics",
+          "Math & Statistics"
+        ],
+        "role_title": "Director of Monetary Economics & Macro Modeling"
+      },
+      {
+        "option_id": "UG_L5_NEW_024_OPT_B",
+        "option_text": "Architect ultra-secure distributed ledger consensus protocols, zero-knowledge privacy cryptography, and high-throughput transaction pipelines.",
+        "evidence_type": "cbdc_cryptographic_systems",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "AI & Data"
+        ],
+        "role_title": "Chief Cryptographic Systems Architect"
+      },
+      {
+        "option_id": "UG_L5_NEW_024_OPT_C",
+        "option_text": "Draft national sovereign currency statutory legislation, anti-money laundering (AML) compliance mandates, and consumer privacy protections.",
+        "evidence_type": "monetary_statutory_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "General Counsel for Central Banking Law"
+      },
+      {
+        "option_id": "UG_L5_NEW_024_OPT_D",
+        "option_text": "Lead commercial banking integration partnerships, merchant digital POS adoption incentives, and retail consumer payment app rollouts.",
+        "evidence_type": "commercial_banking_ecosystem",
+        "dimension_evidence": {
+          "BU": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Social Science"
+        ],
+        "role_title": "Head of Commercial Banking & Retail Adoption"
+      }
+    ],
+    "dimension_evidence": {
+      "AR": 5,
+      "QR": 4,
+      "TC": 5,
+      "LR": 5,
+      "LE": 4,
+      "BU": 5,
+      "SO": 4
+    },
+    "domain_tags": [
+      "Economics",
+      "Computing & IT",
+      "Law",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_CBDC_CURRENCY",
+      "MACRO_MONETARY_VS_CRYPTO_TECH_VS_BANKING_LAW_VS_RETAIL_ADOPTION"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Economics",
+    "secondary_domain": "Computing & IT",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Commerce & Finance vs Economics",
+    "validation_target": "QR + TC fintech architecture profile vs AR + BU monetary economics profile",
+    "target_dimension_1": "AR",
+    "target_dimension_2": "TC",
+    "scenario_context": "National CBDC digital currency deployment balancing macroeconomic monetary modeling, cryptographic distributed ledgers, central banking statutory law, and commercial retail adoption.",
+    "required_tradeoff": "Macroeconomic monetary theory (AR/QR) vs cryptographic ledger architecture (TC/QR) vs central banking statutory law (LR/LE) vs commercial retail ecosystem scaling (BU/SO).",
+    "similarity_group": "L5_CAPSTONE_CBDC_MONETARY_CURRENCY",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_025",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Cultural/Humanities Project",
+    "question_text": "A world-renowned science museum is creating an immersive 10,000 m² exhibition center on \"The Future of Humanity on Earth and in the Cosmos.\" Which visionary role would you want to hold?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_025_OPT_A",
+        "option_text": "Design interactive physical kinetic sculptures, architectural spatial illusion chambers, evocative lighting, and tactile visitor journeys.",
+        "evidence_type": "experiential_spatial_design",
+        "dimension_evidence": {
+          "CR": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Media & Communication"
+        ],
+        "role_title": "Executive Creative Director & Spatial Scenographer"
+      },
+      {
+        "option_id": "UG_L5_NEW_025_OPT_B",
+        "option_text": "Develop room-scale augmented reality projection systems, interactive tactile touch-table simulations, and real-time planetary data feeds.",
+        "evidence_type": "creative_technology_ar",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "AI & Data"
+        ],
+        "role_title": "Director of Interactive Technology & Immersive Media"
+      },
+      {
+        "option_id": "UG_L5_NEW_025_OPT_C",
+        "option_text": "Curate scientific accuracy with international astrophysicists, write profound exhibition prose wall texts, and author documentary films.",
+        "evidence_type": "scientific_curation_scholarship",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Humanities"
+        ],
+        "role_title": "Chief Scientific Curator & Science Writer"
+      },
+      {
+        "option_id": "UG_L5_NEW_025_OPT_D",
+        "option_text": "Secure multi-million dollar corporate naming rights, manage capital construction budgets, and optimize museum ticket yield economics.",
+        "evidence_type": "museum_philanthropy_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Management"
+        ],
+        "role_title": "Chief Development Officer & Managing Director"
+      }
+    ],
+    "dimension_evidence": {
+      "CR": 5,
+      "CO": 4,
+      "TC": 5,
+      "QR": 4,
+      "SC": 5,
+      "RE": 4,
+      "BU": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Design & Creative",
+      "Computing & IT",
+      "Natural Science",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_SCIENCE_MUSEUM",
+      "SPATIAL_DESIGN_VS_IMMERSIVE_TECH_VS_SCIENCE_CURATION_VS_DEVELOPMENT"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Design & Creative",
+    "secondary_domain": "Natural Science",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Design & Creative vs Media & Communication",
+    "validation_target": "CR + CO creative exhibition profile vs TC + BU educational media profile",
+    "target_dimension_1": "CR",
+    "target_dimension_2": "SC",
+    "scenario_context": "Major science museum master exhibition planning balancing physical artistic spatial design, interactive AR creative technology, scholarly science curation, and philanthropic capital finance.",
+    "required_tradeoff": "Spatial artistic exhibition scenography (CR/CO) vs interactive software & immersive media (TC/QR) vs scientific curatorial scholarship (SC/RE) vs capital development & sponsorship (BU/LE).",
+    "similarity_group": "L5_CAPSTONE_SCIENCE_MUSEUM",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_026",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Healthcare/Science Innovation",
+    "question_text": "A global health taskforce is combating the surge in multi-drug resistant superbugs across livestock farming and municipal hospitals. Which strategic initiative would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_026_OPT_A",
+        "option_text": "Investigate bacterial beta-lactamase enzyme resistance mechanisms, isolate novel bacteriophage viruses, and discover chemical adjuvants.",
+        "evidence_type": "microbiology_biochemistry",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science"
+        ],
+        "role_title": "Chief Microbiologist & Phage Therapy Scientist"
+      },
+      {
+        "option_id": "UG_L5_NEW_026_OPT_B",
+        "option_text": "Draft binding international bans on agricultural antibiotic feed additives and litigate pharmaceutical hospital stewardship compliance.",
+        "evidence_type": "global_health_treaties_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "International Health Treaty & Regulatory Counsel"
+      },
+      {
+        "option_id": "UG_L5_NEW_026_OPT_C",
+        "option_text": "Build global wastewater genomic sequencing surveillance pipelines to detect regional outbreak clusters before clinical hospital admissions.",
+        "evidence_type": "bioinformatics_epidemiology",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT"
+        ],
+        "role_title": "Director of Genomic Biosurveillance & Analytics"
+      },
+      {
+        "option_id": "UG_L5_NEW_026_OPT_D",
+        "option_text": "Lead international farmer hygiene education campaigns, produce medical docuseries, and mobilize hospital patient safety protocols.",
+        "evidence_type": "health_advocacy_communications",
+        "dimension_evidence": {
+          "CO": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Social Science"
+        ],
+        "role_title": "Director of Global Health Advocacy & Education"
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "RE": 4,
+      "LR": 5,
+      "LE": 4,
+      "TC": 5,
+      "QR": 4,
+      "CO": 5,
+      "SO": 4
+    },
+    "domain_tags": [
+      "Life Science",
+      "Law",
+      "AI & Data",
+      "Media & Communication"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_ANTIMICROBIAL_AMR",
+      "MICROBIOLOGY_VS_HEALTH_LAW_VS_GENOMIC_AI_VS_HEALTH_ADVOCACY"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Life Science",
+    "secondary_domain": "Law",
+    "contrast_domain": "Media & Communication",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Natural Science vs Life Science",
+    "validation_target": "SC + RE biomedical microbiology profile vs LR + CO global health diplomacy profile",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "LR",
+    "scenario_context": "Global superbug AMR containment initiative balancing bacterial biochemistry, international antibiotic legislation, genomic surveillance pipelines, and public health advocacy.",
+    "required_tradeoff": "Microbiological laboratory research (SC/RE) vs statutory health treaty law (LR/LE) vs genomic data engineering (TC/QR) vs public health communication (CO/SO).",
+    "similarity_group": "L5_CAPSTONE_ANTIMICROBIAL_RESISTANCE",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_027",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Sustainable Infrastructure",
+    "question_text": "A major city is transitioning from private car ownership to an on-demand autonomous shared electric mobility fleet, reclaiming 40% of asphalt parking space for urban public greenways. Which city transformation track would you steer?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_027_OPT_A",
+        "option_text": "Develop real-time reinforcement learning fleet dispatch algorithms to minimize passenger wait times and deadhead energy consumption.",
+        "evidence_type": "fleet_dispatch_algorithms",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT"
+        ],
+        "role_title": "Head of Fleet Dispatch Algorithms & Optimization"
+      },
+      {
+        "option_id": "UG_L5_NEW_027_OPT_B",
+        "option_text": "Redesign reclaimed parking lots into vibrant community pedestrian plazas, native pollinator parks, and active micro-mobility greenways.",
+        "evidence_type": "urban_placemaking_landscape",
+        "dimension_evidence": {
+          "CR": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Social Science"
+        ],
+        "role_title": "Lead Landscape Architect & Urban Placemaker"
+      },
+      {
+        "option_id": "UG_L5_NEW_027_OPT_C",
+        "option_text": "Model dynamic municipal congestion pricing tariffs, calculate municipal bond revenue impacts, and structure shared-mobility fleet taxes.",
+        "evidence_type": "congestion_pricing_economics",
+        "dimension_evidence": {
+          "AR": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Economics",
+          "Commerce & Finance"
+        ],
+        "role_title": "Chief Municipal Transport Economist"
+      },
+      {
+        "option_id": "UG_L5_NEW_027_OPT_D",
+        "option_text": "Draft municipal autonomous vehicle safety codes, licensing standards for commercial fleets, and mandatory passenger data privacy statutes.",
+        "evidence_type": "urban_transit_legislation",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "Municipal Transportation Counsel & Policy Director"
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "QR": 4,
+      "CR": 5,
+      "SO": 4,
+      "AR": 5,
+      "BU": 4,
+      "LR": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "AI & Data",
+      "Design & Creative",
+      "Economics",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_AUTONOMOUS_MOBILITY",
+      "DISPATCH_AI_VS_PLACEMAKING_VS_CONGESTION_PRICING_VS_TRANSIT_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "AI & Data",
+    "secondary_domain": "Design & Creative",
+    "contrast_domain": "Economics",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "AI & Data vs Engineering",
+    "validation_target": "TC + QR mobility algorithms profile vs CR + SO urban placemaking profile",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "CR",
+    "scenario_context": "Urban autonomous mobility transition balancing fleet dispatch AI, landscape architectural placemaking, congestion pricing economics, and municipal safety legislation.",
+    "required_tradeoff": "Algorithmic dispatch optimization (TC/QR) vs landscape public placemaking (CR/SO) vs municipal congestion economics (AR/BU) vs transit statutory law (LR/LE).",
+    "similarity_group": "L5_CAPSTONE_SHARED_MOBILITY_PLACEMAKING",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_028",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Public Policy Initiative",
+    "question_text": "An international human rights tribunal investigates war crimes and civilian displacement in an active conflict zone. Which evidentiary and humanitarian division would you choose to lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_028_OPT_A",
+        "option_text": "Draft international criminal indictment briefs, establish chain-of-custody evidentiary burdens, and argue statutory Geneva Convention violations.",
+        "evidence_type": "international_criminal_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "Senior Prosecutor & International Criminal Jurist"
+      },
+      {
+        "option_id": "UG_L5_NEW_028_OPT_B",
+        "option_text": "Analyze synthetic aperture radar satellite imagery, geolocate munitions craters, and build cryptographic metadata archives of human rights abuses.",
+        "evidence_type": "geospatial_forensics_research",
+        "dimension_evidence": {
+          "RE": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Humanities",
+          "Computing & IT"
+        ],
+        "role_title": "Director of Geospatial Open-Source Forensics"
+      },
+      {
+        "option_id": "UG_L5_NEW_028_OPT_C",
+        "option_text": "Conduct trauma-informed field interviews with civilian survivors, coordinate refugee witness protection, and support community healing circles.",
+        "evidence_type": "trauma_informed_social_support",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Media & Communication"
+        ],
+        "role_title": "Head of Victim Support & Humanitarian Fieldwork"
+      },
+      {
+        "option_id": "UG_L5_NEW_028_OPT_D",
+        "option_text": "Produce international investigative documentary exposés, author global press dispatches, and mobilize international diplomatic sanctions.",
+        "evidence_type": "investigative_human_rights_media",
+        "dimension_evidence": {
+          "CO": 5,
+          "CR": 4
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Design & Creative"
+        ],
+        "role_title": "Chief Communications Officer & Global Advocacy Editor"
+      }
+    ],
+    "dimension_evidence": {
+      "LR": 5,
+      "LE": 4,
+      "RE": 5,
+      "TC": 4,
+      "SO": 5,
+      "CO": 5,
+      "CR": 4
+    },
+    "domain_tags": [
+      "Law",
+      "Humanities",
+      "Social Science",
+      "Media & Communication"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_HUMAN_RIGHTS",
+      "CRIMINAL_LAW_VS_SATELLITE_FORENSICS_VS_VICTIM_CARE_VS_MEDIA"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Law",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "Media & Communication",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Law vs Social Science",
+    "validation_target": "LR + RE international human rights profile vs CO + SO advocacy journalism profile",
+    "target_dimension_1": "LR",
+    "target_dimension_2": "CO",
+    "scenario_context": "War crimes investigation consortium balancing international criminal jurisprudence, open-source satellite forensics, victim trauma support, and global investigative journalism.",
+    "required_tradeoff": "Statutory international criminal law (LR/LE) vs geospatial forensic research (RE/TC) vs trauma-informed victim support (SO/CO) vs global investigative journalism (CO/CR).",
+    "similarity_group": "L5_CAPSTONE_HUMAN_RIGHTS_FORENSICS",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_029",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Sustainable Infrastructure",
+    "question_text": "An archipelago nation is replacing expensive diesel generators on 15 remote islands with an integrated solar-battery-marine wave microgrid. Which project dimension would you direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_029_OPT_A",
+        "option_text": "Engineer the island microgrid battery inverter synchronization, marine wave hydraulic buoy generators, and storm-proof electrical substations.",
+        "evidence_type": "island_microgrid_engineering",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ],
+        "role_title": "Chief Microgrid Electrical & Power Systems Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_029_OPT_B",
+        "option_text": "Investigate ocean wave hydrodynamic power density, marine corrosion electrochemical kinetics, and coastal benthic environmental impacts.",
+        "evidence_type": "marine_energy_physics",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Life Science"
+        ],
+        "role_title": "Lead Marine Energy Scientist & Oceanographer"
+      },
+      {
+        "option_id": "UG_L5_NEW_029_OPT_C",
+        "option_text": "Establish community-owned utility cooperatives, structure local equity dividend shares, and manage microgrid tariff billing models.",
+        "evidence_type": "community_energy_coop_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Social Science"
+        ],
+        "role_title": "Director of Community Cooperative Finance & Enterprise"
+      },
+      {
+        "option_id": "UG_L5_NEW_029_OPT_D",
+        "option_text": "Facilitate island tribal council energy sovereignty assemblies, negotiate traditional sea-tenure agreements, and build local technician training.",
+        "evidence_type": "indigenous_energy_governance",
+        "dimension_evidence": {
+          "SO": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Management"
+        ],
+        "role_title": "Head of Island Governance & Community Empowerment"
+      }
+    ],
+    "dimension_evidence": {
+      "PS": 5,
+      "TC": 4,
+      "SC": 5,
+      "RE": 4,
+      "BU": 5,
+      "SO": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Engineering",
+      "Natural Science",
+      "Commerce & Finance",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_ISLAND_MICROGRID",
+      "POWER_ENG_VS_OCEAN_SCIENCE_VS_COOP_FINANCE_VS_ISLAND_GOVERNANCE"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Engineering",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "AI & Data vs Engineering",
+    "validation_target": "PS + SC clean energy engineering profile vs BU + SO community cooperative enterprise profile",
+    "target_dimension_1": "PS",
+    "target_dimension_2": "BU",
+    "scenario_context": "Remote island renewable microgrid integration balancing power systems electrical engineering, ocean hydrodynamic science, cooperative financial design, and indigenous island governance.",
+    "required_tradeoff": "Microgrid electrical power engineering (PS/TC) vs marine hydrodynamic ocean science (SC/RE) vs cooperative enterprise finance (BU/SO) vs indigenous community governance (SO/LE).",
+    "similarity_group": "L5_CAPSTONE_ISLAND_RENEWABLE_MICROGRID",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_030",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Digital Media Initiative",
+    "question_text": "An international documentary media house is producing a feature film exposing illegal toxic chemical dumping by multinational conglomerate shell corporations. Which production leadership track would you command?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_030_OPT_A",
+        "option_text": "Direct undercover whistleblower interviews, construct the investigative narrative arc, author the voiceover prose, and manage international distribution.",
+        "evidence_type": "investigative_filmmaking_prose",
+        "dimension_evidence": {
+          "CO": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Humanities"
+        ],
+        "role_title": "Director & Lead Investigative Journalist"
+      },
+      {
+        "option_id": "UG_L5_NEW_030_OPT_B",
+        "option_text": "Craft atmospheric documentary cinematography, evocative mood lighting, color grading palettes, and bespoke motion title typography.",
+        "evidence_type": "cinematography_visual_styling",
+        "dimension_evidence": {
+          "CR": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Media & Communication"
+        ],
+        "role_title": "Director of Photography & Creative Visual Lead"
+      },
+      {
+        "option_id": "UG_L5_NEW_030_OPT_C",
+        "option_text": "Conduct forensic chemical testing of toxic runoff samples in accredited labs, verifying heavy metal concentrations and carcinogenicity.",
+        "evidence_type": "environmental_toxicology_forensics",
+        "dimension_evidence": {
+          "SC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Life Science"
+        ],
+        "role_title": "Lead Scientific Investigator & Forensic Toxicologist"
+      },
+      {
+        "option_id": "UG_L5_NEW_030_OPT_D",
+        "option_text": "Trace offshore corporate tax-haven shell companies, audit complex corporate balance sheets, and litigate anti-SLAPP defamation defenses.",
+        "evidence_type": "corporate_forensic_law_finance",
+        "dimension_evidence": {
+          "LR": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Commerce & Finance"
+        ],
+        "role_title": "Forensic Financial Investigator & Media Legal Counsel"
+      }
+    ],
+    "dimension_evidence": {
+      "CO": 5,
+      "RE": 4,
+      "CR": 5,
+      "SC": 5,
+      "QR": 4,
+      "LR": 5,
+      "BU": 4
+    },
+    "domain_tags": [
+      "Media & Communication",
+      "Design & Creative",
+      "Natural Science",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_INVESTIGATIVE_DOC",
+      "JOURNALISM_VS_CINEMATOGRAPHY_VS_TOXICOLOGY_VS_FORENSIC_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Media & Communication",
+    "secondary_domain": "Design & Creative",
+    "contrast_domain": "Law",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Design & Creative vs Media & Communication",
+    "validation_target": "CO + RE investigative media profile vs CR + LR visual legal communications profile",
+    "target_dimension_1": "CO",
+    "target_dimension_2": "CR",
+    "scenario_context": "Investigative documentary production balancing expository journalistic storytelling, cinematic visual art direction, forensic toxicology testing, and corporate shell company legal investigation.",
+    "required_tradeoff": "Investigative narrative journalism (CO/RE) vs cinematic visual art direction (CR/CO) vs forensic environmental toxicology (SC/QR) vs corporate shell law & finance (LR/BU).",
+    "similarity_group": "L5_CAPSTONE_INVESTIGATIVE_DOCUMENTARY",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_031",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Business Expansion",
+    "question_text": "A global fashion retailer is overhauling its 300-factory supply chain to guarantee fair living wages, eliminate toxic textile dyes, and introduce circular garment recycling. Which executive transformation division would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_031_OPT_A",
+        "option_text": "Audit global garment manufacturing labor standards, structure worker living-wage index formulas, and enforce factory safety compliance.",
+        "evidence_type": "ethical_labor_auditing",
+        "dimension_evidence": {
+          "BU": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Management",
+          "Social Science"
+        ],
+        "role_title": "Vice President of Ethical Sourcing & Labor Rights"
+      },
+      {
+        "option_id": "UG_L5_NEW_031_OPT_B",
+        "option_text": "Design zero-waste modular garment pattern geometries, minimalist timeless aesthetics, and biodegradable natural fiber fashion collections.",
+        "evidence_type": "circular_fashion_design",
+        "dimension_evidence": {
+          "CR": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Media & Communication"
+        ],
+        "role_title": "Head of Sustainable Fashion Design & Creative Direction"
+      },
+      {
+        "option_id": "UG_L5_NEW_031_OPT_C",
+        "option_text": "Synthesize non-toxic enzymatic bio-dyes from agricultural waste and develop chemical recycling depolymerization processes for blended textiles.",
+        "evidence_type": "textile_chemical_synthesis",
+        "dimension_evidence": {
+          "SC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Engineering"
+        ],
+        "role_title": "Director of Textile Chemistry & Materials Science"
+      },
+      {
+        "option_id": "UG_L5_NEW_031_OPT_D",
+        "option_text": "Model macroeconomic consumer willingness-to-pay premiums, optimize garment retail price elasticity, and structure ESG supply chain bond financing.",
+        "evidence_type": "fashion_retail_economics",
+        "dimension_evidence": {
+          "AR": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Economics",
+          "Commerce & Finance"
+        ],
+        "role_title": "Chief Financial Officer & Retail Strategist"
+      }
+    ],
+    "dimension_evidence": {
+      "BU": 5,
+      "SO": 4,
+      "CR": 5,
+      "CO": 4,
+      "SC": 5,
+      "QR": 4,
+      "AR": 5
+    },
+    "domain_tags": [
+      "Management",
+      "Design & Creative",
+      "Natural Science",
+      "Economics"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_ETHICAL_FASHION",
+      "LABOR_AUDIT_VS_CIRCULAR_DESIGN_VS_TEXTILE_CHEM_VS_RETAIL_ECONOMICS"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Management",
+    "secondary_domain": "Design & Creative",
+    "contrast_domain": "Economics",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Design & Creative vs Media & Communication",
+    "validation_target": "BU + SO ethical supply management profile vs CR + SC sustainable textile design profile",
+    "target_dimension_1": "BU",
+    "target_dimension_2": "CR",
+    "scenario_context": "Global apparel supply chain overhaul balancing factory labor human rights, zero-waste garment aesthetic design, textile bio-chemistry, and retail pricing economics.",
+    "required_tradeoff": "Ethical labor auditing & factory management (BU/SO) vs circular garment aesthetic design (CR/CO) vs green textile chemical synthesis (SC/QR) vs retail pricing economics (AR/BU).",
+    "similarity_group": "L5_CAPSTONE_ETHICAL_FASHION_SUPPLY",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_032",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Sustainable Infrastructure",
+    "question_text": "A seismically active nation is installing an integrated earthquake early warning network and mandatory high-rise seismic retrofitting program. Which engineering and civic resilience discipline would you direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_032_OPT_A",
+        "option_text": "Develop real-time P-wave seismic inversion algorithms, calibrate broadband seismometer telemetry, and model rupture velocity physics.",
+        "evidence_type": "geophysics_seismic_inversion",
+        "dimension_evidence": {
+          "QR": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Math & Statistics",
+          "Natural Science"
+        ],
+        "role_title": "Chief Seismologist & Geophysical Modeler"
+      },
+      {
+        "option_id": "UG_L5_NEW_032_OPT_B",
+        "option_text": "Engineer building base-isolation elastomeric bearings, tuned mass dampers for skyscrapers, and reinforced concrete retrofits.",
+        "evidence_type": "structural_seismic_engineering",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ],
+        "role_title": "Chief Structural & Seismic Retrofit Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_032_OPT_C",
+        "option_text": "Orchestrate municipal emergency sirens, automated subway braking protocols, and public school earthquake drill training programs.",
+        "evidence_type": "emergency_disaster_leadership",
+        "dimension_evidence": {
+          "LE": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Management",
+          "Social Science"
+        ],
+        "role_title": "Director of National Emergency Management & Civil Defense"
+      },
+      {
+        "option_id": "UG_L5_NEW_032_OPT_D",
+        "option_text": "Draft mandatory municipal building safety retrofit ordinances, enforce landlord compliance codes, and litigate non-compliance penalties.",
+        "evidence_type": "municipal_building_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Commerce & Finance"
+        ],
+        "role_title": "Municipal Building Code Commissioner & Legal Counsel"
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 5,
+      "SC": 4,
+      "PS": 5,
+      "TC": 4,
+      "LE": 5,
+      "SO": 4,
+      "LR": 5,
+      "BU": 4
+    },
+    "domain_tags": [
+      "Math & Statistics",
+      "Engineering",
+      "Management",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_EARTHQUAKE_RESILIENCE",
+      "SEISMOLOGY_VS_STRUCTURAL_ENG_VS_CIVIL_DEFENSE_VS_BUILDING_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Engineering",
+    "secondary_domain": "Math & Statistics",
+    "contrast_domain": "Law",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Math & Statistics vs Natural Science",
+    "validation_target": "QR + PS geophysics structural profile vs LE + LR public safety governance profile",
+    "target_dimension_1": "QR",
+    "target_dimension_2": "PS",
+    "scenario_context": "National seismic resilience program integrating mathematical P-wave geophysics, skyscraper structural damping engineering, civil defense crisis leadership, and mandatory building law.",
+    "required_tradeoff": "Mathematical seismic wave geophysics (QR/SC) vs structural damping engineering (PS/TC) vs civil defense crisis operations (LE/SO) vs statutory building safety law (LR/BU).",
+    "similarity_group": "L5_CAPSTONE_EARTHQUAKE_RESILIENCE",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_033",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Cultural/Humanities Project",
+    "question_text": "A cultural linguistic foundation is partnering with indigenous elders to revitalize 5 endangered oral languages with fewer than 100 living speakers. Which preservation pillar would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_033_OPT_A",
+        "option_text": "Conduct linguistic phonetic fieldwork, transcribe oral grammar structures, and compile comprehensive bilingual dictionaries with native speakers.",
+        "evidence_type": "anthropological_linguistics_research",
+        "dimension_evidence": {
+          "RE": 5,
+          "SO": 4
+        },
+        "domain_tags": [
+          "Humanities",
+          "Social Science"
+        ],
+        "role_title": "Lead Anthropological Linguist & Field Researcher"
+      },
+      {
+        "option_id": "UG_L5_NEW_033_OPT_B",
+        "option_text": "Train custom low-resource speech synthesis and automatic transcription neural models to create interactive language-learning mobile apps.",
+        "evidence_type": "nlp_speech_ai_technology",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT"
+        ],
+        "role_title": "Director of Language Technology & Speech AI"
+      },
+      {
+        "option_id": "UG_L5_NEW_033_OPT_C",
+        "option_text": "Produce illustrated children’s storybooks, animated indigenous folk tales, and cultural song recordings for primary schools.",
+        "evidence_type": "creative_storytelling_media",
+        "dimension_evidence": {
+          "CR": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Media & Communication"
+        ],
+        "role_title": "Creative Director of Children’s Literature & Media"
+      },
+      {
+        "option_id": "UG_L5_NEW_033_OPT_D",
+        "option_text": "Establish community-led language immersion preschools, coordinate elder mentorship stipends, and advocate for official minority language status.",
+        "evidence_type": "language_policy_education",
+        "dimension_evidence": {
+          "SO": 5,
+          "LR": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Law"
+        ],
+        "role_title": "Head of Community Language Revitalization & Education"
+      }
+    ],
+    "dimension_evidence": {
+      "RE": 5,
+      "SO": 5,
+      "TC": 5,
+      "QR": 4,
+      "CR": 5,
+      "CO": 4,
+      "LR": 4
+    },
+    "domain_tags": [
+      "Humanities",
+      "AI & Data",
+      "Design & Creative",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_INDIGENOUS_LANGUAGE",
+      "LINGUISTICS_VS_SPEECH_AI_VS_CREATIVE_STORY_VS_COMMUNITY_REVITALIZATION"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Humanities",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "AI & Data",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Law vs Social Science",
+    "validation_target": "RE + SO anthropological linguistics profile vs TC + CO language technology profile",
+    "target_dimension_1": "RE",
+    "target_dimension_2": "TC",
+    "scenario_context": "Indigenous language revitalization project balancing grammatical linguistic field research, AI speech synthesis technology, creative children’s storytelling, and community school policy.",
+    "required_tradeoff": "Anthropological linguistic documentation (RE/SO) vs speech AI software development (TC/QR) vs illustrated cultural media (CR/CO) vs community immersion school policy (SO/LR).",
+    "similarity_group": "L5_CAPSTONE_LANGUAGE_REVITALIZATION",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_034",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Technology Implementation",
+    "question_text": "An international space agency alliance is launching an active orbital debris removal mission and automated satellite collision avoidance traffic system in Low Earth Orbit. Which mission division would you choose to direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_034_OPT_A",
+        "option_text": "Calculate high-precision N-body orbital astrodynamics, relativistic perturbation matrices, and probabilistic collision conjunction risk bounds.",
+        "evidence_type": "orbital_mechanics_mathematics",
+        "dimension_evidence": {
+          "QR": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Math & Statistics",
+          "Natural Science"
+        ],
+        "role_title": "Chief Astrodynamicist & Orbital Trajectory Modeler"
+      },
+      {
+        "option_id": "UG_L5_NEW_034_OPT_B",
+        "option_text": "Design robotic satellite capture arms, magnetic docking clamps, and laser ablation de-orbiting propulsion engines.",
+        "evidence_type": "satellite_capture_robotics",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ],
+        "role_title": "Chief Robotic Capture & De-Orbit Systems Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_034_OPT_C",
+        "option_text": "Draft international space traffic rules under the UN Outer Space Treaty, establish satellite de-orbit mandates, and arbitrate collision liability.",
+        "evidence_type": "outer_space_treaty_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "International Space Law Counsel & Treaty Director"
+      },
+      {
+        "option_id": "UG_L5_NEW_034_OPT_D",
+        "option_text": "Structure commercial satellite collision insurance underwriting risk pools and orbital debris removal fee pricing mechanisms.",
+        "evidence_type": "aerospace_insurance_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "AR": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Economics"
+        ],
+        "role_title": "Managing Director of Aerospace Insurance & Risk Markets"
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 5,
+      "SC": 4,
+      "PS": 5,
+      "TC": 4,
+      "LR": 5,
+      "LE": 4,
+      "BU": 5,
+      "AR": 4
+    },
+    "domain_tags": [
+      "Math & Statistics",
+      "Engineering",
+      "Law",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_SPACE_DEBRIS",
+      "ORBITAL_MATH_VS_ROBOTIC_CAPTURE_VS_SPACE_LAW_VS_INSURANCE_FINANCE"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Math & Statistics",
+    "secondary_domain": "Engineering",
+    "contrast_domain": "Law",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Math & Statistics vs Natural Science",
+    "validation_target": "QR + PS space engineering profile vs LR + BU aerospace regulatory finance profile",
+    "target_dimension_1": "QR",
+    "target_dimension_2": "LR",
+    "scenario_context": "Space debris removal consortium balancing mathematical N-body orbital astrodynamics, robotic satellite capture hardware, UN outer space treaties, and aerospace risk insurance finance.",
+    "required_tradeoff": "Mathematical astrodynamic modeling (QR/SC) vs robotic capture hardware engineering (PS/TC) vs international space law (LR/LE) vs commercial space insurance finance (BU/AR).",
+    "similarity_group": "L5_CAPSTONE_SPACE_DEBRIS_REMEDIATION",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_035",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Healthcare/Science Innovation",
+    "question_text": "A clinical health institute is launching a national personalized precision nutrition initiative combining gut microbiome sequencing, metabolic biomarkers, and continuous glucose monitoring to reverse Type 2 diabetes. Which research track would you direct?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_035_OPT_A",
+        "option_text": "Investigate gut microbiome metabolomic short-chain fatty acid pathways, insulin receptor cellular signaling, and dietary lipid biochemistry.",
+        "evidence_type": "metabolomics_microbiome_biochemistry",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science"
+        ],
+        "role_title": "Lead Metabolic Biochemist & Microbiome Researcher"
+      },
+      {
+        "option_id": "UG_L5_NEW_035_OPT_B",
+        "option_text": "Train deep neural networks to predict individual postprandial glycemic spikes from continuous glucose monitors, microbiome profiles, and meal photos.",
+        "evidence_type": "precision_health_ml",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT"
+        ],
+        "role_title": "Head of Health AI & Predictive Nutrition Analytics"
+      },
+      {
+        "option_id": "UG_L5_NEW_035_OPT_C",
+        "option_text": "Design culturally responsive dietary coaching programs, address food desert inequities in low-income neighborhoods, and lead community workshops.",
+        "evidence_type": "community_nutrition_equity",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Media & Communication"
+        ],
+        "role_title": "Director of Community Health Equity & Nutrition Coaching"
+      },
+      {
+        "option_id": "UG_L5_NEW_035_OPT_D",
+        "option_text": "Negotiate national healthcare insurance reimbursement codes, audit clinical trial health economics, and scale corporate wellness partnerships.",
+        "evidence_type": "health_economics_reimbursement",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Management",
+          "Commerce & Finance"
+        ],
+        "role_title": "Chief Commercial Officer & Health Economist"
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "RE": 4,
+      "TC": 5,
+      "QR": 4,
+      "SO": 5,
+      "CO": 4,
+      "BU": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Life Science",
+      "AI & Data",
+      "Social Science",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_PRECISION_NUTRITION",
+      "METABOLIC_SCIENCE_VS_HEALTH_AI_VS_FOOD_EQUITY_VS_HEALTH_ECONOMICS"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Life Science",
+    "secondary_domain": "AI & Data",
+    "contrast_domain": "Social Science",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Natural Science vs Life Science",
+    "validation_target": "RE + SC nutritional biochemistry profile vs TC + SO health technology equity profile",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "TC",
+    "scenario_context": "Precision metabolic health initiative integrating biochemical microbiome research, predictive continuous glucose AI, community food desert equity, and healthcare reimbursement finance.",
+    "required_tradeoff": "Metabolic & microbiome biochemistry (SC/RE) vs predictive machine learning analytics (TC/QR) vs community food access equity (SO/CO) vs healthcare reimbursement economics (BU/LE).",
+    "similarity_group": "L5_CAPSTONE_PRECISION_METABOLIC_NUTRITION",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_036",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Environmental Project",
+    "question_text": "A multinational climate foundation is funding a 1-million-hectare regenerative farming transformation, validating verifiable soil carbon credits and replacing chemical fertilizers with cover-crop rotations. Which project pillar would you choose to lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_036_OPT_A",
+        "option_text": "Measure soil organic carbon flux, conduct deep-core isotopic soil spectroscopy, and quantify microbial mycorrhizal carbon fixation rates.",
+        "evidence_type": "soil_carbon_biogeochemistry",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Life Science"
+        ],
+        "role_title": "Chief Soil Biogeochemist & Carbon Scientist"
+      },
+      {
+        "option_id": "UG_L5_NEW_036_OPT_B",
+        "option_text": "Structure verified soil carbon offset credit registries, negotiate corporate carbon credit forward purchase contracts, and manage carbon finance.",
+        "evidence_type": "carbon_credit_markets_finance",
+        "dimension_evidence": {
+          "BU": 5,
+          "AR": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Economics"
+        ],
+        "role_title": "Managing Director of Carbon Markets & Project Finance"
+      },
+      {
+        "option_id": "UG_L5_NEW_036_OPT_C",
+        "option_text": "Engineer GPS-guided no-till autonomous electric tractors, precision biochar injection nozzles, and drone multispectral crop monitoring.",
+        "evidence_type": "no_till_agri_mechatronics",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering",
+          "Computing & IT"
+        ],
+        "role_title": "Lead Agricultural Machinery & Precision Systems Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_036_OPT_D",
+        "option_text": "Build farmer regional peer-to-peer knowledge networks, de-risk multi-generational farm transition anxiety, and ensure rural community fair revenue share.",
+        "evidence_type": "rural_farming_sociology",
+        "dimension_evidence": {
+          "SO": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Management"
+        ],
+        "role_title": "Director of Farmer Outreach & Rural Community Transition"
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "RE": 4,
+      "BU": 5,
+      "AR": 4,
+      "PS": 5,
+      "TC": 4,
+      "SO": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Natural Science",
+      "Commerce & Finance",
+      "Engineering",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_REGENERATIVE_AGRI",
+      "SOIL_CARBON_VS_CARBON_MARKETS_VS_TRACTOR_ENG_VS_FARMER_SOCIOLOGY"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Natural Science",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Engineering",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Commerce & Finance vs Economics",
+    "validation_target": "SC + RE soil carbon science profile vs BU + PS carbon markets & machinery profile",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "BU",
+    "scenario_context": "Regenerative agriculture transformation balancing soil carbon biogeochemistry, carbon offset credit markets, precision no-till machinery engineering, and farmer rural sociology.",
+    "required_tradeoff": "Soil carbon biogeochemical science (SC/RE) vs carbon market registry finance (BU/AR) vs precision agricultural machinery (PS/TC) vs farmer social transition networks (SO/LE).",
+    "similarity_group": "L5_CAPSTONE_REGENERATIVE_SOIL_CARBON",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L5_NEW_037",
+    "track": "UG",
+    "assessment_level": 5,
+    "question_type": "Public Policy Initiative",
+    "question_text": "A federal ministry is deploying a $10 billion broadband infrastructure initiative to connect 5 million remote rural households via high-speed fiber, Low Earth Orbit satellites, and wireless mesh networks. Which executive track would you lead?",
+    "options": [
+      {
+        "option_id": "UG_L5_NEW_037_OPT_A",
+        "option_text": "Design gigabit fiber-optic distribution routes, radio frequency phased-array antenna masts, and solar-powered wireless mesh repeater nodes.",
+        "evidence_type": "telecom_network_engineering",
+        "dimension_evidence": {
+          "PS": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering",
+          "Computing & IT"
+        ],
+        "role_title": "Chief Telecommunications Network Engineer"
+      },
+      {
+        "option_id": "UG_L5_NEW_037_OPT_B",
+        "option_text": "Model universal service fund subsidy economic efficiency, reverse-auction capital subsidies for telecom providers, and regional GDP multiplier growth.",
+        "evidence_type": "telecom_universal_economics",
+        "dimension_evidence": {
+          "AR": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Economics",
+          "Commerce & Finance"
+        ],
+        "role_title": "Chief Telecommunications & Infrastructure Economist"
+      },
+      {
+        "option_id": "UG_L5_NEW_037_OPT_C",
+        "option_text": "Lead digital literacy workshops in rural public libraries, distribute subsidized devices to low-income students, and eliminate digital divide barriers.",
+        "evidence_type": "digital_equity_community_outreach",
+        "dimension_evidence": {
+          "SO": 5,
+          "CO": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Media & Communication"
+        ],
+        "role_title": "Director of Digital Equity & Community Inclusion"
+      },
+      {
+        "option_id": "UG_L5_NEW_037_OPT_D",
+        "option_text": "Draft federal spectrum auction licensing rules, enforce universal service statutory mandates, and litigate telecom monopoly access disputes.",
+        "evidence_type": "telecom_regulatory_law",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 4
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "role_title": "General Counsel & Telecommunications Regulatory Director"
+      }
+    ],
+    "dimension_evidence": {
+      "PS": 5,
+      "TC": 4,
+      "AR": 5,
+      "BU": 4,
+      "SO": 5,
+      "CO": 4,
+      "LR": 5,
+      "LE": 4
+    },
+    "domain_tags": [
+      "Engineering",
+      "Economics",
+      "Social Science",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CAPSTONE_BROADBAND_EQUITY",
+      "TELECOM_ENG_VS_BROADBAND_ECONOMICS_VS_DIGITAL_EQUITY_VS_TELECOM_LAW"
+    ],
+    "difficulty": 4.5,
+    "evidence_type": "forced_choice_capstone",
+    "primary_domain": "Engineering",
+    "secondary_domain": "Economics",
+    "contrast_domain": "Social Science",
+    "discriminator_strength": "STRONG",
+    "discriminator_pair": "Computing & IT vs AI & Data",
+    "validation_target": "TC + PS telecommunications engineering profile vs AR + SO public digital equity economics profile",
+    "target_dimension_1": "PS",
+    "target_dimension_2": "AR",
+    "scenario_context": "National rural broadband equity initiative balancing fiber and radio engineering, universal service economics, digital literacy community outreach, and telecom spectrum law.",
+    "required_tradeoff": "Physical telecom network engineering (PS/TC) vs universal service subsidy economics (AR/BU) vs community digital literacy inclusion (SO/CO) vs telecom regulatory statutory law (LR/LE).",
+    "similarity_group": "L5_CAPSTONE_BROADBAND_EQUITY_INFRASTRUCTURE",
+    "is_forced_choice": true,
+    "quality_status": "VALIDATED"
+  }
+]

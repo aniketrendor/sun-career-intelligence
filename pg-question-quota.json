@@ -1,0 +1,175 @@
+{
+  "quota": {
+    "AR": {
+      "currentCount": 58,
+      "targetCount": 38,
+      "deficit": 0,
+      "levelQuotas": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      }
+    },
+    "LR": {
+      "currentCount": 1,
+      "targetCount": 38,
+      "deficit": 37,
+      "levelQuotas": {
+        "1": 7,
+        "2": 8,
+        "3": 8,
+        "4": 8,
+        "5": 8
+      }
+    },
+    "QR": {
+      "currentCount": 18,
+      "targetCount": 38,
+      "deficit": 20,
+      "levelQuotas": {
+        "1": 5,
+        "2": 2,
+        "3": 6,
+        "4": 4,
+        "5": 5
+      }
+    },
+    "PS": {
+      "currentCount": 52,
+      "targetCount": 38,
+      "deficit": 0,
+      "levelQuotas": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      }
+    },
+    "SC": {
+      "currentCount": 13,
+      "targetCount": 38,
+      "deficit": 25,
+      "levelQuotas": {
+        "1": 6,
+        "2": 7,
+        "3": 5,
+        "4": 3,
+        "5": 6
+      }
+    },
+    "RE": {
+      "currentCount": 35,
+      "targetCount": 38,
+      "deficit": 3,
+      "levelQuotas": {
+        "1": 2,
+        "2": 4,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      }
+    },
+    "TC": {
+      "currentCount": 8,
+      "targetCount": 38,
+      "deficit": 30,
+      "levelQuotas": {
+        "1": 6,
+        "2": 5,
+        "3": 8,
+        "4": 5,
+        "5": 8
+      }
+    },
+    "CR": {
+      "currentCount": 5,
+      "targetCount": 38,
+      "deficit": 33,
+      "levelQuotas": {
+        "1": 6,
+        "2": 7,
+        "3": 7,
+        "4": 8,
+        "5": 7
+      }
+    },
+    "CO": {
+      "currentCount": 13,
+      "targetCount": 38,
+      "deficit": 25,
+      "levelQuotas": {
+        "1": 4,
+        "2": 6,
+        "3": 6,
+        "4": 7,
+        "5": 4
+      }
+    },
+    "SO": {
+      "currentCount": 10,
+      "targetCount": 38,
+      "deficit": 28,
+      "levelQuotas": {
+        "1": 7,
+        "2": 6,
+        "3": 4,
+        "4": 8,
+        "5": 5
+      }
+    },
+    "LE": {
+      "currentCount": 8,
+      "targetCount": 38,
+      "deficit": 30,
+      "levelQuotas": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 8,
+        "5": 6
+      }
+    },
+    "BU": {
+      "currentCount": 13,
+      "targetCount": 38,
+      "deficit": 25,
+      "levelQuotas": {
+        "1": 5,
+        "2": 6,
+        "3": 6,
+        "4": 5,
+        "5": 5
+      }
+    }
+  },
+  "levelSummary": {
+    "1": {
+      "current": 13,
+      "target": 50,
+      "required": 37
+    },
+    "2": {
+      "current": 13,
+      "target": 50,
+      "required": 37
+    },
+    "3": {
+      "current": 13,
+      "target": 50,
+      "required": 37
+    },
+    "4": {
+      "current": 13,
+      "target": 50,
+      "required": 37
+    },
+    "5": {
+      "current": 13,
+      "target": 50,
+      "required": 37
+    }
+  }
+}

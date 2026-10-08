@@ -1,0 +1,802 @@
+[
+  {
+    "studentId": "STUDENT_01_CS_IT",
+    "target": "Computing & IT",
+    "top3Domains": [
+      "Computing & IT",
+      "AI & Data",
+      "Engineering"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Tech Computer Science & Engineering (Cloud & Cyber Security)",
+        "compatibility": 29,
+        "why": "Strongest cognitive alignment for Computing & IT with verified high scores in TC, PS.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Tech CSE (Artificial Intelligence & Machine Learning / Data Science)",
+        "compatibility": 29,
+        "why": "Secondary alignment in AI & Data providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Tech Mechanical / Civil / Electrical & Robotics Engineering",
+        "compatibility": 28,
+        "why": "Complementary career trajectory drawing from Engineering and Computing & IT.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_02_AI_DATA",
+    "target": "AI & Data",
+    "top3Domains": [
+      "Computing & IT",
+      "AI & Data",
+      "Math & Statistics"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Tech Computer Science & Engineering (Cloud & Cyber Security)",
+        "compatibility": 43,
+        "why": "Strongest cognitive alignment for Computing & IT with verified high scores in AR, TC, QR.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Tech CSE (Artificial Intelligence & Machine Learning / Data Science)",
+        "compatibility": 43,
+        "why": "Secondary alignment in AI & Data providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Sc (Hons) Applied Mathematics, Statistics & Analytics",
+        "compatibility": 42,
+        "why": "Complementary career trajectory drawing from Math & Statistics and Computing & IT.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_03_ENG",
+    "target": "Engineering",
+    "top3Domains": [
+      "Computing & IT",
+      "Engineering",
+      "AI & Data"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Tech Computer Science & Engineering (Cloud & Cyber Security)",
+        "compatibility": 29,
+        "why": "Strongest cognitive alignment for Computing & IT with verified high scores in PS, TC.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Tech Mechanical / Civil / Electrical & Robotics Engineering",
+        "compatibility": 29,
+        "why": "Secondary alignment in Engineering providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Tech CSE (Artificial Intelligence & Machine Learning / Data Science)",
+        "compatibility": 28,
+        "why": "Complementary career trajectory drawing from AI & Data and Computing & IT.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_04_MATH_STAT",
+    "target": "Math & Statistics",
+    "top3Domains": [
+      "Math & Statistics",
+      "Natural Science",
+      "AI & Data"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Sc (Hons) Applied Mathematics, Statistics & Analytics",
+        "compatibility": 45,
+        "why": "Strongest cognitive alignment for Math & Statistics with verified high scores in QR, RE, AR.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Sc (Hons) Physics / Chemistry / Applied Sciences",
+        "compatibility": 45,
+        "why": "Secondary alignment in Natural Science providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Tech CSE (Artificial Intelligence & Machine Learning / Data Science)",
+        "compatibility": 44,
+        "why": "Complementary career trajectory drawing from AI & Data and Math & Statistics.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_05_NAT_SCI",
+    "target": "Natural Science",
+    "top3Domains": [
+      "Math & Statistics",
+      "Natural Science",
+      "Life Science"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Sc (Hons) Applied Mathematics, Statistics & Analytics",
+        "compatibility": 42,
+        "why": "Strongest cognitive alignment for Math & Statistics with verified high scores in RE, SC, AR.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Sc (Hons) Physics / Chemistry / Applied Sciences",
+        "compatibility": 42,
+        "why": "Secondary alignment in Natural Science providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Sc / B.Tech Biotechnology & Biomedical Sciences",
+        "compatibility": 41,
+        "why": "Complementary career trajectory drawing from Life Science and Math & Statistics.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_06_LIFE_SCI",
+    "target": "Life Science",
+    "top3Domains": [
+      "Natural Science",
+      "Life Science",
+      "Math & Statistics"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Sc (Hons) Physics / Chemistry / Applied Sciences",
+        "compatibility": 36,
+        "why": "Strongest cognitive alignment for Natural Science with verified high scores in SC, RE.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Sc / B.Tech Biotechnology & Biomedical Sciences",
+        "compatibility": 36,
+        "why": "Secondary alignment in Life Science providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Sc (Hons) Applied Mathematics, Statistics & Analytics",
+        "compatibility": 36,
+        "why": "Complementary career trajectory drawing from Math & Statistics and Natural Science.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_07_COMM_FIN",
+    "target": "Commerce & Finance",
+    "top3Domains": [
+      "Commerce & Finance",
+      "Management",
+      "Hospitality & Tourism"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Com (Hons) Banking, Financial Analytics & Fintech",
+        "compatibility": 44,
+        "why": "Strongest cognitive alignment for Commerce & Finance with verified high scores in BU, LE.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "BBA (Hons) / Integrated BBA-MBA in Strategic Leadership",
+        "compatibility": 43,
+        "why": "Secondary alignment in Management providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Sc Hotel Management, Culinary Arts & International Tourism",
+        "compatibility": 43,
+        "why": "Complementary career trajectory drawing from Hospitality & Tourism and Commerce & Finance.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_08_MGMT",
+    "target": "Management",
+    "top3Domains": [
+      "Commerce & Finance",
+      "Management",
+      "Hospitality & Tourism"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Com (Hons) Banking, Financial Analytics & Fintech",
+        "compatibility": 37,
+        "why": "Strongest cognitive alignment for Commerce & Finance with verified high scores in BU, LE.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "BBA (Hons) / Integrated BBA-MBA in Strategic Leadership",
+        "compatibility": 37,
+        "why": "Secondary alignment in Management providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Sc Hotel Management, Culinary Arts & International Tourism",
+        "compatibility": 37,
+        "why": "Complementary career trajectory drawing from Hospitality & Tourism and Commerce & Finance.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_09_ECON",
+    "target": "Economics",
+    "top3Domains": [
+      "Economics",
+      "Commerce & Finance",
+      "Math & Statistics"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Sc (Hons) Economics, Public Policy & Econometrics",
+        "compatibility": 35,
+        "why": "Strongest cognitive alignment for Economics with verified high scores in AR, QR, BU.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Com (Hons) Banking, Financial Analytics & Fintech",
+        "compatibility": 34,
+        "why": "Secondary alignment in Commerce & Finance providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Sc (Hons) Applied Mathematics, Statistics & Analytics",
+        "compatibility": 34,
+        "why": "Complementary career trajectory drawing from Math & Statistics and Economics.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_10_HUMANITIES",
+    "target": "Humanities",
+    "top3Domains": [
+      "Humanities",
+      "Social Science",
+      "Media & Communication"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.A. (Hons) English Literature, History & International Studies",
+        "compatibility": 40,
+        "why": "Strongest cognitive alignment for Humanities with verified high scores in CO, SO.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.A. / B.Sc Psychology, Sociology & Behavioral Sciences",
+        "compatibility": 38,
+        "why": "Secondary alignment in Social Science providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "BA Journalism, Digital Mass Media & Film Production",
+        "compatibility": 37,
+        "why": "Complementary career trajectory drawing from Media & Communication and Humanities.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_11_SOC_SCI",
+    "target": "Social Science",
+    "top3Domains": [
+      "Humanities",
+      "Social Science",
+      "Media & Communication"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.A. (Hons) English Literature, History & International Studies",
+        "compatibility": 37,
+        "why": "Strongest cognitive alignment for Humanities with verified high scores in SO, CO.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.A. / B.Sc Psychology, Sociology & Behavioral Sciences",
+        "compatibility": 35,
+        "why": "Secondary alignment in Social Science providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "BA Journalism, Digital Mass Media & Film Production",
+        "compatibility": 35,
+        "why": "Complementary career trajectory drawing from Media & Communication and Humanities.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_12_MEDIA_COMM",
+    "target": "Media & Communication",
+    "top3Domains": [
+      "Humanities",
+      "Social Science",
+      "Media & Communication"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.A. (Hons) English Literature, History & International Studies",
+        "compatibility": 40,
+        "why": "Strongest cognitive alignment for Humanities with verified high scores in CO, SO.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.A. / B.Sc Psychology, Sociology & Behavioral Sciences",
+        "compatibility": 38,
+        "why": "Secondary alignment in Social Science providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "BA Journalism, Digital Mass Media & Film Production",
+        "compatibility": 37,
+        "why": "Complementary career trajectory drawing from Media & Communication and Humanities.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_13_DESIGN",
+    "target": "Design & Creative",
+    "top3Domains": [
+      "Design & Creative",
+      "Computing & IT",
+      "AI & Data"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Des User Experience (UX/UI), Graphic & Industrial Product Design",
+        "compatibility": 27,
+        "why": "Strongest cognitive alignment for Design & Creative with verified high scores in PS, CR.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Tech Computer Science & Engineering (Cloud & Cyber Security)",
+        "compatibility": 26,
+        "why": "Secondary alignment in Computing & IT providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Tech in Computer Science (HCI & Product Design Engineering)",
+        "compatibility": 27,
+        "why": "Synergizes deep computing architecture with user experience modeling and spatial creativity.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_14_LAW",
+    "target": "Law",
+    "top3Domains": [
+      "Law",
+      "Computing & IT",
+      "Math & Statistics"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.A. LL.B. (Hons) / B.B.A. LL.B. (Hons) Integrated Law",
+        "compatibility": 40,
+        "why": "Strongest cognitive alignment for Law with verified high scores in LR, AR.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "BBA LL.B with Cyber Law & Technology Governance",
+        "compatibility": 42,
+        "why": "Connects technology systems comprehension with regulatory compliance and legal argumentation.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Sc (Hons) Applied Mathematics, Statistics & Analytics",
+        "compatibility": 39,
+        "why": "Complementary career trajectory drawing from Math & Statistics and Law.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_15_HOSP_TOUR",
+    "target": "Hospitality & Tourism",
+    "top3Domains": [
+      "Hospitality & Tourism",
+      "Humanities",
+      "Management"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Sc Hotel Management, Culinary Arts & International Tourism",
+        "compatibility": 40,
+        "why": "Strongest cognitive alignment for Hospitality & Tourism with verified high scores in SO, LE, CO.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.A. (Hons) English Literature, History & International Studies",
+        "compatibility": 39,
+        "why": "Secondary alignment in Humanities providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "BBA (Hons) / Integrated BBA-MBA in Strategic Leadership",
+        "compatibility": 39,
+        "why": "Complementary career trajectory drawing from Management and Hospitality & Tourism.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_16_TECH_BUS",
+    "target": "Computing & IT",
+    "top3Domains": [
+      "Commerce & Finance",
+      "Management",
+      "Computing & IT"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Com (Hons) Banking, Financial Analytics & Fintech",
+        "compatibility": 29,
+        "why": "Strongest cognitive alignment for Commerce & Finance with verified high scores in BU.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "BBA (Hons) / Integrated BBA-MBA in Strategic Leadership",
+        "compatibility": 28,
+        "why": "Secondary alignment in Management providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Tech Computer Science & Engineering (Cloud & Cyber Security)",
+        "compatibility": 28,
+        "why": "Complementary career trajectory drawing from Computing & IT and Commerce & Finance.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_17_DATA_BUS",
+    "target": "AI & Data",
+    "top3Domains": [
+      "Commerce & Finance",
+      "Economics",
+      "Computing & IT"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Com (Hons) Banking, Financial Analytics & Fintech",
+        "compatibility": 38,
+        "why": "Strongest cognitive alignment for Commerce & Finance with verified high scores in QR, BU.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Sc (Hons) Economics, Public Policy & Econometrics",
+        "compatibility": 37,
+        "why": "Secondary alignment in Economics providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Tech Computer Science & Engineering (Cloud & Cyber Security)",
+        "compatibility": 36,
+        "why": "Complementary career trajectory drawing from Computing & IT and Commerce & Finance.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_18_TECH_DESIGN",
+    "target": "Design & Creative",
+    "top3Domains": [
+      "Design & Creative",
+      "Computing & IT",
+      "AI & Data"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Des User Experience (UX/UI), Graphic & Industrial Product Design",
+        "compatibility": 29,
+        "why": "Strongest cognitive alignment for Design & Creative with verified high scores in PS, CR.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Tech Computer Science & Engineering (Cloud & Cyber Security)",
+        "compatibility": 28,
+        "why": "Secondary alignment in Computing & IT providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Tech in Computer Science (HCI & Product Design Engineering)",
+        "compatibility": 29,
+        "why": "Synergizes deep computing architecture with user experience modeling and spatial creativity.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_19_SCI_DATA",
+    "target": "Natural Science",
+    "top3Domains": [
+      "Math & Statistics",
+      "Natural Science",
+      "AI & Data"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Sc (Hons) Applied Mathematics, Statistics & Analytics",
+        "compatibility": 44,
+        "why": "Strongest cognitive alignment for Math & Statistics with verified high scores in QR, AR, RE.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Sc (Hons) Physics / Chemistry / Applied Sciences",
+        "compatibility": 44,
+        "why": "Secondary alignment in Natural Science providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Tech CSE (Artificial Intelligence & Machine Learning / Data Science)",
+        "compatibility": 43,
+        "why": "Complementary career trajectory drawing from AI & Data and Math & Statistics.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_20_LAW_SOC",
+    "target": "Law",
+    "top3Domains": [
+      "Humanities",
+      "Social Science",
+      "Media & Communication"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.A. (Hons) English Literature, History & International Studies",
+        "compatibility": 31,
+        "why": "Strongest cognitive alignment for Humanities with verified high scores in CO, SO.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.A. / B.Sc Psychology, Sociology & Behavioral Sciences",
+        "compatibility": 31,
+        "why": "Secondary alignment in Social Science providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "BA Journalism, Digital Mass Media & Film Production",
+        "compatibility": 30,
+        "why": "Complementary career trajectory drawing from Media & Communication and Humanities.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_21_ENG_MGMT",
+    "target": "Engineering",
+    "top3Domains": [
+      "Management",
+      "Hospitality & Tourism",
+      "Computing & IT"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "BBA (Hons) / Integrated BBA-MBA in Strategic Leadership",
+        "compatibility": 34,
+        "why": "Strongest cognitive alignment for Management with verified high scores in PS, BU.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Sc Hotel Management, Culinary Arts & International Tourism",
+        "compatibility": 34,
+        "why": "Secondary alignment in Hospitality & Tourism providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Tech Computer Science & Engineering (Cloud & Cyber Security)",
+        "compatibility": 34,
+        "why": "Complementary career trajectory drawing from Computing & IT and Management.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_22_ECON_SOC",
+    "target": "Economics",
+    "top3Domains": [
+      "Commerce & Finance",
+      "Economics",
+      "Management"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Com (Hons) Banking, Financial Analytics & Fintech",
+        "compatibility": 35,
+        "why": "Strongest cognitive alignment for Commerce & Finance with verified high scores in QR.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Sc (Hons) Economics, Public Policy & Econometrics",
+        "compatibility": 35,
+        "why": "Secondary alignment in Economics providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "BBA (Hons) / Integrated BBA-MBA in Strategic Leadership",
+        "compatibility": 34,
+        "why": "Complementary career trajectory drawing from Management and Commerce & Finance.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_23_BIO_AI",
+    "target": "Life Science",
+    "top3Domains": [
+      "Natural Science",
+      "Math & Statistics",
+      "Life Science"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Sc (Hons) Physics / Chemistry / Applied Sciences",
+        "compatibility": 40,
+        "why": "Strongest cognitive alignment for Natural Science with verified high scores in SC, RE.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Sc (Hons) Applied Mathematics, Statistics & Analytics",
+        "compatibility": 40,
+        "why": "Secondary alignment in Math & Statistics providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Sc / B.Tech Biotechnology & Biomedical Sciences",
+        "compatibility": 39,
+        "why": "Complementary career trajectory drawing from Life Science and Natural Science.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_24_MEDIA_TECH",
+    "target": "Media & Communication",
+    "top3Domains": [
+      "Humanities",
+      "Media & Communication",
+      "Design & Creative"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.A. (Hons) English Literature, History & International Studies",
+        "compatibility": 32,
+        "why": "Strongest cognitive alignment for Humanities with verified high scores in CO.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "BA Journalism, Digital Mass Media & Film Production",
+        "compatibility": 31,
+        "why": "Secondary alignment in Media & Communication providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Des User Experience (UX/UI), Graphic & Industrial Product Design",
+        "compatibility": 30,
+        "why": "Complementary career trajectory drawing from Design & Creative and Humanities.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  },
+  {
+    "studentId": "STUDENT_25_AGRO_TECH",
+    "target": "Natural Science",
+    "top3Domains": [
+      "Natural Science",
+      "Math & Statistics",
+      "Life Science"
+    ],
+    "recommendations": [
+      {
+        "rank": 1,
+        "course": "B.Sc (Hons) Physics / Chemistry / Applied Sciences",
+        "compatibility": 34,
+        "why": "Strongest cognitive alignment for Natural Science with verified high scores in SC, RE.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 2,
+        "course": "B.Sc (Hons) Applied Mathematics, Statistics & Analytics",
+        "compatibility": 34,
+        "why": "Secondary alignment in Math & Statistics providing a strong alternative pathway.",
+        "eligibility": "ELIGIBLE"
+      },
+      {
+        "rank": 3,
+        "course": "B.Sc / B.Tech Biotechnology & Biomedical Sciences",
+        "compatibility": 33,
+        "why": "Complementary career trajectory drawing from Life Science and Natural Science.",
+        "eligibility": "ELIGIBLE"
+      }
+    ]
+  }
+]

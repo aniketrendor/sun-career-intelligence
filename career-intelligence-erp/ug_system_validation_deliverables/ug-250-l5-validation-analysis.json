@@ -1,0 +1,57 @@
+[
+  {
+    "level": 1,
+    "averageUncertaintyReduction": 38.5,
+    "averageDomainSeparationContribution": 22,
+    "l5AnchorClassification": {
+      "confirmsProfile": 0,
+      "meaningfullyRefines": 0,
+      "reversesProfile": 0,
+      "overwhelmsEarlier": 0
+    }
+  },
+  {
+    "level": 2,
+    "averageUncertaintyReduction": 28,
+    "averageDomainSeparationContribution": 25.5,
+    "l5AnchorClassification": {
+      "confirmsProfile": 0,
+      "meaningfullyRefines": 0,
+      "reversesProfile": 0,
+      "overwhelmsEarlier": 0
+    }
+  },
+  {
+    "level": 3,
+    "averageUncertaintyReduction": 18.2,
+    "averageDomainSeparationContribution": 24,
+    "l5AnchorClassification": {
+      "confirmsProfile": 0,
+      "meaningfullyRefines": 0,
+      "reversesProfile": 0,
+      "overwhelmsEarlier": 0
+    }
+  },
+  {
+    "level": 4,
+    "averageUncertaintyReduction": 10.5,
+    "averageDomainSeparationContribution": 18.5,
+    "l5AnchorClassification": {
+      "confirmsProfile": 0,
+      "meaningfullyRefines": 0,
+      "reversesProfile": 0,
+      "overwhelmsEarlier": 0
+    }
+  },
+  {
+    "level": 5,
+    "averageUncertaintyReduction": 4.8,
+    "averageDomainSeparationContribution": 10,
+    "l5AnchorClassification": {
+      "confirmsProfile": 22,
+      "meaningfullyRefines": 3,
+      "reversesProfile": 0,
+      "overwhelmsEarlier": 0
+    }
+  }
+]

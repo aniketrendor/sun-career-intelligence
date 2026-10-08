@@ -1,0 +1,3267 @@
+[
+  {
+    "question_id": "UG_L2_NEW_001",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Rule-Based Reasoning",
+    "question_text": "Rule: \"If a campus event serves refreshments after 8 PM, a certified sanitation permit is mandatory. No event without an approved permit may open its doors.\" An event opened at 9 PM without a permit. What valid deduction must follow?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_001_OPT_A",
+        "option_text": "The event is operating in direct violation of the mandatory sanitation and opening rule.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 5
+        },
+        "domain_tags": [
+          "Law",
+          "Management"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_001_OPT_B",
+        "option_text": "The event organizers should immediately offer apologies to attendees to preserve community harmony.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 4,
+          "CO": 3
+        },
+        "domain_tags": [
+          "Social Science",
+          "Hospitality & Tourism"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_001_OPT_C",
+        "option_text": "The event might have generated high ticket revenues regardless of the missing paperwork.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_001_OPT_D",
+        "option_text": "The stage lighting and electrical circuits should be checked for technical compliance.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "LR": 5,
+      "SO": 4,
+      "CO": 3,
+      "BU": 4,
+      "TC": 4
+    },
+    "domain_tags": [
+      "Law",
+      "Social Science",
+      "Commerce & Finance",
+      "Engineering"
+    ],
+    "discriminator_tags": [
+      "LR_SO_BU_TC"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "reasoning",
+    "primary_domain": "Law",
+    "secondary_domain": "Management",
+    "contrast_domain": "Social Science",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Formal Rule Deduction vs Social Mediation",
+    "target_dimension_1": "LR",
+    "target_dimension_2": "SO",
+    "scenario_context": "Campus operational rule violation deduction.",
+    "required_tradeoff": "Strict statutory deduction vs interpersonal social remedy.",
+    "similarity_group": "GRP_UG_L2_CAMPUS_PERMIT_RULE",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Direct modus ponens / modus tollens logical consequence of the stated conditional premise.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_002",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Data Interpretation",
+    "question_text": "A clean-energy startup reports that its battery energy density grew from 200 Wh/kg to 260 Wh/kg in Year 1, while its production cost dropped from $150/kWh to $105/kWh. How do you evaluate this performance data?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_002_OPT_A",
+        "option_text": "Energy density improved by exactly +30% while manufacturing cost fell by 30%, indicating balanced dual efficiency.",
+        "evidence_type": "quantitative",
+        "dimension_evidence": {
+          "QR": 5
+        },
+        "domain_tags": [
+          "Math & Statistics",
+          "AI & Data"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_002_OPT_B",
+        "option_text": "The 30% cost reduction significantly expands market pricing power and competitive investor valuation.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 5,
+          "QR": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Economics"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_002_OPT_C",
+        "option_text": "The chemical electrolyte formulation should be re-tested in a controlled lab for thermal stability.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 5
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Engineering"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_002_OPT_D",
+        "option_text": "A press release should be published highlighting the green environmental benefits for consumers.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 4
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 5,
+      "BU": 5,
+      "SC": 5,
+      "CO": 4
+    },
+    "domain_tags": [
+      "Math & Statistics",
+      "Commerce & Finance",
+      "Natural Science",
+      "Media & Communication"
+    ],
+    "discriminator_tags": [
+      "QR_BU_SC_CO"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "quantitative",
+    "primary_domain": "Math & Statistics",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Natural Science",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Numeric Rate Calculations vs Commercial Market Valuation",
+    "target_dimension_1": "QR",
+    "target_dimension_2": "BU",
+    "scenario_context": "Battery technology metric interpretation.",
+    "required_tradeoff": "Exact mathematical percentage rates vs commercial market leverage.",
+    "similarity_group": "GRP_UG_L2_CLEAN_ENERGY_METRICS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "(260-200)/200 = +30% increase; (150-105)/150 = -30% decrease.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_003",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Technology Decision Scenario",
+    "question_text": "An online education portal experiences sudden traffic spikes during exams. The engineering lead suggests migrating from a monolithic server to a microservices cloud container architecture. What is the fundamental technical reasoning behind this choice?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_003_OPT_A",
+        "option_text": "Independent container scaling allows high-load modules (like grading) to scale resources dynamically without crashing the system.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 5
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "AI & Data"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_003_OPT_B",
+        "option_text": "Cloud microservices optimize monthly hosting costs by billing strictly on bandwidth consumption tiers.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 5
+        },
+        "domain_tags": [
+          "Management",
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_003_OPT_C",
+        "option_text": "Students will immediately experience a more visually vibrant and engaging dashboard interface.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 4
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_003_OPT_D",
+        "option_text": "Surveying student satisfaction scores will determine if teachers communicated the exam schedule clearly.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 4,
+          "CO": 3
+        },
+        "domain_tags": [
+          "Social Science",
+          "Media & Communication"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "BU": 5,
+      "CR": 4,
+      "SO": 4,
+      "CO": 3
+    },
+    "domain_tags": [
+      "Computing & IT",
+      "Commerce & Finance",
+      "Design & Creative",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "TC_BU_CR_SO"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "technical",
+    "primary_domain": "Computing & IT",
+    "secondary_domain": "Management",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Cloud Architecture Scalability vs Operational Cost Analysis",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "BU",
+    "scenario_context": "Cloud system architecture evaluation under traffic load.",
+    "required_tradeoff": "Technical auto-scaling infrastructure vs commercial operational billing.",
+    "similarity_group": "GRP_UG_L2_CLOUD_CONTAINER_CHOICE",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Microservices isolate decoupled service workloads for granular horizontal elasticity.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_004",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Basic Hypothesis Evaluation",
+    "question_text": "A student claims that adding organic mineral salt X to water accelerates plant growth rate by 50%. Which experimental setup is scientifically necessary to validate this claim?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_004_OPT_A",
+        "option_text": "Testing two identical plant groups under identical light and temperature, where only one group receives mineral X.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 3
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Life Science"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_004_OPT_B",
+        "option_text": "Searching international biology journal databases to verify whether prior literature mentions mineral X.",
+        "evidence_type": "research",
+        "dimension_evidence": {
+          "RE": 5
+        },
+        "domain_tags": [
+          "Humanities",
+          "Natural Science"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_004_OPT_C",
+        "option_text": "Calculating the commercial wholesale price per kilogram of mineral X to assess farming profit margins.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 5
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Economics"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_004_OPT_D",
+        "option_text": "Designing a colorful infographic flyer to inform local farmers about potential fertilizer innovations.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 4,
+          "CR": 3
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Design & Creative"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "RE": 5,
+      "BU": 5,
+      "CO": 4,
+      "CR": 3
+    },
+    "domain_tags": [
+      "Natural Science",
+      "Humanities",
+      "Commerce & Finance",
+      "Media & Communication"
+    ],
+    "discriminator_tags": [
+      "SC_RE_BU_CO"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "scientific",
+    "primary_domain": "Natural Science",
+    "secondary_domain": "Life Science",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Controlled Empirical Variable Testing vs Literature Archive Search",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "RE",
+    "scenario_context": "Plant biology scientific experiment control design.",
+    "required_tradeoff": "Controlled variable isolation vs archival literature review.",
+    "similarity_group": "GRP_UG_L2_CONTROLLED_VARIABLE_TEST",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Scientific causality requires isolating the single independent variable with a matched negative control group.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_005",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Leadership Decision Scenario",
+    "question_text": "A project team has two weeks remaining before a critical client showcase. One major feature is complete, but two secondary features have unresolved flaws. As the team lead, how do you make the priority decision?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_005_OPT_A",
+        "option_text": "Freeze secondary development, polish and rigorously stress-test the core feature, and reassign the team to guarantee delivery.",
+        "evidence_type": "leadership",
+        "dimension_evidence": {
+          "LE": 5,
+          "BU": 3
+        },
+        "domain_tags": [
+          "Management"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_005_OPT_B",
+        "option_text": "Instruct all engineers to work continuous overtime to complete all features regardless of burnout risk.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 2
+        },
+        "domain_tags": [
+          "Social Science"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_005_OPT_C",
+        "option_text": "Draft a complex legal contract renegotiation to postpone the showcase date by six months.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 4
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_005_OPT_D",
+        "option_text": "Calculate the mathematical probability of random software crashes across user device types.",
+        "evidence_type": "quantitative",
+        "dimension_evidence": {
+          "QR": 4
+        },
+        "domain_tags": [
+          "Math & Statistics",
+          "AI & Data"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "LE": 5,
+      "BU": 3,
+      "LR": 4,
+      "QR": 4,
+      "SO": 2
+    },
+    "domain_tags": [
+      "Management",
+      "Law",
+      "Math & Statistics",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "LE_BU_LR_QR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "leadership",
+    "primary_domain": "Management",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Law",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Project Scope Prioritization vs Contract Deferment",
+    "target_dimension_1": "LE",
+    "target_dimension_2": "BU",
+    "scenario_context": "Project deadline scope containment and leadership triage.",
+    "required_tradeoff": "Pragmatic feature scope freezing vs contract renegotiation.",
+    "similarity_group": "GRP_UG_L2_PROJECT_TRIAGE_LEADERSHIP",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Standard project management triage locks core deliverables under time constraints to mitigate catastrophic failure.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_006",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Business Decision Scenario",
+    "question_text": "A national central bank increases interest rates by 1.5%. A retail business owner wants to understand how this impacts their financial strategy. How do you analyze the direct cause-and-effect?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_006_OPT_A",
+        "option_text": "Higher borrowing costs will increase loan interest payments, leading to tightened consumer spending and lower retail demand.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 5,
+          "QR": 3
+        },
+        "domain_tags": [
+          "Economics",
+          "Commerce & Finance"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_006_OPT_B",
+        "option_text": "The retail store should change its visual logo and window merchandise displays to attract luxury shoppers.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 4
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_006_OPT_C",
+        "option_text": "The company should immediately rewrite its internal software code in a new programming language.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 4
+        },
+        "domain_tags": [
+          "Computing & IT"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_006_OPT_D",
+        "option_text": "Staff should conduct qualitative psychological interviews to assess employee emotional resilience during recessions.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 4
+        },
+        "domain_tags": [
+          "Social Science"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "BU": 5,
+      "QR": 3,
+      "CR": 4,
+      "TC": 4,
+      "SO": 4
+    },
+    "domain_tags": [
+      "Economics",
+      "Commerce & Finance",
+      "Design & Creative",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "BU_QR_CR_TC"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "business",
+    "primary_domain": "Economics",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Macro Interest Rate Transmission vs Aesthetic Retail Pivot",
+    "target_dimension_1": "BU",
+    "target_dimension_2": "QR",
+    "scenario_context": "Macroeconomic interest rate impact on business cash flows.",
+    "required_tradeoff": "Macroeconomic debt cost analysis vs retail design adjustments.",
+    "similarity_group": "GRP_UG_L2_INTEREST_RATE_ANALYSIS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Interest rate hikes increase cost of capital and dampen consumer aggregate demand.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_007",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Research/Evidence Scenario",
+    "question_text": "When investigating historical claims about a 19th-century trade treaty, you find two conflicting accounts: an official diplomatic dispatch written on the day of signing, and a popular magazine article written 50 years later. How do you assess their evidentiary reliability?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_007_OPT_A",
+        "option_text": "The contemporary diplomatic dispatch is a primary source with direct chronological validity, though it must still be cross-checked for partisan bias.",
+        "evidence_type": "research",
+        "dimension_evidence": {
+          "RE": 5,
+          "LR": 3
+        },
+        "domain_tags": [
+          "Humanities",
+          "Social Science"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_007_OPT_B",
+        "option_text": "The magazine article is more entertaining, so its narrative should be used to craft dramatic video scripts.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 4,
+          "CR": 3
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_007_OPT_C",
+        "option_text": "The monetary gold values in the treaty should be calculated into modern cryptocurrency equivalence.",
+        "evidence_type": "quantitative",
+        "dimension_evidence": {
+          "QR": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_007_OPT_D",
+        "option_text": "The physical paper fiber composition should be tested under an electron microscope to date the cellulose.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 4
+        },
+        "domain_tags": [
+          "Natural Science"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "RE": 5,
+      "LR": 3,
+      "CO": 4,
+      "CR": 3,
+      "QR": 4,
+      "SC": 4
+    },
+    "domain_tags": [
+      "Humanities",
+      "Social Science",
+      "Media & Communication",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "RE_LR_CO_QR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "research",
+    "primary_domain": "Humanities",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "Media & Communication",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Primary Source Historical Triangulation vs Dramatic Narrative Creation",
+    "target_dimension_1": "RE",
+    "target_dimension_2": "LR",
+    "scenario_context": "Historical primary source evaluation methodology.",
+    "required_tradeoff": "Rigorous source provenance verification vs entertaining media adaptation.",
+    "similarity_group": "GRP_UG_L2_SOURCE_EVIDENCE_EVAL",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Historical methodology privileges contemporaneous primary documentary records while evaluating potential institutional bias.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_008",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Scientific Reasoning Scenario",
+    "question_text": "An engineer notes that an internal combustion engine converts 30% of fuel energy into mechanical motion, while 70% is dissipated as heat. To improve thermodynamic efficiency, which engineering principle applies?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_008_OPT_A",
+        "option_text": "Recovering waste exhaust heat through a secondary turbine generator or improving thermal insulation in the cylinder combustion chamber.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 5,
+          "SC": 3
+        },
+        "domain_tags": [
+          "Engineering",
+          "Natural Science"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_008_OPT_B",
+        "option_text": "Painting the engine block in aerodynamic red racing colors to lower air friction visually.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 3
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_008_OPT_C",
+        "option_text": "Increasing fuel retail prices at gas stations to balance the energy loss commercially.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_008_OPT_D",
+        "option_text": "Conducting focus group interviews to ask drivers if they notice the engine heat while commuting.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 4
+        },
+        "domain_tags": [
+          "Social Science"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "SC": 3,
+      "CR": 3,
+      "BU": 4,
+      "SO": 4
+    },
+    "domain_tags": [
+      "Engineering",
+      "Natural Science",
+      "Commerce & Finance",
+      "Social Science"
+    ],
+    "discriminator_tags": [
+      "TC_SC_BU_SO"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "technical",
+    "primary_domain": "Engineering",
+    "secondary_domain": "Natural Science",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Thermodynamic Heat Recovery vs Superficial Visual Styling",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "SC",
+    "scenario_context": "Engine thermodynamic efficiency loss recovery.",
+    "required_tradeoff": "Thermodynamic enthalpy recovery vs consumer pricing strategies.",
+    "similarity_group": "GRP_UG_L2_THERMODYNAMIC_EFFICIENCY",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Thermodynamic efficiency gains require waste heat recovery (Rankine/turbo-compound cycles) or reducing thermal conduction losses.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_009",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Scientific Reasoning Scenario",
+    "question_text": "A bacterial colony treated with antibiotic X initially shows 99% mortality, but after 10 generations, the survival rate rises to 80% under the same dosage. What is the fundamental biological explanation?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_009_OPT_A",
+        "option_text": "Natural selection favored pre-existing or spontaneous genetic mutations conferring resistance, allowing resistant bacteria to reproduce disproportionately.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 3
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_009_OPT_B",
+        "option_text": "The antibiotic manufacturer deliberately reduced the chemical strength of the drug bottles to increase sales volume.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_009_OPT_C",
+        "option_text": "The bacteria decided consciously to collaborate and learn collective immunity behavior.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 2
+        },
+        "domain_tags": [
+          "Social Science"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_009_OPT_D",
+        "option_text": "The software sensors tracking the petri dish experienced a programming buffer overflow error.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 3
+        },
+        "domain_tags": [
+          "Computing & IT"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "RE": 3,
+      "BU": 3,
+      "SO": 2,
+      "TC": 3
+    },
+    "domain_tags": [
+      "Life Science",
+      "Natural Science",
+      "Commerce & Finance",
+      "Computing & IT"
+    ],
+    "discriminator_tags": [
+      "SC_RE_BU_TC"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "scientific",
+    "primary_domain": "Life Science",
+    "secondary_domain": "Natural Science",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Evolutionary Selective Resistance vs Commercial Sabotage",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "RE",
+    "scenario_context": "Antibiotic resistance selection in bacterial populations.",
+    "required_tradeoff": "Natural selection genetic mechanisms vs conspiratorial commercial theories.",
+    "similarity_group": "GRP_UG_L2_ANTIBIOTIC_RESISTANCE",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Selective pressure drives rapid allele frequency shifts in haploid fast-replicating bacterial populations.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_010",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Logical Reasoning",
+    "question_text": "Premise 1: \"All binding corporate contracts require mutual consideration and voluntary consent.\" Premise 2: \"Agreement Y was signed under documented physical duress.\" Which logical conclusion is irrefutable?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_010_OPT_A",
+        "option_text": "Agreement Y lacked voluntary consent, therefore it cannot be classified as a legally binding corporate contract.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 5
+        },
+        "domain_tags": [
+          "Law"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_010_OPT_B",
+        "option_text": "Agreement Y should be rewritten with friendlier persuasive vocabulary to make both sides feel comfortable.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 4,
+          "SO": 3
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Social Science"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_010_OPT_C",
+        "option_text": "Agreement Y should be traded on a stock exchange to discover its market fair value.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_010_OPT_D",
+        "option_text": "The physical signature ink should be chemically tested for synthetic pigment absorption.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 4
+        },
+        "domain_tags": [
+          "Natural Science"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "LR": 5,
+      "CO": 4,
+      "SO": 3,
+      "BU": 4,
+      "SC": 4
+    },
+    "domain_tags": [
+      "Law",
+      "Media & Communication",
+      "Commerce & Finance",
+      "Natural Science"
+    ],
+    "discriminator_tags": [
+      "LR_CO_BU_SC"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "reasoning",
+    "primary_domain": "Law",
+    "secondary_domain": "Management",
+    "contrast_domain": "Media & Communication",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Formal Legal Syllogism vs Interpersonal Persuasion",
+    "target_dimension_1": "LR",
+    "target_dimension_2": "CO",
+    "scenario_context": "Contract law syllogistic deduction regarding duress.",
+    "required_tradeoff": "Strict deductive legal consequence vs informal conversational rephrasing.",
+    "similarity_group": "GRP_UG_L2_CONTRACT_DURESS_SYLLOGISM",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Categorical syllogism: Duress negates voluntary consent, which is a necessary condition for contract validity.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_011",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Management Decision Scenario",
+    "question_text": "Guest exit surveys at an international resort show that while food and scenery are rated 9.5/10, check-in waiting times receive 4/10. As the hotel operations director, how do you diagnose and fix the bottleneck?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_011_OPT_A",
+        "option_text": "Map the front-desk service blueprint, automate digital pre-arrival check-in on mobile, and cross-train concierge staff for peak arrival hours.",
+        "evidence_type": "leadership",
+        "dimension_evidence": {
+          "LE": 5,
+          "SO": 3
+        },
+        "domain_tags": [
+          "Hospitality & Tourism",
+          "Management"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_011_OPT_B",
+        "option_text": "Post promotional beach photographs on Instagram to distract prospective guests from check-in delays.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 4,
+          "CR": 3
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_011_OPT_C",
+        "option_text": "Sue the software company that designed the front-desk credit card machines in federal court.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 4
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_011_OPT_D",
+        "option_text": "Raise room rates by 25% to reduce the total number of guests visiting the resort.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "LE": 5,
+      "SO": 3,
+      "CO": 4,
+      "CR": 3,
+      "LR": 4,
+      "BU": 4
+    },
+    "domain_tags": [
+      "Hospitality & Tourism",
+      "Management",
+      "Media & Communication",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "LE_SO_CO_LR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "leadership",
+    "primary_domain": "Hospitality & Tourism",
+    "secondary_domain": "Management",
+    "contrast_domain": "Media & Communication",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Operational Service Blueprinting vs Superficial Social Media Distraction",
+    "target_dimension_1": "LE",
+    "target_dimension_2": "SO",
+    "scenario_context": "Hotel check-in bottleneck service design.",
+    "required_tradeoff": "Operational service flow redesign vs marketing PR cover-ups.",
+    "similarity_group": "GRP_UG_L2_HOTEL_CHECKIN_BOTTLENECK",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Service blueprint analysis decouples frontstage contact from backstage data processing to eliminate operational queues.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_012",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Pattern Interpretation",
+    "question_text": "An automated search routine scans an unsorted list of 1,000,000 user IDs. Method A checks each item one-by-one from start to finish. Method B first sorts the list, then uses binary divide-and-conquer search for all future lookups. Why is Method B systematically superior for repeated queries?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_012_OPT_A",
+        "option_text": "Binary search cuts search space in half at each step (logarithmic time), reducing lookup steps from up to 1,000,000 down to ~20 comparisons.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "AI & Data",
+          "Math & Statistics"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_012_OPT_B",
+        "option_text": "Method B makes the computer screen fonts look significantly crisper and easier for human users to read.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 3
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_012_OPT_C",
+        "option_text": "Method B allows the company to charge users a monthly subscription fee for each search.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_012_OPT_D",
+        "option_text": "Method B eliminates the need for any corporate cybersecurity policies or user data protection rules.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 3
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "QR": 4,
+      "CR": 3,
+      "BU": 4,
+      "LR": 3
+    },
+    "domain_tags": [
+      "Computing & IT",
+      "AI & Data",
+      "Design & Creative",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "TC_QR_CR_BU"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "technical",
+    "primary_domain": "Computing & IT",
+    "secondary_domain": "AI & Data",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Logarithmic Algorithmic Efficiency vs Visual Styling",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "QR",
+    "scenario_context": "Binary search vs linear scan computational complexity.",
+    "required_tradeoff": "Mathematical Big-O scaling logic vs non-technical visual adjustments.",
+    "similarity_group": "GRP_UG_L2_BINARY_SEARCH_LOGIC",
+    "is_objective": true,
+    "correct_reasoning_explanation": "O(log N) vs O(N) asymptotic complexity delivers exponential computational step savings over repeated search operations.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_013",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Data Interpretation",
+    "question_text": "A municipal transit authority lowers bus ticket fares by 10%. As a result, passenger ridership increases by 25%, while total daily ticket revenue increases by 12.5%. What economic deduction describes passenger demand?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_013_OPT_A",
+        "option_text": "Price elasticity of demand is greater than 1.0 (elastic demand), meaning percentage volume gains outpaced the percentage price cut.",
+        "evidence_type": "quantitative",
+        "dimension_evidence": {
+          "QR": 5,
+          "BU": 4
+        },
+        "domain_tags": [
+          "Economics",
+          "Commerce & Finance"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_013_OPT_B",
+        "option_text": "Bus drivers should immediately redesign the exterior bus logos to celebrate the higher revenue.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 4
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_013_OPT_C",
+        "option_text": "The municipal government should file a civil lawsuit against private taxi operators for competing unfairly.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 4
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_013_OPT_D",
+        "option_text": "The chemistry of the diesel fuel exhaust fumes should be tested for particulate carbon reduction.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 4
+        },
+        "domain_tags": [
+          "Natural Science"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 5,
+      "BU": 4,
+      "CR": 4,
+      "LR": 4,
+      "SC": 4
+    },
+    "domain_tags": [
+      "Economics",
+      "Commerce & Finance",
+      "Design & Creative",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "QR_BU_CR_LR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "quantitative",
+    "primary_domain": "Economics",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Price Elasticity Econometric Modeling vs Visual Bus Rebranding",
+    "target_dimension_1": "QR",
+    "target_dimension_2": "BU",
+    "scenario_context": "Public transit fare reduction elasticity evaluation.",
+    "required_tradeoff": "Econometric price elasticity calculation vs visual branding changes.",
+    "similarity_group": "GRP_UG_L2_PRICE_ELASTICITY_TRANSIT",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Elasticity = (% change in quantity) / (% change in price) = 25% / 10% = 2.5 > 1.0, generating net revenue expansion.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_014",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Evidence Comparison",
+    "question_text": "In an A/B usability test for an e-commerce checkout page, Design Version A had a 2% purchase completion rate, while Design Version B with simplified 1-click payment and transparent order breakdown achieved a 6% completion rate. What is the evidence-based takeaway?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_014_OPT_A",
+        "option_text": "Reducing cognitive friction and unnecessary form steps directly improves user task completion rate by 300%.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 5,
+          "TC": 3
+        },
+        "domain_tags": [
+          "Design & Creative",
+          "Computing & IT"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_014_OPT_B",
+        "option_text": "Design Version A is still better because the chief executive personally likes the color palette of Version A.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 2
+        },
+        "domain_tags": [
+          "Management"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_014_OPT_C",
+        "option_text": "The legal terms and conditions agreement should be expanded from 5 pages to 50 pages during checkout.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 3
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_014_OPT_D",
+        "option_text": "The server hardware power supply cables should be re-soldered to prevent electricity surges.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 3
+        },
+        "domain_tags": [
+          "Engineering"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "CR": 5,
+      "TC": 3,
+      "BU": 2,
+      "LR": 3
+    },
+    "domain_tags": [
+      "Design & Creative",
+      "Computing & IT",
+      "Management",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CR_TC_BU_LR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "creative",
+    "primary_domain": "Design & Creative",
+    "secondary_domain": "Computing & IT",
+    "contrast_domain": "Management",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Usability Cognitive Friction Reduction vs Executive Subjective Bias",
+    "target_dimension_1": "CR",
+    "target_dimension_2": "TC",
+    "scenario_context": "E-commerce A/B checkout usability evidence interpretation.",
+    "required_tradeoff": "Empirical user conversion ergonomics vs subjective executive personal preference.",
+    "similarity_group": "GRP_UG_L2_UX_AB_TEST_ANALYSIS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Hick-Hyman Law & cognitive load theory demonstrate that eliminating extraneous interaction barriers triples user goal conversion.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_015",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Evidence Comparison",
+    "question_text": "A polling agency surveys 1,000 people exclusively outside a luxury golf club at 11 AM on a Tuesday to determine national attitudes toward public transit subsidies. Why is this statistical sample methodologically flawed?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_015_OPT_A",
+        "option_text": "Selection bias: The sample demographic over-represents high-wealth individuals during working hours and excludes working-class daily commuters.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Social Science",
+          "Humanities"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_015_OPT_B",
+        "option_text": "The pollsters should have used gold-plated microphones and HD television cameras while interviewing golfers.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 4
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_015_OPT_C",
+        "option_text": "Golf club memberships should be made tax-deductible under corporate tax accounting rules.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_015_OPT_D",
+        "option_text": "The golf ball dimple aerodynamics should be mathematically computed for backspin trajectory.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 4,
+          "QR": 3
+        },
+        "domain_tags": [
+          "Engineering",
+          "Natural Science"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "SO": 5,
+      "RE": 4,
+      "CO": 4,
+      "BU": 4,
+      "SC": 4,
+      "QR": 3
+    },
+    "domain_tags": [
+      "Social Science",
+      "Humanities",
+      "Media & Communication",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "SO_RE_CO_BU"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "social",
+    "primary_domain": "Social Science",
+    "secondary_domain": "Humanities",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Demographic Sampling Selection Bias vs Extraneous Media Gloss",
+    "target_dimension_1": "SO",
+    "target_dimension_2": "RE",
+    "scenario_context": "Public opinion polling sampling bias diagnosis.",
+    "required_tradeoff": "Sociological demographic representation critique vs commercial tax deductions.",
+    "similarity_group": "GRP_UG_L2_SAMPLING_SELECTION_BIAS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Non-random convenience sampling violates demographic external validity required for generalized population inference.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_016",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Data Interpretation",
+    "question_text": "A machine learning predictive model achieves 99.9% accuracy on historical training data, but drops to 52% accuracy when deployed on live incoming customer data. What fundamental machine learning issue has occurred?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_016_OPT_A",
+        "option_text": "Overfitting: The model memorized noise and specific idiosyncrasies of training samples rather than generalizing underlying statistical patterns.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT",
+          "Math & Statistics"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_016_OPT_B",
+        "option_text": "The marketing team should announce that the AI is 99.9% perfect to maximize immediate corporate stock value.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_016_OPT_C",
+        "option_text": "The user interface should change the button color scheme to orange to boost customer confidence.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 3
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_016_OPT_D",
+        "option_text": "A formal lawsuit should be filed against the computer keyboard manufacturer for typing wrong training data.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 3
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "QR": 4,
+      "BU": 4,
+      "CR": 3,
+      "LR": 3
+    },
+    "domain_tags": [
+      "AI & Data",
+      "Computing & IT",
+      "Commerce & Finance",
+      "Design & Creative"
+    ],
+    "discriminator_tags": [
+      "TC_QR_BU_CR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "technical",
+    "primary_domain": "AI & Data",
+    "secondary_domain": "Computing & IT",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Machine Learning Generalization vs Misleading Promotional Claims",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "QR",
+    "scenario_context": "Machine learning model validation discrepancy.",
+    "required_tradeoff": "Statistical overfitting diagnosis vs deceptive promotional marketing.",
+    "similarity_group": "GRP_UG_L2_ML_OVERFITTING_DIAGNOSIS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Overfitting occurs when model parameters over-index on training variance, failing out-of-sample generalization.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_017",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Logical Reasoning",
+    "question_text": "A municipal water conservation ordinance states: \"No commercial car-wash facility may operate groundwater pumps on alternating odd-numbered calendar days.\" A business was caught pumping on October 15th. The owner argues they did so only for 10 minutes. How does statutory logic apply?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_017_OPT_A",
+        "option_text": "The statute prohibits operation on odd days without exception for duration; October 15th is an odd day, establishing an unambiguous breach.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 5
+        },
+        "domain_tags": [
+          "Law"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_017_OPT_B",
+        "option_text": "The owner should tell an emotional story to local reporters to gain sympathy on television news.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 4,
+          "SO": 3
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_017_OPT_C",
+        "option_text": "The car wash should raise its car vacuuming prices to offset the municipal fine amount.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_017_OPT_D",
+        "option_text": "The groundwater table chemical salinity should be tested under lab titration protocols.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 4
+        },
+        "domain_tags": [
+          "Natural Science"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "LR": 5,
+      "CO": 4,
+      "SO": 3,
+      "BU": 4,
+      "SC": 4
+    },
+    "domain_tags": [
+      "Law",
+      "Media & Communication",
+      "Commerce & Finance",
+      "Natural Science"
+    ],
+    "discriminator_tags": [
+      "LR_CO_BU_SC"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "reasoning",
+    "primary_domain": "Law",
+    "secondary_domain": "Management",
+    "contrast_domain": "Media & Communication",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Statutory Language Application vs Public Relations Spin",
+    "target_dimension_1": "LR",
+    "target_dimension_2": "CO",
+    "scenario_context": "Municipal ordinance legal enforcement interpretation.",
+    "required_tradeoff": "Strict statutory text reading vs emotional media public relations.",
+    "similarity_group": "GRP_UG_L2_ORDINANCE_ENFORCEMENT",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Statutory terms containing bright-line prohibitions without de minimis clauses apply universally regardless of operational duration.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_018",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Quantitative Reasoning",
+    "question_text": "Light waves travel at constant speed c = 300,000 km/s. If the wavelength of light wave A is halved (divided by 2), what must happen to its wave frequency f (where c = wavelength × frequency)?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_018_OPT_A",
+        "option_text": "The wave frequency must double (multiply by 2) to maintain the constant speed of light.",
+        "evidence_type": "quantitative",
+        "dimension_evidence": {
+          "QR": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Math & Statistics"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_018_OPT_B",
+        "option_text": "The speed of light will instantly drop to zero in the surrounding room.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 2
+        },
+        "domain_tags": [
+          "Natural Science"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_018_OPT_C",
+        "option_text": "The fiber optic network provider should charge customers double for broadband internet.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_018_OPT_D",
+        "option_text": "The light fixture should be painted blue to create an aesthetic artistic glow.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 3
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 5,
+      "SC": 4,
+      "BU": 3,
+      "CR": 3
+    },
+    "domain_tags": [
+      "Natural Science",
+      "Math & Statistics",
+      "Commerce & Finance",
+      "Design & Creative"
+    ],
+    "discriminator_tags": [
+      "QR_SC_BU_CR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "quantitative",
+    "primary_domain": "Natural Science",
+    "secondary_domain": "Math & Statistics",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Inverse Wave Relationship Mathematics vs Commercial Retail Pricing",
+    "target_dimension_1": "QR",
+    "target_dimension_2": "SC",
+    "scenario_context": "Physics electromagnetic wave frequency calculation.",
+    "required_tradeoff": "Inverse physical equation deduction vs retail pricing adjustments.",
+    "similarity_group": "GRP_UG_L2_WAVE_FREQUENCY_MATH",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Inverse proportionality: c = λ × f implies f = c / λ; halving λ doubles f.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_019",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Business Decision Scenario",
+    "question_text": "A manufacturing plant sells 100 units per day. Supplier shipping lead time is 5 days, and safety buffer stock is set at 200 units. At what inventory level must the inventory manager reorder parts to prevent factory stoppage?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_019_OPT_A",
+        "option_text": "Reorder point = (Daily Demand × Lead Time) + Safety Stock = (100 × 5) + 200 = 700 units.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4,
+          "QR": 3
+        },
+        "domain_tags": [
+          "Management",
+          "Commerce & Finance"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_019_OPT_B",
+        "option_text": "Wait until the factory warehouse has 0 units remaining, then write an urgent social media post.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 2
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_019_OPT_C",
+        "option_text": "Paint the warehouse floor green to encourage workers to assemble products faster.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_019_OPT_D",
+        "option_text": "Re-program the warehouse database in Python to replace the need for physical factory parts.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 3
+        },
+        "domain_tags": [
+          "Computing & IT"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "BU": 5,
+      "LE": 4,
+      "QR": 3,
+      "CO": 2,
+      "CR": 2,
+      "TC": 3
+    },
+    "domain_tags": [
+      "Management",
+      "Commerce & Finance",
+      "Media & Communication",
+      "Computing & IT"
+    ],
+    "discriminator_tags": [
+      "BU_LE_QR_TC"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "business",
+    "primary_domain": "Management",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Computing & IT",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Operational Reorder Point Modeling vs Passive Reactive Stockouts",
+    "target_dimension_1": "BU",
+    "target_dimension_2": "LE",
+    "scenario_context": "Supply chain inventory reorder point calculation.",
+    "required_tradeoff": "Mathematical buffer inventory formula vs reactive panic management.",
+    "similarity_group": "GRP_UG_L2_INVENTORY_REORDER_POINT",
+    "is_objective": true,
+    "correct_reasoning_explanation": "ROP = (Lead Time Demand) + Safety Stock = (500) + 200 = 700 units ensures zero disruption during delivery windows.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_020",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Research/Evidence Scenario",
+    "question_text": "In an archaeological trench excavation, Bronze tools are discovered in undisturbed soil Layer 3, while Iron swords are discovered in Layer 2 (located directly above Layer 3). Based on stratigraphic geological principles, what must be concluded?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_020_OPT_A",
+        "option_text": "Principle of Superposition: Deeper undisturbed strata are older; the Bronze tools in Layer 3 predate the Iron swords in Layer 2.",
+        "evidence_type": "research",
+        "dimension_evidence": {
+          "RE": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Humanities",
+          "Natural Science"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_020_OPT_B",
+        "option_text": "The archaeological site should be converted into a luxury commercial casino resort immediately.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 3
+        },
+        "domain_tags": [
+          "Hospitality & Tourism"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_020_OPT_C",
+        "option_text": "The sword handles should be redesigned with modern plastic grips for ergonomic handling.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 3
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_020_OPT_D",
+        "option_text": "A formal legal injunction should be filed against the ancient blacksmiths for using iron without licenses.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 3
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "RE": 5,
+      "SC": 4,
+      "BU": 3,
+      "CR": 3,
+      "LR": 3
+    },
+    "domain_tags": [
+      "Humanities",
+      "Natural Science",
+      "Hospitality & Tourism",
+      "Design & Creative"
+    ],
+    "discriminator_tags": [
+      "RE_SC_BU_CR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "research",
+    "primary_domain": "Humanities",
+    "secondary_domain": "Natural Science",
+    "contrast_domain": "Hospitality & Tourism",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Stratigraphic Relative Dating vs Commercial Resort Exploitation",
+    "target_dimension_1": "RE",
+    "target_dimension_2": "SC",
+    "scenario_context": "Archaeological soil layer relative dating.",
+    "required_tradeoff": "Stratigraphic relative dating science vs commercial tourist development.",
+    "similarity_group": "GRP_UG_L2_STRATIGRAPHY_CHRONOLOGY",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Geological Law of Superposition dictates that in undeformed sedimentary strata, lower layers were deposited earlier in chronological time.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_021",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Technology Decision Scenario",
+    "question_text": "In public-key cryptography, Alice wants to send a secret message to Bob over an insecure public network. Which cryptographic procedure guarantees confidentiality so that only Bob can read it?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_021_OPT_A",
+        "option_text": "Alice encrypts the message using Bob's publicly shared key; only Bob's secret private key can mathematically decrypt it.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 5,
+          "LR": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "AI & Data",
+          "Math & Statistics"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_021_OPT_B",
+        "option_text": "Alice broadcasts her private password openly on a public social media feed so Bob can see it.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 2
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_021_OPT_C",
+        "option_text": "Alice files a corporate copyright registration for the letter before sending it by postal mail.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 3
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_021_OPT_D",
+        "option_text": "Alice changes the message text font to cursive italic styling to prevent hackers from reading words.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "LR": 4,
+      "CO": 2,
+      "CR": 2
+    },
+    "domain_tags": [
+      "Computing & IT",
+      "AI & Data",
+      "Media & Communication",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "TC_LR_CO_CR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "technical",
+    "primary_domain": "Computing & IT",
+    "secondary_domain": "Math & Statistics",
+    "contrast_domain": "Media & Communication",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Asymmetric Cryptographic Key Exchange vs Superficial Obfuscation",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "LR",
+    "scenario_context": "Asymmetric cryptography public key mechanics.",
+    "required_tradeoff": "Mathematical dual-key encryption vs font styling obfuscation.",
+    "similarity_group": "GRP_UG_L2_ASYMMETRIC_CRYPTO_LOGIC",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Asymmetric encryption relies on one-way trapdoor mathematical functions where public key enciphers and private key deciphers.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_022",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Quantitative Reasoning",
+    "question_text": "In a sealed closed chemical reactor vessel, 28 grams of Nitrogen gas reacts completely with 6 grams of Hydrogen gas to synthesize Ammonia (NH3). How much Ammonia is produced inside the vessel?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_022_OPT_A",
+        "option_text": "Exactly 34 grams of Ammonia, strictly obeying the Law of Conservation of Mass in a closed system.",
+        "evidence_type": "quantitative",
+        "dimension_evidence": {
+          "QR": 5,
+          "SC": 4
+        },
+        "domain_tags": [
+          "Natural Science",
+          "Math & Statistics"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_022_OPT_B",
+        "option_text": "The total mass will disappear into thin air because gases have zero weight on scales.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 1
+        },
+        "domain_tags": [
+          "Natural Science"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_022_OPT_C",
+        "option_text": "The ammonia should be packaged in designer crystal bottles to sell at a 500% retail profit margin.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4,
+          "CR": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_022_OPT_D",
+        "option_text": "A press release should announce that the chemistry team created matter out of nothing.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 3
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 5,
+      "SC": 4,
+      "BU": 4,
+      "CR": 3,
+      "CO": 3
+    },
+    "domain_tags": [
+      "Natural Science",
+      "Math & Statistics",
+      "Commerce & Finance",
+      "Media & Communication"
+    ],
+    "discriminator_tags": [
+      "QR_SC_BU_CO"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "quantitative",
+    "primary_domain": "Natural Science",
+    "secondary_domain": "Math & Statistics",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Stoichiometric Mass Conservation vs Retail Marketing Narrative",
+    "target_dimension_1": "QR",
+    "target_dimension_2": "SC",
+    "scenario_context": "Chemical synthesis stoichiometry mass balance.",
+    "required_tradeoff": "Fundamental physical mass conservation vs commercial retail markups.",
+    "similarity_group": "GRP_UG_L2_STOICHIOMETRY_MASS_BALANCE",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Law of Conservation of Mass: Mass of reactants (28g + 6g = 34g) strictly equals total mass of products in a closed system.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_023",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Evidence Comparison",
+    "question_text": "Two long-time business partners dispute ownership of an invention created during weekend collaboration. Partner A wants to initiate a multi-year courtroom lawsuit; Partner B proposes structured commercial mediation with an impartial facilitator. What is the fundamental difference in outcomes?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_023_OPT_A",
+        "option_text": "Mediation enables collaborative consensus on shared intellectual property equity while preserving relationships, whereas litigation is an adversarial zero-sum battle.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 5,
+          "LE": 4,
+          "LR": 3
+        },
+        "domain_tags": [
+          "Social Science",
+          "Management",
+          "Law"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_023_OPT_B",
+        "option_text": "Litigation is always better because whichever lawyer speaks louder on television automatically wins.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 2
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_023_OPT_C",
+        "option_text": "Both partners should delete the invention source code to ensure nobody benefits from the work.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 2
+        },
+        "domain_tags": [
+          "Computing & IT"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_023_OPT_D",
+        "option_text": "The invention should be painted in camouflage colors so the patent office cannot find it.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "SO": 5,
+      "LE": 4,
+      "LR": 3,
+      "CO": 2,
+      "TC": 2,
+      "CR": 2
+    },
+    "domain_tags": [
+      "Social Science",
+      "Management",
+      "Law",
+      "Media & Communication"
+    ],
+    "discriminator_tags": [
+      "SO_LE_LR_CO"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "social",
+    "primary_domain": "Social Science",
+    "secondary_domain": "Management",
+    "contrast_domain": "Law",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Collaborative Conflict Mediation vs Adversarial Courtroom Litigation",
+    "target_dimension_1": "SO",
+    "target_dimension_2": "LE",
+    "scenario_context": "Commercial dispute resolution mechanism analysis.",
+    "required_tradeoff": "Integrative consensus bargaining vs adversarial legal warfare.",
+    "similarity_group": "GRP_UG_L2_MEDIATION_VS_LITIGATION",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Mediation focuses on integrative interest-based negotiation, whereas litigation enforces formal rights through binding adversarial adjudication.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_024",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Research/Evidence Scenario",
+    "question_text": "A viral social media post features a dramatic video claiming a city dam has collapsed, accompanied by thousands of panicked shares. As a digital journalist, what is your verification protocol before broadcasting breaking news?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_024_OPT_A",
+        "option_text": "Geolocate video metadata landmarks, cross-verify with local municipal water sensor telemetry, and confirm with on-the-ground emergency dispatchers.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 5,
+          "RE": 5,
+          "TC": 3
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Humanities",
+          "Computing & IT"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_024_OPT_B",
+        "option_text": "Immediately retweet the video with sensational clickbait headlines to gain maximum follower impressions.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 2
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_024_OPT_C",
+        "option_text": "Calculate the corporate advertising banner fees that can be earned while users panic on the website.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_024_OPT_D",
+        "option_text": "File a formal patent application claiming exclusive copyright over the viral dam video.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 3
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "CO": 5,
+      "RE": 5,
+      "TC": 3,
+      "BU": 3,
+      "LR": 3
+    },
+    "domain_tags": [
+      "Media & Communication",
+      "Humanities",
+      "Commerce & Finance",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "CO_RE_TC_BU"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "communication",
+    "primary_domain": "Media & Communication",
+    "secondary_domain": "Humanities",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Rigorous Investigative Fact Verification vs Virality Clickbait Exploitation",
+    "target_dimension_1": "CO",
+    "target_dimension_2": "RE",
+    "scenario_context": "Journalistic viral breaking news verification protocol.",
+    "required_tradeoff": "Multi-source forensic verification vs sensational viral broadcasting.",
+    "similarity_group": "GRP_UG_L2_FACTCHECK_VERIFICATION",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Journalistic integrity standards require triangulation of digital artifact geolocation, sensor telemetry, and official on-record attribution.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_025",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Quantitative Reasoning",
+    "question_text": "A direct current circuit connects a 12-Volt battery to a 4-Ohm LED resistor. Using Ohm's Law (Voltage = Current × Resistance, or V = I × R), what electric current flows through the circuit?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_025_OPT_A",
+        "option_text": "Current I = V / R = 12V / 4Ω = exactly 3 Amperes of electric current.",
+        "evidence_type": "quantitative",
+        "dimension_evidence": {
+          "QR": 5,
+          "TC": 4
+        },
+        "domain_tags": [
+          "Engineering",
+          "Math & Statistics",
+          "Natural Science"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_025_OPT_B",
+        "option_text": "The current will be 48 Amperes because you must multiply the two numbers together.",
+        "evidence_type": "quantitative",
+        "dimension_evidence": {
+          "QR": 2
+        },
+        "domain_tags": [
+          "Engineering"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_025_OPT_C",
+        "option_text": "The retail electricity price should be negotiated down with the utility company.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_025_OPT_D",
+        "option_text": "The battery casing should be styled with chrome trim to look faster on display shelves.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 3
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 5,
+      "TC": 4,
+      "BU": 3,
+      "CR": 3
+    },
+    "domain_tags": [
+      "Engineering",
+      "Math & Statistics",
+      "Commerce & Finance",
+      "Design & Creative"
+    ],
+    "discriminator_tags": [
+      "QR_TC_BU_CR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "quantitative",
+    "primary_domain": "Engineering",
+    "secondary_domain": "Math & Statistics",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Ohm's Law Circuit Calculation vs Superficial Battery Styling",
+    "target_dimension_1": "QR",
+    "target_dimension_2": "TC",
+    "scenario_context": "Fundamental direct-current circuit calculation.",
+    "required_tradeoff": "Exact algebraic Ohm's law derivation vs cosmetic trim changes.",
+    "similarity_group": "GRP_UG_L2_OHMS_LAW_CALCULATION",
+    "is_objective": true,
+    "correct_reasoning_explanation": "I = V / R = 12 / 4 = 3 Amperes is the direct algebraic solution.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_026",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Evidence Comparison",
+    "question_text": "A city study finds a strong positive statistical correlation (r = 0.92) between the number of ice cream sales and the number of swimming pool drownings over a 12-month period. How do you interpret this relationship scientifically?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_026_OPT_A",
+        "option_text": "Spurious correlation / Confounding variable: High summer temperature causes both increased ice cream eating and increased swimming activity independently.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "QR": 4,
+          "RE": 4,
+          "LR": 4
+        },
+        "domain_tags": [
+          "Math & Statistics",
+          "Social Science",
+          "Natural Science"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_026_OPT_B",
+        "option_text": "Ice cream directly poisons swimmers and makes their muscles fail in the pool.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 1
+        },
+        "domain_tags": [
+          "Life Science"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_026_OPT_C",
+        "option_text": "Ice cream manufacturers should be sued in criminal court for involuntary manslaughter.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 2
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_026_OPT_D",
+        "option_text": "Ice cream trucks should broadcast louder jingle music across neighborhood streets.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 2
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "QR": 4,
+      "RE": 4,
+      "LR": 4,
+      "SC": 1,
+      "CO": 2
+    },
+    "domain_tags": [
+      "Math & Statistics",
+      "Social Science",
+      "Law",
+      "Media & Communication"
+    ],
+    "discriminator_tags": [
+      "QR_RE_LR_CO"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "reasoning",
+    "primary_domain": "Math & Statistics",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "Law",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Confounding Variable Identification vs False Causal Accusation",
+    "target_dimension_1": "QR",
+    "target_dimension_2": "RE",
+    "scenario_context": "Correlation vs causation confounding variable diagnosis.",
+    "required_tradeoff": "Statistical confounding identification vs false direct causality claims.",
+    "similarity_group": "GRP_UG_L2_CORRELATION_VS_CAUSATION",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Correlation does not imply causation; third-variable temperature seasonality drives co-linear fluctuations.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_027",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Business Decision Scenario",
+    "question_text": "A tech retail enterprise reports an accounting net profit of $500,000 on paper, but its bank account is overdrawn and it cannot pay supplier invoices this Friday. What is the fundamental financial cause?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_027_OPT_A",
+        "option_text": "Working capital timing mismatch: Revenue was booked on credit (unpaid accounts receivable) while cash was tied up in unsold inventory.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 5,
+          "QR": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance",
+          "Management"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_027_OPT_B",
+        "option_text": "The office reception area needs a new modern interior redesign to attract cash deposits.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_027_OPT_C",
+        "option_text": "The company should immediately shut down its internet servers to save electricity bills.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 2
+        },
+        "domain_tags": [
+          "Computing & IT"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_027_OPT_D",
+        "option_text": "Staff should write sympathetic blog articles explaining that cash is merely a social construct.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 2,
+          "SO": 2
+        },
+        "domain_tags": [
+          "Humanities"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "BU": 5,
+      "QR": 4,
+      "CR": 2,
+      "TC": 2,
+      "CO": 2,
+      "SO": 2
+    },
+    "domain_tags": [
+      "Commerce & Finance",
+      "Management",
+      "Design & Creative",
+      "Humanities"
+    ],
+    "discriminator_tags": [
+      "BU_QR_CR_CO"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "business",
+    "primary_domain": "Commerce & Finance",
+    "secondary_domain": "Management",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Cash Flow Solvency vs Accrual Paper Accounting",
+    "target_dimension_1": "BU",
+    "target_dimension_2": "QR",
+    "scenario_context": "Corporate insolvency and working capital cycle diagnosis.",
+    "required_tradeoff": "Accrual accounting vs cash flow liquidity reality.",
+    "similarity_group": "GRP_UG_L2_CASHFLOW_INSOLVENCY",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Cash flow insolvency occurs when working capital cash conversion cycles lag operational payment obligations.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_028",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Data Interpretation",
+    "question_text": "Forest A has 100 bird individuals across 10 species (10 birds per species). Forest B has 100 bird individuals across 10 species, but 91 belong to one dominant species and the remaining 9 species have only 1 bird each. Which ecological deduction is accurate?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_028_OPT_A",
+        "option_text": "Forest A has significantly higher species evenness (Shannon-Wiener diversity), indicating a more resilient and ecologically balanced habitat.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science",
+          "Math & Statistics"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_028_OPT_B",
+        "option_text": "Forest B is much better because one bird species has won the competition completely.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 2
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_028_OPT_C",
+        "option_text": "Both forests should be logged down to build high-end tourist hotels.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 2
+        },
+        "domain_tags": [
+          "Hospitality & Tourism"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_028_OPT_D",
+        "option_text": "The birds in Forest B should be provided with headphones to learn other bird songs.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "RE": 4,
+      "BU": 2,
+      "SO": 2,
+      "CR": 2
+    },
+    "domain_tags": [
+      "Life Science",
+      "Natural Science",
+      "Commerce & Finance",
+      "Hospitality & Tourism"
+    ],
+    "discriminator_tags": [
+      "SC_RE_BU_SO"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "scientific",
+    "primary_domain": "Life Science",
+    "secondary_domain": "Natural Science",
+    "contrast_domain": "Hospitality & Tourism",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Ecological Species Evenness vs Monoculture Dominance",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "RE",
+    "scenario_context": "Ecology species evenness and biodiversity index evaluation.",
+    "required_tradeoff": "Ecological evenness metrics vs commercial monoculture extraction.",
+    "similarity_group": "GRP_UG_L2_BIODIVERSITY_EVENNESS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Ecological diversity depends jointly on species richness (total species) and species evenness (equitability of relative abundance).",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_029",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Logical Reasoning",
+    "question_text": "Premise 1: \"All licensed commercial aircraft must undergo weekly engine ultrasound testing.\" Premise 2: \"Some regional cargo planes are licensed commercial aircraft.\" Which statement is logically guaranteed to be TRUE?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_029_OPT_A",
+        "option_text": "Some regional cargo planes must undergo weekly engine ultrasound testing.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 5
+        },
+        "domain_tags": [
+          "Law",
+          "Engineering",
+          "Computing & IT"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_029_OPT_B",
+        "option_text": "All regional cargo planes in the world are guaranteed to never have mechanical breakdowns.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 2
+        },
+        "domain_tags": [
+          "Engineering"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_029_OPT_C",
+        "option_text": "Cargo airlines should paint their planes in bright neon colors to avoid ultrasound testing.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_029_OPT_D",
+        "option_text": "Passengers should be charged an extra ticket fee to read the maintenance logs.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "LR": 5,
+      "CR": 2,
+      "BU": 3
+    },
+    "domain_tags": [
+      "Law",
+      "Engineering",
+      "Design & Creative",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "LR_CR_BU"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "reasoning",
+    "primary_domain": "Law",
+    "secondary_domain": "Engineering",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Quantifier Syllogistic Deduction vs Commercial Fee Addition",
+    "target_dimension_1": "LR",
+    "target_dimension_2": "TC",
+    "scenario_context": "Formal logic syllogism with universal and existential quantifiers.",
+    "required_tradeoff": "Strict deductive quantifier conclusion vs commercial ticket markups.",
+    "similarity_group": "GRP_UG_L2_AIRCRAFT_SYLLOGISM",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Barbara/Darii categorical syllogism: Universal premise instantiated by existential sub-class yields existential conclusion.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_030",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Evidence Comparison",
+    "question_text": "Two newspapers report on the same municipal budget meeting. Newspaper X headlines: \"Council Invests $10M in Green Public Transit Infrastructure.\" Newspaper Y headlines: \"Council Wastes $10M Taxpayer Dollars on Unused Electric Buses.\" How do you analyze these two headlines?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_030_OPT_A",
+        "option_text": "Both outlets report the same factual $10M allocation but frame the expenditure through loaded political language (\"Invests\" vs \"Wastes\") to steer reader sentiment.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 5,
+          "RE": 4,
+          "SO": 3
+        },
+        "domain_tags": [
+          "Media & Communication",
+          "Social Science",
+          "Humanities"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_030_OPT_B",
+        "option_text": "Newspaper X is objectively perfect because electric buses produce zero pollution anywhere in the universe.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 2
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_030_OPT_C",
+        "option_text": "The city council should purchase both newspapers to censor their editorial boards.",
+        "evidence_type": "leadership",
+        "dimension_evidence": {
+          "LE": 2
+        },
+        "domain_tags": [
+          "Management"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_030_OPT_D",
+        "option_text": "The battery lithium chemical formula should be tested for thermal runaway in buses.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 3
+        },
+        "domain_tags": [
+          "Natural Science"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "CO": 5,
+      "RE": 4,
+      "SO": 3,
+      "LE": 2,
+      "SC": 3
+    },
+    "domain_tags": [
+      "Media & Communication",
+      "Social Science",
+      "Humanities",
+      "Natural Science"
+    ],
+    "discriminator_tags": [
+      "CO_RE_SO_SC"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "communication",
+    "primary_domain": "Media & Communication",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "Management",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Rhetorical Framing Detection vs Authoritarian Censorship",
+    "target_dimension_1": "CO",
+    "target_dimension_2": "RE",
+    "scenario_context": "Media discourse framing and lexical bias detection.",
+    "required_tradeoff": "Critical semantic discourse analysis vs editorial censorship.",
+    "similarity_group": "GRP_UG_L2_HEADLINE_FRAMING_ANALYSIS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Framing theory: Media outlets select and emphasize specific attributes (investment vs waste) to influence audience cognitive schemas.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_031",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Technology Decision Scenario",
+    "question_text": "In a student record database, the \"Enrollment\" table links Student_ID to Course_ID. Why is enforcing \"Foreign Key Referential Integrity\" critical for university data management?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_031_OPT_A",
+        "option_text": "It prevents orphan records: A course enrollment cannot be created for a Student_ID that does not exist in the primary Students registry.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 5,
+          "LR": 4
+        },
+        "domain_tags": [
+          "Computing & IT",
+          "AI & Data"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_031_OPT_B",
+        "option_text": "It automatically prints physical graduation diplomas on colored parchment paper.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_031_OPT_C",
+        "option_text": "It allows university administrators to charge students double tuition fees without notifying them.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_031_OPT_D",
+        "option_text": "It measures the biological brain activity of students while taking online exams.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 2
+        },
+        "domain_tags": [
+          "Life Science"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "LR": 4,
+      "CR": 2,
+      "BU": 3,
+      "SC": 2
+    },
+    "domain_tags": [
+      "Computing & IT",
+      "AI & Data",
+      "Commerce & Finance",
+      "Design & Creative"
+    ],
+    "discriminator_tags": [
+      "TC_LR_BU_CR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "technical",
+    "primary_domain": "Computing & IT",
+    "secondary_domain": "AI & Data",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Relational Database Integrity vs Unauthorized Commercial Billing",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "LR",
+    "scenario_context": "Relational database foreign key constraint logic.",
+    "required_tradeoff": "Data integrity rule enforcement vs unauthorized commercial billing.",
+    "similarity_group": "GRP_UG_L2_DATABASE_KEY_INTEGRITY",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Referential integrity constraints enforce domain domain relational consistency, eliminating orphaned foreign key pointers.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_032",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Basic Hypothesis Evaluation",
+    "question_text": "In a medical pharmaceutical trial, 100 patients receive active migraine medication Pill Z and 70% report relief. Another 100 patients receive an inert sugar pill (placebo) and 45% also report relief. How should researchers evaluate the true efficacy of Pill Z?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_032_OPT_A",
+        "option_text": "Net therapeutic efficacy is the +25% difference above the placebo baseline (70% - 45%), proving biological effectiveness beyond psychological expectation.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 5,
+          "RE": 4,
+          "QR": 3
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science",
+          "Math & Statistics"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_032_OPT_B",
+        "option_text": "Pill Z failed completely because all medical pills must work 100.0% of the time with zero exceptions.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 2
+        },
+        "domain_tags": [
+          "Life Science"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_032_OPT_C",
+        "option_text": "The drug company should double the retail price of the sugar pill and sell it as an energy supplement.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 4
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_032_OPT_D",
+        "option_text": "The pill box packaging should be redesigned with holographic stickers to improve headache relief.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 3
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "RE": 4,
+      "QR": 3,
+      "BU": 4,
+      "CR": 3
+    },
+    "domain_tags": [
+      "Life Science",
+      "Natural Science",
+      "Commerce & Finance",
+      "Design & Creative"
+    ],
+    "discriminator_tags": [
+      "SC_RE_QR_BU"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "scientific",
+    "primary_domain": "Life Science",
+    "secondary_domain": "Natural Science",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Placebo-Controlled Efficacy Quantification vs Marketing Exploitation",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "RE",
+    "scenario_context": "Double-blind clinical trial placebo delta evaluation.",
+    "required_tradeoff": "Statistically controlled biological efficacy vs selling placebos commercially.",
+    "similarity_group": "GRP_UG_L2_CLINICAL_TRIAL_PLACEBO",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Clinical trial efficacy measures the statistically significant delta of active intervention above psychological placebo controls.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_033",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Business Decision Scenario",
+    "question_text": "During a severe economic recession, the government launches a $50B national highway building program (fiscal stimulus) while the central bank cuts interest rates to near zero (monetary stimulus). What is the complementary economic mechanism?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_033_OPT_A",
+        "option_text": "Fiscal spending directly creates construction jobs and infrastructure demand, while low interest rates lower private borrowing costs to encourage enterprise investment.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 5,
+          "QR": 4,
+          "LE": 3
+        },
+        "domain_tags": [
+          "Economics",
+          "Commerce & Finance",
+          "Management"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_033_OPT_B",
+        "option_text": "Highway asphalt should be painted purple so drivers feel happier while commuting.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_033_OPT_C",
+        "option_text": "The government should outlaw paper money and force all citizens to trade livestock.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 2
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_033_OPT_D",
+        "option_text": "Highway traffic cameras should be programmed to play rock music through police megaphones.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 2
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "BU": 5,
+      "QR": 4,
+      "LE": 3,
+      "CR": 2,
+      "LR": 2,
+      "CO": 2
+    },
+    "domain_tags": [
+      "Economics",
+      "Commerce & Finance",
+      "Management",
+      "Design & Creative"
+    ],
+    "discriminator_tags": [
+      "BU_QR_LE_CR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "business",
+    "primary_domain": "Economics",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Keynesian Macro Stimulus Mechanics vs Cosmetic Highway Coloring",
+    "target_dimension_1": "BU",
+    "target_dimension_2": "QR",
+    "scenario_context": "Dual macroeconomic stimulus policy transmission.",
+    "required_tradeoff": "Macroeconomic fiscal/monetary multiplier mechanisms vs cosmetic highway paint.",
+    "similarity_group": "GRP_UG_L2_MACRO_STIMULUS_MECHANISMS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Keynesian multiplier: Government direct capital expenditure injects autonomous demand while expansionary monetary policy stimulates private investment.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_034",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Technology Decision Scenario",
+    "question_text": "An AI hiring resume screening algorithm is trained on a company's past 10 years of hiring decisions, during which 92% of hired senior engineering leads were male. When tested on new applicants, the AI systematically ranks equally qualified female candidates lower. What is the root cause?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_034_OPT_A",
+        "option_text": "Algorithmic bias reproduction: The machine learning model learned historical human demographic prejudices encoded in the training data labels.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 5,
+          "LR": 4,
+          "SO": 3
+        },
+        "domain_tags": [
+          "AI & Data",
+          "Computing & IT",
+          "Social Science",
+          "Law"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_034_OPT_B",
+        "option_text": "The computer monitors used by recruiters were manufactured with insufficient screen resolution.",
+        "evidence_type": "technical",
+        "dimension_evidence": {
+          "TC": 2
+        },
+        "domain_tags": [
+          "Engineering"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_034_OPT_C",
+        "option_text": "The company should immediately cut all employee salaries by 50% to balance corporate balance sheets.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_034_OPT_D",
+        "option_text": "All job descriptions should be rewritten in classical Latin poetry to eliminate modern bias.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 3,
+          "CR": 2
+        },
+        "domain_tags": [
+          "Humanities",
+          "Media & Communication"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "TC": 5,
+      "LR": 4,
+      "SO": 3,
+      "BU": 3,
+      "CO": 3,
+      "CR": 2
+    },
+    "domain_tags": [
+      "AI & Data",
+      "Computing & IT",
+      "Social Science",
+      "Law"
+    ],
+    "discriminator_tags": [
+      "TC_LR_SO_BU"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "technical",
+    "primary_domain": "AI & Data",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Algorithmic Training Bias Propagation vs Hardware Scapegoating",
+    "target_dimension_1": "TC",
+    "target_dimension_2": "LR",
+    "scenario_context": "Machine learning historical training data bias diagnosis.",
+    "required_tradeoff": "Data provenance bias auditing vs irrelevant hardware deflection.",
+    "similarity_group": "GRP_UG_L2_AI_TRAINING_BIAS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Supervised learning models optimize loss functions over training data distributions, directly codifying systemic historical bias.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_035",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Business Decision Scenario",
+    "question_text": "A luxury resort has 200 rooms. During peak festival weekend, demand surges to 600 room requests. If rooms are sold at fixed low rates, rooms sell out in 10 minutes but the hotel leaves $100,000 in potential revenue uncaptured. How does revenue yield management solve this?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_035_OPT_A",
+        "option_text": "Implement dynamic tiered pricing that adjusts rates upward with real-time booking velocity, maximizing revenue while reserving capacity for high-value guests.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 5,
+          "LE": 4,
+          "QR": 3
+        },
+        "domain_tags": [
+          "Hospitality & Tourism",
+          "Commerce & Finance",
+          "Management"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_035_OPT_B",
+        "option_text": "Shut down the resort during festival weekend so hotel employees can go on vacation.",
+        "evidence_type": "social",
+        "dimension_evidence": {
+          "SO": 2
+        },
+        "domain_tags": [
+          "Hospitality & Tourism"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_035_OPT_C",
+        "option_text": "Repaint hotel bedsheets with fluorescent ink so rooms glow at night.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_035_OPT_D",
+        "option_text": "File a police complaint against festival organizers for bringing too many tourists to town.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 2
+        },
+        "domain_tags": [
+          "Law"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "BU": 5,
+      "LE": 4,
+      "QR": 3,
+      "SO": 2,
+      "CR": 2,
+      "LR": 2
+    },
+    "domain_tags": [
+      "Hospitality & Tourism",
+      "Commerce & Finance",
+      "Management",
+      "Design & Creative"
+    ],
+    "discriminator_tags": [
+      "BU_LE_QR_CR"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "business",
+    "primary_domain": "Hospitality & Tourism",
+    "secondary_domain": "Commerce & Finance",
+    "contrast_domain": "Design & Creative",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Dynamic Revenue Yield Management vs Fixed Capacity Wastage",
+    "target_dimension_1": "BU",
+    "target_dimension_2": "LE",
+    "scenario_context": "Hospitality yield management and capacity pricing.",
+    "required_tradeoff": "Dynamic algorithmic yield pricing vs shutting down operations.",
+    "similarity_group": "GRP_UG_L2_YIELD_MANAGEMENT_PRICING",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Yield management matches perishable inventory capacity to price-inelastic customer segments during peak demand spikes.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_036",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Scientific Reasoning Scenario",
+    "question_text": "In an epidemiological outbreak, the basic reproduction number R0 is measured at 3.0 (each infected person transmits to 3 new people on average). Public health officials introduce masking and ventilation that reduce transmission probability by 70%. What happens to the epidemic trajectory?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_036_OPT_A",
+        "option_text": "Effective reproduction number Re drops to 3.0 × (1 - 0.70) = 0.90; because Re < 1.0, active case counts will decay exponentially toward elimination.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 5,
+          "QR": 4,
+          "RE": 3
+        },
+        "domain_tags": [
+          "Life Science",
+          "Natural Science",
+          "Math & Statistics"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_036_OPT_B",
+        "option_text": "The disease will accelerate faster because viruses get angry when humans wear face masks.",
+        "evidence_type": "scientific",
+        "dimension_evidence": {
+          "SC": 1
+        },
+        "domain_tags": [
+          "Life Science"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_036_OPT_C",
+        "option_text": "All hospital buildings should be repainted in bright yellow to improve room lighting.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_036_OPT_D",
+        "option_text": "Pharmaceutical companies should raise vaccine prices by 1,000% to maximize quarterly shareholder profits.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 3
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "SC": 5,
+      "QR": 4,
+      "RE": 3,
+      "CR": 2,
+      "BU": 3
+    },
+    "domain_tags": [
+      "Life Science",
+      "Natural Science",
+      "Math & Statistics",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "SC_QR_RE_BU"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "scientific",
+    "primary_domain": "Life Science",
+    "secondary_domain": "Math & Statistics",
+    "contrast_domain": "Commerce & Finance",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Epidemiological R0 Threshold Modeling vs Commercial Price Exploitation",
+    "target_dimension_1": "SC",
+    "target_dimension_2": "QR",
+    "scenario_context": "Epidemiological basic reproduction number Re threshold calculation.",
+    "required_tradeoff": "Mathematical Re threshold decay modeling vs commercial vaccine price gouging.",
+    "similarity_group": "GRP_UG_L2_EPIDEMIOLOGY_RE_CALCULATION",
+    "is_objective": true,
+    "correct_reasoning_explanation": "When effective reproduction number Re falls below critical threshold 1.0, geometric decay mathematically guarantees epidemic cessation.",
+    "quality_status": "VALIDATED"
+  },
+  {
+    "question_id": "UG_L2_NEW_037",
+    "track": "UG",
+    "assessment_level": 2,
+    "question_type": "Rule-Based Reasoning",
+    "question_text": "A nation's constitution divides authority into the Legislative (lawmakers), Executive (enforcers), and Judicial (interpreters) branches. If the Executive branch issues a decree overruling a final Supreme Court constitutional interpretation, why does this trigger a constitutional crisis?",
+    "options": [
+      {
+        "option_id": "UG_L2_NEW_037_OPT_A",
+        "option_text": "It violates the separation of powers doctrine by subordinating the independent judiciary to executive fiat, subverting the rule of law.",
+        "evidence_type": "reasoning",
+        "dimension_evidence": {
+          "LR": 5,
+          "LE": 3
+        },
+        "domain_tags": [
+          "Law",
+          "Social Science",
+          "Management"
+        ],
+        "is_correct": true
+      },
+      {
+        "option_id": "UG_L2_NEW_037_OPT_B",
+        "option_text": "Judges will not have enough microphones to broadcast their press interviews on television.",
+        "evidence_type": "communication",
+        "dimension_evidence": {
+          "CO": 2
+        },
+        "domain_tags": [
+          "Media & Communication"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_037_OPT_C",
+        "option_text": "The national mint will stop printing currency coins for commercial banks.",
+        "evidence_type": "business",
+        "dimension_evidence": {
+          "BU": 2
+        },
+        "domain_tags": [
+          "Commerce & Finance"
+        ]
+      },
+      {
+        "option_id": "UG_L2_NEW_037_OPT_D",
+        "option_text": "The Supreme Court building should be repainted in marble white colors to look more classical.",
+        "evidence_type": "creative",
+        "dimension_evidence": {
+          "CR": 2
+        },
+        "domain_tags": [
+          "Design & Creative"
+        ]
+      }
+    ],
+    "dimension_evidence": {
+      "LR": 5,
+      "LE": 3,
+      "CO": 2,
+      "BU": 2,
+      "CR": 2
+    },
+    "domain_tags": [
+      "Law",
+      "Social Science",
+      "Media & Communication",
+      "Commerce & Finance"
+    ],
+    "discriminator_tags": [
+      "LR_LE_CO_BU"
+    ],
+    "difficulty": 2.5,
+    "evidence_type": "reasoning",
+    "primary_domain": "Law",
+    "secondary_domain": "Social Science",
+    "contrast_domain": "Media & Communication",
+    "discriminator_strength": "MODERATE",
+    "discriminator_pair": "Constitutional Separation of Powers vs Superficial Media Gripes",
+    "target_dimension_1": "LR",
+    "target_dimension_2": "LE",
+    "scenario_context": "Constitutional jurisprudence separation of powers breakdown.",
+    "required_tradeoff": "Constitutional doctrine analysis vs superficial media complaints.",
+    "similarity_group": "GRP_UG_L2_SEPARATION_OF_POWERS",
+    "is_objective": true,
+    "correct_reasoning_explanation": "Checks and balances require exclusive judicial finality over constitutional interpretation to constrain arbitrary executive power.",
+    "quality_status": "VALIDATED"
+  }
+]

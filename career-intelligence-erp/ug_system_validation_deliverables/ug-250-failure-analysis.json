@@ -1,0 +1,56 @@
+{
+  "lowestMarginProfiles": [
+    {
+      "studentId": "STUDENT_04_MATH_STAT",
+      "top1Margin": 0,
+      "top2Margin": 3,
+      "top3": [
+        "Math & Statistics",
+        "Natural Science",
+        "AI & Data"
+      ]
+    },
+    {
+      "studentId": "STUDENT_05_NAT_SCI",
+      "top1Margin": 0,
+      "top2Margin": 3,
+      "top3": [
+        "Math & Statistics",
+        "Natural Science",
+        "Life Science"
+      ]
+    },
+    {
+      "studentId": "STUDENT_06_LIFE_SCI",
+      "top1Margin": 0,
+      "top2Margin": 1,
+      "top3": [
+        "Natural Science",
+        "Life Science",
+        "Math & Statistics"
+      ]
+    },
+    {
+      "studentId": "STUDENT_08_MGMT",
+      "top1Margin": 0,
+      "top2Margin": 0,
+      "top3": [
+        "Commerce & Finance",
+        "Management",
+        "Hospitality & Tourism"
+      ]
+    },
+    {
+      "studentId": "STUDENT_19_SCI_DATA",
+      "top1Margin": 0,
+      "top2Margin": 3,
+      "top3": [
+        "Math & Statistics",
+        "Natural Science",
+        "AI & Data"
+      ]
+    }
+  ],
+  "interdisciplinaryCaptureRate": 0.72,
+  "underrepresentedDimensionsInAdaptiveRuns": []
+}
