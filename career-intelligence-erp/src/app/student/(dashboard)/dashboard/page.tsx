@@ -124,7 +124,7 @@ export default async function StudentDashboardPage() {
           <div className="flex items-center gap-2 flex-wrap">
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#A36B40] bg-[#F7EFEA] px-3 py-1 rounded-full border border-[#A36B40]/30">
               <GraduationCap className="w-3.5 h-3.5 text-[#A36B40]" />
-              Sandip University Portal
+              {studentProfile?.institution || 'Career Intelligence Portal'}
             </span>
             {enrollment ? (
               <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#77734B] bg-[#F1F1EB] px-3 py-1 rounded-full border border-[#77734B]/30">
@@ -134,7 +134,7 @@ export default async function StudentDashboardPage() {
             ) : (
               <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#C6A18D] bg-[#F9F4F0] px-3 py-1 rounded-full border border-[#C6A18D]/40">
                 <Clock className="w-3.5 h-3.5 text-[#C6A18D]" />
-                Pending Enrollment
+                {studentProfile?.current_program ? 'Active Student' : 'Pending Enrollment'}
               </span>
             )}
           </div>
@@ -144,40 +144,22 @@ export default async function StudentDashboardPage() {
               Welcome back, <span className="text-[#A36B40]">{profile.full_name?.split(' ')[0] || profile.email?.split('@')[0] || 'Student'}</span>!
             </h1>
             <p className="text-xs sm:text-sm text-[#7A7067] mt-1 leading-relaxed">
-              Institutional career intelligence, curriculum alignment, and faculty mentoring workspace.
+              Career intelligence, curriculum alignment, and industry domain workspace for all students.
             </p>
           </div>
         </div>
 
-        {/* Right Status Capsule */}
+        {/* Right Action: Start Free Assessment (Replaces static status capsule) */}
         <div className="relative z-10 flex items-center gap-3 shrink-0">
-          <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] flex items-center gap-4 min-w-[260px] justify-between">
-            <div className="space-y-1">
-              <p className="text-[10px] text-[#7A7067] font-bold uppercase tracking-wider">
-                {hasCompletedAssessment ? 'Career Alignment' : 'Diagnostic Assessment'}
-              </p>
-              <p className="text-sm font-bold text-[#2C2621] truncate max-w-[150px]">
-                {hasCompletedAssessment 
-                  ? (careerProfile?.primary_domain?.name || 'Evaluated')
-                  : hasStartedAssessment 
-                  ? 'In Progress' 
-                  : '30-MCQ Test Ready'}
-              </p>
-            </div>
-            
-            {hasCompletedAssessment ? (
-              <div className="w-10 h-10 rounded-xl bg-[#F1F1EB] text-[#77734B] flex items-center justify-center shrink-0 border border-[#77734B]/30 shadow-sm">
-                <CheckCircle2 className="w-5 h-5" />
-              </div>
-            ) : (
-              <Link href="/student/assessment">
-                <Button size="sm" className="h-9 px-4 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-semibold text-xs rounded-xl shadow-md shadow-[#A36B40]/20 transition-all flex items-center gap-1.5 cursor-pointer">
-                  <span>Start</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Button>
-              </Link>
-            )}
-          </div>
+          <Link href={`/student/fresher/test?code=SUN-FRESHERS-2026&name=${encodeURIComponent(profile.full_name || 'Student')}&email=${encodeURIComponent(profile.email || '')}`}>
+            <Button
+              className="h-12 px-6 bg-gradient-to-r from-[#A36B40] via-[#B87B4E] to-[#8E5B33] hover:from-[#8E5B33] hover:to-[#784A28] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md shadow-[#A36B40]/25 hover:shadow-lg hover:shadow-[#A36B40]/35 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-2.5 border border-white/20 group"
+            >
+              <Sparkles className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
+              <span>Start Free Assessment</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -322,7 +304,7 @@ export default async function StudentDashboardPage() {
                     <p className="text-xs font-bold text-[#2C2621]">Specialization Fit</p>
                   </div>
                   <p className="text-[11px] text-[#7A7067] pl-7 leading-snug">
-                    Sandip University curriculum and track integration
+                    Academic curriculum and industry specialization integration
                   </p>
                 </div>
               </div>
@@ -330,10 +312,10 @@ export default async function StudentDashboardPage() {
           </div>
 
           <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-0 flex items-center">
-            <Link href="/student/assessment">
+            <Link href={`/student/fresher/test?code=SUN-FRESHERS-2026&name=${encodeURIComponent(profile.full_name || 'Student')}&email=${encodeURIComponent(profile.email || '')}`}>
               <Button className="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-semibold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer flex items-center gap-2">
-                <BookOpen className="w-4 h-4" />
-                <span>{hasCompletedAssessment ? 'Retake Career Assessment' : hasStartedAssessment ? 'Resume Assessment' : 'Start Diagnostic Assessment'}</span>
+                <Sparkles className="w-4 h-4 text-amber-200" />
+                <span>{hasCompletedAssessment ? 'Retake Free Assessment' : 'Start Free Assessment'}</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
@@ -355,7 +337,7 @@ export default async function StudentDashboardPage() {
               )}
             </div>
             <CardDescription className="text-xs text-[#7A7067]">
-              Institutional enrollment & specialization track
+              {studentProfile?.institution || 'College / University'} enrollment & specialization
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
@@ -368,7 +350,7 @@ export default async function StudentDashboardPage() {
 
             <div className="grid grid-cols-2 gap-2.5">
               <div className="p-3 rounded-2xl bg-[#FAF6F0]/80 border border-[#DFD7CB] space-y-0.5">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#A36B40]">PRN</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#A36B40]">Student ID / PRN</p>
                 <p className="text-xs font-bold text-[#2C2621] truncate">{displayPrn || 'Not Set'}</p>
               </div>
               <div className="p-3 rounded-2xl bg-[#FAF6F0]/80 border border-[#DFD7CB] space-y-0.5">

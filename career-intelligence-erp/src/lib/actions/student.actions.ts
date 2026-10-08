@@ -181,7 +181,7 @@ export async function enrollStudent(
 
 const studentProfileSchema = z.object({
   full_name: z.string().min(2, 'Please enter a valid full name'),
-  prn: z.string().regex(/^\d{12}$/, 'PRN must be exactly 12 digits (without spaces or dashes)').nullable().optional(),
+  prn: z.string().min(1, 'Student ID / PRN / Roll Number is required').max(60).nullable().optional(),
   phone: z.string().regex(/^\+91\s?\d{10}$/, 'Contact number must be a valid 10-digit Indian mobile number (+91 XXXXXXXXXX)').nullable().optional(),
   gender: z.string().nullable().optional(),
   date_of_birth: z.string().nullable().optional(),
@@ -203,10 +203,10 @@ export async function updateStudentProfile(
     return str.length > 0 ? str : undefined
   }
 
-  // Sanitize PRN: remove spaces, dashes, convert to pure digits
+  // Preserve alphanumeric student IDs, roll numbers, and PRNs (e.g. PU-2023-45 or 250102041007)
   let prnRaw = getField('prn')
   if (prnRaw) {
-    prnRaw = prnRaw.replace(/[\s-]/g, '')
+    prnRaw = prnRaw.trim()
   }
 
   // Sanitize Phone: ensure +91 prefix followed by 10 digits
@@ -226,8 +226,8 @@ export async function updateStudentProfile(
     phone: phoneRaw,
     gender: getField('gender'),
     date_of_birth: getField('date_of_birth'),
-    institution: getField('institution') || getField('school'),
-    school: getField('school'),
+    institution: getField('institution') || getField('school') || 'Sandip University',
+    school: getField('school') || getField('institution'),
     current_program: getField('current_program'),
     current_semester: getField('current_semester'),
     academic_year: getField('academic_year'),

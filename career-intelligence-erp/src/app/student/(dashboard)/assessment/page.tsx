@@ -42,40 +42,51 @@ export default async function AssessmentPage(props: {
     .eq('status', 'ACTIVE')
     .maybeSingle()
 
-  // 100% Profile Completeness Checklist for Sandip University
+  // Universal Profile Checklist for All Students & Colleges
   const profileRequirements = [
     { key: 'full_name', label: 'Full Legal Name', value: profile.full_name },
     { key: 'phone', label: 'Contact Phone Number', value: profile.phone || studentProfile?.phone },
-    { key: 'prn', label: 'PRN / Registration Number', value: studentProfile?.prn },
+    { key: 'prn', label: 'Student ID / Roll No. / PRN', value: studentProfile?.prn },
+    { key: 'institution', label: 'College / University', value: studentProfile?.institution || enrollment?.program?.institution?.name || 'Sandip University' },
     { key: 'academic_year', label: 'Academic Batch / Year', value: studentProfile?.academic_year || enrollment?.academic_year },
     { key: 'current_program', label: 'Degree / Program Track', value: studentProfile?.current_program || enrollment?.program?.name },
-    { key: 'school', label: 'School / Department', value: studentProfile?.school || studentProfile?.institution },
-    { key: 'current_semester', label: 'Current Semester', value: studentProfile?.current_semester || enrollment?.class?.semester },
+    { key: 'current_semester', label: 'Current Semester / Year', value: studentProfile?.current_semester || enrollment?.class?.semester },
   ]
 
   const completedFields = profileRequirements.filter(r => !!r.value && String(r.value).trim().length > 0)
   const missingFields = profileRequirements.filter(r => !r.value || String(r.value).trim().length === 0)
   const completenessPercent = Math.round((completedFields.length / profileRequirements.length) * 100)
 
-  // Gated: Existing students must have 100% profile completeness
+  // Gated: Existing students must have profile completeness, or can start free assessment directly
   if (completenessPercent < 100) {
     return (
       <div className="space-y-6 max-w-5xl mx-auto font-sans">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">Career Assessment</h1>
-            <p className="text-xs sm:text-sm text-[#7A7067]">Official Sandip University psychometric and career intelligence diagnostic</p>
+            <p className="text-xs sm:text-sm text-[#7A7067]">Comprehensive career intelligence and diagnostic assessment for all students</p>
           </div>
-          <Link href="/student/assessment">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-10 px-4 rounded-2xl border-[#DFD7CB] bg-white text-xs font-semibold text-[#2C2621] hover:text-[#A36B40] hover:border-[#A36B40] hover:bg-[#FAF6F0] transition-all cursor-pointer flex items-center gap-2 shadow-xs"
-            >
-              <History className="w-4 h-4 text-[#A36B40]" />
-              <span>Assessment History</span>
-            </Button>
-          </Link>
+          <div className="flex items-center gap-2.5">
+            <Link href={`/student/fresher/test?code=SUN-FRESHERS-2026&name=${encodeURIComponent(profile.full_name || 'Student')}&email=${encodeURIComponent(profile.email || '')}`}>
+              <Button
+                size="sm"
+                className="h-10 px-4 rounded-2xl bg-[#A36B40] hover:bg-[#8E5B33] text-white text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-xs"
+              >
+                <Sparkles className="w-4 h-4 text-amber-200" />
+                <span>Start Free Assessment</span>
+              </Button>
+            </Link>
+            <Link href="/student/assessment">
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-10 px-4 rounded-2xl border-[#DFD7CB] bg-white text-xs font-semibold text-[#2C2621] hover:text-[#A36B40] hover:border-[#A36B40] hover:bg-[#FAF6F0] transition-all cursor-pointer flex items-center gap-2 shadow-xs"
+              >
+                <History className="w-4 h-4 text-[#A36B40]" />
+                <span>Assessment History</span>
+              </Button>
+            </Link>
+          </div>
         </div>
 
         <div className="bg-white border border-[#DFD7CB] rounded-3xl p-8 sm:p-10 shadow-sm space-y-6">
@@ -85,9 +96,9 @@ export default async function AssessmentPage(props: {
                 <UserCheck className="w-7 h-7" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-[#2C2621]">100% Profile Completion Required</h2>
+                <h2 className="text-lg font-bold text-[#2C2621]">Complete Your Academic Records</h2>
                 <p className="text-xs text-[#7A7067]">
-                  Sandip University requires students to complete their academic records (100%) before accessing the diagnostic assessment.
+                  Personalize your assessment results by confirming your university, stream, and student records.
                 </p>
               </div>
             </div>
@@ -139,12 +150,20 @@ export default async function AssessmentPage(props: {
             <p className="text-xs text-[#7A7067] max-w-xl">
               Complete academic data ensures the Career Intelligence Engine evaluates your track with accurate prerequisite filters and domain alignments.
             </p>
-            <Link href="/student/profile">
-              <Button className="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all gap-2 cursor-pointer whitespace-nowrap">
-                <span>Complete Profile ({100 - completenessPercent}% left)</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link href={`/student/fresher/test?code=SUN-FRESHERS-2026&name=${encodeURIComponent(profile.full_name || 'Student')}&email=${encodeURIComponent(profile.email || '')}`}>
+                <Button variant="outline" className="h-11 px-5 border-[#A36B40]/40 text-[#A36B40] hover:bg-[#FAF6F0] font-bold text-xs rounded-2xl transition-all cursor-pointer">
+                  <Sparkles className="w-4 h-4 text-[#A36B40]" />
+                  <span>Take Free Test Now</span>
+                </Button>
+              </Link>
+              <Link href="/student/profile">
+                <Button className="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all gap-2 cursor-pointer whitespace-nowrap">
+                  <span>Complete Profile</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

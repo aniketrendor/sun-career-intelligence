@@ -23,7 +23,7 @@ export default async function StudentProfilePage() {
     .from('student_profiles')
     .select('*')
     .eq('user_id', profile.id)
-    .single()
+    .maybeSingle()
 
   const { data: enrollment } = await supabase
     .from('enrollments')
@@ -34,7 +34,7 @@ export default async function StudentProfilePage() {
     `)
     .eq('student_id', profile.id)
     .eq('status', 'ACTIVE')
-    .single()
+    .maybeSingle()
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto font-sans">
