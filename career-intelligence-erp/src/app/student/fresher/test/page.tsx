@@ -360,7 +360,7 @@ function FresherTestContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF6F0] py-2.5 px-3 sm:px-6 lg:py-3.5 lg:px-10 xl:px-16 2xl:px-24 flex flex-col overflow-x-hidden font-sans antialiased text-[#2C2621]">
+    <div className="min-h-screen lg:h-screen lg:max-h-screen lg:overflow-hidden bg-[#FAF6F0] py-2 px-3 sm:px-6 lg:py-2 lg:px-6 xl:px-10 2xl:px-16 flex flex-col font-sans antialiased text-[#2C2621]">
       
       {/* ═════════════════════════════════════════════════════════════════ */}
       {/* ─── MOBILE VIEW (DYNAMIC CONTEXTUAL STEPPER) ──────────────────── */}
@@ -616,51 +616,53 @@ function FresherTestContent() {
       {/* ═════════════════════════════════════════════════════════════════ */}
       {/* ─── DESKTOP VIEW (CONTEXTUAL 2×2 COCKPIT WORKSPACE) ───────────── */}
       {/* ═════════════════════════════════════════════════════════════════ */}
-      <div className="hidden lg:flex flex-col flex-1 min-h-0 max-w-[1400px] mx-auto w-full gap-2.5 sm:gap-3">
+      {/* ─── DESKTOP VIEW (CONTEXTUAL 2×2 COCKPIT WORKSPACE) ───────────── */}
+      {/* ═════════════════════════════════════════════════════════════════ */}
+      <div className="hidden lg:flex flex-col flex-1 min-h-0 max-w-[1440px] mx-auto w-full gap-2">
         
         {/* ─── TOP HEADER (DESKTOP) ────────────────────────────────────── */}
-        <header className="bg-white px-3.5 sm:px-5 py-2.5 rounded-2xl border border-[#DFD7CB] shadow-xs flex items-center justify-between gap-2.5 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#A36B40] via-[#C87D55] to-[#77734B] flex items-center justify-center text-white shadow-xs shadow-[#A36B40]/25 shrink-0">
-              <GraduationCap className="w-5 h-5" />
+        <header className="bg-white px-3.5 sm:px-4 py-2 rounded-xl border border-[#DFD7CB] shadow-2xs flex items-center justify-between gap-2 shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#A36B40] via-[#C87D55] to-[#77734B] flex items-center justify-center text-white shadow-2xs shrink-0">
+              <GraduationCap className="w-4 h-4" />
             </div>
             <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-xs sm:text-sm lg:text-base font-black text-[#2C2621] tracking-tight leading-tight">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <h1 className="text-xs sm:text-sm font-black text-[#2C2621] tracking-tight leading-tight">
                   {academicLevel} Diagnostic Assessment
                 </h1>
-                <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#A36B40]/40 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-full">
+                <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#A36B40]/40 text-[9px] font-black px-1.5 py-0 rounded-full">
                   {academicLevel} Track
                 </Badge>
-                <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full">
+                <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[9px] font-bold px-1.5 py-0 rounded-full">
                   30 Adaptive Questions
                 </Badge>
-                <Badge className="bg-amber-50 text-amber-800 border-amber-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full">
+                <Badge className="bg-amber-50 text-amber-800 border-amber-200 text-[9px] font-bold px-1.5 py-0 rounded-full">
                   Contextual Engine Active
                 </Badge>
               </div>
-              <p className="text-[10px] sm:text-[11px] text-[#7A7067] leading-none mt-0.5">
+              <p className="text-[10px] text-[#7A7067] leading-none mt-0.5">
                 Candidate: <span className="font-bold text-[#2C2621]">{candidateName}</span> · Token: <span className="font-mono text-[#A36B40] font-black">{referralCode}</span>
               </p>
             </div>
           </div>
 
           {/* Desktop Metric Strip & Actions */}
-          <div className="flex items-center gap-2.5 shrink-0">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-[#2C2621] bg-[#FAF6F0] px-3 py-1.5 rounded-xl border border-[#DFD7CB] shadow-2xs">
+          <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-[#2C2621] bg-[#FAF6F0] px-2.5 py-1 rounded-lg border border-[#DFD7CB] shadow-2xs">
               <Clock className="w-3.5 h-3.5 text-[#A36B40]" />
               <span>Question {currentIndex + 1} of 30</span>
             </div>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-[#77734B] bg-[#77734B]/10 px-3 py-1.5 rounded-xl border border-[#77734B]/20">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-[#77734B] bg-[#77734B]/10 px-2.5 py-1 rounded-lg border border-[#77734B]/20">
               <CheckCircle2 className="w-3.5 h-3.5 text-[#77734B]" />
               <span>{answeredCount} / 30 Answered</span>
             </div>
             {currentIndex === 29 ? (
               <Button
                 onClick={handleFinishAssessment}
-                className="h-9 px-4 bg-gradient-to-r from-emerald-600 to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md shadow-emerald-600/30 cursor-pointer flex items-center gap-1.5 animate-pulse"
+                className="h-8 px-3.5 bg-gradient-to-r from-emerald-600 to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md cursor-pointer flex items-center gap-1.5 animate-pulse"
               >
-                <Award className="w-4 h-4" />
+                <Award className="w-3.5 h-3.5" />
                 <span>Complete Assessment</span>
               </Button>
             ) : null}
@@ -668,54 +670,54 @@ function FresherTestContent() {
         </header>
 
         {/* ─── 2-COLUMN MAIN WORKSPACE (FITS 100VH ON DESKTOP) ─────────── */}
-        <div className="flex-1 grid grid-cols-12 gap-2.5 sm:gap-3 min-h-0 items-stretch">
+        <div className="flex-1 grid grid-cols-12 gap-2 sm:gap-2.5 min-h-0 items-stretch">
           
           {/* ═══ LEFT MAIN COLUMN: QUESTION WORKSPACE (8 COLS ON DESKTOP) ═══ */}
           <main className="col-span-8 flex flex-col min-h-0 h-full">
             
             {/* Active Question Card — fills all available height */}
-            <Card className="flex-1 flex flex-col bg-white border border-[#DFD7CB] shadow-sm rounded-2xl overflow-hidden min-h-0">
-              <div className="h-1.5 w-full bg-gradient-to-r from-[#A36B40] via-[#C87D55] to-[#77734B] shrink-0" />
+            <Card className="flex-1 flex flex-col bg-white border border-[#DFD7CB] shadow-xs rounded-2xl overflow-hidden min-h-0">
+              <div className="h-1 w-full bg-gradient-to-r from-[#A36B40] via-[#C87D55] to-[#77734B] shrink-0" />
               
               {/* Question Header */}
-              <CardHeader className="py-3.5 sm:py-4 px-4 sm:px-6 border-b border-[#F0E8DF] bg-[#FAF6F0]/60 space-y-2 shrink-0">
+              <CardHeader className="py-2.5 px-4 sm:px-5 border-b border-[#F0E8DF] bg-[#FAF6F0]/60 space-y-1 shrink-0">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#A36B40] bg-[#A36B40]/10 px-2.5 py-0.5 rounded-full border border-[#A36B40]/25 flex items-center gap-1">
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#A36B40] bg-[#A36B40]/10 px-2 py-0.5 rounded-full border border-[#A36B40]/25 flex items-center gap-1">
                       <Brain className="w-3 h-3" />
                       {currentSection.shortTitle} · Question {qNumInCurrentSection} of 6
                     </span>
-                    <Badge variant="outline" className="text-[9px] sm:text-[10px] font-bold border-[#DFD7CB] bg-white text-[#77734B] px-2 py-0.5">
+                    <Badge variant="outline" className="text-[9px] font-bold border-[#DFD7CB] bg-white text-[#77734B] px-1.5 py-0">
                       {currentQ.type}
                     </Badge>
-                    <Badge variant="outline" className="text-[9px] font-mono border-[#DFD7CB] bg-white text-[#7A7067] px-1.5 py-0.5">
+                    <Badge variant="outline" className="text-[9px] font-mono border-[#DFD7CB] bg-white text-[#7A7067] px-1 py-0">
                       ID: {currentQ.id}
                     </Badge>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1 text-[10px] text-[#7A7067] bg-white px-2 py-0.5 rounded-md border border-[#DFD7CB]">
+                    <span className="inline-flex items-center gap-1 text-[10px] text-[#7A7067] bg-white px-1.5 py-0.5 rounded-md border border-[#DFD7CB]">
                       <Keyboard className="w-3 h-3 text-[#A36B40]" />
                       Press 1-4 · Enter
                     </span>
-                    <span className="text-[10px] font-mono font-black text-[#A36B40] bg-[#A36B40]/10 px-2.5 py-1 rounded-lg border border-[#A36B40]/25 shrink-0">
+                    <span className="text-[10px] font-mono font-black text-[#A36B40] bg-[#A36B40]/10 px-2 py-0.5 rounded-lg border border-[#A36B40]/25 shrink-0">
                       Q {currentIndex + 1} / 30
                     </span>
                   </div>
                 </div>
 
                 {/* Question Text */}
-                <CardTitle className="text-xl lg:text-[22px] font-black text-[#2C2621] leading-snug tracking-tight">
+                <CardTitle className="text-base sm:text-lg lg:text-xl font-black text-[#2C2621] leading-snug tracking-tight">
                   {currentQ.question}
                 </CardTitle>
-                <CardDescription className="text-xs sm:text-[13px] text-[#7A7067] leading-relaxed flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#A36B40] shrink-0" />
-                  <span>Select the option that most naturally aligns with your instincts, reasoning, and problem-solving method.</span>
+                <CardDescription className="text-[11px] sm:text-xs text-[#7A7067] leading-tight flex items-center gap-1.5">
+                  <Sparkles className="w-3 h-3 text-[#A36B40] shrink-0" />
+                  <span className="truncate">Select the option that most naturally aligns with your instincts, reasoning, and problem-solving method.</span>
                 </CardDescription>
               </CardHeader>
 
               {/* 2×2 Option Grid — stretches to fill remaining card height */}
-              <CardContent className="p-4 sm:p-5 lg:p-6 flex-1 grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 min-h-0 overflow-visible">
+              <CardContent className="p-3 sm:p-3.5 flex-1 grid grid-cols-2 grid-rows-2 gap-2 sm:gap-2.5 min-h-0 overflow-hidden">
                 {(currentQ?.options || []).map((opt: OptionWeightItem, optIdx: number) => {
                   const displayLetter = ['A', 'B', 'C', 'D'][optIdx] || opt.id
                   const isSelected = selectedAnswers[currentQ?.id] === opt.id
@@ -723,17 +725,17 @@ function FresherTestContent() {
                     <div
                       key={opt.id}
                       onClick={() => handleSelectOption(opt.id)}
-                      className={`relative p-4 sm:p-5 lg:p-6 rounded-2xl border-2 transition-all duration-150 cursor-pointer flex flex-col justify-between gap-3 h-full group select-none touch-manipulation active:scale-[0.98] ${
+                      className={`relative p-3 rounded-xl border-2 transition-all duration-150 cursor-pointer flex flex-col justify-between gap-1.5 h-full group select-none touch-manipulation active:scale-[0.99] min-h-0 overflow-hidden ${
                         isSelected
-                          ? 'border-[#A36B40] bg-gradient-to-br from-[#FAF6F0] via-[#F6ECE0] to-[#EFE2D2] shadow-md shadow-[#A36B40]/15 ring-2 ring-[#A36B40]/20'
-                          : 'border-[#E8DFD5] bg-white hover:border-[#C6A18D] hover:bg-[#FAF6F0]/60 hover:shadow-xs'
+                          ? 'border-[#A36B40] bg-gradient-to-br from-[#FAF6F0] via-[#F6ECE0] to-[#EFE2D2] shadow-sm shadow-[#A36B40]/15 ring-2 ring-[#A36B40]/20'
+                          : 'border-[#E8DFD5] bg-white hover:border-[#C6A18D] hover:bg-[#FAF6F0]/60 hover:shadow-2xs'
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2 shrink-0">
                         <div
-                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl font-mono text-sm sm:text-base font-black flex items-center justify-center shrink-0 transition-all ${
+                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg font-mono text-xs sm:text-sm font-black flex items-center justify-center shrink-0 transition-all ${
                             isSelected
-                              ? 'bg-[#A36B40] text-white shadow-xs shadow-[#A36B40]/30'
+                              ? 'bg-[#A36B40] text-white shadow-2xs shadow-[#A36B40]/30'
                               : 'bg-[#F5EEE6] text-[#A36B40] border border-[#DFD7CB]'
                           }`}
                         >
@@ -741,36 +743,36 @@ function FresherTestContent() {
                         </div>
 
                         <div
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ${
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ${
                             isSelected
-                              ? 'border-[#A36B40] bg-[#A36B40] text-white shadow-xs'
+                              ? 'border-[#A36B40] bg-[#A36B40] text-white'
                               : 'border-[#C8BFB5] bg-white group-hover:border-[#A36B40]'
                           }`}
                         >
-                          {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                          {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                         </div>
                       </div>
 
-                      <div className="my-auto py-2">
-                        <p className={`text-sm sm:text-base lg:text-lg font-bold leading-relaxed tracking-tight ${
+                      <div className="my-auto py-1 min-h-0 overflow-y-auto">
+                        <p className={`text-xs sm:text-sm lg:text-[14px] font-bold leading-snug tracking-tight ${
                           isSelected ? 'text-[#5C3820]' : 'text-[#2C2621]'
                         }`}>
                           {opt.text}
                         </p>
                       </div>
 
-                      <div className="pt-2 border-t border-[#DFD7CB]/60 flex items-center justify-between text-xs shrink-0">
+                      <div className="pt-1.5 border-t border-[#DFD7CB]/60 flex items-center justify-between text-[10px] sm:text-[11px] shrink-0">
                         {isSelected ? (
-                          <span className="inline-flex items-center gap-1.5 text-[11px] font-black text-[#A36B40] bg-[#A36B40]/10 px-2.5 py-0.5 rounded-md">
-                            <Check className="w-3 h-3 stroke-[3]" />
+                          <span className="inline-flex items-center gap-1 text-[10px] font-black text-[#A36B40] bg-[#A36B40]/10 px-2 py-0.5 rounded-md">
+                            <Check className="w-2.5 h-2.5 stroke-[3]" />
                             Selected Choice
                           </span>
                         ) : (
-                          <span className="text-[11px] text-[#7A7067] font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                          <span className="text-[#7A7067] font-medium opacity-80 group-hover:opacity-100 transition-opacity">
                             Click or press <strong className="text-[#A36B40]">{displayLetter}</strong>
                           </span>
                         )}
-                        <span className="text-[10px] font-mono text-[#A36B40]/70 font-semibold">
+                        <span className="font-mono text-[#A36B40]/70 font-semibold">
                           Option {displayLetter}
                         </span>
                       </div>
@@ -780,27 +782,27 @@ function FresherTestContent() {
               </CardContent>
 
               {/* Desktop Bottom Dock */}
-              <div className="bg-[#FAF6F0]/70 px-5 py-3 border-t border-[#F0E8DF] flex items-center justify-between gap-3 shrink-0">
+              <div className="bg-[#FAF6F0]/80 px-4 py-2 border-t border-[#F0E8DF] flex items-center justify-between gap-3 shrink-0">
                 <Button
                   variant="outline"
                   onClick={handlePrev}
                   disabled={currentIndex === 0}
-                  className="h-9 px-4 rounded-xl border-[#DFD7CB] bg-white text-xs font-bold text-[#2C2621] hover:bg-[#FAF6F0] disabled:opacity-40 cursor-pointer flex items-center gap-2 shadow-2xs"
+                  className="h-8 px-3 rounded-lg border-[#DFD7CB] bg-white text-xs font-bold text-[#2C2621] hover:bg-[#FAF6F0] disabled:opacity-40 cursor-pointer flex items-center gap-1.5 shadow-2xs"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Previous (←)</span>
                 </Button>
 
                 {/* Center: Stage Step Pills */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   {SECTION_CONFIGS.map((sec, sIdx) => {
                     const isCurr = currentSectionIndex === sIdx
                     const isPast = currentSectionIndex > sIdx
                     return (
                       <div
                         key={sIdx}
-                        className={`px-3 py-1 rounded-full text-[10px] font-black transition-all border flex items-center gap-1.5 ${
-                          isCurr ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-xs' :
+                        className={`px-2.5 py-0.5 rounded-full text-[9px] font-black transition-all border flex items-center gap-1 ${
+                          isCurr ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-2xs' :
                           isPast ? 'bg-emerald-600 text-white border-emerald-600' :
                           'bg-white text-[#7A7067] border-[#DFD7CB]'
                         }`}
@@ -816,7 +818,7 @@ function FresherTestContent() {
                   {currentIndex < 29 ? (
                     <Button
                       onClick={handleNext}
-                      className="h-9 px-6 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-extrabold text-xs rounded-xl shadow-xs shadow-[#A36B40]/25 transition-all cursor-pointer flex items-center gap-1.5"
+                      className="h-8 px-4 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-extrabold text-xs rounded-lg shadow-2xs shadow-[#A36B40]/25 transition-all cursor-pointer flex items-center gap-1.5"
                     >
                       <span>Next Question (Enter)</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -825,7 +827,7 @@ function FresherTestContent() {
                     <Button
                       onClick={handleFinishAssessment}
                       disabled={isSubmitting}
-                      className="h-9 px-6 bg-gradient-to-r from-emerald-600 to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md shadow-emerald-600/30 transition-all cursor-pointer flex items-center gap-1.5 animate-pulse"
+                      className="h-8 px-4 bg-gradient-to-r from-emerald-600 to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-lg shadow-md shadow-emerald-600/30 transition-all cursor-pointer flex items-center gap-1.5 animate-pulse"
                     >
                       <Award className="w-3.5 h-3.5" />
                       <span>{isSubmitting ? 'Evaluating...' : 'Complete & View Report'}</span>
@@ -838,12 +840,12 @@ function FresherTestContent() {
           </main>
 
           {/* ═══ RIGHT SIDEBAR (DYNAMIC PSYCHOMETRIC CONTEXT TELEMETRY) ══ */}
-          <aside className="col-span-4 flex flex-col gap-2.5 min-h-0 h-full">
+          <aside className="col-span-4 flex flex-col gap-2 min-h-0 h-full">
 
             {/* 1. Progress Overview Card */}
-            <div className="bg-white rounded-2xl border border-[#DFD7CB] shadow-xs p-3.5 shrink-0 space-y-2.5">
-              <div className="flex items-center gap-3.5">
-                <div className="relative w-14 h-14 shrink-0">
+            <div className="bg-white rounded-xl border border-[#DFD7CB] shadow-2xs p-2.5 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="relative w-11 h-11 shrink-0">
                   <svg viewBox="0 0 56 56" className="w-full h-full -rotate-90">
                     <circle cx="28" cy="28" r="24" fill="none" stroke="#F0E8DF" strokeWidth="5" />
                     <circle cx="28" cy="28" r="24" fill="none" stroke="#A36B40" strokeWidth="5"
@@ -852,92 +854,92 @@ function FresherTestContent() {
                       strokeLinecap="round" className="transition-all duration-500" />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-sm font-black text-[#A36B40] leading-none">{progressPercent}%</span>
+                    <span className="text-xs font-black text-[#A36B40] leading-none">{progressPercent}%</span>
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-xs font-black text-[#2C2621]">
                     Question {currentIndex + 1} of 30
                   </div>
-                  <div className="text-[11px] text-[#7A7067] mt-0.5">
+                  <div className="text-[10px] text-[#7A7067]">
                     {30 - answeredCount} questions remaining
                   </div>
-                  <Progress value={progressPercent} className="h-1.5 mt-1.5" />
+                  <Progress value={progressPercent} className="h-1.5 mt-1" />
                 </div>
               </div>
             </div>
 
-            {/* 2. Real-Time Psychometric Context Card (REPLACES STATIC 30-GRID) */}
-            <div className="flex-1 bg-white rounded-2xl border border-[#DFD7CB] shadow-xs flex flex-col min-h-0 overflow-hidden">
-              <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-[#F0E8DF] bg-[#FAF6F0]/60 shrink-0">
-                <span className="text-[11px] font-black uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
-                  <Brain className="w-3.5 h-3.5 text-[#A36B40]" />
+            {/* 2. Real-Time Psychometric Context Card */}
+            <div className="flex-1 bg-white rounded-xl border border-[#DFD7CB] shadow-2xs flex flex-col min-h-0 overflow-hidden">
+              <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#F0E8DF] bg-[#FAF6F0]/60 shrink-0">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
+                  <Brain className="w-3 h-3 text-[#A36B40]" />
                   Adaptive Cognitive Context
                 </span>
-                <Badge className="bg-[#A36B40] text-white text-[9px] font-bold px-2 py-0.5 border-0">
+                <Badge className="bg-[#A36B40] text-white text-[8px] font-bold px-1.5 py-0 border-0">
                   Live Vector
                 </Badge>
               </div>
 
-              <div className="flex-1 p-4 sm:p-5 space-y-3.5 overflow-y-auto">
+              <div className="flex-1 p-2.5 space-y-2 overflow-y-auto">
                 {/* Emerging Leaning Badge */}
-                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#FAF6F0] via-[#F8EFE4] to-[#F3E7D8] border border-[#DFD7CB] space-y-1 shadow-2xs">
-                  <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#A36B40] flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" />
+                <div className="p-2 rounded-lg bg-gradient-to-br from-[#FAF6F0] via-[#F8EFE4] to-[#F3E7D8] border border-[#DFD7CB] space-y-0.5 shadow-2xs">
+                  <div className="text-[9px] font-extrabold uppercase tracking-wider text-[#A36B40] flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
                     Emerging Vocational Profile
                   </div>
-                  <div className="text-sm font-black text-[#2C2621] leading-snug">
+                  <div className="text-xs font-black text-[#2C2621] leading-tight">
                     {psychometricContext.primaryLeaning}
                   </div>
-                  <p className="text-[11px] text-[#7A7067] leading-relaxed pt-0.5">
+                  <p className="text-[10px] text-[#7A7067] leading-snug pt-0.5">
                     Real-time psychometric context calibrated from {answeredCount} answered responses.
                   </p>
                 </div>
 
                 {/* Top Emerging Dimensions */}
-                <div className="space-y-2">
-                  <div className="text-[10px] font-black uppercase tracking-wider text-[#7A7067]">
+                <div className="space-y-1.5">
+                  <div className="text-[9px] font-black uppercase tracking-wider text-[#7A7067]">
                     Top Evaluated Dimensions
                   </div>
 
                   {psychometricContext.topTraits.length > 0 ? (
-                    psychometricContext.topTraits.slice(0, 4).map((t, i) => (
+                    psychometricContext.topTraits.slice(0, 3).map((t, i) => (
                       <div
                         key={t.code}
-                        className="p-2.5 rounded-xl bg-[#FAF6F0]/80 border border-[#DFD7CB] flex items-center justify-between gap-2 shadow-2xs"
+                        className="p-1.5 rounded-lg bg-[#FAF6F0]/80 border border-[#DFD7CB] flex items-center justify-between gap-1.5 shadow-2xs"
                       >
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <span className="w-6 h-6 rounded-lg bg-[#A36B40]/15 text-[#A36B40] font-mono text-[10px] font-black flex items-center justify-center shrink-0">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="w-5 h-5 rounded-md bg-[#A36B40]/15 text-[#A36B40] font-mono text-[9px] font-black flex items-center justify-center shrink-0">
                             #{i + 1}
                           </span>
-                          <span className="text-xs font-bold text-[#2C2621] truncate">
+                          <span className="text-[11px] font-bold text-[#2C2621] truncate">
                             {t.name}
                           </span>
                         </div>
-                        <span className="text-[11px] font-mono font-black text-[#A36B40] bg-white px-2.5 py-0.5 rounded-lg border border-[#DFD7CB] shadow-2xs shrink-0">
+                        <span className="text-[10px] font-mono font-black text-[#A36B40] bg-white px-2 py-0.5 rounded border border-[#DFD7CB] shrink-0">
                           +{t.score} pts
                         </span>
                       </div>
                     ))
                   ) : (
-                    <div className="p-4 text-center rounded-2xl bg-[#FAF6F0]/60 border border-dashed border-[#DFD7CB] text-xs text-[#7A7067]">
+                    <div className="p-2.5 text-center rounded-xl bg-[#FAF6F0]/60 border border-dashed border-[#DFD7CB] text-[11px] text-[#7A7067]">
                       Answer Question 1 to establish your initial psychometric context.
                     </div>
                   )}
                 </div>
 
                 {/* Adaptive Pacing Note */}
-                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
-                  <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-                  <p className="leading-relaxed">
+                <div className="p-2 rounded-lg bg-amber-50/80 border border-amber-200 text-[10.5px] text-amber-900 flex items-start gap-1.5">
+                  <Info className="w-3.5 h-3.5 text-amber-700 shrink-0 mt-0.5" />
+                  <p className="leading-snug">
                     Questions dynamically adapt to your preferences, logical reasoning, and career attitude.
                   </p>
                 </div>
               </div>
 
               {/* Sidebar Clean Non-Overlapping Footer */}
-              <div className="px-3.5 py-2 border-t border-[#F0E8DF] bg-[#FAF6F0]/50 flex items-center justify-center gap-1.5 text-[10px] text-[#7A7067] font-semibold shrink-0">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <div className="px-3 py-1.5 border-t border-[#F0E8DF] bg-[#FAF6F0]/50 flex items-center justify-center gap-1.5 text-[9px] text-[#7A7067] font-semibold shrink-0">
+                <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
                 <span>Zero negative marking · Adaptive engine</span>
               </div>
             </div>

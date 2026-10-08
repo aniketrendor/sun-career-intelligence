@@ -42,6 +42,7 @@ export type AuthActionResult = {
   success: boolean
   error?: string
   redirectTo?: string
+  url?: string
 }
 
 export async function signInWithEmail(
@@ -92,28 +93,32 @@ export async function signInWithEmail(
 }
 
 export async function signInWithGoogle(targetRole: string = 'STUDENT'): Promise<AuthActionResult> {
-  const supabase = await createClient()
-  const appUrl = await getAppUrl()
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo: `${appUrl}/auth/callback?target_role=${targetRole}`,
-      queryParams: {
-        access_type: 'offline',
-        prompt: 'select_account consent',
+  try {
+    const supabase = await createClient()
+    const appUrl = await getAppUrl()
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${appUrl}/auth/callback?target_role=${targetRole}`,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'select_account consent',
+        },
       },
-    },
-  })
+    })
 
-  if (error) {
-    return { success: false, error: 'Failed to initiate Google login.' }
+    if (error) {
+      return { success: false, error: error.message || 'Failed to initiate Google login.' }
+    }
+
+    if (data?.url) {
+      return { success: true, url: data.url }
+    }
+
+    return { success: false, error: 'Unable to retrieve Google authentication URL.' }
+  } catch (err: any) {
+    return { success: false, error: err?.message || 'Unexpected Google authentication error.' }
   }
-
-  if (data.url) {
-    redirect(data.url)
-  }
-
-  return { success: false, error: 'Unable to redirect to Google.' }
 }
 
 export async function signUpWithEmail(

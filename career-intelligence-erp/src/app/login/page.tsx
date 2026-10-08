@@ -24,6 +24,16 @@ export default function LoginPage() {
   const [isPending, startTransition] = useTransition()
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
 
+  // Safety fallback: Reset loading state if redirect does not happen within 7 seconds
+  useEffect(() => {
+    if (isGoogleLoading) {
+      const timer = setTimeout(() => {
+        setIsGoogleLoading(false)
+      }, 7000)
+      return () => clearTimeout(timer)
+    }
+  }, [isGoogleLoading])
+
   // Catch OAuth redirect code if landed on /login
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -36,9 +46,29 @@ export default function LoginPage() {
       }
       if (params.get('error')) {
         toast.error('Authentication failed. Please try signing in again.')
+        setIsGoogleLoading(false)
       }
     }
   }, [])
+
+  const handleGoogleSignIn = async () => {
+    if (isGoogleLoading) return
+    setIsGoogleLoading(true)
+    try {
+      const targetRole = selectedPortal === 'mentor' ? 'COUNSELOR' : selectedPortal === 'admin' ? 'DEAN_HOD' : 'STUDENT'
+      const res = await signInWithGoogle(targetRole)
+      if (res.success && res.url) {
+        window.location.href = res.url
+      } else {
+        toast.error(res.error || 'Failed to initiate Google sign-in.')
+        setIsGoogleLoading(false)
+      }
+    } catch (err: any) {
+      console.error('Google sign in error:', err)
+      toast.error('An error occurred during Google sign-in.')
+      setIsGoogleLoading(false)
+    }
+  }
 
   const portalConfigs = {
     student: {
@@ -212,46 +242,41 @@ export default function LoginPage() {
             </div>
 
             {/* Google OAuth Button */}
-            <form action={async () => {
-              const targetRole = selectedPortal === 'mentor' ? 'COUNSELOR' : selectedPortal === 'admin' ? 'DEAN_HOD' : 'STUDENT'
-              await signInWithGoogle(targetRole)
-            }}>
-              <button
-                type="submit"
-                onClick={() => setIsGoogleLoading(true)}
-                disabled={isGoogleLoading}
-                className="w-full h-11 bg-white hover:bg-[#FAF5EC] text-[#1C1C1C] text-xs font-semibold rounded-2xl border border-[#EADECB] shadow-sm flex items-center justify-center gap-2.5 transition-all active:scale-[0.99] cursor-pointer disabled:opacity-70 disabled:pointer-events-none"
-              >
-                {isGoogleLoading ? (
-                  <>
-                    <RotateCcw className="w-4 h-4 animate-spin text-[#A89D8F]" />
-                    <span>Connecting to Google...</span>
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
-                      <path
-                        fill="#4285F4"
-                        d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
-                      />
-                      <path
-                        fill="#34A853"
-                        d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.27 21.41 7.33 24 12 24z"
-                      />
-                      <path
-                        fill="#FBBC05"
-                        d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.04 0 12s.45 3.82 1.25 5.42l4.03-3.15z"
-                      />
-                      <path
-                        fill="#EA4335"
-                        d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.27 2.59 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
-                      />
-                    </svg>
-                    <span>{currentConfig.googleText}</span>
-                  </>
-                )}
-              </button>
-            </form>
+            <button
+              type="button"
+              onClick={handleGoogleSignIn}
+              disabled={isGoogleLoading}
+              className="w-full h-11 bg-white hover:bg-[#FAF5EC] text-[#1C1C1C] text-xs font-semibold rounded-2xl border border-[#EADECB] shadow-sm flex items-center justify-center gap-2.5 transition-all active:scale-[0.99] cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
+            >
+              {isGoogleLoading ? (
+                <>
+                  <RotateCcw className="w-4 h-4 animate-spin text-[#FF6B3D]" />
+                  <span>Connecting to Google...</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                    <path
+                      fill="#4285F4"
+                      d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.27 21.41 7.33 24 12 24z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.04 0 12s.45 3.82 1.25 5.42l4.03-3.15z"
+                    />
+                    <path
+                      fill="#EA4335"
+                      d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.27 2.59 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+                    />
+                  </svg>
+                  <span>{currentConfig.googleText}</span>
+                </>
+              )}
+            </button>
 
             {/* Divider */}
             <div className="relative flex items-center justify-center py-0.5">
