@@ -730,19 +730,14 @@ function FresherTestContent() {
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2 shrink-0">
-                        <div className="flex items-center gap-2">
-                          <div
-                            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl font-mono text-sm sm:text-base font-black flex items-center justify-center shrink-0 transition-all ${
-                              isSelected
-                                ? 'bg-[#A36B40] text-white shadow-xs shadow-[#A36B40]/30'
-                                : 'bg-[#F5EEE6] text-[#A36B40] border border-[#DFD7CB]'
-                            }`}
-                          >
-                            {displayLetter}
-                          </div>
-                          <span className="inline-block text-[10px] font-mono font-bold text-[#A36B40] bg-[#FAF6F0] border border-[#DFD7CB] px-1.5 py-0.5 rounded-md">
-                            Key [{optIdx + 1}]
-                          </span>
+                        <div
+                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl font-mono text-sm sm:text-base font-black flex items-center justify-center shrink-0 transition-all ${
+                            isSelected
+                              ? 'bg-[#A36B40] text-white shadow-xs shadow-[#A36B40]/30'
+                              : 'bg-[#F5EEE6] text-[#A36B40] border border-[#DFD7CB]'
+                          }`}
+                        >
+                          {displayLetter}
                         </div>
 
                         <div

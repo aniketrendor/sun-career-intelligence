@@ -98,6 +98,10 @@ export async function signInWithGoogle(targetRole: string = 'STUDENT'): Promise<
     provider: 'google',
     options: {
       redirectTo: `${appUrl}/auth/callback?target_role=${targetRole}`,
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'select_account consent',
+      },
     },
   })
 

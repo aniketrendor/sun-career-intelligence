@@ -6,30 +6,23 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import {
   GraduationCap, Users, Shield,
-  Mail, KeyRound, RotateCcw, ArrowRight, Sparkles,
-  Ticket, UserCheck, Copy, Check
+  Mail, KeyRound, RotateCcw, ArrowRight,
+  Ticket
 } from 'lucide-react'
 import { signInWithGoogle, sendOtpCode, verifyOtpCode } from '@/lib/actions/auth.actions'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
 type PortalRole = 'student' | 'mentor' | 'admin'
-type StudentType = 'fresher' | 'existing'
 
 export default function LoginPage() {
   const router = useRouter()
   const [selectedPortal, setSelectedPortal] = useState<PortalRole>('student')
-  const [studentType, setStudentType] = useState<StudentType>('fresher')
   const [email, setEmail] = useState('')
   const [otpCode, setOtpCode] = useState('')
   const [otpSent, setOtpSent] = useState(false)
   const [isPending, startTransition] = useTransition()
-
-  // Fresher specific state
-  const [fresherName, setFresherName] = useState('')
-  const [fresherPhone, setFresherPhone] = useState('')
-  const [referralCode, setReferralCode] = useState('')
-  const [copiedCode, setCopiedCode] = useState(false)
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false)
 
   // Catch OAuth redirect code if landed on /login
   useEffect(() => {
@@ -47,31 +40,12 @@ export default function LoginPage() {
     }
   }, [])
 
-  const handleFresherPhoneChange = (val: string) => {
-    const digitsOnly = val.replace(/\D/g, '')
-    let cleaned = digitsOnly
-    if (cleaned.length === 12 && cleaned.startsWith('91')) {
-      cleaned = cleaned.slice(2)
-    } else if (cleaned.length === 11 && cleaned.startsWith('0')) {
-      cleaned = cleaned.slice(1)
-    }
-    setFresherPhone(cleaned.slice(0, 10))
-  }
-
-  const handleCopyCode = (code: string) => {
-    navigator.clipboard.writeText(code)
-    setReferralCode(code)
-    setCopiedCode(true)
-    toast.success(`Copied & applied referral key: ${code}`)
-    setTimeout(() => setCopiedCode(false), 2000)
-  }
-
   const portalConfigs = {
     student: {
       label: 'Student',
       icon: GraduationCap,
       googleText: 'Continue with Google as Student',
-      emailPlaceholder: 'student@university.edu',
+      emailPlaceholder: 'student@university.edu or personal email',
       defaultRedirect: '/student/dashboard',
       activeBg: 'bg-[#FF6B3D] text-white shadow-md shadow-[#FF6B3D]/30 scale-[1.02]',
       inactiveBg: 'bg-[#FFF0EB] hover:bg-[#FFE5DC] text-[#FF6B3D]',
@@ -100,26 +74,6 @@ export default function LoginPage() {
   }
 
   const currentConfig = portalConfigs[selectedPortal]
-
-  const handleFresherStart = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!referralCode.trim()) {
-      toast.error('Please enter a valid Referral Code.')
-      return
-    }
-    if (fresherPhone && fresherPhone.length !== 10) {
-      toast.error('Please enter a valid 10-digit mobile number.')
-      return
-    }
-    toast.success(`Referral code ${referralCode} verified! Initializing Fresher Evaluation Flow...`)
-    const formattedPhone = fresherPhone ? `+91 ${fresherPhone}` : ''
-    const searchParams = new URLSearchParams({
-      code: referralCode.trim(),
-      name: fresherName || 'Aspiring Student',
-      phone: formattedPhone,
-    })
-    window.location.href = `/student/fresher?${searchParams.toString()}`
-  }
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -257,165 +211,24 @@ export default function LoginPage() {
               })}
             </div>
 
-            {/* Student Type Segmented Switch (Freshers vs Existing) */}
-            {selectedPortal === 'student' && (
-              <div className="bg-[#FAF5EC] p-2 rounded-2xl border border-[#EADECB] space-y-1.5 animate-in fade-in-50">
-                <div className="flex items-center justify-between px-2 pt-0.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#A89D8F]">
-                    STUDENT CATEGORY
-                  </span>
-                  <span className="text-[10px] font-semibold text-[#FF6B3D] bg-[#FFF0EB] px-2 py-0.5 rounded-full border border-[#FF6B3D]/25">
-                    {studentType === 'fresher' ? 'Fresher (Code)' : 'Existing (PRN)'}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => setStudentType('fresher')}
-                    className={`py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                      studentType === 'fresher'
-                        ? 'bg-white text-[#FF6B3D] shadow-sm border border-[#FF6B3D]/30'
-                        : 'text-stone-600 hover:text-stone-900 hover:bg-[#F0E6D5]'
-                    }`}
-                  >
-                    <Ticket className="w-3.5 h-3.5 text-[#FF6B3D]" />
-                    <span>Fresher (Code)</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setStudentType('existing')}
-                    className={`py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                      studentType === 'existing'
-                        ? 'bg-white text-[#FF6B3D] shadow-sm border border-[#FF6B3D]/30'
-                        : 'text-stone-600 hover:text-stone-900 hover:bg-[#F0E6D5]'
-                    }`}
-                  >
-                    <UserCheck className="w-3.5 h-3.5 text-stone-500" />
-                    <span>Existing (PRN)</span>
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Content for Fresher Student */}
-            {selectedPortal === 'student' && studentType === 'fresher' ? (
-              <form onSubmit={handleFresherStart} className="space-y-3.5 animate-in fade-in-50">
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-[#1C1C1C] block">
-                      Mentor Referral Code
-                    </label>
-                    <span className="text-[10px] text-[#FF6B3D] font-semibold bg-[#FFF0EB] px-2 py-0.5 rounded-full border border-[#FF6B3D]/25">
-                      Required for Freshers
-                    </span>
-                  </div>
-                  <div className="relative">
-                    <Ticket className="w-4 h-4 text-[#FF6B3D] absolute left-3.5 top-3.5" />
-                    <Input
-                      type="text"
-                      required
-                      placeholder="e.g. SUN-FRESHER-AK92 or SUN-FRESHERS-2026"
-                      value={referralCode}
-                      onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
-                      className="pl-10 h-11 uppercase font-mono font-bold tracking-wider rounded-2xl bg-white border-[#EADECB] text-xs text-[#1C1C1C] focus:border-[#FF6B3D] focus:ring-1 focus:ring-[#FF6B3D]"
-                    />
-                  </div>
-                  <div className="text-[11px] text-[#7A7067] pt-1 space-y-0.5 leading-snug">
-                    <p>Enter access key provided by your counselor (Mentor)</p>
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span>or use Admin's referral key:</span>
-                      <button
-                        type="button"
-                        onClick={() => handleCopyCode('SUN-FRESHERS-2026')}
-                        className="inline-flex items-center gap-1 font-mono text-[10.5px] font-bold text-[#A36B40] bg-[#FAF6F0] hover:bg-[#F2EAE0] border border-[#DFD7CB] px-2 py-0.5 rounded-lg transition-all cursor-pointer group shadow-2xs"
-                        title="Click to copy & apply key"
-                      >
-                        <span>sun-freshers-2026</span>
-                        {copiedCode ? (
-                          <Check className="w-3 h-3 text-emerald-600 shrink-0" />
-                        ) : (
-                          <Copy className="w-3 h-3 text-[#A36B40] group-hover:scale-110 transition-transform shrink-0" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-stone-600 block">
-                      Candidate Name
-                    </label>
-                    <Input
-                      type="text"
-                      placeholder="Your Full Name"
-                      value={fresherName}
-                      onChange={(e) => setFresherName(e.target.value)}
-                      className="h-10 rounded-2xl bg-white border-[#EADECB] focus-visible:border-[#FF6B3D] focus-visible:ring-2 focus-visible:ring-[#FF6B3D]/10 text-xs text-[#1C1C1C]"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <label className="text-[11px] font-semibold text-stone-600 block">
-                        Mobile / WhatsApp
-                      </label>
-                      {fresherPhone.length > 0 && (
-                        <span className={`text-[10px] font-mono font-medium ${
-                          fresherPhone.length === 10 ? 'text-emerald-600 font-bold' : 'text-stone-400'
-                        }`}>
-                          {fresherPhone.length}/10
-                        </span>
-                      )}
-                    </div>
-                    <div className={`flex items-center h-10 rounded-2xl bg-white border transition-all duration-200 overflow-hidden ${
-                      fresherPhone.length === 10
-                        ? 'border-emerald-500/80 ring-2 ring-emerald-500/10'
-                        : 'border-[#EADECB] focus-within:border-[#FF6B3D] focus-within:ring-2 focus-within:ring-[#FF6B3D]/10'
-                    }`}>
-                      <div className="flex items-center gap-1 px-2.5 h-full bg-[#FAF5EC] border-r border-[#EADECB] text-[#5C544D] text-xs font-semibold select-none shrink-0 font-mono">
-                        <span className="text-xs">🇮🇳</span>
-                        <span>+91</span>
-                      </div>
-                      <input
-                        type="tel"
-                        inputMode="numeric"
-                        pattern="[0-9]*"
-                        maxLength={10}
-                        placeholder="10-digit number"
-                        value={fresherPhone}
-                        onChange={(e) => handleFresherPhoneChange(e.target.value)}
-                        className="w-full h-full px-2.5 text-xs text-[#1C1C1C] bg-transparent outline-none font-mono placeholder:text-stone-400 placeholder:font-sans"
-                      />
-                      {fresherPhone.length === 10 && (
-                        <div className="pr-2.5 shrink-0 text-emerald-600 animate-in fade-in zoom-in-75 duration-200">
-                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full h-11 bg-[#FF6B3D] hover:bg-[#E8592E] text-white font-semibold text-xs rounded-2xl transition-all shadow-md shadow-[#FF6B3D]/25 active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Start Fresher Career Test & Admission Flow</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </form>
-            ) : (
-              <>
-                {/* Google OAuth Button for Existing Student, Mentor, Admin */}
-                <form action={async () => {
-                  const targetRole = selectedPortal === 'mentor' ? 'COUNSELOR' : selectedPortal === 'admin' ? 'DEAN_HOD' : 'STUDENT'
-                  await signInWithGoogle(targetRole)
-                }}>
-                  <button
-                    type="submit"
-                    className="w-full h-11 bg-white hover:bg-[#FAF5EC] text-[#1C1C1C] text-xs font-semibold rounded-2xl border border-[#EADECB] shadow-sm flex items-center justify-center gap-2.5 transition-all active:scale-[0.99] cursor-pointer"
-                  >
+            {/* Google OAuth Button */}
+            <form action={async () => {
+              const targetRole = selectedPortal === 'mentor' ? 'COUNSELOR' : selectedPortal === 'admin' ? 'DEAN_HOD' : 'STUDENT'
+              await signInWithGoogle(targetRole)
+            }}>
+              <button
+                type="submit"
+                onClick={() => setIsGoogleLoading(true)}
+                disabled={isGoogleLoading}
+                className="w-full h-11 bg-white hover:bg-[#FAF5EC] text-[#1C1C1C] text-xs font-semibold rounded-2xl border border-[#EADECB] shadow-sm flex items-center justify-center gap-2.5 transition-all active:scale-[0.99] cursor-pointer disabled:opacity-70 disabled:pointer-events-none"
+              >
+                {isGoogleLoading ? (
+                  <>
+                    <RotateCcw className="w-4 h-4 animate-spin text-[#A89D8F]" />
+                    <span>Connecting to Google...</span>
+                  </>
+                ) : (
+                  <>
                     <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                       <path
                         fill="#4285F4"
@@ -435,100 +248,122 @@ export default function LoginPage() {
                       />
                     </svg>
                     <span>{currentConfig.googleText}</span>
-                  </button>
-                </form>
+                  </>
+                )}
+              </button>
+            </form>
 
-                {/* Divider */}
-                <div className="relative flex items-center justify-center py-0.5">
-                  <div className="border-t border-[#EADECB] w-full" />
-                  <span className="bg-white px-3 text-[10px] uppercase font-bold text-[#A89D8F] tracking-wider whitespace-nowrap">
-                    OR VERIFY WITH EMAIL & OTP
-                  </span>
-                  <div className="border-t border-[#EADECB] w-full" />
+            {/* Divider */}
+            <div className="relative flex items-center justify-center py-0.5">
+              <div className="border-t border-[#EADECB] w-full" />
+              <span className="bg-white px-3 text-[10px] uppercase font-bold text-[#A89D8F] tracking-wider whitespace-nowrap">
+                OR VERIFY WITH EMAIL & OTP
+              </span>
+              <div className="border-t border-[#EADECB] w-full" />
+            </div>
+
+            {/* Email Form */}
+            {!otpSent ? (
+              <form onSubmit={handleSendOtp} className="space-y-3.5">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#1C1C1C] block">
+                    Personal / Institutional Email
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-[#A89D8F] absolute left-3.5 top-3.5" />
+                    <Input
+                      type="email"
+                      required
+                      placeholder={currentConfig.emailPlaceholder}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-10 h-11 rounded-2xl bg-white border-[#EADECB] text-xs text-[#1C1C1C] placeholder:text-[#A89D8F] focus:border-[#FF6B3D] focus:ring-1 focus:ring-[#FF6B3D]"
+                    />
+                  </div>
                 </div>
 
-                {/* Email Form */}
-                {!otpSent ? (
-                  <form onSubmit={handleSendOtp} className="space-y-3.5">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-[#1C1C1C] block">
-                        Personal / Institutional Email
-                      </label>
-                      <div className="relative">
-                        <Mail className="w-4 h-4 text-[#A89D8F] absolute left-3.5 top-3.5" />
-                        <Input
-                          type="email"
-                          required
-                          placeholder={currentConfig.emailPlaceholder}
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="pl-10 h-11 rounded-2xl bg-white border-[#EADECB] text-xs text-[#1C1C1C] placeholder:text-[#A89D8F] focus:border-[#FF6B3D] focus:ring-1 focus:ring-[#FF6B3D]"
-                        />
-                      </div>
-                    </div>
-
-                    <Button
-                      type="submit"
-                      disabled={isPending}
-                      className="w-full h-11 bg-[#1C1C1C] hover:bg-black text-white font-semibold text-xs rounded-2xl transition-all shadow-md active:scale-[0.99] cursor-pointer"
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full h-11 bg-[#1C1C1C] hover:bg-black text-white font-semibold text-xs rounded-2xl transition-all shadow-md active:scale-[0.99] cursor-pointer"
+                >
+                  {isPending ? 'Sending OTP Code...' : 'Send 6-Digit OTP Code'}
+                </Button>
+              </form>
+            ) : (
+              <form onSubmit={handleVerifyOtp} className="space-y-3.5 animate-in fade-in-50">
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-[#1C1C1C]">
+                      Enter 6-Digit Verification Code
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => { setOtpSent(false); setOtpCode('') }}
+                      className="text-[11px] text-[#A89D8F] hover:text-[#1C1C1C] underline cursor-pointer"
                     >
-                      {isPending ? 'Sending OTP Code...' : 'Send 6-Digit OTP Code'}
-                    </Button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleVerifyOtp} className="space-y-3.5 animate-in fade-in-50">
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between">
-                        <label className="text-xs font-bold text-[#1C1C1C]">
-                          Enter 6-Digit Verification Code
-                        </label>
-                        <button
-                          type="button"
-                          onClick={() => { setOtpSent(false); setOtpCode('') }}
-                          className="text-[11px] text-[#A89D8F] hover:text-[#1C1C1C] underline cursor-pointer"
-                        >
-                          Change Email
-                        </button>
-                      </div>
-                      <div className="relative">
-                        <KeyRound className="w-4 h-4 text-[#A89D8F] absolute left-3.5 top-3.5" />
-                        <Input
-                          type="text"
-                          maxLength={6}
-                          required
-                          autoFocus
-                          placeholder="••••••"
-                          value={otpCode}
-                          onChange={(e) => setOtpCode(e.target.value.trim())}
-                          className="pl-10 h-11 rounded-2xl font-mono text-center tracking-[0.4em] font-bold text-base bg-white border-[#EADECB] text-[#1C1C1C] focus:border-[#FF6B3D] focus:ring-1 focus:ring-[#FF6B3D]"
-                        />
-                      </div>
-                      <p className="text-[11px] text-[#A89D8F] text-center pt-0.5">
-                        Sent to <span className="font-semibold text-[#1C1C1C]">{email}</span>
-                      </p>
-                    </div>
+                      Change Email
+                    </button>
+                  </div>
+                  <div className="relative">
+                    <KeyRound className="w-4 h-4 text-[#A89D8F] absolute left-3.5 top-3.5" />
+                    <Input
+                      type="text"
+                      maxLength={6}
+                      required
+                      autoFocus
+                      placeholder="••••••"
+                      value={otpCode}
+                      onChange={(e) => setOtpCode(e.target.value.trim())}
+                      className="pl-10 h-11 rounded-2xl font-mono text-center tracking-[0.4em] font-bold text-base bg-white border-[#EADECB] text-[#1C1C1C] focus:border-[#FF6B3D] focus:ring-1 focus:ring-[#FF6B3D]"
+                    />
+                  </div>
+                  <p className="text-[11px] text-[#A89D8F] text-center pt-0.5">
+                    Sent to <span className="font-semibold text-[#1C1C1C]">{email}</span>
+                  </p>
+                </div>
 
-                    <Button
-                      type="submit"
-                      disabled={isPending}
-                      className="w-full h-11 bg-[#FF6B3D] hover:bg-[#E8592E] text-white font-semibold text-xs rounded-2xl transition-all shadow-md shadow-[#FF6B3D]/25 active:scale-[0.99] cursor-pointer"
-                    >
-                      {isPending ? 'Verifying Code...' : 'Verify & Enter Portal'}
-                    </Button>
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className={`w-full h-11 text-white font-semibold text-xs rounded-2xl transition-all shadow-md active:scale-[0.99] cursor-pointer ${
+                    selectedPortal === 'mentor'
+                      ? 'bg-[#10B981] hover:bg-[#059669] shadow-[#10B981]/25'
+                      : selectedPortal === 'admin'
+                      ? 'bg-[#7B61FF] hover:bg-[#684DEC] shadow-[#7B61FF]/25'
+                      : 'bg-[#FF6B3D] hover:bg-[#E8592E] shadow-[#FF6B3D]/25'
+                  }`}
+                >
+                  {isPending ? 'Verifying Code...' : 'Verify & Enter Portal'}
+                </Button>
 
-                    <div className="text-center pt-0.5">
-                      <button
-                        type="button"
-                        disabled={isPending}
-                        onClick={handleSendOtp}
-                        className="text-xs text-[#A89D8F] hover:text-[#1C1C1C] font-medium flex items-center justify-center gap-1.5 mx-auto cursor-pointer"
-                      >
-                        <RotateCcw className="w-3 h-3" /> Resend 6-Digit Code
-                      </button>
-                    </div>
-                  </form>
-                )}
-              </>
+                <div className="text-center pt-0.5">
+                  <button
+                    type="button"
+                    disabled={isPending}
+                    onClick={handleSendOtp}
+                    className="text-xs text-[#A89D8F] hover:text-[#1C1C1C] font-medium flex items-center justify-center gap-1.5 mx-auto cursor-pointer"
+                  >
+                    <RotateCcw className="w-3 h-3" /> Resend 6-Digit Code
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* Optional Fresher Career Assessment Link for Students */}
+            {selectedPortal === 'student' && (
+              <div className="pt-2 border-t border-[#EADECB]/60 text-center">
+                <Link
+                  href="/student/fresher"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#A89D8F] hover:text-[#FF6B3D] transition-colors group"
+                >
+                  <Ticket className="w-3.5 h-3.5 text-[#FF6B3D]" />
+                  <span>Have a Fresher admission referral code?</span>
+                  <span className="text-[#FF6B3D] underline underline-offset-2 flex items-center gap-0.5">
+                    Take Career Test <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </span>
+                </Link>
+              </div>
             )}
           </div>
 
