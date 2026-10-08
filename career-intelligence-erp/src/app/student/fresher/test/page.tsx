@@ -8,7 +8,7 @@ import {
   GraduationCap, CheckCircle2, ArrowRight, ArrowLeft,
   Clock, Sparkles, AlertCircle, HelpCircle, ShieldCheck,
   Award, Check, LayoutGrid, ChevronRight, Layers, FileText,
-  Brain, Compass, Target, BookmarkCheck
+  Brain, Compass, Target, BookmarkCheck, Zap, Keyboard
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -179,6 +179,35 @@ function FresherTestContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  // Keyboard navigation shortcuts: 1-4 / A-D to select, ArrowRight / Enter to next, ArrowLeft to prev
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isSubmitConfirmOpen || isMobileNavOpen) return
+      const target = e.target as HTMLElement | null
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) return
+
+      const key = e.key.toLowerCase()
+      if (key === '1' || key === 'a') {
+        if (currentQ?.options[0]) handleSelectOption(currentQ.options[0].id)
+      } else if (key === '2' || key === 'b') {
+        if (currentQ?.options[1]) handleSelectOption(currentQ.options[1].id)
+      } else if (key === '3' || key === 'c') {
+        if (currentQ?.options[2]) handleSelectOption(currentQ.options[2].id)
+      } else if (key === '4' || key === 'd') {
+        if (currentQ?.options[3]) handleSelectOption(currentQ.options[3].id)
+      } else if (key === 'arrowright' || key === 'enter') {
+        e.preventDefault()
+        handleNext()
+      } else if (key === 'arrowleft') {
+        e.preventDefault()
+        handlePrev()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentQ, isSubmitConfirmOpen, isMobileNavOpen, currentIndex, totalQuestions, selectedAnswers])
+
   const handleFinishAssessment = () => {
     if (answeredCount < totalQuestions) {
       setIsSubmitConfirmOpen(true)
@@ -302,30 +331,33 @@ function FresherTestContent() {
   const nextUnansweredNum = firstUnansweredIndex >= 0 ? firstUnansweredIndex + 1 : 1
 
   return (
-    <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#FAF6F0] p-2.5 sm:p-4 lg:p-4 flex flex-col justify-between overflow-x-hidden lg:overflow-hidden font-sans antialiased">
-      <div className="max-w-7xl mx-auto w-full flex flex-col flex-1 gap-2.5 sm:gap-3 min-h-0">
+    <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#FAF6F0] p-2 sm:p-3 lg:p-3.5 flex flex-col overflow-x-hidden lg:overflow-hidden font-sans antialiased text-[#2C2621]">
+      <div className="max-w-[1560px] mx-auto w-full flex flex-col flex-1 gap-2.5 sm:gap-3 min-h-0">
         
         {/* ─── TOP HEADER (RESPONSIVE: MOBILE & DESKTOP) ────────────────── */}
-        <header className="bg-white px-3 sm:px-5 py-2.5 rounded-2xl border border-[#DFD7CB] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-2.5 shrink-0">
+        <header className="bg-white px-3.5 sm:px-5 py-2.5 rounded-2xl border border-[#DFD7CB] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-2.5 shrink-0">
           <div className="flex items-center justify-between w-full md:w-auto gap-3">
-            <div className="flex items-center gap-2.5 sm:gap-3">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#A36B40] via-[#C87D55] to-[#77734B] flex items-center justify-center text-white shadow-xs shadow-[#A36B40]/20 shrink-0">
-                <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#A36B40] via-[#C87D55] to-[#77734B] flex items-center justify-center text-white shadow-xs shadow-[#A36B40]/25 shrink-0">
+                <GraduationCap className="w-5 h-5" />
               </div>
               <div>
-                <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                <div className="flex items-center gap-2 flex-wrap">
                   <h1 className="text-xs sm:text-sm lg:text-base font-black text-[#2C2621] tracking-tight leading-tight">
                     {academicLevel} Diagnostic Assessment
                   </h1>
-                  <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#A36B40]/40 text-[9px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.2 rounded-full">
+                  <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#A36B40]/40 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-full">
                     {academicLevel} Track
                   </Badge>
-                  <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.2 rounded-full hidden sm:inline-flex">
+                  <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full hidden sm:inline-flex">
                     30 Adaptive Qs
+                  </Badge>
+                  <Badge className="bg-amber-50 text-amber-800 border-amber-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full hidden md:inline-flex">
+                    Zero Negative Marking
                   </Badge>
                 </div>
                 <p className="text-[10px] sm:text-[11px] text-[#7A7067] leading-none mt-0.5">
-                  Candidate: <span className="font-bold text-[#2C2621]">{candidateName}</span> · Token: <span className="font-mono text-[#A36B40] font-extrabold">{referralCode}</span>
+                  Candidate: <span className="font-bold text-[#2C2621]">{candidateName}</span> · Token: <span className="font-mono text-[#A36B40] font-black">{referralCode}</span>
                 </p>
               </div>
             </div>
@@ -339,13 +371,13 @@ function FresherTestContent() {
                 aria-label="Open Question Navigator"
               >
                 <LayoutGrid className="w-3.5 h-3.5 text-[#A36B40]" />
-                <span className="text-[11px] font-mono">{currentIndex + 1}/30</span>
+                <span className="text-[11px] font-mono font-bold">{currentIndex + 1}/30</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleFinishAssessment}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-[#A36B40] to-[#77734B] text-white text-[11px] font-black shadow-xs cursor-pointer active:scale-95"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#A36B40] to-[#77734B] text-white text-[11px] font-black shadow-xs cursor-pointer active:scale-95"
               >
                 <Award className="w-3.5 h-3.5" />
                 <span>See Result</span>
@@ -354,7 +386,7 @@ function FresherTestContent() {
           </div>
 
           {/* Desktop Metric Strip & Actions */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
             {/* Mobile inline micro progress */}
             <div className="w-full sm:hidden flex items-center gap-2">
               <Progress value={progressPercent} className="h-1.5 flex-1" />
@@ -362,19 +394,23 @@ function FresherTestContent() {
             </div>
 
             <div className="hidden sm:flex items-center gap-2 sm:gap-2.5 self-start md:self-center">
-              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-[#2C2621] bg-[#FAF6F0] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl border border-[#DFD7CB] shadow-2xs">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#2C2621] bg-[#FAF6F0] px-3 py-1.5 rounded-xl border border-[#DFD7CB] shadow-2xs">
                 <Clock className="w-3.5 h-3.5 text-[#A36B40]" />
                 <span>Question {currentIndex + 1} of 30</span>
               </div>
-              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-[#77734B] bg-[#77734B]/10 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl border border-[#77734B]/20">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#77734B] bg-[#77734B]/10 px-3 py-1.5 rounded-xl border border-[#77734B]/20">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#77734B]" />
                 <span>{answeredCount} / 30 Done</span>
               </div>
               <Button
                 onClick={handleFinishAssessment}
-                className="h-8 sm:h-8.5 px-3.5 bg-gradient-to-r from-[#A36B40] to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-xs shadow-[#A36B40]/25 cursor-pointer flex items-center gap-1.5"
+                className={`h-9 px-4 font-black text-xs rounded-xl shadow-xs cursor-pointer flex items-center gap-1.5 transition-all ${
+                  answeredCount === 30
+                    ? 'bg-gradient-to-r from-emerald-600 to-[#77734B] hover:opacity-95 text-white shadow-emerald-600/30 ring-2 ring-emerald-400 animate-pulse'
+                    : 'bg-gradient-to-r from-[#A36B40] to-[#77734B] hover:opacity-95 text-white shadow-[#A36B40]/25'
+                }`}
               >
-                <Award className="w-3.5 h-3.5" />
+                <Award className="w-4 h-4" />
                 <span>See Result</span>
               </Button>
             </div>
@@ -385,43 +421,57 @@ function FresherTestContent() {
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-2.5 sm:gap-3 min-h-0 items-stretch pb-20 lg:pb-0">
           
           {/* ═══ LEFT MAIN COLUMN: QUESTION WORKSPACE (8 COLS ON DESKTOP) ═══ */}
-          <main className="lg:col-span-8 flex flex-col justify-between gap-2 sm:gap-2.5 min-h-0 h-full">
+          <main className="lg:col-span-8 flex flex-col min-h-0 h-full">
             
-            {/* Active Question Card */}
-            <Card className="flex-1 flex flex-col bg-white border border-[#DFD7CB] shadow-xs rounded-2xl overflow-hidden min-h-0">
+            {/* Active Question Card — fills all available height */}
+            <Card className="flex-1 flex flex-col bg-white border border-[#DFD7CB] shadow-sm rounded-2xl overflow-hidden min-h-0">
+              {/* Accent header bar */}
               <div className="h-1.5 w-full bg-gradient-to-r from-[#A36B40] via-[#C87D55] to-[#77734B] shrink-0" />
               
-              <CardHeader className="py-2.5 sm:py-3.5 px-3.5 sm:px-6 border-b border-[#DFD7CB] bg-[#FAF6F0]/40 space-y-1.5 shrink-0">
-                <div className="flex flex-wrap items-center justify-between gap-1.5">
+              {/* Question Header */}
+              <CardHeader className="py-3.5 sm:py-4 px-4 sm:px-6 border-b border-[#F0E8DF] bg-[#FAF6F0]/60 space-y-2 shrink-0">
+                <div className="flex items-center justify-between gap-2">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#A36B40] bg-[#FAF6F0] px-2 sm:px-2.5 py-0.5 rounded-full border border-[#A36B40]/30 shadow-2xs">
-                      {currentSection.title}
+                    <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#A36B40] bg-[#A36B40]/10 px-2.5 py-0.5 rounded-full border border-[#A36B40]/25 flex items-center gap-1">
+                      <Brain className="w-3 h-3" />
+                      {currentSection.shortTitle}
                     </span>
-                    <Badge variant="outline" className="text-[8px] sm:text-[9px] font-bold border-[#DFD7CB] bg-white text-[#77734B] px-1.5 py-0">
+                    <Badge variant="outline" className="text-[9px] sm:text-[10px] font-bold border-[#DFD7CB] bg-white text-[#77734B] px-2 py-0.5">
                       {currentQ.type}
                     </Badge>
+                    <Badge variant="outline" className="text-[9px] font-mono border-[#DFD7CB] bg-white text-[#7A7067] px-1.5 py-0.5">
+                      ID: {currentQ.id}
+                    </Badge>
                     {currentQ.discriminator && (
-                      <Badge className="bg-[#77734B]/15 text-[#77734B] border-0 text-[8px] sm:text-[9px] font-bold px-1.5 py-0 hidden xs:inline-flex">
-                        Target: {currentQ.discriminator}
+                      <Badge className="bg-[#77734B]/10 text-[#77734B] border-0 text-[8px] font-bold px-1.5 py-0.5 hidden sm:inline-flex">
+                        {currentQ.discriminator}
                       </Badge>
                     )}
                   </div>
-                  
-                  <span className="text-[9px] sm:text-[10px] font-mono font-bold text-[#7A7067] bg-white px-2 py-0.5 rounded-lg border border-[#DFD7CB]">
-                    ID: {currentQ.id}
-                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <span className="hidden xl:inline-flex items-center gap-1 text-[10px] text-[#7A7067] bg-white px-2 py-0.5 rounded-md border border-[#DFD7CB]">
+                      <Keyboard className="w-3 h-3 text-[#A36B40]" />
+                      Press 1-4 · Enter
+                    </span>
+                    <span className="text-[10px] font-mono font-black text-[#A36B40] bg-[#A36B40]/10 px-2.5 py-1 rounded-lg border border-[#A36B40]/25 shrink-0">
+                      Q {currentIndex + 1} / 30
+                    </span>
+                  </div>
                 </div>
 
-                <CardTitle className="text-sm sm:text-base lg:text-lg font-black text-[#2C2621] leading-snug pt-1">
+                {/* Question Text */}
+                <CardTitle className="text-base sm:text-xl lg:text-[22px] font-black text-[#2C2621] leading-snug tracking-tight">
                   {currentQ.question}
                 </CardTitle>
-                <CardDescription className="text-[10px] sm:text-[11px] text-[#7A7067] leading-tight">
-                  Select the option that most naturally aligns with your instincts, reasoning, and problem-solving method.
+                <CardDescription className="text-xs sm:text-[13px] text-[#7A7067] leading-relaxed flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-[#A36B40] shrink-0" />
+                  <span>Select the option that most naturally aligns with your instincts, reasoning, and problem-solving method.</span>
                 </CardDescription>
               </CardHeader>
 
-              {/* 4 Interactive Option Cards */}
-              <CardContent className="p-2.5 sm:p-4 flex-1 flex flex-col justify-evenly gap-2 min-h-0 overflow-y-auto lg:overflow-visible">
+              {/* 2×2 Option Grid — stretches to fill remaining card height */}
+              <CardContent className="p-3 sm:p-5 lg:p-6 flex-1 grid grid-cols-1 sm:grid-cols-2 grid-rows-2 gap-3 sm:gap-4 min-h-0 overflow-y-auto lg:overflow-visible">
                 {(currentQ?.options || []).map((opt: OptionWeightItem, optIdx: number) => {
                   const displayLetter = ['A', 'B', 'C', 'D'][optIdx] || opt.id
                   const isSelected = selectedAnswers[currentQ?.id] === opt.id
@@ -429,171 +479,236 @@ function FresherTestContent() {
                     <div
                       key={opt.id}
                       onClick={() => handleSelectOption(opt.id)}
-                      className={`p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border transition-all cursor-pointer flex items-center gap-3 active:scale-[0.99] touch-manipulation ${
+                      className={`relative p-4 sm:p-5 lg:p-6 rounded-2xl border-2 transition-all duration-150 cursor-pointer flex flex-col justify-between gap-3 h-full group select-none touch-manipulation active:scale-[0.98] ${
                         isSelected
-                          ? 'border-[#A36B40] bg-[#FAF6F0] ring-2 ring-[#A36B40]/40 shadow-xs scale-[1.005]'
-                          : 'border-[#DFD7CB] bg-white hover:border-[#C6A18D] hover:bg-[#FAF6F0]/40'
+                          ? 'border-[#A36B40] bg-gradient-to-br from-[#FAF6F0] via-[#F6ECE0] to-[#EFE2D2] shadow-md shadow-[#A36B40]/15 ring-2 ring-[#A36B40]/20'
+                          : 'border-[#E8DFD5] bg-white hover:border-[#C6A18D] hover:bg-[#FAF6F0]/60 hover:shadow-xs'
                       }`}
                     >
-                      <div
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl font-mono text-xs sm:text-sm font-black flex items-center justify-center shrink-0 transition-all ${
-                          isSelected
-                            ? 'bg-[#A36B40] text-white shadow-xs'
-                            : 'bg-[#FAF6F0] text-[#7A7067] border border-[#DFD7CB]'
-                        }`}
-                      >
-                        {displayLetter}
-                      </div>
+                      {/* Top: letter badge + keyboard hint + radio */}
+                      <div className="flex items-center justify-between gap-2 shrink-0">
+                        <div className="flex items-center gap-2">
+                          <div
+                            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl font-mono text-sm sm:text-base font-black flex items-center justify-center shrink-0 transition-all ${
+                              isSelected
+                                ? 'bg-[#A36B40] text-white shadow-xs shadow-[#A36B40]/30'
+                                : 'bg-[#F5EEE6] text-[#A36B40] border border-[#DFD7CB]'
+                            }`}
+                          >
+                            {displayLetter}
+                          </div>
+                          <span className="hidden sm:inline-block text-[10px] font-mono font-bold text-[#A36B40] bg-[#FAF6F0] border border-[#DFD7CB] px-1.5 py-0.5 rounded-md">
+                            Key [{optIdx + 1}]
+                          </span>
+                        </div>
 
-                      <div className="flex-1 text-xs sm:text-sm font-semibold text-[#2C2621] leading-snug">
-                        {opt.text}
-                      </div>
-
-                      <div className="shrink-0">
                         <div
-                          className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border flex items-center justify-center transition-all ${
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ${
                             isSelected
-                              ? 'border-[#A36B40] bg-[#A36B40] text-white'
-                              : 'border-[#DFD7CB] bg-white'
+                              ? 'border-[#A36B40] bg-[#A36B40] text-white shadow-xs'
+                              : 'border-[#C8BFB5] bg-white group-hover:border-[#A36B40]'
                           }`}
                         >
-                          {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                          {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                         </div>
+                      </div>
+
+                      {/* Middle: option text (prominent & comfortable) */}
+                      <div className="my-auto py-2">
+                        <p className={`text-sm sm:text-base lg:text-lg font-bold leading-relaxed tracking-tight ${
+                          isSelected ? 'text-[#5C3820]' : 'text-[#2C2621]'
+                        }`}>
+                          {opt.text}
+                        </p>
+                      </div>
+
+                      {/* Bottom: selection status pill or selection prompt */}
+                      <div className="pt-2 border-t border-[#DFD7CB]/60 flex items-center justify-between text-xs shrink-0">
+                        {isSelected ? (
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-black text-[#A36B40] bg-[#A36B40]/10 px-2.5 py-0.5 rounded-md">
+                            <Check className="w-3 h-3 stroke-[3]" />
+                            Selected Choice
+                          </span>
+                        ) : (
+                          <span className="text-[11px] text-[#7A7067] font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                            Click or press <strong className="text-[#A36B40]">{displayLetter}</strong>
+                          </span>
+                        )}
+                        <span className="text-[10px] font-mono text-[#A36B40]/70 font-semibold">
+                          Option {displayLetter}
+                        </span>
                       </div>
                     </div>
                   )
                 })}
               </CardContent>
-            </Card>
 
-            {/* Desktop-only Bottom Control Dock */}
-            <div className="hidden lg:flex bg-white px-4 py-2 rounded-2xl border border-[#DFD7CB] shadow-xs items-center justify-between gap-3 shrink-0">
-              <Button
-                variant="outline"
-                onClick={handlePrev}
-                disabled={currentIndex === 0}
-                className="h-9 px-4 rounded-xl border-[#DFD7CB] bg-white text-xs font-bold text-[#2C2621] hover:bg-[#FAF6F0] disabled:opacity-40 cursor-pointer flex items-center gap-1.5 shadow-2xs"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Previous</span>
-              </Button>
-
-              <div className="flex items-center gap-2">
+              {/* Desktop Bottom Dock (integrated directly inside card footer) */}
+              <div className="hidden lg:flex bg-[#FAF6F0]/70 px-5 py-3 border-t border-[#F0E8DF] items-center justify-between gap-3 shrink-0">
                 <Button
-                  onClick={handleNext}
-                  className="h-9 px-5 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-extrabold text-xs rounded-xl shadow-xs shadow-[#A36B40]/25 transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-98"
+                  variant="outline"
+                  onClick={handlePrev}
+                  disabled={currentIndex === 0}
+                  className="h-9 px-4 rounded-xl border-[#DFD7CB] bg-white text-xs font-bold text-[#2C2621] hover:bg-[#FAF6F0] disabled:opacity-40 cursor-pointer flex items-center gap-2 shadow-2xs"
                 >
-                  <span>Next</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Previous (←)</span>
                 </Button>
 
-                <Button
-                  onClick={handleFinishAssessment}
-                  disabled={isSubmitting}
-                  className="h-9 px-5 bg-gradient-to-r from-[#A36B40] to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md shadow-[#A36B40]/30 transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-98"
-                >
-                  <Award className="w-3.5 h-3.5" />
-                  <span>{isSubmitting ? 'Submitting...' : 'See Result / Complete'}</span>
-                </Button>
+                {/* Center: mini level stepper */}
+                <div className="flex items-center gap-1.5">
+                  {SECTION_CONFIGS.map((sec, sIdx) => {
+                    const isCurr = currentSectionIndex === sIdx
+                    const startQ = sec.range[0]; const endQ = sec.range[1]
+                    let cnt = 0
+                    for (let qn = startQ; qn <= endQ; qn++) { const qo = activeQuestions[qn-1]; if (qo && selectedAnswers[qo.id]) cnt++ }
+                    const done = cnt === 6
+                    return (
+                      <button
+                        key={sIdx}
+                        type="button"
+                        onClick={() => handleJumpToQuestion(sec.range[0]-1)}
+                        className={`h-7 px-3 rounded-full text-[10px] font-black transition-all cursor-pointer border flex items-center gap-1 ${
+                          isCurr ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-xs' :
+                          done ? 'bg-emerald-600 text-white border-emerald-600' :
+                          'bg-white text-[#7A7067] border-[#DFD7CB] hover:border-[#A36B40]'
+                        }`}
+                      >
+                        <span>L{sec.index}</span>
+                        {done && <Check className="w-2.5 h-2.5 stroke-[3]" />}
+                      </button>
+                    )
+                  })}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Button
+                    onClick={handleNext}
+                    className="h-9 px-5 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-extrabold text-xs rounded-xl shadow-xs shadow-[#A36B40]/25 transition-all cursor-pointer flex items-center gap-1.5"
+                  >
+                    <span>Next (Enter)</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Button>
+                  <Button
+                    onClick={handleFinishAssessment}
+                    disabled={isSubmitting}
+                    className="h-9 px-5 bg-gradient-to-r from-[#A36B40] to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md shadow-[#A36B40]/30 transition-all cursor-pointer flex items-center gap-1.5"
+                  >
+                    <Award className="w-3.5 h-3.5" />
+                    <span>{isSubmitting ? 'Submitting...' : 'See Result'}</span>
+                  </Button>
+                </div>
               </div>
-            </div>
+            </Card>
 
           </main>
 
-          {/* ═══ RIGHT SIDEBAR: PROGRESS, LEVELS & NAVIGATOR (DESKTOP ONLY) ══ */}
-          <aside className="hidden lg:flex lg:col-span-4 flex-col justify-between gap-2 min-h-0 h-full">
-            
-            {/* Overall Progress Widget */}
-            <div className="bg-white p-2.5 sm:p-3 rounded-2xl border border-[#DFD7CB] shadow-xs space-y-1.5 shrink-0">
-              <div className="flex justify-between items-center text-[11px] sm:text-xs font-bold">
-                <span className="text-[#2C2621] flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#A36B40]" />
-                  Overall Progress
-                </span>
-                <span className="text-[#A36B40] font-mono font-extrabold text-[11px] sm:text-xs">
-                  {answeredCount} / 30 ({progressPercent}%)
-                </span>
-              </div>
-              <Progress value={progressPercent} className="h-2" />
-            </div>
+          {/* ═══ RIGHT SIDEBAR (DESKTOP ONLY) ═══════════════════════════ */}
+          <aside className="hidden lg:flex lg:col-span-4 flex-col gap-2.5 min-h-0 h-full">
 
-            {/* 5-Level Progression (Compact List) */}
-            <div className="bg-white p-2.5 sm:p-3 rounded-2xl border border-[#DFD7CB] shadow-xs space-y-1 shrink-0">
-              <div className="flex items-center justify-between border-b border-[#FAF6F0] pb-1">
-                <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
-                  <Layers className="w-3 h-3 text-[#A36B40]" />
-                  5-Level Progression
-                </span>
-                <span className="text-[9px] font-bold text-[#77734B] bg-[#77734B]/10 px-1.5 py-0.5 rounded-full">
-                  6 Qs Each
-                </span>
+            {/* ── Progress + Level bar (compact single card) ─────────── */}
+            <div className="bg-white rounded-2xl border border-[#DFD7CB] shadow-xs p-3.5 shrink-0 space-y-2.5">
+              {/* Progress row */}
+              <div className="flex items-center gap-3.5">
+                {/* Arc-style progress indicator */}
+                <div className="relative w-14 h-14 shrink-0">
+                  <svg viewBox="0 0 56 56" className="w-full h-full -rotate-90">
+                    <circle cx="28" cy="28" r="24" fill="none" stroke="#F0E8DF" strokeWidth="5" />
+                    <circle cx="28" cy="28" r="24" fill="none" stroke="#A36B40" strokeWidth="5"
+                      strokeDasharray={`${2 * Math.PI * 24}`}
+                      strokeDashoffset={`${2 * Math.PI * 24 * (1 - progressPercent / 100)}`}
+                      strokeLinecap="round" className="transition-all duration-500" />
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span className="text-sm font-black text-[#A36B40] leading-none">{progressPercent}%</span>
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs font-black text-[#2C2621]">{answeredCount} of 30 Answered</div>
+                  <div className="text-[11px] text-[#7A7067] mt-0.5">{30 - answeredCount} questions remaining</div>
+                  <Progress value={progressPercent} className="h-1.5 mt-1.5" />
+                </div>
               </div>
 
-              <div className="space-y-1 pt-0.5">
+              {/* Next unanswered shortcut button if any remain */}
+              {answeredCount < 30 && firstUnansweredIndex >= 0 && (
+                <button
+                  type="button"
+                  onClick={() => handleJumpToQuestion(firstUnansweredIndex)}
+                  className="w-full py-1.5 px-2.5 rounded-xl bg-[#FAF6F0] hover:bg-[#F3ECE0] border border-[#DFD7CB] text-[#A36B40] text-[11px] font-bold transition-all flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Zap className="w-3.5 h-3.5" />
+                    <span>Jump to Next Pending</span>
+                  </span>
+                  <span className="font-mono font-black">Q#{nextUnansweredNum} →</span>
+                </button>
+              )}
+
+              {/* Level stepper */}
+              <div className="space-y-1 pt-1 border-t border-[#F0E8DF]">
+                <div className="text-[10px] font-black uppercase tracking-wider text-[#7A7067] mb-1">
+                  5-Stage Roadmap (6 Qs Each)
+                </div>
                 {SECTION_CONFIGS.map((sec, sIdx) => {
                   const isCurrent = currentSectionIndex === sIdx
-                  const startQ = sec.range[0]
-                  const endQ = sec.range[1]
+                  const startQ = sec.range[0]; const endQ = sec.range[1]
                   let secAnswered = 0
                   for (let qNum = startQ; qNum <= endQ; qNum++) {
                     const qObj = activeQuestions[qNum - 1]
                     if (qObj && selectedAnswers[qObj.id]) secAnswered++
                   }
                   const isComplete = secAnswered === 6
-
+                  const pct = Math.round((secAnswered / 6) * 100)
                   return (
-                    <button
-                      key={sec.index}
-                      type="button"
-                      onClick={() => handleJumpToQuestion(startQ - 1)}
-                      className={`w-full py-1 px-2 rounded-lg text-left border transition-all cursor-pointer flex items-center justify-between gap-2 ${
-                        isCurrent
-                          ? 'bg-[#FAF6F0] border-[#A36B40] ring-1 ring-[#A36B40]/30 shadow-2xs'
-                          : isComplete
-                          ? 'bg-emerald-50/70 border-emerald-200 hover:border-emerald-300'
-                          : 'bg-[#FAF6F0]/40 border-[#DFD7CB] hover:bg-[#FAF6F0]'
-                      }`}
-                    >
-                      <div className="space-y-0 min-w-0">
-                        <div className="text-[8px] font-extrabold uppercase tracking-wider text-[#A36B40] leading-none">
-                          Stage 0{sec.index}
-                        </div>
-                        <div className="text-[10px] sm:text-[11px] font-bold text-[#2C2621] truncate leading-tight">
-                          {sec.shortTitle}
+                    <button key={sec.index} type="button" onClick={() => handleJumpToQuestion(startQ - 1)}
+                      className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl border transition-all cursor-pointer ${
+                        isCurrent ? 'bg-[#A36B40]/10 border-[#A36B40] ring-1 ring-[#A36B40]/25' :
+                        isComplete ? 'bg-emerald-50 border-emerald-200 hover:border-emerald-300' :
+                        'bg-[#FAF6F0]/60 border-[#E8DFD5] hover:bg-[#FAF6F0]'
+                      }`}>
+                      {/* Level dot */}
+                      <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${
+                        isCurrent ? 'bg-[#A36B40] text-white' :
+                        isComplete ? 'bg-emerald-600 text-white' :
+                        'bg-white border border-[#DFD7CB] text-[#7A7067]'
+                      }`}>
+                        {isComplete ? '✓' : sec.index}
+                      </div>
+                      {/* Label + mini progress bar */}
+                      <div className="flex-1 min-w-0 text-left">
+                        <div className={`text-[10px] font-bold truncate ${
+                          isCurrent ? 'text-[#A36B40]' : isComplete ? 'text-emerald-700' : 'text-[#2C2621]'
+                        }`}>{sec.shortTitle}</div>
+                        <div className="h-1 w-full bg-[#E8DFD5] rounded-full mt-0.5 overflow-hidden">
+                          <div className={`h-full rounded-full transition-all ${
+                            isComplete ? 'bg-emerald-600' : isCurrent ? 'bg-[#A36B40]' : 'bg-[#C6A18D]'
+                          }`} style={{ width: `${pct}%` }} />
                         </div>
                       </div>
-
-                      <div className="shrink-0 text-right">
-                        {isComplete ? (
-                          <span className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[8px] font-bold">
-                            ✓
-                          </span>
-                        ) : (
-                          <span className="text-[9px] font-mono font-bold text-[#7A7067] bg-white px-1.5 py-0.2 rounded-md border border-[#DFD7CB]">
-                            {secAnswered}/6
-                          </span>
-                        )}
-                      </div>
+                      <span className={`text-[9px] font-mono font-bold shrink-0 ${
+                        isComplete ? 'text-emerald-600' : isCurrent ? 'text-[#A36B40]' : 'text-[#7A7067]'
+                      }`}>{secAnswered}/6</span>
                     </button>
                   )
                 })}
               </div>
             </div>
 
-            {/* 30-Question Interactive Navigator Grid */}
-            <div className="flex-1 bg-white p-2.5 sm:p-3 rounded-2xl border border-[#DFD7CB] shadow-xs flex flex-col justify-between min-h-0 space-y-1.5">
-              <div className="flex items-center justify-between border-b border-[#FAF6F0] pb-1 shrink-0">
-                <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
-                  <FileText className="w-3 h-3 text-[#A36B40]" />
-                  Question Navigator
+            {/* ── 30-Question Navigator (fills remaining space) ─────── */}
+            <div className="flex-1 bg-white rounded-2xl border border-[#DFD7CB] shadow-xs flex flex-col min-h-0 overflow-hidden">
+              <div className="flex items-center justify-between px-3.5 py-2 border-b border-[#F0E8DF] shrink-0">
+                <span className="text-[11px] font-black uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5 text-[#A36B40]" />
+                  Question Matrix
                 </span>
-                <span className="text-[9px] text-[#7A7067]">
-                  Tap to jump
+                <span className="text-[10px] text-[#A36B40] font-mono font-bold bg-[#FAF6F0] px-2 py-0.5 rounded-md border border-[#DFD7CB]">
+                  {answeredCount}/30 Done
                 </span>
               </div>
 
-              {/* 6 columns x 5 rows grid */}
-              <div className="grid grid-cols-6 gap-1 sm:gap-1.5 flex-1 items-center py-0.5">
+              {/* 5×6 interactive grid — fills all space */}
+              <div className="flex-1 p-2.5 sm:p-3 grid grid-cols-6 gap-1.5 content-start overflow-y-auto">
                 {activeQuestions.map((q, idx) => {
                   const isAns = !!selectedAnswers[q.id]
                   const isCurr = currentIndex === idx
@@ -602,14 +717,14 @@ function FresherTestContent() {
                       key={q.id}
                       type="button"
                       onClick={() => handleJumpToQuestion(idx)}
-                      className={`h-6 sm:h-7 rounded-lg font-mono text-[10px] sm:text-[11px] font-bold transition-all cursor-pointer flex items-center justify-center border ${
+                      className={`aspect-square rounded-lg font-mono text-[11px] font-bold transition-all cursor-pointer flex items-center justify-center border ${
                         isCurr
-                          ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-xs scale-105 ring-1.5 ring-[#A36B40]/30'
+                          ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-sm scale-105 ring-2 ring-[#A36B40]/40'
                           : isAns
                           ? 'bg-[#77734B] text-white border-[#77734B]'
-                          : 'bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] hover:border-[#A36B40]'
+                          : 'bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] hover:border-[#A36B40] hover:bg-white'
                       }`}
-                      aria-label={`Jump to Question ${idx + 1}`}
+                      aria-label={`Question ${idx + 1}`}
                     >
                       {idx + 1}
                     </button>
@@ -617,28 +732,17 @@ function FresherTestContent() {
                 })}
               </div>
 
-              {/* Navigator Legend */}
-              <div className="flex items-center justify-between pt-0.5 text-[9px] font-semibold text-[#7A7067] shrink-0 border-t border-[#FAF6F0]">
-                <div className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-[#77734B]" />
-                  <span>Answered</span>
+              {/* Legend + Advisory */}
+              <div className="px-3 pb-2.5 space-y-2 shrink-0">
+                <div className="flex items-center justify-between text-[9px] font-semibold text-[#7A7067] border-t border-[#F0E8DF] pt-2">
+                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#77734B]" />Answered</span>
+                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#A36B40]" />Current</span>
+                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#DFD7CB]" />Pending</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-[#A36B40]" />
-                  <span>Current</span>
+                <div className="flex items-center gap-1.5 bg-[#1B1714] text-[#C6A18D] px-2.5 py-1.5 rounded-xl">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span className="text-[9px] font-bold">Zero negative marking · Adaptive engine</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-[#DFD7CB]" />
-                  <span>Pending</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Advisory Info Capsule */}
-            <div className="bg-gradient-to-br from-[#211D19] to-[#2C2621] text-[#FAF6F0] p-2 sm:p-2.5 rounded-xl border border-[#3E362F] shadow-xs flex items-center justify-between gap-2 shrink-0">
-              <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#C6A18D]">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>Zero negative marking · Adaptive engine</span>
               </div>
             </div>
 
