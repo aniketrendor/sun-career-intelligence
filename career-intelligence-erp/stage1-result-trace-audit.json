@@ -1,0 +1,122 @@
+[
+  {
+    "profile": "PROFILE_A",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_C",
+    "top1DomainDerived": "Computing & IT",
+    "top1Score": 49,
+    "specializationDerived": "Cloud Computing, DevOps & Cyber Security Systems"
+  },
+  {
+    "profile": "PROFILE_B",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_A",
+    "top1DomainDerived": "AI & Data",
+    "top1Score": 50,
+    "specializationDerived": "Artificial Intelligence, Machine Learning & Deep Neural Systems"
+  },
+  {
+    "profile": "PROFILE_C",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_C",
+    "top1DomainDerived": "Engineering",
+    "top1Score": 49,
+    "specializationDerived": "Robotics & Autonomous Intelligent Systems"
+  },
+  {
+    "profile": "PROFILE_D",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_A",
+    "top1DomainDerived": "Math & Statistics",
+    "top1Score": 49,
+    "specializationDerived": "Statistical Inference, Quantitative Analytics & Actuarial Modeling"
+  },
+  {
+    "profile": "PROFILE_E",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_A",
+    "top1DomainDerived": "Commerce & Finance",
+    "top1Score": 54,
+    "specializationDerived": "Corporate Finance, Investment Banking & Strategic Leadership"
+  },
+  {
+    "profile": "PROFILE_F",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_B",
+    "top1DomainDerived": "Hospitality & Tourism",
+    "top1Score": 54,
+    "specializationDerived": "International Hospitality Administration & Resort Operations"
+  },
+  {
+    "profile": "PROFILE_G",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_A",
+    "top1DomainDerived": "Math & Statistics",
+    "top1Score": 54,
+    "specializationDerived": "Statistical Inference, Quantitative Analytics & Actuarial Modeling"
+  },
+  {
+    "profile": "PROFILE_H",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_B",
+    "top1DomainDerived": "Life Science",
+    "top1Score": 48,
+    "specializationDerived": "Molecular Biology, Genetic Engineering & Bio-Diagnostics"
+  },
+  {
+    "profile": "PROFILE_I",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_C",
+    "top1DomainDerived": "Design & Creative",
+    "top1Score": 44,
+    "specializationDerived": "Digital Interface Architecture, Spatial Interaction & Product Ergonomics"
+  },
+  {
+    "profile": "PROFILE_J",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_B",
+    "top1DomainDerived": "Humanities",
+    "top1Score": 51,
+    "specializationDerived": "Critical Discourse Analysis, Historical Research & Global Literature"
+  },
+  {
+    "profile": "PROFILE_K",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_B",
+    "top1DomainDerived": "Hospitality & Tourism",
+    "top1Score": 50,
+    "specializationDerived": "International Hospitality Administration & Resort Operations"
+  },
+  {
+    "profile": "PROFILE_L",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_C",
+    "top1DomainDerived": "Management",
+    "top1Score": 49,
+    "specializationDerived": "Corporate Finance, Investment Banking & Strategic Leadership"
+  },
+  {
+    "profile": "PROFILE_M",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_C",
+    "top1DomainDerived": "Computing & IT",
+    "top1Score": 44,
+    "specializationDerived": "User Experience Architecture & Front-End Engineering"
+  },
+  {
+    "profile": "PROFILE_N",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_A",
+    "top1DomainDerived": "Natural Science",
+    "top1Score": 51,
+    "specializationDerived": "Applied Physical Sciences, Spectroscopy & Experimental Synthesis"
+  },
+  {
+    "profile": "PROFILE_O",
+    "sampleQuestionId": "UG006",
+    "selectedOption": "UG006_OPT_B",
+    "top1DomainDerived": "Humanities",
+    "top1Score": 50,
+    "specializationDerived": "Critical Discourse Analysis, Historical Research & Global Literature"
+  }
+]

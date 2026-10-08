@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, Suspense } from 'react'
+import { useState, Suspense, useMemo } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'sonner'
@@ -14,6 +14,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
+import {
+  getDomainCardData,
+  resolveOptimalSpecialization,
+  normalizeDomain,
+} from '@/lib/engines/stage1-domain-pathway-mapper'
 
 const ADMISSION_URL = 'https://admission.sandipuniversity.edu.in/'
 
@@ -21,171 +26,44 @@ function FresherReportContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
-  const referralCode = searchParams.get('code') || 'SUN-FRESHERS-2026'
-  const candidateName = searchParams.get('name') || 'Harish'
-  const candidateEmail = searchParams.get('email') || ''
-  const candidatePhone = searchParams.get('phone') || ''
-  const academicLevel = (searchParams.get('level') === 'PG' ? 'PG' : 'UG') as 'UG' | 'PG'
-  const mentorName = searchParams.get('mentor') || 'Admissions & Advisory Council'
-  const d1Name = searchParams.get('d1Name') || searchParams.get('topDomain') || 'Computer Science & Information Technology'
-  const d1Score = Number(searchParams.get('d1Score') || searchParams.get('fitScore') || 94)
-  const d1Label = searchParams.get('d1Label') || 'Strong Alignment'
-  const d1Code = searchParams.get('d1Code') || 'CS_IT'
+  const referralCode = searchParams?.get('code') || 'SUN-FRESHERS-2026'
+  const candidateName = searchParams?.get('name') || 'Prospective Candidate'
+  const candidateEmail = searchParams?.get('email') || ''
+  const candidatePhone = searchParams?.get('phone') || ''
+  const academicLevel = (searchParams?.get('level') === 'PG' ? 'PG' : 'UG') as 'UG' | 'PG'
+  const mentorName = searchParams?.get('mentor') || 'Admissions & Advisory Council'
 
-  const d2Name = searchParams.get('d2Name') || 'Engineering & Advanced Technology'
-  const d2Score = Number(searchParams.get('d2Score') || 86)
-  const d2Label = searchParams.get('d2Label') || 'High Compatibility'
-  const d2Code = searchParams.get('d2Code') || 'ENG_TECH'
+  // Extract Top 3 Domains and Scores deterministically from parameters
+  const d1Name = searchParams?.get('d1Name') || searchParams?.get('topDomain') || 'Computing & IT'
+  const d1Score = Number(searchParams?.get('d1Score') || searchParams?.get('fitScore') || 90)
+  const d1Code = searchParams?.get('d1Code') || 'COMPUTING_IT'
 
-  const d3Name = searchParams.get('d3Name') || 'Business & Management'
-  const d3Score = Number(searchParams.get('d3Score') || 78)
-  const d3Label = searchParams.get('d3Label') || 'Moderate Alignment'
-  const d3Code = searchParams.get('d3Code') || 'BUS_MGMT'
+  const d2Name = searchParams?.get('d2Name') || 'Engineering'
+  const d2Score = Number(searchParams?.get('d2Score') || 82)
+  const d2Code = searchParams?.get('d2Code') || 'ENGINEERING'
 
-  const top3Domains = [
-    {
-      rank: 1,
-      name: d1Name,
-      code: d1Code,
-      score: d1Score,
-      label: d1Label,
-      tag: 'Best Fit / Primary Recommendation',
-      badgeBg: 'bg-[#A36B40] text-white shadow-xs',
-      meterColor: 'from-[#A36B40] to-[#C87D55]',
-      degreePath: academicLevel === 'UG' ? 'B.Tech CSE (AI & ML) / Software Engineering' : 'M.Tech CSE / MCA Advanced Full-Stack',
-      rationale: 'Highest cognitive affinity, structured logic, and technical problem decomposition instincts.',
-    },
-    {
-      rank: 2,
-      name: d2Name,
-      code: d2Code,
-      score: d2Score,
-      label: d2Label,
-      tag: 'Strong Alternative Pathway',
-      badgeBg: 'bg-[#77734B] text-white shadow-xs',
-      meterColor: 'from-[#77734B] to-[#969163]',
-      degreePath: academicLevel === 'UG' ? 'B.Tech Cloud Systems & Cyber Defense / Robotics' : 'M.Tech Cloud Infrastructure & DevSecOps',
-      rationale: 'Robust analytical capacity and quantitative modeling suitable for advanced systems architecture.',
-    },
-    {
-      rank: 3,
-      name: d3Name,
-      code: d3Code,
-      score: d3Score,
-      label: d3Label,
-      tag: 'Complementary Domain',
-      badgeBg: 'bg-[#2C2621] text-white shadow-xs',
-      meterColor: 'from-[#8E5B34] to-[#B0774B]',
-      degreePath: academicLevel === 'UG' ? 'BCA & B.Tech Integrated / Business Analytics' : 'MBA Technology Management & Strategic Fintech',
-      rationale: 'Complementary commercial acumen, strategic decision reasoning, and leadership aptitude.',
-    },
-  ]
+  const d3Name = searchParams?.get('d3Name') || 'Management'
+  const d3Score = Number(searchParams?.get('d3Score') || 75)
+  const d3Code = searchParams?.get('d3Code') || 'MANAGEMENT'
 
-  const topDomain = d1Name
-  const fitScore = d1Score
+  // Resolve Canonical Domain Cards (Zero Hardcoded Index Mappings)
+  const card1 = useMemo(() => getDomainCardData(d1Code || d1Name, d1Score, 1, academicLevel), [d1Code, d1Name, d1Score, academicLevel])
+  const card2 = useMemo(() => getDomainCardData(d2Code || d2Name, d2Score, 2, academicLevel), [d2Code, d2Name, d2Score, academicLevel])
+  const card3 = useMemo(() => getDomainCardData(d3Code || d3Name, d3Score, 3, academicLevel), [d3Code, d3Name, d3Score, academicLevel])
 
-  const aiScore = d1Score
-  const cloudScore = d2Score
-  const fsScore = d3Score
-  const bizScore = Number(searchParams.get('bizScore') || 72)
+  const top3Domains = [card1, card2, card3]
 
-  // Dynamically compute recommended program based on UG vs PG and topDomain
-  let recommendedProgram = {
-    degree: 'B.Tech in Computer Science & Engineering',
-    specialization: 'Artificial Intelligence & Machine Learning (AI & ML)',
-    faculty: 'School of Engineering & Technology (SOET)',
-    campus: 'Sandip University Main Campus, Nashik',
-    duration: '4 Years (8 Semesters)',
-    eligibility: 'Verified · Passed 12th / Diploma with High STEM Aptitude',
-    admissionStatus: 'Recommended for Direct Admission & Scholarship Grant',
-  }
+  // Resolve Optimal Specialization based on Top 3 Domains & Synergies
+  const optimalProgram = useMemo(() => {
+    return resolveOptimalSpecialization(
+      card1.code,
+      card2.code,
+      card3.code,
+      academicLevel
+    )
+  }, [card1.code, card2.code, card3.code, academicLevel])
 
-  if (academicLevel === 'UG') {
-    if (topDomain.includes('AI')) {
-      recommendedProgram = {
-        degree: 'B.Tech in Computer Science & Engineering',
-        specialization: 'Artificial Intelligence & Machine Learning (AI & ML)',
-        faculty: 'School of Engineering & Technology (SOET)',
-        campus: 'Sandip University Main Campus, Nashik',
-        duration: '4 Years (8 Semesters)',
-        eligibility: 'Verified · Passed 12th / Diploma with High STEM Aptitude',
-        admissionStatus: 'Recommended for Direct Admission & Scholarship Grant',
-      }
-    } else if (topDomain.includes('Cloud')) {
-      recommendedProgram = {
-        degree: 'B.Tech in Computer Engineering',
-        specialization: 'Cloud Computing & Cyber Security Systems',
-        faculty: 'School of Engineering & Technology (SOET)',
-        campus: 'Sandip University Main Campus, Nashik',
-        duration: '4 Years (8 Semesters)',
-        eligibility: 'Verified · Passed 12th / Diploma with High Systems Aptitude',
-        admissionStatus: 'Recommended for Direct Admission & Lab Access',
-      }
-    } else if (topDomain.includes('Product')) {
-      recommendedProgram = {
-        degree: 'B.Tech in Computer Science & Software Engineering',
-        specialization: 'Full-Stack Software Architecture & Web Systems',
-        faculty: 'School of Engineering & Technology (SOET)',
-        campus: 'Sandip University Main Campus, Nashik',
-        duration: '4 Years (8 Semesters)',
-        eligibility: 'Verified · High Engineering & Logic Fit',
-        admissionStatus: 'Recommended for Direct Admission & Incubation Access',
-      }
-    } else {
-      recommendedProgram = {
-        degree: 'BCA & B.Tech Integrated',
-        specialization: 'Technology Management & Business Analytics',
-        faculty: 'School of Commerce & Management Studies',
-        campus: 'Sandip University Main Campus, Nashik',
-        duration: '3 - 4 Years',
-        eligibility: 'Verified · High Business & Technology Analytical Fit',
-        admissionStatus: 'Recommended for Direct Admission & Merit Scholarship',
-      }
-    }
-  } else {
-    // Postgraduate (PG)
-    if (topDomain.includes('AI')) {
-      recommendedProgram = {
-        degree: 'M.Tech in Computer Science & Engineering',
-        specialization: 'Artificial Intelligence & Data Engineering',
-        faculty: 'School of Engineering & Technology (SOET)',
-        campus: 'Sandip University Main Campus, Nashik',
-        duration: '2 Years (4 Semesters)',
-        eligibility: 'Verified · Graduate with High Machine Learning & Algorithmic Fit',
-        admissionStatus: 'Recommended for PG Fellowship & Advanced Research Lab',
-      }
-    } else if (topDomain.includes('Cloud')) {
-      recommendedProgram = {
-        degree: 'M.Tech in Computer Engineering',
-        specialization: 'Enterprise Cloud Infrastructure & Cyber Defense',
-        faculty: 'School of Engineering & Technology (SOET)',
-        campus: 'Sandip University Main Campus, Nashik',
-        duration: '2 Years (4 Semesters)',
-        eligibility: 'Verified · Graduate with Systems & DevSecOps Aptitude',
-        admissionStatus: 'Recommended for PG Direct Admission & Industry Track',
-      }
-    } else if (topDomain.includes('Product')) {
-      recommendedProgram = {
-        degree: 'Master of Computer Applications (MCA)',
-        specialization: 'Advanced Software Architecture & Enterprise Full-Stack',
-        faculty: 'School of Computer Science & Applications',
-        campus: 'Sandip University Main Campus, Nashik',
-        duration: '2 Years (4 Semesters)',
-        eligibility: 'Verified · Graduate with Strong Software Engineering Aptitude',
-        admissionStatus: 'Recommended for Direct Admission & Placement Accelerator',
-      }
-    } else {
-      recommendedProgram = {
-        degree: 'MBA in Technology Management',
-        specialization: 'Business Analytics & Strategic Fintech Innovation',
-        faculty: 'School of Commerce & Management Studies',
-        campus: 'Sandip University Main Campus, Nashik',
-        duration: '2 Years (4 Semesters)',
-        eligibility: 'Verified · Graduate with High Strategic & Analytical Aptitude',
-        admissionStatus: 'Recommended for Executive Mentorship & Merit Fellowship',
-      }
-    }
-  }
+  const fitScore = card1.score
 
   const handleApplyClick = () => {
     toast.success('Opening Sandip University Online Admission Portal...')
@@ -193,7 +71,9 @@ function FresherReportContent() {
   }
 
   const handlePrint = () => {
-    window.print()
+    if (typeof window !== 'undefined') {
+      window.print()
+    }
   }
 
   return (
@@ -226,7 +106,7 @@ function FresherReportContent() {
               variant="outline"
               size="sm"
               onClick={handlePrint}
-              className="text-xs font-semibold rounded-xl border-[#DFD7CB] text-[#2C2621] hover:bg-[#FAF6F0] gap-1.5 h-9"
+              className="text-xs font-semibold rounded-xl border-[#DFD7CB] text-[#2C2621] hover:bg-[#FAF6F0] gap-1.5 h-9 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5 text-[#A36B40]" />
               <span>Download Report</span>
@@ -299,9 +179,8 @@ function FresherReportContent() {
           </div>
         </div>
 
-        {/* Hero Specialization Recommendation Card */}
+        {/* Hero Specialization Recommendation Card (Derived Deterministically) */}
         <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#1F1915] via-[#2A221C] to-[#1A1512] text-white shadow-xl border border-[#3E342D] relative overflow-hidden">
-          {/* Subtle Warm Amber Glow in top right */}
           <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#A36B40]/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#77734B]/15 rounded-full blur-3xl pointer-events-none" />
 
@@ -315,10 +194,10 @@ function FresherReportContent() {
                   Optimal {academicLevel} Specialization Identified
                 </Badge>
                 <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight pt-1">
-                  {recommendedProgram.specialization}
+                  {optimalProgram.specialization}
                 </h2>
                 <p className="text-xs sm:text-sm text-[#DFD7CB] font-medium">
-                  {recommendedProgram.degree} · <span className="text-[#C6A18D]">{recommendedProgram.faculty}</span>
+                  {optimalProgram.degree} · <span className="text-[#C6A18D]">{optimalProgram.faculty}</span>
                 </p>
               </div>
 
@@ -330,7 +209,7 @@ function FresherReportContent() {
                   <span className="text-2xl font-black text-white">{fitScore}%</span>
                 </div>
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#A36B40] to-[#8E5B34] border border-amber-300/30 flex items-center justify-center font-black text-lg text-white shadow-md">
-                  A+
+                  {fitScore >= 80 ? 'A+' : fitScore >= 65 ? 'A' : fitScore >= 50 ? 'B+' : 'B'}
                 </div>
               </div>
             </div>
@@ -342,7 +221,7 @@ function FresherReportContent() {
                   <MapPin className="w-3.5 h-3.5" />
                   <span className="text-[10px] uppercase font-bold tracking-wider">Campus Location</span>
                 </div>
-                <span className="font-semibold text-white block">{recommendedProgram.campus}</span>
+                <span className="font-semibold text-white block">{optimalProgram.campus}</span>
               </div>
 
               <div className="p-3.5 bg-white/5 rounded-2xl border border-white/10 space-y-1">
@@ -350,7 +229,7 @@ function FresherReportContent() {
                   <Calendar className="w-3.5 h-3.5" />
                   <span className="text-[10px] uppercase font-bold tracking-wider">Program Duration</span>
                 </div>
-                <span className="font-semibold text-white block">{recommendedProgram.duration}</span>
+                <span className="font-semibold text-white block">{optimalProgram.duration}</span>
               </div>
 
               <div className="p-3.5 bg-white/5 rounded-2xl border border-white/10 space-y-1">
@@ -358,11 +237,17 @@ function FresherReportContent() {
                   <CheckCheck className="w-3.5 h-3.5" />
                   <span className="text-[10px] uppercase font-bold tracking-wider">Admission Status</span>
                 </div>
-                <span className="font-semibold text-emerald-300 block">{recommendedProgram.admissionStatus}</span>
+                <span className="font-semibold text-emerald-300 block">{optimalProgram.admissionStatus}</span>
               </div>
             </div>
 
-            {/* Primary Action Button (Matches Sandip University Online Admission Link) */}
+            {/* Program Rationale */}
+            <div className="p-3.5 bg-white/5 rounded-2xl border border-white/10 text-xs text-[#DFD7CB] space-y-1">
+              <span className="text-[10px] font-bold text-[#C6A18D] uppercase tracking-wider block">Evaluation Rationale</span>
+              <p className="leading-relaxed">{optimalProgram.rationale}</p>
+            </div>
+
+            {/* Primary Action Button */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <a
                 href={ADMISSION_URL}
@@ -445,6 +330,9 @@ function FresherReportContent() {
                   <div className="text-xs font-bold text-[#2C2621] bg-[#FAF6F0] p-2.5 rounded-xl border border-[#DFD7CB]">
                     {dom.degreePath}
                   </div>
+                  <span className="text-[10px] text-[#7A7067] block">
+                    Faculty: {dom.faculty}
+                  </span>
                 </div>
               </Card>
             ))}
@@ -464,7 +352,7 @@ function FresherReportContent() {
               </div>
             </div>
             <p className="text-xs text-[#5C544D] leading-relaxed">
-              Based on the 30-question diagnostic assessment, candidate <strong className="text-[#2C2621]">{candidateName}</strong> demonstrates highest aptitude alignment for <strong className="text-[#A36B40]">{d1Name} ({d1Score}%)</strong> with strong alternative pathways in <strong className="text-[#2C2621]">{d2Name} ({d2Score}%)</strong> and <strong className="text-[#2C2621]">{d3Name} ({d3Score}%)</strong>.
+              Based on the 30-question diagnostic assessment, candidate <strong className="text-[#2C2621]">{candidateName}</strong> demonstrates highest aptitude alignment for <strong className="text-[#A36B40]">{card1.name} ({card1.score}%)</strong> with strong alternative pathways in <strong className="text-[#2C2621]">{card2.name} ({card2.score}%)</strong> and <strong className="text-[#2C2621]">{card3.name} ({card3.score}%)</strong>.
             </p>
           </div>
 

@@ -1,0 +1,92 @@
+[
+  {
+    "profile": "PROFILE_A",
+    "primaryCourse": "B.Tech in Computer Science & Engineering",
+    "alternativeCourse": "B.Tech in Computer Science & Engineering (AI & ML)",
+    "complementaryCourse": "B.Tech in Robotics & Automation / Mechanical Engineering"
+  },
+  {
+    "profile": "PROFILE_B",
+    "primaryCourse": "B.Tech in Computer Science & Engineering (AI & ML)",
+    "alternativeCourse": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+    "complementaryCourse": "B.Tech in Computer Science & Engineering"
+  },
+  {
+    "profile": "PROFILE_C",
+    "primaryCourse": "B.Tech in Robotics & Automation / Mechanical Engineering",
+    "alternativeCourse": "B.Tech in Computer Science & Engineering (AI & ML)",
+    "complementaryCourse": "B.Tech in Computer Science & Engineering"
+  },
+  {
+    "profile": "PROFILE_D",
+    "primaryCourse": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+    "alternativeCourse": "B.Sc (Hons) in Physics / Chemistry / Material Sciences",
+    "complementaryCourse": "B.Sc in Biotechnology & Microbiology"
+  },
+  {
+    "profile": "PROFILE_E",
+    "primaryCourse": "B.Com (Hons) in Banking, Financial Analytics & FinTech",
+    "alternativeCourse": "BBA (Hons) in Global Business Management & Entrepreneurship",
+    "complementaryCourse": "B.Sc in Hotel Management, Culinary Arts & International Tourism"
+  },
+  {
+    "profile": "PROFILE_F",
+    "primaryCourse": "B.Sc in Hotel Management, Culinary Arts & International Tourism",
+    "alternativeCourse": "B.A. (Hons) in English Literature, History & Cultural Studies",
+    "complementaryCourse": "BBA (Hons) in Global Business Management & Entrepreneurship"
+  },
+  {
+    "profile": "PROFILE_G",
+    "primaryCourse": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+    "alternativeCourse": "B.Sc / B.A (Hons) in Economics, Public Policy & Econometrics",
+    "complementaryCourse": "B.Sc (Hons) in Physics / Chemistry / Material Sciences"
+  },
+  {
+    "profile": "PROFILE_H",
+    "primaryCourse": "B.Sc in Biotechnology & Microbiology",
+    "alternativeCourse": "B.A. / B.Sc in Psychology, Sociology & Behavioral Sciences",
+    "complementaryCourse": "B.A. (Hons) in English Literature, History & Cultural Studies"
+  },
+  {
+    "profile": "PROFILE_I",
+    "primaryCourse": "B.Des in User Experience (UX/UI) & Industrial Product Design",
+    "alternativeCourse": "B.A. in Journalism, Digital Mass Media & Film Production",
+    "complementaryCourse": "B.Sc in Hotel Management, Culinary Arts & International Tourism"
+  },
+  {
+    "profile": "PROFILE_J",
+    "primaryCourse": "B.A. (Hons) in English Literature, History & Cultural Studies",
+    "alternativeCourse": "B.A. / B.Sc in Psychology, Sociology & Behavioral Sciences",
+    "complementaryCourse": "B.A. in Journalism, Digital Mass Media & Film Production"
+  },
+  {
+    "profile": "PROFILE_K",
+    "primaryCourse": "B.Sc in Hotel Management, Culinary Arts & International Tourism",
+    "alternativeCourse": "B.A. (Hons) in English Literature, History & Cultural Studies",
+    "complementaryCourse": "BBA (Hons) in Global Business Management & Entrepreneurship"
+  },
+  {
+    "profile": "PROFILE_L",
+    "primaryCourse": "BBA (Hons) in Global Business Management & Entrepreneurship",
+    "alternativeCourse": "B.Sc / B.A (Hons) in Economics, Public Policy & Econometrics",
+    "complementaryCourse": "B.Com (Hons) in Banking, Financial Analytics & FinTech"
+  },
+  {
+    "profile": "PROFILE_M",
+    "primaryCourse": "B.Tech in Computer Science & Engineering",
+    "alternativeCourse": "B.Des in User Experience (UX/UI) & Industrial Product Design",
+    "complementaryCourse": "B.Tech in Computer Science & Engineering (AI & ML)"
+  },
+  {
+    "profile": "PROFILE_N",
+    "primaryCourse": "B.Sc (Hons) in Physics / Chemistry / Material Sciences",
+    "alternativeCourse": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+    "complementaryCourse": "B.Sc in Biotechnology & Microbiology"
+  },
+  {
+    "profile": "PROFILE_O",
+    "primaryCourse": "B.A. (Hons) in English Literature, History & Cultural Studies",
+    "alternativeCourse": "B.A. / B.Sc in Psychology, Sociology & Behavioral Sciences",
+    "complementaryCourse": "B.A. in Journalism, Digital Mass Media & Film Production"
+  }
+]

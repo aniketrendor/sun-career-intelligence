@@ -1,0 +1,482 @@
+{
+  "PROFILE_A": {
+    "profileName": "Strong Computing / IT",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Computing & IT",
+        "score": 49,
+        "degree": "B.Tech in Computer Science & Engineering",
+        "faculty": "School of Engineering & Technology (SOET)"
+      },
+      {
+        "rank": 2,
+        "name": "AI & Data",
+        "score": 47,
+        "degree": "B.Tech in Computer Science & Engineering (AI & ML)",
+        "faculty": "School of Engineering & Technology (SOET)"
+      },
+      {
+        "rank": 3,
+        "name": "Engineering",
+        "score": 46,
+        "degree": "B.Tech in Robotics & Automation / Mechanical Engineering",
+        "faculty": "School of Engineering & Technology (SOET)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Cloud Computing, DevOps & Cyber Security Systems",
+      "degree": "B.Tech in Computer Science & Engineering",
+      "faculty": "School of Engineering & Technology (SOET)",
+      "duration": "4 Years (8 Semesters)"
+    }
+  },
+  "PROFILE_B": {
+    "profileName": "Strong AI / Data",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "AI & Data",
+        "score": 50,
+        "degree": "B.Tech in Computer Science & Engineering (AI & ML)",
+        "faculty": "School of Engineering & Technology (SOET)"
+      },
+      {
+        "rank": 2,
+        "name": "Math & Statistics",
+        "score": 49,
+        "degree": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+        "faculty": "School of Science (SOS)"
+      },
+      {
+        "rank": 3,
+        "name": "Computing & IT",
+        "score": 49,
+        "degree": "B.Tech in Computer Science & Engineering",
+        "faculty": "School of Engineering & Technology (SOET)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Artificial Intelligence, Machine Learning & Deep Neural Systems",
+      "degree": "B.Tech in Computer Science & Engineering (AI & ML)",
+      "faculty": "School of Engineering & Technology (SOET)",
+      "duration": "4 Years (8 Semesters)"
+    }
+  },
+  "PROFILE_C": {
+    "profileName": "Strong Engineering",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Engineering",
+        "score": 49,
+        "degree": "B.Tech in Robotics & Automation / Mechanical Engineering",
+        "faculty": "School of Engineering & Technology (SOET)"
+      },
+      {
+        "rank": 2,
+        "name": "AI & Data",
+        "score": 48,
+        "degree": "B.Tech in Computer Science & Engineering (AI & ML)",
+        "faculty": "School of Engineering & Technology (SOET)"
+      },
+      {
+        "rank": 3,
+        "name": "Computing & IT",
+        "score": 48,
+        "degree": "B.Tech in Computer Science & Engineering",
+        "faculty": "School of Engineering & Technology (SOET)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Robotics & Autonomous Intelligent Systems",
+      "degree": "B.Tech in Robotics & Automation Engineering",
+      "faculty": "School of Engineering & Technology (SOET)",
+      "duration": "4 Years (8 Semesters)"
+    }
+  },
+  "PROFILE_D": {
+    "profileName": "Strong Natural Science",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Math & Statistics",
+        "score": 49,
+        "degree": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+        "faculty": "School of Science (SOS)"
+      },
+      {
+        "rank": 2,
+        "name": "Natural Science",
+        "score": 49,
+        "degree": "B.Sc (Hons) in Physics / Chemistry / Material Sciences",
+        "faculty": "School of Science (SOS)"
+      },
+      {
+        "rank": 3,
+        "name": "Life Science",
+        "score": 47,
+        "degree": "B.Sc in Biotechnology & Microbiology",
+        "faculty": "School of Science (SOS)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Statistical Inference, Quantitative Analytics & Actuarial Modeling",
+      "degree": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+      "faculty": "School of Science (SOS)",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  },
+  "PROFILE_E": {
+    "profileName": "Strong Commerce & Finance",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Commerce & Finance",
+        "score": 54,
+        "degree": "B.Com (Hons) in Banking, Financial Analytics & FinTech",
+        "faculty": "School of Commerce & Management Studies (SOCMS)"
+      },
+      {
+        "rank": 2,
+        "name": "Management",
+        "score": 50,
+        "degree": "BBA (Hons) in Global Business Management & Entrepreneurship",
+        "faculty": "School of Commerce & Management Studies (SOCMS)"
+      },
+      {
+        "rank": 3,
+        "name": "Hospitality & Tourism",
+        "score": 50,
+        "degree": "B.Sc in Hotel Management, Culinary Arts & International Tourism",
+        "faculty": "School of Hospitality & Tourism Studies (SOHTS)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Corporate Finance, Investment Banking & Strategic Leadership",
+      "degree": "B.Com (Hons) in Financial Markets & Corporate Strategy",
+      "faculty": "School of Commerce & Management Studies (SOCMS)",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  },
+  "PROFILE_F": {
+    "profileName": "Strong Management",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Hospitality & Tourism",
+        "score": 54,
+        "degree": "B.Sc in Hotel Management, Culinary Arts & International Tourism",
+        "faculty": "School of Hospitality & Tourism Studies (SOHTS)"
+      },
+      {
+        "rank": 2,
+        "name": "Humanities",
+        "score": 52,
+        "degree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+        "faculty": "School of Liberal Arts & Humanities"
+      },
+      {
+        "rank": 3,
+        "name": "Management",
+        "score": 52,
+        "degree": "BBA (Hons) in Global Business Management & Entrepreneurship",
+        "faculty": "School of Commerce & Management Studies (SOCMS)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "International Hospitality Administration & Resort Operations",
+      "degree": "B.Sc in Hotel Management & Hospitality Administration",
+      "faculty": "School of Hospitality & Tourism Studies (SOHTS)",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  },
+  "PROFILE_G": {
+    "profileName": "Strong Economics",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Math & Statistics",
+        "score": 54,
+        "degree": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+        "faculty": "School of Science (SOS)"
+      },
+      {
+        "rank": 2,
+        "name": "Economics",
+        "score": 53,
+        "degree": "B.Sc / B.A (Hons) in Economics, Public Policy & Econometrics",
+        "faculty": "School of Commerce & Management Studies (SOCMS)"
+      },
+      {
+        "rank": 3,
+        "name": "Natural Science",
+        "score": 52,
+        "degree": "B.Sc (Hons) in Physics / Chemistry / Material Sciences",
+        "faculty": "School of Science (SOS)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Statistical Inference, Quantitative Analytics & Actuarial Modeling",
+      "degree": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+      "faculty": "School of Science (SOS)",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  },
+  "PROFILE_H": {
+    "profileName": "Strong Law",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Life Science",
+        "score": 48,
+        "degree": "B.Sc in Biotechnology & Microbiology",
+        "faculty": "School of Science (SOS)"
+      },
+      {
+        "rank": 2,
+        "name": "Social Science",
+        "score": 47,
+        "degree": "B.A. / B.Sc in Psychology, Sociology & Behavioral Sciences",
+        "faculty": "School of Liberal Arts & Humanities"
+      },
+      {
+        "rank": 3,
+        "name": "Humanities",
+        "score": 47,
+        "degree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+        "faculty": "School of Liberal Arts & Humanities"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Molecular Biology, Genetic Engineering & Bio-Diagnostics",
+      "degree": "B.Sc in Biotechnology & Microbiology",
+      "faculty": "School of Science (SOS)",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  },
+  "PROFILE_I": {
+    "profileName": "Strong Design / Creative",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Design & Creative",
+        "score": 44,
+        "degree": "B.Des in User Experience (UX/UI) & Industrial Product Design",
+        "faculty": "School of Design (SOD)"
+      },
+      {
+        "rank": 2,
+        "name": "Media & Communication",
+        "score": 41,
+        "degree": "B.A. in Journalism, Digital Mass Media & Film Production",
+        "faculty": "School of Media & Communication Studies"
+      },
+      {
+        "rank": 3,
+        "name": "Hospitality & Tourism",
+        "score": 41,
+        "degree": "B.Sc in Hotel Management, Culinary Arts & International Tourism",
+        "faculty": "School of Hospitality & Tourism Studies (SOHTS)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Digital Interface Architecture, Spatial Interaction & Product Ergonomics",
+      "degree": "B.Des in User Experience (UX/UI) & Industrial Product Design",
+      "faculty": "School of Design (SOD)",
+      "duration": "4 Years (8 Semesters)"
+    }
+  },
+  "PROFILE_J": {
+    "profileName": "Strong Media & Communication",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Humanities",
+        "score": 51,
+        "degree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+        "faculty": "School of Liberal Arts & Humanities"
+      },
+      {
+        "rank": 2,
+        "name": "Social Science",
+        "score": 46,
+        "degree": "B.A. / B.Sc in Psychology, Sociology & Behavioral Sciences",
+        "faculty": "School of Liberal Arts & Humanities"
+      },
+      {
+        "rank": 3,
+        "name": "Media & Communication",
+        "score": 46,
+        "degree": "B.A. in Journalism, Digital Mass Media & Film Production",
+        "faculty": "School of Media & Communication Studies"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Critical Discourse Analysis, Historical Research & Global Literature",
+      "degree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+      "faculty": "School of Liberal Arts & Humanities",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  },
+  "PROFILE_K": {
+    "profileName": "Strong Hospitality & Tourism",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Hospitality & Tourism",
+        "score": 50,
+        "degree": "B.Sc in Hotel Management, Culinary Arts & International Tourism",
+        "faculty": "School of Hospitality & Tourism Studies (SOHTS)"
+      },
+      {
+        "rank": 2,
+        "name": "Humanities",
+        "score": 50,
+        "degree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+        "faculty": "School of Liberal Arts & Humanities"
+      },
+      {
+        "rank": 3,
+        "name": "Management",
+        "score": 48,
+        "degree": "BBA (Hons) in Global Business Management & Entrepreneurship",
+        "faculty": "School of Commerce & Management Studies (SOCMS)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "International Hospitality Administration & Resort Operations",
+      "degree": "B.Sc in Hotel Management & Hospitality Administration",
+      "faculty": "School of Hospitality & Tourism Studies (SOHTS)",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  },
+  "PROFILE_L": {
+    "profileName": "Technology + Business",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Management",
+        "score": 49,
+        "degree": "BBA (Hons) in Global Business Management & Entrepreneurship",
+        "faculty": "School of Commerce & Management Studies (SOCMS)"
+      },
+      {
+        "rank": 2,
+        "name": "Economics",
+        "score": 49,
+        "degree": "B.Sc / B.A (Hons) in Economics, Public Policy & Econometrics",
+        "faculty": "School of Commerce & Management Studies (SOCMS)"
+      },
+      {
+        "rank": 3,
+        "name": "Commerce & Finance",
+        "score": 49,
+        "degree": "B.Com (Hons) in Banking, Financial Analytics & FinTech",
+        "faculty": "School of Commerce & Management Studies (SOCMS)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Corporate Finance, Investment Banking & Strategic Leadership",
+      "degree": "B.Com (Hons) in Financial Markets & Corporate Strategy",
+      "faculty": "School of Commerce & Management Studies (SOCMS)",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  },
+  "PROFILE_M": {
+    "profileName": "Technology + Design",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Computing & IT",
+        "score": 44,
+        "degree": "B.Tech in Computer Science & Engineering",
+        "faculty": "School of Engineering & Technology (SOET)"
+      },
+      {
+        "rank": 2,
+        "name": "Design & Creative",
+        "score": 43,
+        "degree": "B.Des in User Experience (UX/UI) & Industrial Product Design",
+        "faculty": "School of Design (SOD)"
+      },
+      {
+        "rank": 3,
+        "name": "AI & Data",
+        "score": 42,
+        "degree": "B.Tech in Computer Science & Engineering (AI & ML)",
+        "faculty": "School of Engineering & Technology (SOET)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "User Experience Architecture & Front-End Engineering",
+      "degree": "B.Tech CSE (Human-Computer Interaction & Product Design)",
+      "faculty": "School of Design (SOD)",
+      "duration": "4 Years (8 Semesters)"
+    }
+  },
+  "PROFILE_N": {
+    "profileName": "Science + Data",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Natural Science",
+        "score": 51,
+        "degree": "B.Sc (Hons) in Physics / Chemistry / Material Sciences",
+        "faculty": "School of Science (SOS)"
+      },
+      {
+        "rank": 2,
+        "name": "Math & Statistics",
+        "score": 50,
+        "degree": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+        "faculty": "School of Science (SOS)"
+      },
+      {
+        "rank": 3,
+        "name": "Life Science",
+        "score": 48,
+        "degree": "B.Sc in Biotechnology & Microbiology",
+        "faculty": "School of Science (SOS)"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Applied Physical Sciences, Spectroscopy & Experimental Synthesis",
+      "degree": "B.Sc (Hons) in Physics / Chemistry / Material Sciences",
+      "faculty": "School of Science (SOS)",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  },
+  "PROFILE_O": {
+    "profileName": "Law + Social Science",
+    "top3": [
+      {
+        "rank": 1,
+        "name": "Humanities",
+        "score": 50,
+        "degree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+        "faculty": "School of Liberal Arts & Humanities"
+      },
+      {
+        "rank": 2,
+        "name": "Social Science",
+        "score": 47,
+        "degree": "B.A. / B.Sc in Psychology, Sociology & Behavioral Sciences",
+        "faculty": "School of Liberal Arts & Humanities"
+      },
+      {
+        "rank": 3,
+        "name": "Media & Communication",
+        "score": 46,
+        "degree": "B.A. in Journalism, Digital Mass Media & Film Production",
+        "faculty": "School of Media & Communication Studies"
+      }
+    ],
+    "optimalSpecialization": {
+      "specialization": "Critical Discourse Analysis, Historical Research & Global Literature",
+      "degree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+      "faculty": "School of Liberal Arts & Humanities",
+      "duration": "3 - 4 Years (6-8 Semesters)"
+    }
+  }
+}

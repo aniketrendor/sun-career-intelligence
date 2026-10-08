@@ -1,0 +1,137 @@
+[
+  {
+    "profile": "PROFILE_A",
+    "top1Domain": "Computing & IT",
+    "top2Domain": "AI & Data",
+    "top3Domain": "Engineering",
+    "resolvedSpecialization": "Cloud Computing, DevOps & Cyber Security Systems",
+    "resolvedDegree": "B.Tech in Computer Science & Engineering",
+    "faculty": "School of Engineering & Technology (SOET)"
+  },
+  {
+    "profile": "PROFILE_B",
+    "top1Domain": "AI & Data",
+    "top2Domain": "Math & Statistics",
+    "top3Domain": "Computing & IT",
+    "resolvedSpecialization": "Artificial Intelligence, Machine Learning & Deep Neural Systems",
+    "resolvedDegree": "B.Tech in Computer Science & Engineering (AI & ML)",
+    "faculty": "School of Engineering & Technology (SOET)"
+  },
+  {
+    "profile": "PROFILE_C",
+    "top1Domain": "Engineering",
+    "top2Domain": "AI & Data",
+    "top3Domain": "Computing & IT",
+    "resolvedSpecialization": "Robotics & Autonomous Intelligent Systems",
+    "resolvedDegree": "B.Tech in Robotics & Automation Engineering",
+    "faculty": "School of Engineering & Technology (SOET)"
+  },
+  {
+    "profile": "PROFILE_D",
+    "top1Domain": "Math & Statistics",
+    "top2Domain": "Natural Science",
+    "top3Domain": "Life Science",
+    "resolvedSpecialization": "Statistical Inference, Quantitative Analytics & Actuarial Modeling",
+    "resolvedDegree": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+    "faculty": "School of Science (SOS)"
+  },
+  {
+    "profile": "PROFILE_E",
+    "top1Domain": "Commerce & Finance",
+    "top2Domain": "Management",
+    "top3Domain": "Hospitality & Tourism",
+    "resolvedSpecialization": "Corporate Finance, Investment Banking & Strategic Leadership",
+    "resolvedDegree": "B.Com (Hons) in Financial Markets & Corporate Strategy",
+    "faculty": "School of Commerce & Management Studies (SOCMS)"
+  },
+  {
+    "profile": "PROFILE_F",
+    "top1Domain": "Hospitality & Tourism",
+    "top2Domain": "Humanities",
+    "top3Domain": "Management",
+    "resolvedSpecialization": "International Hospitality Administration & Resort Operations",
+    "resolvedDegree": "B.Sc in Hotel Management & Hospitality Administration",
+    "faculty": "School of Hospitality & Tourism Studies (SOHTS)"
+  },
+  {
+    "profile": "PROFILE_G",
+    "top1Domain": "Math & Statistics",
+    "top2Domain": "Economics",
+    "top3Domain": "Natural Science",
+    "resolvedSpecialization": "Statistical Inference, Quantitative Analytics & Actuarial Modeling",
+    "resolvedDegree": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+    "faculty": "School of Science (SOS)"
+  },
+  {
+    "profile": "PROFILE_H",
+    "top1Domain": "Life Science",
+    "top2Domain": "Social Science",
+    "top3Domain": "Humanities",
+    "resolvedSpecialization": "Molecular Biology, Genetic Engineering & Bio-Diagnostics",
+    "resolvedDegree": "B.Sc in Biotechnology & Microbiology",
+    "faculty": "School of Science (SOS)"
+  },
+  {
+    "profile": "PROFILE_I",
+    "top1Domain": "Design & Creative",
+    "top2Domain": "Media & Communication",
+    "top3Domain": "Hospitality & Tourism",
+    "resolvedSpecialization": "Digital Interface Architecture, Spatial Interaction & Product Ergonomics",
+    "resolvedDegree": "B.Des in User Experience (UX/UI) & Industrial Product Design",
+    "faculty": "School of Design (SOD)"
+  },
+  {
+    "profile": "PROFILE_J",
+    "top1Domain": "Humanities",
+    "top2Domain": "Social Science",
+    "top3Domain": "Media & Communication",
+    "resolvedSpecialization": "Critical Discourse Analysis, Historical Research & Global Literature",
+    "resolvedDegree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+    "faculty": "School of Liberal Arts & Humanities"
+  },
+  {
+    "profile": "PROFILE_K",
+    "top1Domain": "Hospitality & Tourism",
+    "top2Domain": "Humanities",
+    "top3Domain": "Management",
+    "resolvedSpecialization": "International Hospitality Administration & Resort Operations",
+    "resolvedDegree": "B.Sc in Hotel Management & Hospitality Administration",
+    "faculty": "School of Hospitality & Tourism Studies (SOHTS)"
+  },
+  {
+    "profile": "PROFILE_L",
+    "top1Domain": "Management",
+    "top2Domain": "Economics",
+    "top3Domain": "Commerce & Finance",
+    "resolvedSpecialization": "Corporate Finance, Investment Banking & Strategic Leadership",
+    "resolvedDegree": "B.Com (Hons) in Financial Markets & Corporate Strategy",
+    "faculty": "School of Commerce & Management Studies (SOCMS)"
+  },
+  {
+    "profile": "PROFILE_M",
+    "top1Domain": "Computing & IT",
+    "top2Domain": "Design & Creative",
+    "top3Domain": "AI & Data",
+    "resolvedSpecialization": "User Experience Architecture & Front-End Engineering",
+    "resolvedDegree": "B.Tech CSE (Human-Computer Interaction & Product Design)",
+    "faculty": "School of Design (SOD)"
+  },
+  {
+    "profile": "PROFILE_N",
+    "top1Domain": "Natural Science",
+    "top2Domain": "Math & Statistics",
+    "top3Domain": "Life Science",
+    "resolvedSpecialization": "Applied Physical Sciences, Spectroscopy & Experimental Synthesis",
+    "resolvedDegree": "B.Sc (Hons) in Physics / Chemistry / Material Sciences",
+    "faculty": "School of Science (SOS)"
+  },
+  {
+    "profile": "PROFILE_O",
+    "top1Domain": "Humanities",
+    "top2Domain": "Social Science",
+    "top3Domain": "Media & Communication",
+    "resolvedSpecialization": "Critical Discourse Analysis, Historical Research & Global Literature",
+    "resolvedDegree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+    "faculty": "School of Liberal Arts & Humanities"
+  }
+]

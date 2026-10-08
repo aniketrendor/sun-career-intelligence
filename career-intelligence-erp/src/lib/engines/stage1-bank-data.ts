@@ -6065,6 +6065,7 @@ export interface CourseSuitabilityResult {
   id: string
   name: string
   suitabilityScore: number // 0 - 100
+  rawExactScore?: number
   rank: number
   alignmentLabel: string
   primaryDims: string[]
@@ -6080,7 +6081,7 @@ export function calculateStage1Suitability(
   dimensionScores: Record<string, number>,
   track: 'UG' | 'PG' = 'UG'
 ): CourseSuitabilityResult[] {
-  const results: CourseSuitabilityResult[] = COURSE_FAMILY_MATRIX.map((cf) => {
+  const results: (CourseSuitabilityResult & { rawExact: number })[] = COURSE_FAMILY_MATRIX.map((cf) => {
     let weightedSum = 0
     let totalWeight = 0
 
@@ -6090,7 +6091,8 @@ export function calculateStage1Suitability(
       totalWeight += weight
     })
 
-    const rawSuitability = totalWeight > 0 ? Math.round(weightedSum / totalWeight) : 50
+    const rawExact = totalWeight > 0 ? weightedSum / totalWeight : 50
+    const rawSuitability = Math.round(rawExact)
     const suitabilityScore = Math.min(100, Math.max(15, rawSuitability))
 
     const label =
@@ -6102,6 +6104,7 @@ export function calculateStage1Suitability(
       id: cf.id,
       name: cf.name,
       suitabilityScore,
+      rawExact,
       rank: 0,
       alignmentLabel: label,
       primaryDims: cf.primaryDims,
@@ -6110,7 +6113,8 @@ export function calculateStage1Suitability(
     }
   })
 
-  results.sort((a, b) => b.suitabilityScore - a.suitabilityScore)
+  // Deterministically sort by exact mathematical suitability (descending)
+  results.sort((a, b) => b.rawExact - a.rawExact)
   results.forEach((r, idx) => {
     r.rank = idx + 1
   })

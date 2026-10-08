@@ -29,6 +29,9 @@ import {
 import {
   runRecommendationEngine,
 } from '@/lib/engines/recommendation-engine'
+import {
+  resolveOptimalSpecialization,
+} from '@/lib/engines/stage1-domain-pathway-mapper'
 
 // ─── 5 STAGE 1 LEVEL CONFIGURATIONS (6 QUESTIONS PER LEVEL = 30 TOTAL) ───
 const SECTION_CONFIGS = [
@@ -230,13 +233,13 @@ function FresherTestContent() {
       const topDomainName = domain1.name
       const overallFit = domain1.compatibilityScore
 
-      // Recommended specialization
-      const recommendedSpec =
-        primaryPathway?.specializationMatches?.[0]?.name ||
-        primaryPathway?.courseName ||
-        (academicLevel === 'UG'
-          ? 'B.Tech CSE (Artificial Intelligence & Machine Learning)'
-          : 'M.Tech Computer Science (AI & Data Engineering)')
+      const optimalSpec = resolveOptimalSpecialization(
+        domain1.code || domain1.id,
+        domain2.code || domain2.id,
+        domain3.code || domain3.id,
+        academicLevel
+      )
+      const recommendedSpec = optimalSpec.specialization
 
       // Persist lead into Supabase fresher_leads table
       await submitFresherLead({

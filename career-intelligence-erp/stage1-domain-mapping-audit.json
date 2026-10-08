@@ -1,0 +1,226 @@
+[
+  {
+    "code": "COMPUTING_IT",
+    "name": "Computing & IT",
+    "faculty": "School of Engineering & Technology (SOET)",
+    "ugDegree": "B.Tech in Computer Science & Engineering",
+    "pgDegree": "Master of Computer Applications (MCA Full-Stack Architecture)",
+    "primaryDimensions": [
+      "TC",
+      "LR",
+      "AR",
+      "PS"
+    ],
+    "sampleRationale": "Highest cognitive affinity for software architecture, algori..."
+  },
+  {
+    "code": "AI_DATA",
+    "name": "AI & Data",
+    "faculty": "School of Engineering & Technology (SOET)",
+    "ugDegree": "B.Tech in Computer Science & Engineering (AI & ML)",
+    "pgDegree": "M.Tech Computer Science (AI & Data Engineering)",
+    "primaryDimensions": [
+      "TC",
+      "AR",
+      "QR",
+      "PS",
+      "RE"
+    ],
+    "sampleRationale": "Exceptional aptitude for probabilistic modeling, pattern rec..."
+  },
+  {
+    "code": "ENGINEERING",
+    "name": "Engineering",
+    "faculty": "School of Engineering & Technology (SOET)",
+    "ugDegree": "B.Tech in Robotics & Automation / Mechanical Engineering",
+    "pgDegree": "M.Tech Advanced Systems, Automation & Design Engineering",
+    "primaryDimensions": [
+      "TC",
+      "QR",
+      "SC",
+      "PS",
+      "AR"
+    ],
+    "sampleRationale": "Superior spatial reasoning, physical systems modeling, and a..."
+  },
+  {
+    "code": "MATH_STATISTICS",
+    "name": "Math & Statistics",
+    "faculty": "School of Science (SOS)",
+    "ugDegree": "B.Sc (Hons) in Applied Mathematics, Statistics & Analytics",
+    "pgDegree": "M.Sc Data Analytics & Financial Mathematics",
+    "primaryDimensions": [
+      "QR",
+      "LR",
+      "AR",
+      "SC",
+      "RE"
+    ],
+    "sampleRationale": "Outstanding deductive clarity, mathematical rigor, and struc..."
+  },
+  {
+    "code": "NATURAL_SCIENCE",
+    "name": "Natural Science",
+    "faculty": "School of Science (SOS)",
+    "ugDegree": "B.Sc (Hons) in Physics / Chemistry / Material Sciences",
+    "pgDegree": "M.Sc Advanced Scientific Research & Material Technology",
+    "primaryDimensions": [
+      "SC",
+      "RE",
+      "QR",
+      "AR",
+      "PS"
+    ],
+    "sampleRationale": "Strong empirical investigation mindset, scientific hypothesi..."
+  },
+  {
+    "code": "LIFE_SCIENCE",
+    "name": "Life Science",
+    "faculty": "School of Science (SOS)",
+    "ugDegree": "B.Sc in Biotechnology & Microbiology",
+    "pgDegree": "M.Sc Industrial Biotechnology & Biomedical Sciences",
+    "primaryDimensions": [
+      "SC",
+      "RE",
+      "SO",
+      "AR",
+      "PS"
+    ],
+    "sampleRationale": "High aptitude for biological systems comprehension, healthca..."
+  },
+  {
+    "code": "COMMERCE_FINANCE",
+    "name": "Commerce & Finance",
+    "faculty": "School of Commerce & Management Studies (SOCMS)",
+    "ugDegree": "B.Com (Hons) in Banking, Financial Analytics & FinTech",
+    "pgDegree": "M.Com / MBA in Corporate Finance, Investment Banking & Taxation",
+    "primaryDimensions": [
+      "QR",
+      "BU",
+      "LR",
+      "AR",
+      "CO"
+    ],
+    "sampleRationale": "Strong quantitative acumen, fiscal risk evaluation, accounti..."
+  },
+  {
+    "code": "MANAGEMENT",
+    "name": "Management",
+    "faculty": "School of Commerce & Management Studies (SOCMS)",
+    "ugDegree": "BBA (Hons) in Global Business Management & Entrepreneurship",
+    "pgDegree": "MBA (Master of Business Administration) in Strategic Leadership",
+    "primaryDimensions": [
+      "BU",
+      "LE",
+      "CO",
+      "SO",
+      "LR"
+    ],
+    "sampleRationale": "Exceptional strategic prioritization, organizational leaders..."
+  },
+  {
+    "code": "ECONOMICS",
+    "name": "Economics",
+    "faculty": "School of Commerce & Management Studies (SOCMS)",
+    "ugDegree": "B.Sc / B.A (Hons) in Economics, Public Policy & Econometrics",
+    "pgDegree": "M.Sc Applied Quantitative Economics & Market Dynamics",
+    "primaryDimensions": [
+      "QR",
+      "LR",
+      "BU",
+      "AR",
+      "RE"
+    ],
+    "sampleRationale": "High aptitude for macroeconomic trends, incentive structures..."
+  },
+  {
+    "code": "HUMANITIES",
+    "name": "Humanities",
+    "faculty": "School of Liberal Arts & Humanities",
+    "ugDegree": "B.A. (Hons) in English Literature, History & Cultural Studies",
+    "pgDegree": "M.A. Applied Humanities, Cultural Policy & Global Discourse",
+    "primaryDimensions": [
+      "CO",
+      "RE",
+      "SO",
+      "LR",
+      "CR"
+    ],
+    "sampleRationale": "Deep interpretive synthesis, cultural contextualization, eth..."
+  },
+  {
+    "code": "SOCIAL_SCIENCE",
+    "name": "Social Science",
+    "faculty": "School of Liberal Arts & Humanities",
+    "ugDegree": "B.A. / B.Sc in Psychology, Sociology & Behavioral Sciences",
+    "pgDegree": "M.A. Applied Psychology & Organizational Behavior",
+    "primaryDimensions": [
+      "SO",
+      "RE",
+      "CO",
+      "AR",
+      "LE"
+    ],
+    "sampleRationale": "Exceptional human behavioral insight, empathetic stakeholder..."
+  },
+  {
+    "code": "MEDIA_COMMUNICATION",
+    "name": "Media & Communication",
+    "faculty": "School of Media & Communication Studies",
+    "ugDegree": "B.A. in Journalism, Digital Mass Media & Film Production",
+    "pgDegree": "M.A. in Strategic Corporate Communications & Digital Media Leadership",
+    "primaryDimensions": [
+      "CO",
+      "CR",
+      "SO",
+      "TC",
+      "BU"
+    ],
+    "sampleRationale": "Dynamic storytelling instinct, audience engagement mastery, ..."
+  },
+  {
+    "code": "DESIGN_CREATIVE",
+    "name": "Design & Creative",
+    "faculty": "School of Design (SOD)",
+    "ugDegree": "B.Des in User Experience (UX/UI) & Industrial Product Design",
+    "pgDegree": "M.Des in Advanced Interaction Design & Visual Innovation",
+    "primaryDimensions": [
+      "CR",
+      "TC",
+      "SO",
+      "PS",
+      "CO"
+    ],
+    "sampleRationale": "Superior spatial visualization, user-centered interface arch..."
+  },
+  {
+    "code": "LAW",
+    "name": "Law",
+    "faculty": "School of Law (SOL)",
+    "ugDegree": "B.A. LL.B. (Hons) / B.B.A. LL.B. (Hons) Integrated Law",
+    "pgDegree": "LL.M. (Master of Laws) in Corporate Law, IP & Cyber Jurisprudence",
+    "primaryDimensions": [
+      "CO",
+      "LR",
+      "AR",
+      "RE",
+      "SO"
+    ],
+    "sampleRationale": "Acute logical argumentation, constitutional jurisprudence, r..."
+  },
+  {
+    "code": "HOSPITALITY_TOURISM",
+    "name": "Hospitality & Tourism",
+    "faculty": "School of Hospitality & Tourism Studies (SOHTS)",
+    "ugDegree": "B.Sc in Hotel Management, Culinary Arts & International Tourism",
+    "pgDegree": "MBA in Global Hospitality & Luxury Tourism Enterprise Operations",
+    "primaryDimensions": [
+      "SO",
+      "CO",
+      "LE",
+      "BU",
+      "PS"
+    ],
+    "sampleRationale": "High interpersonal empathy, luxury guest experience orchestr..."
+  }
+]
