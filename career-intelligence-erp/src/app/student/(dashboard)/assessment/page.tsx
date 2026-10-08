@@ -9,9 +9,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { AssessmentEngine, Section } from '@/components/assessment/assessment-engine'
-import { startAssessmentAttempt, getActiveAssessmentVersion } from '@/lib/actions/assessment.actions'
-import { UG_QUESTION_BANK, PG_QUESTION_BANK, BankQuestion, QuestionOptionItem } from '@/lib/engines'
+import { TakeFreeTestModal } from '@/components/assessment/take-free-test-modal'
 
 export const dynamic = 'force-dynamic'
 
@@ -170,8 +168,6 @@ export default async function AssessmentPage(props: {
     )
   }
 
-  // Get active assessment version
-  const assessmentVersion = await getActiveAssessmentVersion()
   const adminClient = await createAdminClient()
 
   // Fetch assessment attempts history for this student
@@ -231,155 +227,77 @@ export default async function AssessmentPage(props: {
   const selectedTrack: 'UG' | 'PG' = searchParams?.track === 'PG' ? 'PG' : (searchParams?.track === 'UG' ? 'UG' : defaultTrack)
   const isPG = selectedTrack === 'PG'
 
-  // If user hasn't clicked "Take Assessment", show "My Assessment" history dashboard
-  if (!isStartRequested) {
-    const hasCompletedTests = completedAttempts.length > 0
-    const buttonLabel = hasCompletedTests ? 'Take New Assessment' : 'Take First Assessment'
+  if (isStartRequested) {
+    const params = new URLSearchParams({
+      code: 'SUN-FRESHERS-2026',
+      name: profile.full_name || 'Student',
+      email: profile.email || '',
+      phone: studentProfile?.phone || profile.phone || '',
+      level: selectedTrack,
+      college: studentProfile?.institution || 'Sandip University',
+      qualification: studentProfile?.current_program || (selectedTrack === 'UG' ? 'Undergraduate Student' : 'Postgraduate Student'),
+      mentor: 'Admissions & Advisory Council',
+    })
+    redirect(`/student/fresher/test?${params.toString()}`)
+  }
 
-    return (
-      <div className="space-y-8 max-w-5xl mx-auto font-sans">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+  return (
+    <div className="space-y-8 max-w-5xl mx-auto font-sans">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] mb-2">
+            <History className="w-3.5 h-3.5 text-[#A36B40]" /> Longitudinal Trajectory
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">My Assessment</h1>
+          <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
+            Review past career tests, score progression across semesters, and domain recommendations.
+          </p>
+        </div>
+
+        <TakeFreeTestModal
+          candidateName={profile.full_name || 'Student'}
+          candidateEmail={profile.email || ''}
+          candidatePhone={studentProfile?.phone || profile.phone || ''}
+          candidateCollege={studentProfile?.institution || 'Sandip University'}
+          candidateQualification={studentProfile?.current_program || ''}
+          defaultTrack={defaultTrack}
+          buttonText="Take Free Test"
+        />
+      </div>
+
+      {/* Student Profile Quick Reference Card */}
+      <div className="border border-[#332D27] bg-[#211D19] text-white rounded-3xl shadow-xl p-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] mb-2">
-              <History className="w-3.5 h-3.5 text-[#A36B40]" /> Longitudinal Trajectory
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">My Assessment</h1>
-            <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
-              Review past career tests, score progression across semesters, and domain recommendations.
-            </p>
+            <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Student ID / PRN</span>
+            <span className="font-mono font-bold text-[#EFE2D0] text-sm mt-0.5 block">
+              {studentProfile?.prn || 'Not Set'}
+            </span>
           </div>
-
-          <Link href={`/student/assessment?start=true&track=${defaultTrack}`}>
-            <Button className="gap-2 bg-[#A36B40] hover:bg-[#8E5B34] text-white text-xs h-10 px-5 rounded-2xl shadow-md shadow-[#A36B40]/25 cursor-pointer font-bold transition-all">
-              <BookOpen className="w-4 h-4" />
-              <span>{buttonLabel}</span>
-            </Button>
-          </Link>
-        </div>
-
-        {/* Student Profile Quick Reference Card */}
-        <div className="border border-[#332D27] bg-[#211D19] text-white rounded-3xl shadow-xl p-6">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-            <div>
-              <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Student PRN</span>
-              <span className="font-mono font-bold text-[#EFE2D0] text-sm mt-0.5 block">
-                {studentProfile?.prn || 'Not Set'}
-              </span>
-            </div>
-            <div>
-              <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Academic Batch</span>
-              <span className="font-semibold text-white mt-0.5 block">
-                {studentProfile?.academic_year || enrollment?.academic_year || 'Not Set'}
-              </span>
-            </div>
-            <div>
-              <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Degree / Program</span>
-              <span className="font-semibold text-white mt-0.5 block truncate">
-                {studentProfile?.current_program || enrollment?.program?.name || 'Not Enrolled'}
-              </span>
-            </div>
-            <div>
-              <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Total Tests Taken</span>
-              <span className="font-bold text-[#A36B40] text-sm mt-0.5 block">
-                {completedAttempts.length} Completed
-              </span>
-            </div>
+          <div>
+            <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Academic Batch</span>
+            <span className="font-semibold text-white mt-0.5 block">
+              {studentProfile?.academic_year || enrollment?.academic_year || 'Not Set'}
+            </span>
+          </div>
+          <div>
+            <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Degree / Program</span>
+            <span className="font-semibold text-white mt-0.5 block truncate">
+              {studentProfile?.current_program || enrollment?.program?.name || 'Not Enrolled'}
+            </span>
+          </div>
+          <div>
+            <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Total Tests Taken</span>
+            <span className="font-bold text-[#A36B40] text-sm mt-0.5 block">
+              {completedAttempts.length} Completed
+            </span>
           </div>
         </div>
+      </div>
 
-        {/* Track Selection Section */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-base font-bold text-[#2C2621]">Choose Assessment Track</h2>
-              <p className="text-xs text-[#7A7067]">
-                Select your academic degree level to evaluate with tailored psychometric and domain questions
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Undergraduate Track */}
-            <div className={`p-6 rounded-3xl border transition-all ${
-              defaultTrack === 'UG'
-                ? 'bg-white border-[#A36B40] shadow-md shadow-[#A36B40]/10 ring-2 ring-[#A36B40]/20'
-                : 'bg-white border-[#DFD7CB] hover:border-[#A36B40]/60'
-            }`}>
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-[#FAF6F0] text-[#A36B40] flex items-center justify-center border border-[#DFD7CB]">
-                    <GraduationCap className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm text-[#2C2621]">Undergraduate Track (UG)</h3>
-                    <p className="text-xs text-[#7A7067]">For B.Tech, BCA, B.Sc, BBA, B.Com</p>
-                  </div>
-                </div>
-                {defaultTrack === 'UG' && (
-                  <Badge className="bg-[#A36B40] text-white text-[10px] font-bold rounded-full px-2.5 py-0.5 border-0">
-                    Recommended
-                  </Badge>
-                )}
-              </div>
-              <p className="text-xs text-[#7A7067] mt-3 leading-relaxed">
-                30 questions focusing on foundational problem-solving, analytical aptitude, domain preferences, and early career trajectory mapping.
-              </p>
-              <div className="mt-5 pt-4 border-t border-[#DFD7CB] flex items-center justify-between">
-                <span className="text-[11px] font-bold text-[#77734B] bg-[#77734B]/10 px-2.5 py-1 rounded-full">
-                  30 Diagnostic MCQs
-                </span>
-                <Link href="/student/assessment?start=true&track=UG">
-                  <Button size="sm" className="bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-xs rounded-xl gap-1.5 shadow-sm cursor-pointer">
-                    <span>Take UG Assessment</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-
-            {/* Postgraduate Track */}
-            <div className={`p-6 rounded-3xl border transition-all ${
-              defaultTrack === 'PG'
-                ? 'bg-white border-[#A36B40] shadow-md shadow-[#A36B40]/10 ring-2 ring-[#A36B40]/20'
-                : 'bg-white border-[#DFD7CB] hover:border-[#A36B40]/60'
-            }`}>
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-[#FAF6F0] text-[#77734B] flex items-center justify-center border border-[#DFD7CB]">
-                    <Award className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm text-[#2C2621]">Postgraduate Track (PG)</h3>
-                    <p className="text-xs text-[#7A7067]">For M.Tech, MBA, MCA, M.Sc, M.Com</p>
-                  </div>
-                </div>
-                {defaultTrack === 'PG' && (
-                  <Badge className="bg-[#77734B] text-white text-[10px] font-bold rounded-full px-2.5 py-0.5 border-0">
-                    Recommended
-                  </Badge>
-                )}
-              </div>
-              <p className="text-xs text-[#7A7067] mt-3 leading-relaxed">
-                30 questions evaluating strategic decision-making, specialized technical architectures, research orientation, and managerial leadership.
-              </p>
-              <div className="mt-5 pt-4 border-t border-[#DFD7CB] flex items-center justify-between">
-                <span className="text-[11px] font-bold text-[#77734B] bg-[#77734B]/10 px-2.5 py-1 rounded-full">
-                  30 Diagnostic MCQs
-                </span>
-                <Link href="/student/assessment?start=true&track=PG">
-                  <Button size="sm" className="bg-[#77734B] hover:bg-[#625E3B] text-white font-bold text-xs rounded-xl gap-1.5 shadow-sm cursor-pointer">
-                    <span>Take PG Assessment</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Test History List (No Mock Data) */}
-        <Card className="border-[#DFD7CB] bg-white shadow-xs rounded-3xl">
+      {/* Test History List (No Mock Data) */}
+      <Card className="border-[#DFD7CB] bg-white shadow-xs rounded-3xl">
           <CardHeader className="pb-3 border-b border-[#DFD7CB]">
             <div className="flex items-center justify-between">
               <div>
@@ -488,13 +406,18 @@ export default async function AssessmentPage(props: {
                     You haven't taken any career diagnostic assessments yet. Take your first 30-question diagnostic evaluation to reveal your trait profile, career domain match, and curriculum recommendations.
                   </p>
                 </div>
-                <Link href="/student/assessment?start=true" className="inline-block pt-1">
-                  <Button className="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all cursor-pointer gap-2">
-                    <BookOpen className="w-4 h-4" />
-                    <span>Take First Assessment</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
+                <div className="pt-1">
+                  <TakeFreeTestModal
+                    candidateName={profile.full_name || 'Student'}
+                    candidateEmail={profile.email || ''}
+                    candidatePhone={studentProfile?.phone || profile.phone || ''}
+                    candidateCollege={studentProfile?.institution || 'Sandip University'}
+                    candidateQualification={studentProfile?.current_program || ''}
+                    defaultTrack={defaultTrack}
+                    buttonText="Take Free Test"
+                    buttonClassName="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all cursor-pointer gap-2 inline-flex items-center"
+                  />
+                </div>
               </div>
             )}
           </CardContent>
@@ -503,211 +426,3 @@ export default async function AssessmentPage(props: {
     )
   }
 
-  // Check existing attempt for taking test
-  let attemptId = inProgressAttempt?.id
-  if (!attemptId) {
-    const result = await startAssessmentAttempt(assessmentVersion.id)
-    if (!result.success || !result.data) {
-      return (
-        <div className="space-y-6 max-w-5xl mx-auto font-sans text-center py-12">
-          <div className="bg-white border border-[#DFD7CB] rounded-3xl p-8 space-y-4">
-            <ShieldAlert className="w-10 h-10 text-[#A36B40] mx-auto" />
-            <h2 className="text-lg font-bold text-[#2C2621]">Unable to Start Assessment Attempt</h2>
-            <p className="text-xs text-[#7A7067] max-w-md mx-auto">{result.error || 'Please try again in a moment.'}</p>
-            <Link href="/student/assessment">
-              <Button className="bg-[#A36B40] text-white rounded-2xl text-xs font-bold px-6 h-10">
-                Retry Start
-              </Button>
-            </Link>
-          </div>
-        </div>
-      )
-    }
-    attemptId = (result.data as { attempt_id: string }).attempt_id
-  }
-
-  // Load existing responses
-  const { data: existingResponses } = await supabase
-    .from('assessment_responses')
-    .select('question_id, response_value, response_text')
-    .eq('attempt_id', attemptId)
-
-  const responsesMap: Record<string, { value: number; letter: string }> = {}
-  existingResponses?.forEach(r => {
-    responsesMap[r.question_id] = {
-      value: r.response_value ?? 1,
-      letter: (r.response_text || '').toUpperCase() || (r.response_value === 1 ? 'A' : r.response_value === 2 ? 'B' : r.response_value === 3 ? 'C' : 'D')
-    }
-  })
-
-  // Use selectedTrack (UG vs PG)
-  const questionBank = isPG ? PG_QUESTION_BANK : UG_QUESTION_BANK
-
-  // Build the 5 structured sections with 6 questions each
-  const SECTION_CONFIGS = [
-    { title: 'Core Problem Solving & Aptitude', description: 'Evaluates your natural instinct toward logical, analytical, and creative resolution.' },
-    { title: 'Technical & Domain Orientation', description: 'Assesses your affinity for computational systems, quantitative models, and applied frameworks.' },
-    { title: 'Learning & Decision-Making Styles', description: 'Identifies how you synthesize evidence, experiment with hypotheses, and collaborate.' },
-    { title: 'Managerial & Practical Applications', description: 'Measures your leadership orientation, operational execution, and organizational mindset.' },
-    { title: 'Strategic Vision & Career Motivations', description: 'Gauges your long-term vocational ambitions, industry readiness, and high-impact drivers.' },
-  ]
-
-  const structuredSections: Section[] = SECTION_CONFIGS.map((cfg, sIdx: number) => {
-    const start = sIdx * 6
-    const slice = questionBank.slice(start, start + 6)
-    return {
-      id: `sec_${sIdx + 1}`,
-      title: cfg.title,
-      description: cfg.description,
-      order_index: sIdx + 1,
-      questions: slice.map((q: BankQuestion) => ({
-        id: q.id,
-        question_text: q.question,
-        question_type: 'SINGLE_CHOICE',
-        weight: 1,
-        order_index: q.number,
-        is_required: true,
-        max_scale: 4,
-        options: q.options.map((opt: QuestionOptionItem, oIdx: number) => ({
-          id: opt.id,
-          option_text: opt.text,
-          option_value: oIdx + 1,
-          order_index: oIdx + 1,
-          letter: opt.id,
-        })),
-      })),
-    }
-  })
-
-  const totalQuestions = questionBank.length
-  const answeredCount = Object.keys(responsesMap).length
-
-  return (
-    <div className="space-y-6 max-w-5xl mx-auto font-sans">
-      {/* Redesigned Premium Diagnostic Header */}
-      <div className="bg-white border border-[#DFD7CB] rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
-        {/* Top Meta Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#DFD7CB]">
-          {/* Track Segmented Control */}
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-bold text-[#7A7067] uppercase tracking-wider hidden sm:inline-block mr-1">
-              Select Track:
-            </span>
-            <div className="inline-flex p-1 bg-[#FAF6F0] rounded-2xl border border-[#DFD7CB]">
-              <Link href="/student/assessment?start=true&track=UG">
-                <button
-                  type="button"
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer inline-flex items-center gap-2 ${
-                    !isPG
-                      ? 'bg-[#A36B40] text-white shadow-sm'
-                      : 'text-[#7A7067] hover:text-[#2C2621] hover:bg-white/60'
-                  }`}
-                >
-                  <GraduationCap className="w-4 h-4" />
-                  <span>Undergraduate (UG)</span>
-                </button>
-              </Link>
-              <Link href="/student/assessment?start=true&track=PG">
-                <button
-                  type="button"
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer inline-flex items-center gap-2 ${
-                    isPG
-                      ? 'bg-[#77734B] text-white shadow-sm'
-                      : 'text-[#7A7067] hover:text-[#2C2621] hover:bg-white/60'
-                  }`}
-                >
-                  <Award className="w-4 h-4" />
-                  <span>Postgraduate (PG)</span>
-                </button>
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Status & Navigation */}
-          <div className="flex items-center gap-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#77734B]/10 text-[#77734B] border border-[#77734B]/20">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#77734B] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#77734B]" />
-              </span>
-              <span>Active Session</span>
-            </div>
-
-            <Link href="/student/assessment">
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-9 px-4 rounded-xl border-[#DFD7CB] bg-white text-xs font-semibold text-[#2C2621] hover:text-[#A36B40] hover:border-[#A36B40] hover:bg-[#FAF6F0] transition-all cursor-pointer flex items-center gap-2"
-              >
-                <History className="w-3.5 h-3.5 text-[#A36B40]" />
-                <span>My Assessment</span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Title and Subtitle Area */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-1.5 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB]">
-              <Sparkles className="w-3 h-3 text-[#A36B40]" />
-              <span>Sandip University Psychometric Matrix</span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">
-              {isPG ? 'Postgraduate Career Diagnostic' : 'Undergraduate Career Diagnostic'}
-            </h1>
-            <p className="text-xs sm:text-sm text-[#7A7067] leading-relaxed">
-              {isPG
-                ? 'Evaluating advanced strategic decision-making, specialized technical frameworks, research aptitude & executive leadership.'
-                : 'Evaluating core problem-solving instincts, foundational technical aptitude, learning patterns & vocational career trajectories.'
-              }
-            </p>
-          </div>
-
-          <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-1 bg-[#FAF6F0] p-4 rounded-2xl border border-[#DFD7CB] shrink-0 text-left sm:text-right">
-            <span className="text-[10px] uppercase font-bold text-[#7A7067] tracking-wider">Evaluation Scope</span>
-            <span className="text-sm font-extrabold text-[#2C2621]">30 Diagnostic MCQs</span>
-            <span className="text-[11px] text-[#A36B40] font-semibold">5 Core Dimensions</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Instructions Card */}
-      {!inProgressAttempt && (
-        <Card className="border border-[#DFD7CB] rounded-3xl shadow-sm bg-[#FAF6F0]">
-          <CardContent className="p-6">
-            <h3 className="font-bold text-[#2C2621] text-sm mb-3 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#A36B40]" />
-              Assessment Instructions & Guidelines
-            </h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#7A7067]">
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 mt-0.5 text-[#77734B] flex-shrink-0" />
-                <span>Select the option that feels most authentic to you</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 mt-0.5 text-[#77734B] flex-shrink-0" />
-                <span>30 questions structured across 5 core career dimensions</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 mt-0.5 text-[#77734B] flex-shrink-0" />
-                <span>Every option contributes to weighted multidimensional scoring</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 mt-0.5 text-[#77734B] flex-shrink-0" />
-                <span>Progress is automatically saved in real time</span>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Assessment Engine */}
-      <AssessmentEngine
-        attemptId={attemptId}
-        sections={structuredSections}
-        existingResponses={responsesMap}
-      />
-    </div>
-  )
-}
