@@ -7,9 +7,9 @@ import { toast } from 'sonner'
 import {
   GraduationCap, CheckCircle2, ArrowRight, ArrowLeft,
   Clock, Sparkles, AlertCircle, HelpCircle, ShieldCheck,
-  Award, Check, LayoutGrid, ChevronRight, Layers, FileText,
+  Award, Check, ChevronRight, Layers, FileText,
   Brain, Compass, Target, BookmarkCheck, Zap, Keyboard,
-  BarChart3, BarChart2, RotateCcw, Info
+  BarChart3, BarChart2, RotateCcw, Info, Activity, Flame
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -17,12 +17,17 @@ import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { submitFresherLead } from '@/lib/actions/key.actions'
 import {
-  getStage1Questions,
   Stage1Question,
   UG_STAGE1_QUESTIONS,
   STAGE1_DIMENSION_DEFS,
   OptionWeightItem,
 } from '@/lib/engines/stage1-bank-data'
+import {
+  selectNextAdaptiveQuestion,
+  computeStudentContext,
+  AnswerHistoryItem,
+  StudentPsychometricContext,
+} from '@/lib/engines/adaptive-question-selector'
 import {
   processAssessmentResponses,
   ResponseRecord,
@@ -92,51 +97,49 @@ function FresherTestContent() {
   const college = searchParams?.get('college') || ''
   const mentorName = searchParams?.get('mentor') || 'Admissions & Advisory Council'
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Load 30 questions selected adaptively across 5 levels from the authoritative question pool
-  const activeQuestions: Stage1Question[] = useMemo(() => {
-    try {
-      const qList = getStage1Questions(academicLevel)
-      if (qList && Array.isArray(qList) && qList.length >= 30) return qList
-      return (UG_STAGE1_QUESTIONS || []).slice(0, 30)
-    } catch (err) {
-      console.error('Error fetching stage 1 questions:', err)
-      return (UG_STAGE1_QUESTIONS || []).slice(0, 30)
-    }
-  }, [academicLevel])
-
-  const totalQuestions = activeQuestions?.length || 30
-
-  // State: selected answers mapped by Question ID (e.g. 'UG001' -> 'UG001_OPT_A')
-  const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({})
+  // Dynamic Adaptive Question Stack (starts with Question 1, expands up to 30)
+  const [activeQuestions, setActiveQuestions] = useState<Stage1Question[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const currentQ: Stage1Question = activeQuestions[currentIndex] || activeQuestions[0] || (UG_STAGE1_QUESTIONS && UG_STAGE1_QUESTIONS[0]) || {
-    id: 'UG001',
-    number: 1,
-    track: 'UG',
-    level: 1,
-    type: 'Preference',
-    question: 'How do you approach a new problem?',
-    options: [
-      { id: 'UG001_OPT_A', key: 'A', text: 'Analyze logically', weights: { AR: 5 } },
-      { id: 'UG001_OPT_B', key: 'B', text: 'Collaborate with people', weights: { SO: 5 } }
-    ]
-  }
-  const currentSectionIndex = Math.min(4, Math.max(0, Math.floor(currentIndex / 6)))
-  const currentSection = SECTION_CONFIGS[currentSectionIndex] || SECTION_CONFIGS[0]
-
-  const answeredCount = Object.keys(selectedAnswers).length
-  const progressPercent = Math.round((answeredCount / (totalQuestions || 30)) * 100)
-
-  // Mobile Drawer & Submission Confirmation Modal state
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
   const [isSubmitConfirmOpen, setIsSubmitConfirmOpen] = useState(false)
 
+  // Initialize first question on mount
+  useEffect(() => {
+    setMounted(true)
+    if (activeQuestions.length === 0) {
+      const q1 = selectNextAdaptiveQuestion({
+        track: academicLevel,
+        targetIndex: 0,
+        history: [],
+        askedQuestionIds: [],
+        seed: 2026,
+      })
+      setActiveQuestions([q1])
+    }
+  }, [academicLevel, activeQuestions.length])
+
+  // Current Question accessor
+  const currentQ: Stage1Question = activeQuestions[currentIndex] || activeQuestions[0] || (UG_STAGE1_QUESTIONS[0])
+  const currentSectionIndex = Math.min(4, Math.max(0, Math.floor(currentIndex / 6)))
+  const currentSection = SECTION_CONFIGS[currentSectionIndex] || SECTION_CONFIGS[0]
+  const qNumInCurrentSection = (currentIndex % 6) + 1
+
+  const answeredCount = Object.keys(selectedAnswers).length
+  const progressPercent = Math.round((answeredCount / 30) * 100)
+
+  // Real-time Psychometric Context computation (like an LLM context window)
+  const psychometricContext: StudentPsychometricContext = useMemo(() => {
+    const history: AnswerHistoryItem[] = activeQuestions
+      .filter((q) => !!selectedAnswers[q.id])
+      .map((q) => ({
+        question: q,
+        selectedOptionId: selectedAnswers[q.id]!,
+      }))
+    return computeStudentContext(history)
+  }, [activeQuestions, selectedAnswers])
+
+  // Option selection
   const handleSelectOption = (optionId: string) => {
     if (!currentQ?.id) return
     setSelectedAnswers((prev) => ({
@@ -145,15 +148,7 @@ function FresherTestContent() {
     }))
   }
 
-  const handleNext = () => {
-    if (currentIndex < totalQuestions - 1) {
-      setCurrentIndex(currentIndex + 1)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
-      handleFinishAssessment()
-    }
-  }
-
+  // Previous Question
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1)
@@ -161,15 +156,53 @@ function FresherTestContent() {
     }
   }
 
-  const handleJumpToQuestion = (index: number) => {
-    setCurrentIndex(index)
+  // Dynamic Next Question Progression
+  const handleNext = () => {
+    if (!currentQ?.id || !selectedAnswers[currentQ.id]) {
+      toast.warning('Please select an option before moving to the next question.')
+      return
+    }
+
+    // If on the final question (Question 30)
+    if (currentIndex >= 29) {
+      handleFinishAssessment()
+      return
+    }
+
+    const nextIndex = currentIndex + 1
+
+    // If next question already exists in active stack, step forward
+    if (nextIndex < activeQuestions.length) {
+      setCurrentIndex(nextIndex)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
+    // Dynamically select the next question based on current psychometric context
+    const history: AnswerHistoryItem[] = activeQuestions.slice(0, currentIndex + 1).map((q) => ({
+      question: q,
+      selectedOptionId: selectedAnswers[q.id] || (q.options[0]?.id || 'A'),
+    }))
+
+    const nextQuestion = selectNextAdaptiveQuestion({
+      track: academicLevel,
+      targetIndex: nextIndex,
+      history,
+      askedQuestionIds: activeQuestions.map((q) => q.id),
+      seed: 2026,
+    })
+
+    setActiveQuestions((prev) => [...prev, nextQuestion])
+    setCurrentIndex(nextIndex)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   // Keyboard navigation shortcuts: 1-4 / A-D to select, ArrowRight / Enter to next, ArrowLeft to prev
   useEffect(() => {
+    if (!mounted) return
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isSubmitConfirmOpen || isMobileNavOpen) return
+      if (isSubmitConfirmOpen) return
       const target = e.target as HTMLElement | null
       if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) return
 
@@ -193,14 +226,14 @@ function FresherTestContent() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentQ, isSubmitConfirmOpen, isMobileNavOpen, currentIndex, totalQuestions, selectedAnswers])
+  }, [mounted, currentQ, isSubmitConfirmOpen, currentIndex, selectedAnswers, activeQuestions.length])
 
+  // Final Assessment Submission
   const handleFinishAssessment = () => {
-    if (answeredCount < totalQuestions) {
+    if (answeredCount < 30) {
       setIsSubmitConfirmOpen(true)
       return
     }
-
     executeFinalSubmission()
   }
 
@@ -245,7 +278,6 @@ function FresherTestContent() {
       const domain2 = sortedDomains[1] || { name: 'Engineering & Advanced Technology', code: 'ENG_TECH', compatibilityScore: 86, alignmentLabel: 'High Compatibility' }
       const domain3 = sortedDomains[2] || { name: 'Business & Management', code: 'BUS_MGMT', compatibilityScore: 78, alignmentLabel: 'Moderate Alignment' }
 
-      const primaryPathway = recommendationOutput.primaryPathway
       const topDomainName = domain1.name
       const overallFit = domain1.compatibilityScore
 
@@ -284,7 +316,6 @@ function FresherTestContent() {
         topDomain: topDomainName,
         recommendedSpec,
         fitScore: String(Math.round(overallFit)),
-        // Top 3 Recommended Domains with Exact Scores
         d1Name: domain1.name,
         d1Score: String(domain1.compatibilityScore),
         d1Code: domain1.code,
@@ -297,7 +328,6 @@ function FresherTestContent() {
         d3Score: String(domain3.compatibilityScore),
         d3Code: domain3.code,
         d3Label: domain3.alignmentLabel,
-        // Legacy score compatibility
         aiScore: String(Math.round(domain1.compatibilityScore)),
         cloudScore: String(Math.round(domain2.compatibilityScore)),
         fsScore: String(Math.round(domain3.compatibilityScore)),
@@ -314,18 +344,16 @@ function FresherTestContent() {
     }
   }
 
-  const firstUnansweredIndex = activeQuestions.findIndex((q) => !selectedAnswers[q.id])
-  const nextUnansweredNum = firstUnansweredIndex >= 0 ? firstUnansweredIndex + 1 : 1
-
-  if (!mounted) {
+  // Hydration safety check after all hooks have executed
+  if (!mounted || activeQuestions.length === 0) {
     return (
       <div className="min-h-screen bg-[#FAF6F0] flex items-center justify-center p-4 font-sans">
         <div className="bg-white p-6 rounded-2xl border border-[#DFD7CB] shadow-xs text-center max-w-sm space-y-3">
           <div className="w-10 h-10 rounded-xl bg-[#A36B40] text-white flex items-center justify-center mx-auto shadow-xs">
             <GraduationCap className="w-5 h-5 animate-pulse" />
           </div>
-          <h2 className="text-sm font-bold text-[#2C2621]">Initializing Diagnostic Assessment...</h2>
-          <p className="text-xs text-[#7A7067]">Loading your 30 adaptive career evaluation questions.</p>
+          <h2 className="text-sm font-bold text-[#2C2621]">Initializing Adaptive Assessment...</h2>
+          <p className="text-xs text-[#7A7067]">Configuring your dynamic 30-question diagnostic pathway.</p>
         </div>
       </div>
     )
@@ -335,9 +363,10 @@ function FresherTestContent() {
     <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#FAF6F0] p-2.5 sm:p-3 lg:p-3.5 flex flex-col overflow-x-hidden lg:overflow-hidden font-sans antialiased text-[#2C2621]">
       
       {/* ═════════════════════════════════════════════════════════════════ */}
-      {/* ─── MOBILE VIEW (EXACT MATCH TO DESIGN SPECIFICATION) ─────────── */}
+      {/* ─── MOBILE VIEW (DYNAMIC CONTEXTUAL STEPPER) ──────────────────── */}
       {/* ═════════════════════════════════════════════════════════════════ */}
-      <div className="lg:hidden flex flex-col gap-3 pb-32 w-full max-w-lg mx-auto">
+      <div className="lg:hidden flex flex-col gap-3 pb-28 w-full max-w-lg mx-auto">
+        
         {/* 1. Header Card */}
         <div className="bg-white p-4 rounded-3xl border border-[#E8DFD5] shadow-xs flex items-center gap-3.5">
           <div className="w-12 h-12 rounded-2xl bg-[#8E5B34] text-white flex items-center justify-center shrink-0 shadow-sm">
@@ -361,33 +390,62 @@ function FresherTestContent() {
           </div>
         </div>
 
-        {/* 2. Metric Strip (3 Pills Row) */}
-        <div className="grid grid-cols-3 gap-2">
-          <div className="bg-[#FAF6F0] border border-[#E8DFD5] rounded-2xl py-2 px-1.5 flex items-center justify-center gap-1.5 text-[11px] font-bold text-[#2C2621]">
-            <Clock className="w-3.5 h-3.5 text-[#8E5B34] shrink-0" />
-            <span className="truncate">Question {currentIndex + 1} of 30</span>
+        {/* 2. Dynamic Progress Strip (Question Counter + Stage Tracker) */}
+        <div className="bg-white p-3.5 rounded-3xl border border-[#E8DFD5] shadow-xs space-y-2.5">
+          <div className="flex items-center justify-between text-xs font-bold">
+            <span className="text-[#2C2621] flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-[#8E5B34]" />
+              Question {currentIndex + 1} of 30
+            </span>
+            <span className="text-[#8E5B34] font-mono font-black">
+              {progressPercent}% Complete
+            </span>
           </div>
-          <div className="bg-[#FAF6F0] border border-[#E8DFD5] rounded-2xl py-2 px-1.5 flex items-center justify-center gap-1.5 text-[11px] font-bold text-[#2C2621]">
-            <RotateCcw className="w-3.5 h-3.5 text-[#7A7067] shrink-0" />
-            <span>{answeredCount} / 30 Done</span>
+          <Progress value={progressPercent} className="h-2" />
+
+          {/* Linear 5-Stage Mini Dot Stepper */}
+          <div className="flex items-center justify-between gap-1 pt-1">
+            {SECTION_CONFIGS.map((sec, sIdx) => {
+              const isCurr = currentSectionIndex === sIdx
+              const isPast = currentSectionIndex > sIdx
+              return (
+                <div key={sec.index} className="flex-1 flex flex-col items-center gap-1">
+                  <div className={`h-1.5 w-full rounded-full transition-all ${
+                    isCurr ? 'bg-[#8E5B34]' : isPast ? 'bg-[#5D6B3C]' : 'bg-[#E8DFD5]'
+                  }`} />
+                  <span className={`text-[8px] font-extrabold uppercase ${
+                    isCurr ? 'text-[#8E5B34]' : isPast ? 'text-[#5D6B3C]' : 'text-[#7A7067]'
+                  }`}>
+                    L{sec.index}
+                  </span>
+                </div>
+              )
+            })}
           </div>
-          <button
-            type="button"
-            onClick={handleFinishAssessment}
-            className="bg-[#8E5B34] hover:bg-[#784A28] text-white rounded-2xl py-2 px-1.5 flex items-center justify-center gap-1.5 text-[11px] font-black shadow-xs cursor-pointer active:scale-95"
-          >
-            <BarChart3 className="w-3.5 h-3.5 shrink-0" />
-            <span>See Result</span>
-          </button>
         </div>
 
-        {/* 3. Question Card */}
+        {/* 3. Live Psychometric Context Pill */}
+        <div className="bg-[#FAF6F0] border border-[#DFD7CB] rounded-2xl p-2.5 flex items-center gap-2 text-xs">
+          <div className="w-6 h-6 rounded-lg bg-[#8E5B34]/15 text-[#8E5B34] flex items-center justify-center shrink-0">
+            <Sparkles className="w-3.5 h-3.5 text-[#8E5B34]" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#8E5B34]">
+              Adaptive Psychometric Context
+            </div>
+            <div className="text-[11px] font-bold text-[#2C2621] truncate">
+              {psychometricContext.primaryLeaning}
+            </div>
+          </div>
+        </div>
+
+        {/* 4. Active Question Card */}
         <div className="bg-white p-5 rounded-3xl border border-[#E8DFD5] shadow-xs space-y-3.5">
           {/* Badge Row */}
           <div className="flex items-center justify-between gap-1.5 flex-wrap">
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="bg-[#FAF6F0] text-[#8E5B34] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border border-[#DFD7CB]">
-                {currentSection.title.toUpperCase()}
+                {currentSection.shortTitle.toUpperCase()} · Q{qNumInCurrentSection}/6
               </span>
               <span className="bg-[#FAF6F0] text-[#77734B] text-[9px] font-bold px-2 py-0.5 rounded-full border border-[#DFD7CB]">
                 {currentQ.type}
@@ -444,12 +502,12 @@ function FresherTestContent() {
           </div>
         </div>
 
-        {/* 4. 5-Level Progression Card with Dotted Line */}
+        {/* 5. 5-Level Progression Roadmap */}
         <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#E8DFD5] shadow-xs space-y-3.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#2C2621]">
               <BarChart2 className="w-4 h-4 text-[#8E5B34]" />
-              <span>5-Level Progression</span>
+              <span>5-Level Adaptive Roadmap</span>
             </div>
             <span className="bg-[#FAF6F0] text-[#7A7067] text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-[#E8DFD5]">
               6 Qs Each
@@ -457,7 +515,6 @@ function FresherTestContent() {
           </div>
 
           <div className="relative pl-6 space-y-2">
-            {/* Dotted vertical line connecting all 5 steps */}
             <div className="absolute left-2.5 top-3 bottom-3 w-0.5 border-l-2 border-dashed border-[#DFD7CB]" />
 
             {SECTION_CONFIGS.map((sec, sIdx) => {
@@ -465,25 +522,22 @@ function FresherTestContent() {
               const startQ = sec.range[0]; const endQ = sec.range[1]
               let cnt = 0
               for (let qn = startQ; qn <= endQ; qn++) {
-                const qo = activeQuestions[qn-1]
+                const qo = activeQuestions[qn - 1]
                 if (qo && selectedAnswers[qo.id]) cnt++
               }
               const done = cnt === 6
 
               return (
-                <button
+                <div
                   key={sec.index}
-                  type="button"
-                  onClick={() => handleJumpToQuestion(startQ - 1)}
-                  className={`relative w-full p-2.5 rounded-2xl border transition-all text-left flex items-center justify-between gap-2 cursor-pointer ${
+                  className={`relative w-full p-2.5 rounded-2xl border transition-all text-left flex items-center justify-between gap-2 ${
                     isCurrent
                       ? 'bg-[#FAF6F0] border-[#8E5B34] ring-1 ring-[#8E5B34]/25'
                       : done
                       ? 'bg-emerald-50/70 border-emerald-200'
-                      : 'bg-[#FAF6F0]/40 border-[#E8DFD5] hover:bg-[#FAF6F0]'
+                      : 'bg-[#FAF6F0]/40 border-[#E8DFD5]'
                   }`}
                 >
-                  {/* Timeline Dot on the left */}
                   <div className={`absolute -left-6 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 flex items-center justify-center z-10 ${
                     isCurrent
                       ? 'border-[#8E5B34] bg-white ring-2 ring-[#8E5B34]/30'
@@ -513,111 +567,54 @@ function FresherTestContent() {
                       {cnt} / 6
                     </span>
                   </div>
-                </button>
+                </div>
               )
             })}
           </div>
         </div>
 
-        {/* 5. Question Navigator Card */}
-        <div className="bg-white p-4 rounded-3xl border border-[#E8DFD5] shadow-xs space-y-2.5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#2C2621]">
-              <LayoutGrid className="w-4 h-4 text-[#8E5B34]" />
-              <span>Question Navigator</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setIsMobileNavOpen(true)}
-              className="text-[11px] font-bold text-[#7A7067] hover:text-[#8E5B34] flex items-center gap-0.5 cursor-pointer"
-            >
-              <span>Tap to view all</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          {/* Horizontal scroll 1-10 numbers */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-            {activeQuestions.slice(0, 10).map((q, idx) => {
-              const isAns = !!selectedAnswers[q.id]
-              const isCurr = currentIndex === idx
-              return (
-                <button
-                  key={q.id}
-                  type="button"
-                  onClick={() => handleJumpToQuestion(idx)}
-                  className={`w-9 h-9 rounded-xl font-mono text-xs font-bold transition-all shrink-0 flex items-center justify-center border cursor-pointer ${
-                    isCurr
-                      ? 'bg-[#8E5B34] text-white border-[#8E5B34] shadow-xs scale-105 ring-1 ring-[#8E5B34]/30'
-                      : isAns
-                      ? 'bg-[#5D6B3C] text-white border-[#5D6B3C]'
-                      : 'bg-[#FAF6F0] text-[#2C2621] border-[#E8DFD5]'
-                  }`}
-                >
-                  {idx + 1}
-                </button>
-              )
-            })}
-          </div>
-
-          {/* Legend */}
-          <div className="flex items-center justify-between text-[10px] font-bold text-[#7A7067] pt-1.5 border-t border-[#F0E8DF]">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#5D6B3C]" />
-              <span>Answered</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#8E5B34]" />
-              <span>Current</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#DFD7CB]" />
-              <span>Pending</span>
-            </div>
-          </div>
-        </div>
-
-        {/* 6. Sticky Bottom Dock for Mobile (Fixed bottom overlay) */}
+        {/* 6. Sticky Bottom Dock for Mobile */}
         <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#FAF6F0]/95 backdrop-blur-md px-3 pt-2 pb-3 space-y-2 border-t border-[#E8DFD5] shadow-lg">
-          <div className="max-w-lg mx-auto grid grid-cols-12 gap-2">
+          <div className="max-w-lg mx-auto flex items-center gap-2">
             <Button
               variant="outline"
               onClick={handlePrev}
               disabled={currentIndex === 0}
-              className="col-span-4 h-11 rounded-2xl border-[#DFD7CB] bg-[#F5EEE6] hover:bg-[#EBE2D7] text-xs font-bold text-[#2C2621] flex items-center justify-center gap-1.5 disabled:opacity-40"
+              className="flex-1 h-11 rounded-2xl border-[#DFD7CB] bg-[#F5EEE6] hover:bg-[#EBE2D7] text-xs font-bold text-[#2C2621] flex items-center justify-center gap-1.5 disabled:opacity-40"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Previous</span>
             </Button>
 
-            <Button
-              onClick={handleNext}
-              className="col-span-3 h-11 rounded-2xl bg-[#8E5B34] hover:bg-[#784A28] text-white text-xs font-bold flex items-center justify-center gap-1 shadow-xs cursor-pointer active:scale-95"
-            >
-              <span>Next</span>
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-
-            <Button
-              onClick={handleFinishAssessment}
-              className="col-span-5 h-11 rounded-2xl bg-[#3D332A] hover:bg-[#2C241D] text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
-            >
-              <BarChart3 className="w-4 h-4 text-amber-400" />
-              <span>See Result / Complete</span>
-            </Button>
+            {currentIndex < 29 ? (
+              <Button
+                onClick={handleNext}
+                className="flex-2 h-11 rounded-2xl bg-[#8E5B34] hover:bg-[#784A28] text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
+              >
+                <span>Next Question</span>
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleFinishAssessment}
+                className="flex-2 h-11 rounded-2xl bg-gradient-to-r from-emerald-600 to-[#77734B] hover:opacity-95 text-white text-xs font-black flex items-center justify-center gap-1.5 shadow-md shadow-emerald-600/30 cursor-pointer active:scale-95"
+              >
+                <Award className="w-4 h-4" />
+                <span>Complete & View Report</span>
+              </Button>
+            )}
           </div>
 
-          <div className="max-w-lg mx-auto bg-[#24201C] text-[#DFD7CB] rounded-2xl py-2 px-3 flex items-center justify-center gap-2 text-[11px] font-bold">
-            <div className="w-4 h-4 rounded-full border border-emerald-400 text-emerald-400 flex items-center justify-center text-[9px] shrink-0 font-bold">
-              i
-            </div>
-            <span>Zero negative marking · Adaptive engine</span>
+          <div className="max-w-lg mx-auto bg-[#24201C] text-[#DFD7CB] rounded-2xl py-1.5 px-3 flex items-center justify-center gap-2 text-[10px] font-bold">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>Zero negative marking · Real-time contextual engine</span>
           </div>
         </div>
+
       </div>
 
       {/* ═════════════════════════════════════════════════════════════════ */}
-      {/* ─── DESKTOP VIEW (SPACIOUS 2×2 COCKPIT WORKSPACE) ─────────────── */}
+      {/* ─── DESKTOP VIEW (CONTEXTUAL 2×2 COCKPIT WORKSPACE) ───────────── */}
       {/* ═════════════════════════════════════════════════════════════════ */}
       <div className="hidden lg:flex flex-col flex-1 min-h-0 max-w-[1560px] mx-auto w-full gap-2.5 sm:gap-3">
         
@@ -636,10 +633,10 @@ function FresherTestContent() {
                   {academicLevel} Track
                 </Badge>
                 <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  30 Adaptive Qs
+                  30 Adaptive Questions
                 </Badge>
                 <Badge className="bg-amber-50 text-amber-800 border-amber-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  Zero Negative Marking
+                  Contextual Engine Active
                 </Badge>
               </div>
               <p className="text-[10px] sm:text-[11px] text-[#7A7067] leading-none mt-0.5">
@@ -656,19 +653,17 @@ function FresherTestContent() {
             </div>
             <div className="flex items-center gap-1.5 text-xs font-bold text-[#77734B] bg-[#77734B]/10 px-3 py-1.5 rounded-xl border border-[#77734B]/20">
               <CheckCircle2 className="w-3.5 h-3.5 text-[#77734B]" />
-              <span>{answeredCount} / 30 Done</span>
+              <span>{answeredCount} / 30 Answered</span>
             </div>
-            <Button
-              onClick={handleFinishAssessment}
-              className={`h-9 px-4 font-black text-xs rounded-xl shadow-xs cursor-pointer flex items-center gap-1.5 transition-all ${
-                answeredCount === 30
-                  ? 'bg-gradient-to-r from-emerald-600 to-[#77734B] hover:opacity-95 text-white shadow-emerald-600/30 ring-2 ring-emerald-400 animate-pulse'
-                  : 'bg-gradient-to-r from-[#A36B40] to-[#77734B] hover:opacity-95 text-white shadow-[#A36B40]/25'
-              }`}
-            >
-              <Award className="w-4 h-4" />
-              <span>See Result</span>
-            </Button>
+            {currentIndex === 29 ? (
+              <Button
+                onClick={handleFinishAssessment}
+                className="h-9 px-4 bg-gradient-to-r from-emerald-600 to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md shadow-emerald-600/30 cursor-pointer flex items-center gap-1.5 animate-pulse"
+              >
+                <Award className="w-4 h-4" />
+                <span>Complete Assessment</span>
+              </Button>
+            ) : null}
           </div>
         </header>
 
@@ -680,7 +675,6 @@ function FresherTestContent() {
             
             {/* Active Question Card — fills all available height */}
             <Card className="flex-1 flex flex-col bg-white border border-[#DFD7CB] shadow-sm rounded-2xl overflow-hidden min-h-0">
-              {/* Accent header bar */}
               <div className="h-1.5 w-full bg-gradient-to-r from-[#A36B40] via-[#C87D55] to-[#77734B] shrink-0" />
               
               {/* Question Header */}
@@ -689,7 +683,7 @@ function FresherTestContent() {
                   <div className="flex flex-wrap items-center gap-1.5">
                     <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#A36B40] bg-[#A36B40]/10 px-2.5 py-0.5 rounded-full border border-[#A36B40]/25 flex items-center gap-1">
                       <Brain className="w-3 h-3" />
-                      {currentSection.shortTitle}
+                      {currentSection.shortTitle} · Question {qNumInCurrentSection} of 6
                     </span>
                     <Badge variant="outline" className="text-[9px] sm:text-[10px] font-bold border-[#DFD7CB] bg-white text-[#77734B] px-2 py-0.5">
                       {currentQ.type}
@@ -697,11 +691,6 @@ function FresherTestContent() {
                     <Badge variant="outline" className="text-[9px] font-mono border-[#DFD7CB] bg-white text-[#7A7067] px-1.5 py-0.5">
                       ID: {currentQ.id}
                     </Badge>
-                    {currentQ.discriminator && (
-                      <Badge className="bg-[#77734B]/10 text-[#77734B] border-0 text-[8px] font-bold px-1.5 py-0.5 hidden sm:inline-flex">
-                        {currentQ.discriminator}
-                      </Badge>
-                    )}
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -740,7 +729,6 @@ function FresherTestContent() {
                           : 'border-[#E8DFD5] bg-white hover:border-[#C6A18D] hover:bg-[#FAF6F0]/60 hover:shadow-xs'
                       }`}
                     >
-                      {/* Top: letter badge + keyboard hint + radio */}
                       <div className="flex items-center justify-between gap-2 shrink-0">
                         <div className="flex items-center gap-2">
                           <div
@@ -768,7 +756,6 @@ function FresherTestContent() {
                         </div>
                       </div>
 
-                      {/* Middle: option text (prominent & comfortable) */}
                       <div className="my-auto py-2">
                         <p className={`text-sm sm:text-base lg:text-lg font-bold leading-relaxed tracking-tight ${
                           isSelected ? 'text-[#5C3820]' : 'text-[#2C2621]'
@@ -777,7 +764,6 @@ function FresherTestContent() {
                         </p>
                       </div>
 
-                      {/* Bottom: selection status pill or selection prompt */}
                       <div className="pt-2 border-t border-[#DFD7CB]/60 flex items-center justify-between text-xs shrink-0">
                         {isSelected ? (
                           <span className="inline-flex items-center gap-1.5 text-[11px] font-black text-[#A36B40] bg-[#A36B40]/10 px-2.5 py-0.5 rounded-md">
@@ -810,62 +796,58 @@ function FresherTestContent() {
                   <span>Previous (←)</span>
                 </Button>
 
-                {/* Center: mini level stepper */}
-                <div className="flex items-center gap-1.5">
+                {/* Center: Stage Step Pills */}
+                <div className="flex items-center gap-2">
                   {SECTION_CONFIGS.map((sec, sIdx) => {
                     const isCurr = currentSectionIndex === sIdx
-                    const startQ = sec.range[0]; const endQ = sec.range[1]
-                    let cnt = 0
-                    for (let qn = startQ; qn <= endQ; qn++) { const qo = activeQuestions[qn-1]; if (qo && selectedAnswers[qo.id]) cnt++ }
-                    const done = cnt === 6
+                    const isPast = currentSectionIndex > sIdx
                     return (
-                      <button
+                      <div
                         key={sIdx}
-                        type="button"
-                        onClick={() => handleJumpToQuestion(sec.range[0]-1)}
-                        className={`h-7 px-3 rounded-full text-[10px] font-black transition-all cursor-pointer border flex items-center gap-1 ${
+                        className={`px-3 py-1 rounded-full text-[10px] font-black transition-all border flex items-center gap-1.5 ${
                           isCurr ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-xs' :
-                          done ? 'bg-emerald-600 text-white border-emerald-600' :
-                          'bg-white text-[#7A7067] border-[#DFD7CB] hover:border-[#A36B40]'
+                          isPast ? 'bg-emerald-600 text-white border-emerald-600' :
+                          'bg-white text-[#7A7067] border-[#DFD7CB]'
                         }`}
                       >
-                        <span>L{sec.index}</span>
-                        {done && <Check className="w-2.5 h-2.5 stroke-[3]" />}
-                      </button>
+                        <span>Stage {sec.index}</span>
+                        {isPast && <Check className="w-2.5 h-2.5 stroke-[3]" />}
+                      </div>
                     )
                   })}
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <Button
-                    onClick={handleNext}
-                    className="h-9 px-5 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-extrabold text-xs rounded-xl shadow-xs shadow-[#A36B40]/25 transition-all cursor-pointer flex items-center gap-1.5"
-                  >
-                    <span>Next (Enter)</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Button>
-                  <Button
-                    onClick={handleFinishAssessment}
-                    disabled={isSubmitting}
-                    className="h-9 px-5 bg-gradient-to-r from-[#A36B40] to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md shadow-[#A36B40]/30 transition-all cursor-pointer flex items-center gap-1.5"
-                  >
-                    <Award className="w-3.5 h-3.5" />
-                    <span>{isSubmitting ? 'Submitting...' : 'See Result'}</span>
-                  </Button>
+                  {currentIndex < 29 ? (
+                    <Button
+                      onClick={handleNext}
+                      className="h-9 px-6 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-extrabold text-xs rounded-xl shadow-xs shadow-[#A36B40]/25 transition-all cursor-pointer flex items-center gap-1.5"
+                    >
+                      <span>Next Question (Enter)</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleFinishAssessment}
+                      disabled={isSubmitting}
+                      className="h-9 px-6 bg-gradient-to-r from-emerald-600 to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md shadow-emerald-600/30 transition-all cursor-pointer flex items-center gap-1.5 animate-pulse"
+                    >
+                      <Award className="w-3.5 h-3.5" />
+                      <span>{isSubmitting ? 'Evaluating...' : 'Complete & View Report'}</span>
+                    </Button>
+                  )}
                 </div>
               </div>
             </Card>
 
           </main>
 
-          {/* ═══ RIGHT SIDEBAR (DESKTOP ONLY) ═══════════════════════════ */}
+          {/* ═══ RIGHT SIDEBAR (DYNAMIC PSYCHOMETRIC CONTEXT TELEMETRY) ══ */}
           <aside className="col-span-4 flex flex-col gap-2.5 min-h-0 h-full">
 
-            {/* ── Progress + Level bar (compact single card) ─────────── */}
+            {/* 1. Progress Overview Card */}
             <div className="bg-white rounded-2xl border border-[#DFD7CB] shadow-xs p-3.5 shrink-0 space-y-2.5">
-              {/* Progress row */}
               <div className="flex items-center gap-3.5">
-                {/* Arc-style progress indicator */}
                 <div className="relative w-14 h-14 shrink-0">
                   <svg viewBox="0 0 56 56" className="w-full h-full -rotate-90">
                     <circle cx="28" cy="28" r="24" fill="none" stroke="#F0E8DF" strokeWidth="5" />
@@ -879,50 +861,36 @@ function FresherTestContent() {
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs font-black text-[#2C2621]">{answeredCount} of 30 Answered</div>
-                  <div className="text-[11px] text-[#7A7067] mt-0.5">{30 - answeredCount} questions remaining</div>
+                  <div className="text-xs font-black text-[#2C2621]">
+                    Question {currentIndex + 1} of 30
+                  </div>
+                  <div className="text-[11px] text-[#7A7067] mt-0.5">
+                    {30 - answeredCount} questions remaining
+                  </div>
                   <Progress value={progressPercent} className="h-1.5 mt-1.5" />
                 </div>
               </div>
 
-              {/* Next unanswered shortcut button if any remain */}
-              {answeredCount < 30 && firstUnansweredIndex >= 0 && (
-                <button
-                  type="button"
-                  onClick={() => handleJumpToQuestion(firstUnansweredIndex)}
-                  className="w-full py-1.5 px-2.5 rounded-xl bg-[#FAF6F0] hover:bg-[#F3ECE0] border border-[#DFD7CB] text-[#A36B40] text-[11px] font-bold transition-all flex items-center justify-between cursor-pointer"
-                >
-                  <span className="flex items-center gap-1.5">
-                    <Zap className="w-3.5 h-3.5" />
-                    <span>Jump to Next Pending</span>
-                  </span>
-                  <span className="font-mono font-black">Q#{nextUnansweredNum} →</span>
-                </button>
-              )}
-
-              {/* Level stepper */}
-              <div className="space-y-1 pt-1 border-t border-[#F0E8DF]">
+              {/* 5-Stage Roadmap Progress */}
+              <div className="space-y-1 pt-1.5 border-t border-[#F0E8DF]">
                 <div className="text-[10px] font-black uppercase tracking-wider text-[#7A7067] mb-1">
-                  5-Stage Roadmap (6 Qs Each)
+                  5-Stage Diagnostic Roadmap
                 </div>
                 {SECTION_CONFIGS.map((sec, sIdx) => {
                   const isCurrent = currentSectionIndex === sIdx
-                  const startQ = sec.range[0]; const endQ = sec.range[1]
-                  let secAnswered = 0
-                  for (let qNum = startQ; qNum <= endQ; qNum++) {
-                    const qObj = activeQuestions[qNum - 1]
-                    if (qObj && selectedAnswers[qObj.id]) secAnswered++
-                  }
-                  const isComplete = secAnswered === 6
-                  const pct = Math.round((secAnswered / 6) * 100)
+                  const isComplete = currentSectionIndex > sIdx
+                  const qInThisStage = isCurrent ? qNumInCurrentSection : isComplete ? 6 : 0
+                  const pct = Math.round((qInThisStage / 6) * 100)
+
                   return (
-                    <button key={sec.index} type="button" onClick={() => handleJumpToQuestion(startQ - 1)}
-                      className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl border transition-all cursor-pointer ${
+                    <div
+                      key={sec.index}
+                      className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl border transition-all ${
                         isCurrent ? 'bg-[#A36B40]/10 border-[#A36B40] ring-1 ring-[#A36B40]/25' :
-                        isComplete ? 'bg-emerald-50 border-emerald-200 hover:border-emerald-300' :
-                        'bg-[#FAF6F0]/60 border-[#E8DFD5] hover:bg-[#FAF6F0]'
-                      }`}>
-                      {/* Level dot */}
+                        isComplete ? 'bg-emerald-50 border-emerald-200' :
+                        'bg-[#FAF6F0]/60 border-[#E8DFD5]'
+                      }`}
+                    >
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${
                         isCurrent ? 'bg-[#A36B40] text-white' :
                         isComplete ? 'bg-emerald-600 text-white' :
@@ -930,70 +898,104 @@ function FresherTestContent() {
                       }`}>
                         {isComplete ? '✓' : sec.index}
                       </div>
-                      {/* Label + mini progress bar */}
+
                       <div className="flex-1 min-w-0 text-left">
                         <div className={`text-[10px] font-bold truncate ${
                           isCurrent ? 'text-[#A36B40]' : isComplete ? 'text-emerald-700' : 'text-[#2C2621]'
-                        }`}>{sec.shortTitle}</div>
+                        }`}>
+                          {sec.shortTitle}
+                        </div>
                         <div className="h-1 w-full bg-[#E8DFD5] rounded-full mt-0.5 overflow-hidden">
-                          <div className={`h-full rounded-full transition-all ${
-                            isComplete ? 'bg-emerald-600' : isCurrent ? 'bg-[#A36B40]' : 'bg-[#C6A18D]'
-                          }`} style={{ width: `${pct}%` }} />
+                          <div
+                            className={`h-full rounded-full transition-all ${
+                              isComplete ? 'bg-emerald-600' : isCurrent ? 'bg-[#A36B40]' : 'bg-[#C6A18D]'
+                            }`}
+                            style={{ width: `${pct}%` }}
+                          />
                         </div>
                       </div>
+
                       <span className={`text-[9px] font-mono font-bold shrink-0 ${
                         isComplete ? 'text-emerald-600' : isCurrent ? 'text-[#A36B40]' : 'text-[#7A7067]'
-                      }`}>{secAnswered}/6</span>
-                    </button>
+                      }`}>
+                        {qInThisStage}/6
+                      </span>
+                    </div>
                   )
                 })}
               </div>
             </div>
 
-            {/* ── 30-Question Navigator (fills remaining space) ─────── */}
+            {/* 2. Real-Time Psychometric Context Card (REPLACES STATIC 30-GRID) */}
             <div className="flex-1 bg-white rounded-2xl border border-[#DFD7CB] shadow-xs flex flex-col min-h-0 overflow-hidden">
-              <div className="flex items-center justify-between px-3.5 py-2 border-b border-[#F0E8DF] shrink-0">
+              <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-[#F0E8DF] bg-[#FAF6F0]/60 shrink-0">
                 <span className="text-[11px] font-black uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
-                  <FileText className="w-3.5 h-3.5 text-[#A36B40]" />
-                  Question Matrix
+                  <Brain className="w-3.5 h-3.5 text-[#A36B40]" />
+                  Adaptive Cognitive Context
                 </span>
-                <span className="text-[10px] text-[#A36B40] font-mono font-bold bg-[#FAF6F0] px-2 py-0.5 rounded-md border border-[#DFD7CB]">
-                  {answeredCount}/30 Done
-                </span>
+                <Badge className="bg-[#A36B40] text-white text-[9px] font-bold px-2 py-0.5 border-0">
+                  Live Vector
+                </Badge>
               </div>
 
-              {/* 5×6 interactive grid — fills all space */}
-              <div className="flex-1 p-2.5 sm:p-3 grid grid-cols-6 gap-1.5 content-start overflow-y-auto">
-                {activeQuestions.map((q, idx) => {
-                  const isAns = !!selectedAnswers[q.id]
-                  const isCurr = currentIndex === idx
-                  return (
-                    <button
-                      key={q.id}
-                      type="button"
-                      onClick={() => handleJumpToQuestion(idx)}
-                      className={`aspect-square rounded-lg font-mono text-[11px] font-bold transition-all cursor-pointer flex items-center justify-center border ${
-                        isCurr
-                          ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-sm scale-105 ring-2 ring-[#A36B40]/40'
-                          : isAns
-                          ? 'bg-[#77734B] text-white border-[#77734B]'
-                          : 'bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] hover:border-[#A36B40] hover:bg-white'
-                      }`}
-                      aria-label={`Question ${idx + 1}`}
-                    >
-                      {idx + 1}
-                    </button>
-                  )
-                })}
-              </div>
-
-              {/* Legend + Advisory */}
-              <div className="px-3 pb-2.5 space-y-2 shrink-0">
-                <div className="flex items-center justify-between text-[9px] font-semibold text-[#7A7067] border-t border-[#F0E8DF] pt-2">
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#77734B]" />Answered</span>
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#A36B40]" />Current</span>
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#DFD7CB]" />Pending</span>
+              <div className="flex-1 p-3.5 space-y-3 overflow-y-auto">
+                {/* Emerging Leaning Badge */}
+                <div className="p-3 rounded-xl bg-gradient-to-br from-[#FAF6F0] to-[#F5ECE0] border border-[#DFD7CB] space-y-1">
+                  <div className="text-[9px] font-extrabold uppercase tracking-wider text-[#A36B40] flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    Emerging Vocational Profile
+                  </div>
+                  <div className="text-xs font-black text-[#2C2621] leading-snug">
+                    {psychometricContext.primaryLeaning}
+                  </div>
+                  <p className="text-[10px] text-[#7A7067] leading-relaxed pt-0.5">
+                    Evaluated from {answeredCount} responses using multi-dimensional trait weighting.
+                  </p>
                 </div>
+
+                {/* Top Emerging Dimensions */}
+                <div className="space-y-1.5">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-[#7A7067]">
+                    Top Evaluated Dimensions
+                  </div>
+
+                  {psychometricContext.topTraits.length > 0 ? (
+                    psychometricContext.topTraits.slice(0, 4).map((t, i) => (
+                      <div
+                        key={t.code}
+                        className="p-2 rounded-xl bg-[#FAF6F0]/70 border border-[#DFD7CB] flex items-center justify-between gap-2"
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="w-5 h-5 rounded-lg bg-[#A36B40]/15 text-[#A36B40] font-mono text-[9px] font-black flex items-center justify-center shrink-0">
+                            #{i + 1}
+                          </span>
+                          <span className="text-[11px] font-bold text-[#2C2621] truncate">
+                            {t.name}
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-mono font-black text-[#A36B40] bg-white px-2 py-0.5 rounded-md border border-[#DFD7CB] shrink-0">
+                          +{t.score} pts
+                        </span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="p-3 text-center rounded-xl bg-[#FAF6F0]/50 border border-dashed border-[#DFD7CB] text-[10px] text-[#7A7067]">
+                      Answer Question 1 to establish your initial psychometric context.
+                    </div>
+                  )}
+                </div>
+
+                {/* Adaptive Pacing Note */}
+                <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-[10px] text-amber-900 flex items-start gap-2">
+                  <Info className="w-3.5 h-3.5 text-amber-700 shrink-0 mt-0.5" />
+                  <p className="leading-relaxed">
+                    Each subsequent question is selected dynamically based on your preference, reasoning style, and decision trade-offs.
+                  </p>
+                </div>
+              </div>
+
+              {/* Sidebar Footer */}
+              <div className="px-3 pb-3 shrink-0">
                 <div className="flex items-center gap-1.5 bg-[#1B1714] text-[#C6A18D] px-2.5 py-1.5 rounded-xl">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                   <span className="text-[9px] font-bold">Zero negative marking · Adaptive engine</span>
@@ -1006,234 +1008,6 @@ function FresherTestContent() {
         </div>
 
       </div>
-
-      {/* ─── MOBILE STICKY BOTTOM DOCK (FIXED AT BOTTOM OF SCREEN) ────── */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#DFD7CB] px-3 py-2.5 shadow-lg flex items-center justify-between gap-2">
-        <Button
-          variant="outline"
-          onClick={handlePrev}
-          disabled={currentIndex === 0}
-          className="h-10 px-3 rounded-xl border-[#DFD7CB] bg-white text-xs font-bold text-[#2C2621] hover:bg-[#FAF6F0] disabled:opacity-30 cursor-pointer flex items-center gap-1 shadow-2xs shrink-0"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Prev</span>
-        </Button>
-
-        {/* Center Question Navigator Trigger */}
-        <button
-          type="button"
-          onClick={() => setIsMobileNavOpen(true)}
-          className="flex-1 flex flex-col items-center justify-center py-1 px-2 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] text-[#2C2621] cursor-pointer active:scale-98"
-        >
-          <span className="text-[11px] font-black text-[#A36B40] leading-none">
-            Q {currentIndex + 1} of 30
-          </span>
-          <span className="text-[9px] text-[#7A7067] font-semibold leading-none mt-0.5">
-            {answeredCount}/30 Done · Matrix
-          </span>
-        </button>
-
-        <div className="flex items-center gap-1.5 shrink-0">
-          <Button
-            onClick={handleNext}
-            className="h-10 px-3.5 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-extrabold text-xs rounded-xl shadow-xs shadow-[#A36B40]/25 transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95"
-          >
-            <span>Next</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Button>
-
-          <Button
-            onClick={handleFinishAssessment}
-            disabled={isSubmitting}
-            className="h-10 px-3 bg-gradient-to-r from-[#A36B40] to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md shadow-[#A36B40]/30 transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95"
-          >
-            <Award className="w-3.5 h-3.5" />
-            <span>Result</span>
-          </Button>
-        </div>
-      </div>
-
-      {/* ─── MOBILE QUESTION NAVIGATOR BOTTOM SHEET / MODAL ──────────── */}
-      {isMobileNavOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex flex-col justify-end p-0 animate-in fade-in duration-200">
-          {/* Backdrop dismiss */}
-          <div className="flex-1 w-full" onClick={() => setIsMobileNavOpen(false)} />
-
-          <div className="bg-white rounded-t-3xl border-t border-[#DFD7CB] shadow-2xl max-h-[85vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-250">
-            {/* Drawer Drag Bar & Header */}
-            <div className="pt-3 pb-2.5 px-4 border-b border-[#DFD7CB] bg-[#FAF6F0]/60 flex items-center justify-between shrink-0">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-[#A36B40] text-white flex items-center justify-center">
-                  <LayoutGrid className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-xs font-black text-[#2C2621]">
-                    Question Matrix & Levels
-                  </h3>
-                  <p className="text-[10px] text-[#7A7067]">
-                    Tap any question number to jump directly
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Badge className="bg-[#A36B40] text-white text-[10px] font-bold px-2 py-0.5">
-                  {answeredCount}/30 Done
-                </Badge>
-                <button
-                  type="button"
-                  onClick={() => setIsMobileNavOpen(false)}
-                  className="w-7 h-7 rounded-full bg-white border border-[#DFD7CB] text-[#2C2621] font-bold text-xs flex items-center justify-center cursor-pointer shadow-2xs hover:bg-[#FAF6F0]"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-
-            {/* Scrollable Drawer Body */}
-            <div className="p-4 space-y-3.5 overflow-y-auto">
-              {/* Progress Summary & Quick Submit */}
-              <div className="bg-[#FAF6F0] p-3 rounded-xl border border-[#DFD7CB] space-y-2">
-                <div className="flex justify-between items-center text-xs font-bold">
-                  <span className="text-[#2C2621] flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#A36B40]" />
-                    Assessment Completion
-                  </span>
-                  <span className="text-[#A36B40] font-mono font-black">
-                    {progressPercent}%
-                  </span>
-                </div>
-                <Progress value={progressPercent} className="h-2" />
-
-                <Button
-                  onClick={() => {
-                    setIsMobileNavOpen(false)
-                    handleFinishAssessment()
-                  }}
-                  className="w-full h-9 bg-gradient-to-r from-[#A36B40] to-[#77734B] text-white font-black text-xs rounded-xl shadow-xs mt-1"
-                >
-                  <Award className="w-3.5 h-3.5" />
-                  <span>See Result & Complete Assessment</span>
-                </Button>
-              </div>
-
-              {/* 30-Question Grid */}
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-black uppercase tracking-wider text-[#2C2621]">
-                    All 30 Questions
-                  </span>
-                  <div className="flex items-center gap-2 text-[9px] font-semibold text-[#7A7067]">
-                    <span className="flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-[#77734B]" /> Answered
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-[#A36B40]" /> Current
-                    </span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-6 gap-1.5">
-                  {activeQuestions.map((q, idx) => {
-                    const isAns = !!selectedAnswers[q.id]
-                    const isCurr = currentIndex === idx
-                    return (
-                      <button
-                        key={q.id}
-                        type="button"
-                        onClick={() => {
-                          handleJumpToQuestion(idx)
-                          setIsMobileNavOpen(false)
-                        }}
-                        className={`h-9 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer flex items-center justify-center border ${
-                          isCurr
-                            ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-xs scale-105 ring-2 ring-[#A36B40]/30'
-                            : isAns
-                            ? 'bg-[#77734B] text-white border-[#77734B]'
-                            : 'bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] hover:border-[#A36B40]'
-                        }`}
-                      >
-                        {idx + 1}
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-
-              {/* 5 Stages List in Mobile Drawer */}
-              <div className="space-y-1.5 pt-1">
-                <span className="text-[11px] font-black uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
-                  <Layers className="w-3.5 h-3.5 text-[#A36B40]" />
-                  Stages & Levels Overview
-                </span>
-
-                <div className="space-y-1.5">
-                  {SECTION_CONFIGS.map((sec, sIdx) => {
-                    const isCurrent = currentSectionIndex === sIdx
-                    const startQ = sec.range[0]
-                    const endQ = sec.range[1]
-                    let secAnswered = 0
-                    for (let qNum = startQ; qNum <= endQ; qNum++) {
-                      const qObj = activeQuestions[qNum - 1]
-                      if (qObj && selectedAnswers[qObj.id]) secAnswered++
-                    }
-                    const isComplete = secAnswered === 6
-
-                    return (
-                      <button
-                        key={sec.index}
-                        type="button"
-                        onClick={() => {
-                          handleJumpToQuestion(startQ - 1)
-                          setIsMobileNavOpen(false)
-                        }}
-                        className={`w-full p-2 rounded-xl text-left border transition-all cursor-pointer flex items-center justify-between gap-2 ${
-                          isCurrent
-                            ? 'bg-[#FAF6F0] border-[#A36B40] ring-1 ring-[#A36B40]/30'
-                            : isComplete
-                            ? 'bg-emerald-50/80 border-emerald-200'
-                            : 'bg-white border-[#DFD7CB]'
-                        }`}
-                      >
-                        <div>
-                          <div className="text-[9px] font-extrabold uppercase text-[#A36B40]">
-                            Stage 0{sec.index} · Questions {sec.range[0]}-{sec.range[1]}
-                          </div>
-                          <div className="text-xs font-bold text-[#2C2621]">
-                            {sec.title}
-                          </div>
-                        </div>
-
-                        <div className="shrink-0">
-                          {isComplete ? (
-                            <span className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-bold">
-                              ✓
-                            </span>
-                          ) : (
-                            <span className="text-[10px] font-mono font-bold text-[#7A7067] bg-[#FAF6F0] px-2 py-0.5 rounded-lg border border-[#DFD7CB]">
-                              {secAnswered}/6
-                            </span>
-                          )}
-                        </div>
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* Close footer button */}
-            <div className="p-3 border-t border-[#DFD7CB] bg-white">
-              <Button
-                onClick={() => setIsMobileNavOpen(false)}
-                className="w-full h-10 bg-[#2C2621] hover:bg-[#1B1714] text-white text-xs font-bold rounded-xl"
-              >
-                Close & Resume Question {currentIndex + 1}
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ─── 30-QUESTIONS REQUIREMENT & SEE RESULT MODAL ─────────────── */}
       {isSubmitConfirmOpen && (
@@ -1248,7 +1022,7 @@ function FresherTestContent() {
                   Complete All 30 Questions to View Result
                 </h3>
                 <p className="text-xs text-[#7A7067]">
-                  {answeredCount} of 30 completed · <strong className="text-[#A36B40]">{totalQuestions - answeredCount} questions remaining</strong>
+                  {answeredCount} of 30 completed · <strong className="text-[#A36B40]">{30 - answeredCount} questions remaining</strong>
                 </p>
               </div>
             </div>
@@ -1260,39 +1034,23 @@ function FresherTestContent() {
               </div>
               <Progress value={progressPercent} className="h-2" />
               <p className="text-[11px] text-[#7A7067] leading-relaxed pt-0.5">
-                The Sandip Career Intelligence Diagnostic Engine evaluates all 5 progressive stages (Orientation, Reasoning, Applied Practice, Differentiation & Validation) to recommend your best-fit degree specialization. Please answer all 30 questions to generate your official report.
+                The Sandip Career Intelligence Diagnostic Engine evaluates all 5 progressive stages (Orientation, Reasoning, Applied Practice, Differentiation & Validation) to recommend your best-fit degree specialization. Please answer each question in order to generate your official report.
               </p>
             </div>
 
-            <div className="space-y-2 pt-1">
+            <div className="pt-1">
               <Button
-                onClick={() => {
-                  setIsSubmitConfirmOpen(false)
-                  if (firstUnansweredIndex >= 0) {
-                    setCurrentIndex(firstUnansweredIndex)
-                  }
-                }}
+                onClick={() => setIsSubmitConfirmOpen(false)}
                 className="w-full h-11 bg-gradient-to-r from-[#A36B40] to-[#77734B] hover:opacity-95 text-white font-black text-xs rounded-xl shadow-md shadow-[#A36B40]/30 flex items-center justify-center gap-2 cursor-pointer active:scale-98"
               >
-                <span>Answer Question #{nextUnansweredNum} ({totalQuestions - answeredCount} Qs left)</span>
+                <span>Continue Assessment (Question #{currentIndex + 1})</span>
                 <ArrowRight className="w-4 h-4" />
-              </Button>
-
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setIsSubmitConfirmOpen(false)
-                  setIsMobileNavOpen(true)
-                }}
-                className="w-full h-10 border-[#DFD7CB] bg-[#FAF6F0] hover:bg-[#F2EAE0] text-[#2C2621] font-bold text-xs rounded-xl cursor-pointer flex items-center justify-center gap-1.5"
-              >
-                <LayoutGrid className="w-3.5 h-3.5 text-[#A36B40]" />
-                <span>Open 30-Question Grid</span>
               </Button>
             </div>
           </div>
         </div>
       )}
+
     </div>
   )
 }
