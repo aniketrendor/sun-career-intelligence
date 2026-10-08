@@ -111,13 +111,13 @@ function FresherReportContent() {
               <Download className="w-3.5 h-3.5 text-[#A36B40]" />
               <span>Download Report</span>
             </Button>
-            <Link href="/login">
+            <Link href="/student/dashboard">
               <Button
                 variant="ghost"
                 size="sm"
                 className="text-xs font-semibold rounded-xl text-[#7A7067] hover:text-[#2C2621] hover:bg-[#FAF6F0] h-9"
               >
-                Exit
+                Exit to Dashboard
               </Button>
             </Link>
           </div>

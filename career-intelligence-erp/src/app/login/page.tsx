@@ -6,8 +6,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import {
   GraduationCap, Users, Shield,
-  Mail, KeyRound, RotateCcw, ArrowRight,
-  Ticket
+  Mail, KeyRound, RotateCcw, ArrowRight
 } from 'lucide-react'
 import { signInWithGoogle, sendOtpCode, verifyOtpCode } from '@/lib/actions/auth.actions'
 import { Input } from '@/components/ui/input'
@@ -373,22 +372,6 @@ export default function LoginPage() {
                   </button>
                 </div>
               </form>
-            )}
-
-            {/* Optional Fresher Career Assessment Link for Students */}
-            {selectedPortal === 'student' && (
-              <div className="pt-2 border-t border-[#EADECB]/60 text-center">
-                <Link
-                  href="/student/fresher"
-                  className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#A89D8F] hover:text-[#FF6B3D] transition-colors group"
-                >
-                  <Ticket className="w-3.5 h-3.5 text-[#FF6B3D]" />
-                  <span>Have a Fresher admission referral code?</span>
-                  <span className="text-[#FF6B3D] underline underline-offset-2 flex items-center gap-0.5">
-                    Take Career Test <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                  </span>
-                </Link>
-              </div>
             )}
           </div>
 

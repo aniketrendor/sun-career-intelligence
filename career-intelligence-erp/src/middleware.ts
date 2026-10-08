@@ -70,7 +70,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Public routes - accessible without auth
-  const publicRoutes = ['/login', '/signup', '/forgot-password', '/auth/callback', '/pending-approval', '/waiting-room', '/student/fresher']
+  const publicRoutes = ['/login', '/signup', '/forgot-password', '/auth/callback', '/pending-approval', '/waiting-room', '/student/fresher/report']
   const isPublicRoute = pathname === '/' || publicRoutes.some(route => pathname.startsWith(route))
 
   // If not authenticated
@@ -82,7 +82,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // If authenticated but on public auth route (not landing or pending), redirect to appropriate dashboard
-  if (isPublicRoute && pathname !== '/' && pathname !== '/pending-approval' && !pathname.startsWith('/student/fresher')) {
+  if (isPublicRoute && pathname !== '/' && pathname !== '/pending-approval' && pathname !== '/student/fresher/report') {
     const { data: profile } = await supabase
       .from('users')
       .select('role, status')
