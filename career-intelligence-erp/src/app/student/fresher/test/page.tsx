@@ -21,10 +21,14 @@ import {
   UG_STAGE1_QUESTIONS,
   STAGE1_DIMENSION_DEFS,
   OptionWeightItem,
+} from '@/lib/engines/stage1-bank-data'
+import {
   processAssessmentResponses,
-  runRecommendationEngine,
   ResponseRecord,
-} from '@/lib/engines'
+} from '@/lib/engines/assessment-engine'
+import {
+  runRecommendationEngine,
+} from '@/lib/engines/recommendation-engine'
 
 // ─── 5 STAGE 1 LEVEL CONFIGURATIONS (6 QUESTIONS PER LEVEL = 30 TOTAL) ───
 const SECTION_CONFIGS = [
