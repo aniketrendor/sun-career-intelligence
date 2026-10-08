@@ -289,8 +289,8 @@ export default function LoginPage() {
             {/* Email Form */}
             {!otpSent ? (
               <form onSubmit={handleSendOtp} className="space-y-3.5">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#1C1C1C] block">
+                <div className="space-y-1.5 text-center">
+                  <label className="text-xs font-bold text-[#1C1C1C] block text-center">
                     Personal / Institutional Email
                   </label>
                   <div className="relative">
@@ -301,7 +301,7 @@ export default function LoginPage() {
                       placeholder={currentConfig.emailPlaceholder}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="pl-10 h-11 rounded-2xl bg-white border-[#EADECB] text-xs text-[#1C1C1C] placeholder:text-[#A89D8F] focus:border-[#FF6B3D] focus:ring-1 focus:ring-[#FF6B3D]"
+                      className="px-10 h-11 rounded-2xl bg-white border-[#EADECB] text-xs text-[#1C1C1C] text-center placeholder:text-[#A89D8F] focus:border-[#FF6B3D] focus:ring-1 focus:ring-[#FF6B3D]"
                     />
                   </div>
                 </div>
