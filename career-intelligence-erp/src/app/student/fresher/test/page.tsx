@@ -360,7 +360,7 @@ function FresherTestContent() {
   }
 
   return (
-    <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#FAF6F0] py-2.5 px-3 sm:px-6 lg:py-3.5 lg:px-10 xl:px-16 2xl:px-24 flex flex-col overflow-x-hidden lg:overflow-hidden font-sans antialiased text-[#2C2621]">
+    <div className="min-h-screen bg-[#FAF6F0] py-2.5 px-3 sm:px-6 lg:py-3.5 lg:px-10 xl:px-16 2xl:px-24 flex flex-col overflow-x-hidden font-sans antialiased text-[#2C2621]">
       
       {/* ═════════════════════════════════════════════════════════════════ */}
       {/* ─── MOBILE VIEW (DYNAMIC CONTEXTUAL STEPPER) ──────────────────── */}
@@ -870,60 +870,6 @@ function FresherTestContent() {
                   <Progress value={progressPercent} className="h-1.5 mt-1.5" />
                 </div>
               </div>
-
-              {/* 5-Stage Roadmap Progress */}
-              <div className="space-y-1 pt-1.5 border-t border-[#F0E8DF]">
-                <div className="text-[10px] font-black uppercase tracking-wider text-[#7A7067] mb-1">
-                  5-Stage Diagnostic Roadmap
-                </div>
-                {SECTION_CONFIGS.map((sec, sIdx) => {
-                  const isCurrent = currentSectionIndex === sIdx
-                  const isComplete = currentSectionIndex > sIdx
-                  const qInThisStage = isCurrent ? qNumInCurrentSection : isComplete ? 6 : 0
-                  const pct = Math.round((qInThisStage / 6) * 100)
-
-                  return (
-                    <div
-                      key={sec.index}
-                      className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl border transition-all ${
-                        isCurrent ? 'bg-[#A36B40]/10 border-[#A36B40] ring-1 ring-[#A36B40]/25' :
-                        isComplete ? 'bg-emerald-50 border-emerald-200' :
-                        'bg-[#FAF6F0]/60 border-[#E8DFD5]'
-                      }`}
-                    >
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${
-                        isCurrent ? 'bg-[#A36B40] text-white' :
-                        isComplete ? 'bg-emerald-600 text-white' :
-                        'bg-white border border-[#DFD7CB] text-[#7A7067]'
-                      }`}>
-                        {isComplete ? '✓' : sec.index}
-                      </div>
-
-                      <div className="flex-1 min-w-0 text-left">
-                        <div className={`text-[10px] font-bold truncate ${
-                          isCurrent ? 'text-[#A36B40]' : isComplete ? 'text-emerald-700' : 'text-[#2C2621]'
-                        }`}>
-                          {sec.shortTitle}
-                        </div>
-                        <div className="h-1 w-full bg-[#E8DFD5] rounded-full mt-0.5 overflow-hidden">
-                          <div
-                            className={`h-full rounded-full transition-all ${
-                              isComplete ? 'bg-emerald-600' : isCurrent ? 'bg-[#A36B40]' : 'bg-[#C6A18D]'
-                            }`}
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                      </div>
-
-                      <span className={`text-[9px] font-mono font-bold shrink-0 ${
-                        isComplete ? 'text-emerald-600' : isCurrent ? 'text-[#A36B40]' : 'text-[#7A7067]'
-                      }`}>
-                        {qInThisStage}/6
-                      </span>
-                    </div>
-                  )
-                })}
-              </div>
             </div>
 
             {/* 2. Real-Time Psychometric Context Card (REPLACES STATIC 30-GRID) */}
@@ -938,23 +884,23 @@ function FresherTestContent() {
                 </Badge>
               </div>
 
-              <div className="flex-1 p-3.5 space-y-3 overflow-y-auto">
+              <div className="flex-1 p-4 sm:p-5 space-y-3.5 overflow-y-auto">
                 {/* Emerging Leaning Badge */}
-                <div className="p-3 rounded-xl bg-gradient-to-br from-[#FAF6F0] to-[#F5ECE0] border border-[#DFD7CB] space-y-1">
-                  <div className="text-[9px] font-extrabold uppercase tracking-wider text-[#A36B40] flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" />
+                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#FAF6F0] via-[#F8EFE4] to-[#F3E7D8] border border-[#DFD7CB] space-y-1 shadow-2xs">
+                  <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#A36B40] flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5" />
                     Emerging Vocational Profile
                   </div>
-                  <div className="text-xs font-black text-[#2C2621] leading-snug">
+                  <div className="text-sm font-black text-[#2C2621] leading-snug">
                     {psychometricContext.primaryLeaning}
                   </div>
-                  <p className="text-[10px] text-[#7A7067] leading-relaxed pt-0.5">
-                    Evaluated from {answeredCount} responses using multi-dimensional trait weighting.
+                  <p className="text-[11px] text-[#7A7067] leading-relaxed pt-0.5">
+                    Real-time psychometric context calibrated from {answeredCount} answered responses.
                   </p>
                 </div>
 
                 {/* Top Emerging Dimensions */}
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <div className="text-[10px] font-black uppercase tracking-wider text-[#7A7067]">
                     Top Evaluated Dimensions
                   </div>
@@ -963,43 +909,41 @@ function FresherTestContent() {
                     psychometricContext.topTraits.slice(0, 4).map((t, i) => (
                       <div
                         key={t.code}
-                        className="p-2 rounded-xl bg-[#FAF6F0]/70 border border-[#DFD7CB] flex items-center justify-between gap-2"
+                        className="p-2.5 rounded-xl bg-[#FAF6F0]/80 border border-[#DFD7CB] flex items-center justify-between gap-2 shadow-2xs"
                       >
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span className="w-5 h-5 rounded-lg bg-[#A36B40]/15 text-[#A36B40] font-mono text-[9px] font-black flex items-center justify-center shrink-0">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span className="w-6 h-6 rounded-lg bg-[#A36B40]/15 text-[#A36B40] font-mono text-[10px] font-black flex items-center justify-center shrink-0">
                             #{i + 1}
                           </span>
-                          <span className="text-[11px] font-bold text-[#2C2621] truncate">
+                          <span className="text-xs font-bold text-[#2C2621] truncate">
                             {t.name}
                           </span>
                         </div>
-                        <span className="text-[10px] font-mono font-black text-[#A36B40] bg-white px-2 py-0.5 rounded-md border border-[#DFD7CB] shrink-0">
+                        <span className="text-[11px] font-mono font-black text-[#A36B40] bg-white px-2.5 py-0.5 rounded-lg border border-[#DFD7CB] shadow-2xs shrink-0">
                           +{t.score} pts
                         </span>
                       </div>
                     ))
                   ) : (
-                    <div className="p-3 text-center rounded-xl bg-[#FAF6F0]/50 border border-dashed border-[#DFD7CB] text-[10px] text-[#7A7067]">
+                    <div className="p-4 text-center rounded-2xl bg-[#FAF6F0]/60 border border-dashed border-[#DFD7CB] text-xs text-[#7A7067]">
                       Answer Question 1 to establish your initial psychometric context.
                     </div>
                   )}
                 </div>
 
                 {/* Adaptive Pacing Note */}
-                <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-[10px] text-amber-900 flex items-start gap-2">
-                  <Info className="w-3.5 h-3.5 text-amber-700 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
+                  <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                   <p className="leading-relaxed">
-                    Each subsequent question is selected dynamically based on your preference, reasoning style, and decision trade-offs.
+                    Questions dynamically adapt to your preferences, logical reasoning, and career attitude.
                   </p>
                 </div>
               </div>
 
-              {/* Sidebar Footer */}
-              <div className="px-3 pb-3 shrink-0">
-                <div className="flex items-center gap-1.5 bg-[#1B1714] text-[#C6A18D] px-2.5 py-1.5 rounded-xl">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span className="text-[9px] font-bold">Zero negative marking · Adaptive engine</span>
-                </div>
+              {/* Sidebar Clean Non-Overlapping Footer */}
+              <div className="px-3.5 py-2 border-t border-[#F0E8DF] bg-[#FAF6F0]/50 flex items-center justify-center gap-1.5 text-[10px] text-[#7A7067] font-semibold shrink-0">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <span>Zero negative marking · Adaptive engine</span>
               </div>
             </div>
 
