@@ -137,20 +137,6 @@ function FresherTestContent() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
   const [isSubmitConfirmOpen, setIsSubmitConfirmOpen] = useState(false)
 
-  if (!mounted) {
-    return (
-      <div className="min-h-screen bg-[#FAF6F0] flex items-center justify-center p-4">
-        <div className="bg-white p-6 rounded-2xl border border-[#DFD7CB] shadow-xs text-center max-w-sm space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-[#A36B40] text-white flex items-center justify-center mx-auto shadow-xs">
-            <GraduationCap className="w-5 h-5 animate-pulse" />
-          </div>
-          <h2 className="text-sm font-bold text-[#2C2621]">Initializing Diagnostic Assessment...</h2>
-          <p className="text-xs text-[#7A7067]">Loading your 30 adaptive career evaluation questions.</p>
-        </div>
-      </div>
-    )
-  }
-
   const handleSelectOption = (optionId: string) => {
     if (!currentQ?.id) return
     setSelectedAnswers((prev) => ({
@@ -330,6 +316,20 @@ function FresherTestContent() {
 
   const firstUnansweredIndex = activeQuestions.findIndex((q) => !selectedAnswers[q.id])
   const nextUnansweredNum = firstUnansweredIndex >= 0 ? firstUnansweredIndex + 1 : 1
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-[#FAF6F0] flex items-center justify-center p-4 font-sans">
+        <div className="bg-white p-6 rounded-2xl border border-[#DFD7CB] shadow-xs text-center max-w-sm space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#A36B40] text-white flex items-center justify-center mx-auto shadow-xs">
+            <GraduationCap className="w-5 h-5 animate-pulse" />
+          </div>
+          <h2 className="text-sm font-bold text-[#2C2621]">Initializing Diagnostic Assessment...</h2>
+          <p className="text-xs text-[#7A7067]">Loading your 30 adaptive career evaluation questions.</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#FAF6F0] p-2.5 sm:p-3 lg:p-3.5 flex flex-col overflow-x-hidden lg:overflow-hidden font-sans antialiased text-[#2C2621]">
