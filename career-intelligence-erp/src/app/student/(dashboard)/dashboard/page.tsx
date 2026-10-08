@@ -16,7 +16,28 @@ import { TakeFreeTestModal } from '@/components/assessment/take-free-test-modal'
 
 export const dynamic = 'force-dynamic'
 
+function getIndianGreeting(): string {
+  try {
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Asia/Kolkata',
+      hour: 'numeric',
+      hour12: false,
+    })
+    const hour = parseInt(formatter.format(new Date()), 10)
+    if (hour >= 4 && hour < 12) {
+      return 'Good morning'
+    } else if (hour >= 12 && hour < 17) {
+      return 'Good afternoon'
+    } else {
+      return 'Good evening'
+    }
+  } catch {
+    return 'Good day'
+  }
+}
+
 export default async function StudentDashboardPage() {
+  const greeting = getIndianGreeting()
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -146,7 +167,7 @@ export default async function StudentDashboardPage() {
 
           <div>
             <h1 className="text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-[#2C2621] tracking-tight leading-tight">
-              Welcome back, <span className="text-[#A36B40]">{profile.full_name?.split(' ')[0] || profile.email?.split('@')[0] || 'Student'}</span>!
+              {greeting}, <span className="text-[#A36B40]">{profile.full_name?.split(' ')[0] || profile.email?.split('@')[0] || 'Student'}</span>!
             </h1>
             <p className="text-xs sm:text-sm text-[#7A7067] mt-1 leading-relaxed">
               Career intelligence, curriculum alignment, and industry domain workspace for all students.
