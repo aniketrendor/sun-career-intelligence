@@ -282,12 +282,12 @@ function FresherTestContent() {
       })
 
       setTimeout(() => {
-        router.push(`/student/fresher/report?${resultParams.toString()}`)
-      }, 700)
+        window.location.href = `/student/fresher/report?${resultParams.toString()}`
+      }, 500)
     } catch (err) {
       console.error('Submission error:', err)
-      toast.error('Failed to finalize assessment. Redirecting to report...')
-      router.push(`/student/fresher/report?code=${referralCode}&name=${encodeURIComponent(candidateName)}&level=${academicLevel}`)
+      toast.error('Finalizing assessment report...')
+      window.location.href = `/student/fresher/report?code=${encodeURIComponent(referralCode)}&name=${encodeURIComponent(candidateName)}&level=${academicLevel}`
     }
   }
 

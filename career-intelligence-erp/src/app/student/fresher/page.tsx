@@ -131,7 +131,7 @@ function FresherOverviewContent() {
     })
 
     toast.success(`Launching ${academicLevel} Diagnostic Assessment for ${name.trim()}...`)
-    router.push(`/student/fresher/test?${params.toString()}`)
+    window.location.href = `/student/fresher/test?${params.toString()}`
   }
 
   return (
