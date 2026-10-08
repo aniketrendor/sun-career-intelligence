@@ -50,75 +50,60 @@ export default async function StudentDashboardPage() {
 
   if (!profile) redirect('/login')
 
-  const { data: studentProfile } = await supabase
-    .from('student_profiles')
-    .select('*')
-    .eq('user_id', profile.id)
-    .maybeSingle()
-
-  const { data: enrollment } = await supabase
-    .from('enrollments')
-    .select('*, program:programs(id, name, code), class:classes(id, name, semester)')
-    .eq('student_id', profile.id)
-    .eq('status', 'ACTIVE')
-    .maybeSingle()
-
-  const { data: attempt } = await supabase
-    .from('assessment_attempts')
-    .select('*')
-    .eq('student_id', profile.id)
-    .order('started_at', { ascending: false })
-    .limit(1)
-    .maybeSingle()
-
-  const { data: careerProfile } = await supabase
-    .from('career_profiles')
-    .select('*, primary_domain:career_domains!primary_domain_id(id, name, description, code), secondary_domain:career_domains!secondary_domain_id(id, name, description, code)')
-    .eq('student_id', profile.id)
-    .maybeSingle()
-
-  // Domain scores (from attempt or student)
-  let domainScores: Array<{ domain: { id: string; name: string; code?: string; description?: string }; score: number; rank: number }> = []
-  if (attempt?.id) {
-    const { data: dScores } = await supabase
-      .from('domain_scores')
-      .select('score, rank, domain:career_domains(id, name, code, description)')
-      .eq('attempt_id', attempt.id)
-      .order('rank', { ascending: true })
-      .limit(3)
-
-    if (dScores && dScores.length > 0) {
-      domainScores = dScores.map((d: any) => ({
-        domain: d.domain,
-        score: d.score,
-        rank: d.rank,
-      }))
-    }
-  }
-
-  if (domainScores.length === 0) {
-    const { data: dScores } = await supabase
+  // Parallelize all student dashboard queries to eliminate sequential waterfall
+  const [
+    { data: studentProfile },
+    { data: enrollment },
+    { data: attempt },
+    { data: careerProfile },
+    { data: dScores },
+    { data: counselorAssignment }
+  ] = await Promise.all([
+    supabase
+      .from('student_profiles')
+      .select('*')
+      .eq('user_id', profile.id)
+      .maybeSingle(),
+    supabase
+      .from('enrollments')
+      .select('*, program:programs(id, name, code), class:classes(id, name, semester)')
+      .eq('student_id', profile.id)
+      .eq('status', 'ACTIVE')
+      .maybeSingle(),
+    supabase
+      .from('assessment_attempts')
+      .select('*')
+      .eq('student_id', profile.id)
+      .order('started_at', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    supabase
+      .from('career_profiles')
+      .select('*, primary_domain:career_domains!primary_domain_id(id, name, description, code), secondary_domain:career_domains!secondary_domain_id(id, name, description, code)')
+      .eq('student_id', profile.id)
+      .maybeSingle(),
+    supabase
       .from('domain_scores')
       .select('score, rank, domain:career_domains(id, name, code, description)')
       .eq('student_id', profile.id)
       .order('rank', { ascending: true })
-      .limit(3)
+      .limit(3),
+    supabase
+      .from('student_counselor_assignments')
+      .select('*, counselor:users!counselor_id(id, full_name, email, phone)')
+      .eq('student_id', profile.id)
+      .eq('status', 'ACTIVE')
+      .maybeSingle(),
+  ])
 
-    if (dScores && dScores.length > 0) {
-      domainScores = dScores.map((d: any) => ({
-        domain: d.domain,
-        score: d.score,
-        rank: d.rank,
-      }))
-    }
+  let domainScores: Array<{ domain: { id: string; name: string; code?: string; description?: string }; score: number; rank: number }> = []
+  if (dScores && dScores.length > 0) {
+    domainScores = dScores.map((d: any) => ({
+      domain: d.domain,
+      score: d.score,
+      rank: d.rank,
+    }))
   }
-
-  const { data: counselorAssignment } = await supabase
-    .from('student_counselor_assignments')
-    .select('*, counselor:users!counselor_id(id, full_name, email, phone)')
-    .eq('student_id', profile.id)
-    .eq('status', 'ACTIVE')
-    .maybeSingle()
 
   const hasCompletedAssessment = attempt?.status === 'COMPLETED' || !!careerProfile
   const hasStartedAssessment = !!attempt && attempt.status !== 'COMPLETED'

@@ -83,20 +83,32 @@ export async function middleware(request: NextRequest) {
 
   // If authenticated but on public auth route (not landing or pending), redirect to appropriate dashboard
   if (isPublicRoute && pathname !== '/' && pathname !== '/pending-approval' && pathname !== '/student/fresher/report') {
-    const { data: profile } = await supabase
-      .from('users')
-      .select('role, status')
-      .eq('auth_user_id', user.id)
-      .single()
+    let userRole = request.cookies.get('app_user_role')?.value
+    let userStatus = request.cookies.get('app_user_status')?.value
 
-    if (profile) {
-      if (profile.status === 'PENDING') {
+    if (!userRole || !userStatus) {
+      const { data: profile } = await supabase
+        .from('users')
+        .select('role, status')
+        .eq('auth_user_id', user.id)
+        .single()
+
+      if (profile && profile.role && profile.status) {
+        userRole = String(profile.role)
+        userStatus = String(profile.status)
+        supabaseResponse.cookies.set('app_user_role', userRole, { path: '/', maxAge: 60 * 60 * 24 * 7, sameSite: 'lax' })
+        supabaseResponse.cookies.set('app_user_status', userStatus, { path: '/', maxAge: 60 * 60 * 24 * 7, sameSite: 'lax' })
+      }
+    }
+
+    if (userRole && userStatus) {
+      if (userStatus === 'PENDING') {
         const url = request.nextUrl.clone()
         url.pathname = '/pending-approval'
         return NextResponse.redirect(url)
       }
       const url = request.nextUrl.clone()
-      url.pathname = getDashboardPath(profile.role)
+      url.pathname = getDashboardPath(userRole)
       return NextResponse.redirect(url)
     }
     return supabaseResponse
@@ -104,23 +116,33 @@ export async function middleware(request: NextRequest) {
 
   // Role-based route protection
   if (!isPublicRoute) {
-    const { data: profile } = await supabase
-      .from('users')
-      .select('role, status')
-      .eq('auth_user_id', user.id)
-      .single()
+    let userRole = request.cookies.get('app_user_role')?.value
+    let userStatus = request.cookies.get('app_user_status')?.value
 
-    if (!profile) {
-      // User authenticated but no profile yet (new user)
-      if (!pathname.startsWith('/onboarding')) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/onboarding'
-        return NextResponse.redirect(url)
+    if (!userRole || !userStatus) {
+      const { data: profile } = await supabase
+        .from('users')
+        .select('role, status')
+        .eq('auth_user_id', user.id)
+        .single()
+
+      if (!profile || !profile.role || !profile.status) {
+        // User authenticated but no profile yet (new user)
+        if (!pathname.startsWith('/onboarding')) {
+          const url = request.nextUrl.clone()
+          url.pathname = '/onboarding'
+          return NextResponse.redirect(url)
+        }
+        return supabaseResponse
       }
-      return supabaseResponse
+
+      userRole = String(profile.role)
+      userStatus = String(profile.status)
+      supabaseResponse.cookies.set('app_user_role', userRole, { path: '/', maxAge: 60 * 60 * 24 * 7, sameSite: 'lax' })
+      supabaseResponse.cookies.set('app_user_status', userStatus, { path: '/', maxAge: 60 * 60 * 24 * 7, sameSite: 'lax' })
     }
 
-    if (profile.status === 'PENDING') {
+    if (userStatus === 'PENDING') {
       if (!pathname.startsWith('/pending-approval')) {
         const url = request.nextUrl.clone()
         url.pathname = '/pending-approval'
@@ -129,7 +151,7 @@ export async function middleware(request: NextRequest) {
       return supabaseResponse
     }
 
-    if (profile.status === 'SUSPENDED' || profile.status === 'INACTIVE') {
+    if (userStatus === 'SUSPENDED' || userStatus === 'INACTIVE') {
       const url = request.nextUrl.clone()
       url.pathname = '/login'
       url.searchParams.set('error', 'account_suspended')
@@ -137,20 +159,22 @@ export async function middleware(request: NextRequest) {
     }
 
     // Enforce role-based routing
-    if (pathname.startsWith('/student') && profile.role !== 'STUDENT') {
-      const url = request.nextUrl.clone()
-      url.pathname = getDashboardPath(profile.role)
-      return NextResponse.redirect(url)
-    }
-    if (pathname.startsWith('/mentor') && !['MENTOR', 'COUNSELOR', 'ADMIN', 'DEAN_HOD'].includes(profile.role)) {
-      const url = request.nextUrl.clone()
-      url.pathname = getDashboardPath(profile.role)
-      return NextResponse.redirect(url)
-    }
-    if (pathname.startsWith('/admin') && !['ADMIN', 'DEAN_HOD'].includes(profile.role)) {
-      const url = request.nextUrl.clone()
-      url.pathname = getDashboardPath(profile.role)
-      return NextResponse.redirect(url)
+    if (userRole) {
+      if (pathname.startsWith('/student') && userRole !== 'STUDENT') {
+        const url = request.nextUrl.clone()
+        url.pathname = getDashboardPath(userRole)
+        return NextResponse.redirect(url)
+      }
+      if (pathname.startsWith('/mentor') && !['MENTOR', 'COUNSELOR', 'ADMIN', 'DEAN_HOD'].includes(userRole)) {
+        const url = request.nextUrl.clone()
+        url.pathname = getDashboardPath(userRole)
+        return NextResponse.redirect(url)
+      }
+      if (pathname.startsWith('/admin') && !['ADMIN', 'DEAN_HOD'].includes(userRole)) {
+        const url = request.nextUrl.clone()
+        url.pathname = getDashboardPath(userRole)
+        return NextResponse.redirect(url)
+      }
     }
   }
 

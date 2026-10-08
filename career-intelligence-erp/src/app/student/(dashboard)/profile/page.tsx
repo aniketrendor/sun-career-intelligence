@@ -19,22 +19,27 @@ export default async function StudentProfilePage() {
 
   if (!profile || profile.role !== 'STUDENT') redirect('/login')
 
-  const { data: studentProfile } = await supabase
-    .from('student_profiles')
-    .select('*')
-    .eq('user_id', profile.id)
-    .maybeSingle()
-
-  const { data: enrollment } = await supabase
-    .from('enrollments')
-    .select(`
-      *,
-      program:programs(id, name, code, academic_year),
-      class:classes(id, name, code, semester)
-    `)
-    .eq('student_id', profile.id)
-    .eq('status', 'ACTIVE')
-    .maybeSingle()
+  // Concurrently fetch student profile and enrollment
+  const [
+    { data: studentProfile },
+    { data: enrollment }
+  ] = await Promise.all([
+    supabase
+      .from('student_profiles')
+      .select('*')
+      .eq('user_id', profile.id)
+      .maybeSingle(),
+    supabase
+      .from('enrollments')
+      .select(`
+        *,
+        program:programs(id, name, code, academic_year),
+        class:classes(id, name, code, semester)
+      `)
+      .eq('student_id', profile.id)
+      .eq('status', 'ACTIVE')
+      .maybeSingle()
+  ])
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto font-sans">

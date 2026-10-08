@@ -25,42 +25,45 @@ export default async function StudentCounselorPage() {
 
   if (!profile) redirect('/login')
 
-  // Fetch assigned counselor
-  const { data: assignment } = await supabase
-    .from('student_counselor_assignments')
-    .select(`
-      id,
-      assigned_at,
-      status,
-      notes,
-      counselor:users!counselor_id(
+  // Concurrently fetch assigned counselor and counseling session history
+  const [
+    { data: assignment },
+    { data: sessions }
+  ] = await Promise.all([
+    supabase
+      .from('student_counselor_assignments')
+      .select(`
         id,
-        full_name,
-        email,
-        phone,
-        avatar_url
-      )
-    `)
-    .eq('student_id', profile.id)
-    .eq('status', 'ACTIVE')
-    .single()
-
-  // Fetch counseling session history
-  const { data: sessions } = await supabase
-    .from('counseling_sessions')
-    .select(`
-      id,
-      session_date,
-      discussion_summary,
-      identified_concerns,
-      recommended_actions,
-      follow_up_date,
-      status,
-      created_at,
-      counselor:users!counselor_id(full_name)
-    `)
-    .eq('student_id', profile.id)
-    .order('session_date', { ascending: false })
+        assigned_at,
+        status,
+        notes,
+        counselor:users!counselor_id(
+          id,
+          full_name,
+          email,
+          phone,
+          avatar_url
+        )
+      `)
+      .eq('student_id', profile.id)
+      .eq('status', 'ACTIVE')
+      .maybeSingle(),
+    supabase
+      .from('counseling_sessions')
+      .select(`
+        id,
+        session_date,
+        discussion_summary,
+        identified_concerns,
+        recommended_actions,
+        follow_up_date,
+        status,
+        created_at,
+        counselor:users!counselor_id(full_name)
+      `)
+      .eq('student_id', profile.id)
+      .order('session_date', { ascending: false })
+  ])
 
   const counselorUser = (assignment as any)?.counselor
   const sessionList = sessions || []

@@ -179,6 +179,7 @@ export function Sidebar({ navItems, userRole, userName, userEmail, isOpen, onClo
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={true}
                 onClick={onClose}
                 className={cn(
                   'group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-medium transition-all duration-200 relative overflow-hidden cursor-pointer',

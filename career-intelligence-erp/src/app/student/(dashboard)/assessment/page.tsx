@@ -27,19 +27,23 @@ export default async function AssessmentPage(props: {
   const { data: profile } = await supabase.from('users').select('*').eq('auth_user_id', user.id).single()
   if (!profile) redirect('/login')
 
-  // Fetch Student Profile & Enrollment records
-  const { data: studentProfile } = await supabase
-    .from('student_profiles')
-    .select('*')
-    .eq('user_id', profile.id)
-    .maybeSingle()
-
-  const { data: enrollment } = await supabase
-    .from('enrollments')
-    .select('*, program:programs(id, name, code), class:classes(id, name, semester)')
-    .eq('student_id', profile.id)
-    .eq('status', 'ACTIVE')
-    .maybeSingle()
+  // Fetch Student Profile & Enrollment records concurrently
+  const [
+    { data: studentProfile },
+    { data: enrollment }
+  ] = await Promise.all([
+    supabase
+      .from('student_profiles')
+      .select('*')
+      .eq('user_id', profile.id)
+      .maybeSingle(),
+    supabase
+      .from('enrollments')
+      .select('*, program:programs(id, name, code), class:classes(id, name, semester)')
+      .eq('student_id', profile.id)
+      .eq('status', 'ACTIVE')
+      .maybeSingle()
+  ])
 
   const defaultTrack = (studentProfile?.current_program?.toUpperCase().includes('M.') ||
                         studentProfile?.current_program?.toUpperCase().includes('MBA') ||
@@ -195,55 +199,39 @@ export default async function AssessmentPage(props: {
 
   const adminClient = await createAdminClient()
 
-  // Fetch assessment attempts history for this student
-  let attemptsList: any[] = []
-  const { data: adminAttempts } = await adminClient
-    .from('assessment_attempts')
-    .select(`
-      id,
-      started_at,
-      completed_at,
-      status,
-      time_spent_seconds,
-      track
-    `)
-    .eq('student_id', profile.id)
-    .order('started_at', { ascending: false })
-
-  if (adminAttempts && adminAttempts.length > 0) {
-    attemptsList = adminAttempts
-  } else {
-    const { data: userAttempts } = await supabase
+  // Concurrently fetch assessment attempts, career profiles, domain scores, and counselor assignment
+  const [
+    { data: adminAttempts },
+    { data: careerProfile },
+    { data: domainScores },
+    { data: counselorAssignment }
+  ] = await Promise.all([
+    adminClient
       .from('assessment_attempts')
       .select('id, started_at, completed_at, status, time_spent_seconds, track')
       .eq('student_id', profile.id)
-      .order('started_at', { ascending: false })
-    attemptsList = userAttempts || []
-  }
+      .order('started_at', { ascending: false }),
+    adminClient
+      .from('career_profiles')
+      .select('*, primary_domain:career_domains!primary_domain_id(name), secondary_domain:career_domains!secondary_domain_id(name)')
+      .eq('student_id', profile.id)
+      .maybeSingle(),
+    adminClient
+      .from('domain_scores')
+      .select('domain_id, raw_score, normalized_score, rank, domain:career_domains(name)')
+      .eq('student_id', profile.id)
+      .order('rank', { ascending: true }),
+    adminClient
+      .from('student_counselor_assignments')
+      .select('*, counselor:users!counselor_id(full_name)')
+      .eq('student_id', profile.id)
+      .eq('status', 'ACTIVE')
+      .maybeSingle(),
+  ])
 
-  const attempts = attemptsList
+  const attempts = adminAttempts || []
   const completedAttempts = (attempts || []).filter(a => a.status === 'COMPLETED')
   const inProgressAttempt = (attempts || []).find(a => a.status === 'IN_PROGRESS')
-
-  // Fetch Career Profile & Domain Scores for real student evaluations
-  const { data: careerProfile } = await adminClient
-    .from('career_profiles')
-    .select('*, primary_domain:career_domains!primary_domain_id(name), secondary_domain:career_domains!secondary_domain_id(name)')
-    .eq('student_id', profile.id)
-    .maybeSingle()
-
-  const { data: domainScores } = await adminClient
-    .from('domain_scores')
-    .select('domain_id, raw_score, normalized_score, rank, domain:career_domains(name)')
-    .eq('student_id', profile.id)
-    .order('rank', { ascending: true })
-
-  const { data: counselorAssignment } = await adminClient
-    .from('student_counselor_assignments')
-    .select('*, counselor:users!counselor_id(full_name)')
-    .eq('student_id', profile.id)
-    .eq('status', 'ACTIVE')
-    .maybeSingle()
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto font-sans">

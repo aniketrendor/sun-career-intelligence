@@ -34,27 +34,30 @@ export default async function StudentCareerProfilePage() {
 
   if (!profile || profile.role !== 'STUDENT') redirect('/login')
 
-  // Check student profile and active enrollment
-  const { data: studentProfile } = await supabase
-    .from('student_profiles')
-    .select('prn, current_program, academic_year, school, institution')
-    .eq('user_id', profile.id)
-    .maybeSingle()
-
-  const { data: enrollment } = await supabase
-    .from('enrollments')
-    .select('academic_year, program:programs(name, code), class:classes(semester)')
-    .eq('student_id', profile.id)
-    .eq('status', 'ACTIVE')
-    .maybeSingle()
-
-  // Get completed attempts
-  const { data: completedAttempts } = await supabase
-    .from('assessment_attempts')
-    .select('id, status, completed_at, started_at')
-    .eq('student_id', profile.id)
-    .eq('status', 'COMPLETED')
-    .order('completed_at', { ascending: false })
+  // Check student profile, active enrollment, and completed attempts concurrently
+  const [
+    { data: studentProfile },
+    { data: enrollment },
+    { data: completedAttempts }
+  ] = await Promise.all([
+    supabase
+      .from('student_profiles')
+      .select('prn, current_program, academic_year, school, institution')
+      .eq('user_id', profile.id)
+      .maybeSingle(),
+    supabase
+      .from('enrollments')
+      .select('academic_year, program:programs(name, code), class:classes(semester)')
+      .eq('student_id', profile.id)
+      .eq('status', 'ACTIVE')
+      .maybeSingle(),
+    supabase
+      .from('assessment_attempts')
+      .select('id, status, completed_at, started_at')
+      .eq('student_id', profile.id)
+      .eq('status', 'COMPLETED')
+      .order('completed_at', { ascending: false })
+  ])
 
   const latestAttempt = completedAttempts && completedAttempts.length > 0 ? completedAttempts[0] : null
   const totalCompleted = completedAttempts?.length || 0
