@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { TakeFreeTestModal } from '@/components/assessment/take-free-test-modal'
+import { AdaptiveAssessmentCockpit } from '@/components/assessment/adaptive-assessment-cockpit'
 
 export const dynamic = 'force-dynamic'
 
@@ -40,6 +41,26 @@ export default async function AssessmentPage(props: {
     .eq('status', 'ACTIVE')
     .maybeSingle()
 
+  const defaultTrack = (studentProfile?.current_program?.toUpperCase().includes('M.') ||
+                        studentProfile?.current_program?.toUpperCase().includes('MBA') ||
+                        studentProfile?.current_program?.toUpperCase().includes('MASTER')) ? 'PG' : 'UG'
+
+  const selectedTrack: 'UG' | 'PG' = searchParams?.track === 'PG' ? 'PG' : (searchParams?.track === 'UG' ? 'UG' : defaultTrack)
+
+  if (isStartRequested) {
+    return (
+      <AdaptiveAssessmentCockpit
+        candidateName={profile.full_name || 'Student'}
+        candidateEmail={profile.email || ''}
+        candidatePhone={studentProfile?.phone || profile.phone || ''}
+        academicLevel={selectedTrack}
+        college={studentProfile?.institution || 'Sandip University'}
+        qualification={studentProfile?.current_program || (selectedTrack === 'UG' ? 'Undergraduate Student' : 'Postgraduate Student')}
+        referralCode="SUN-FRESHERS-2026"
+      />
+    )
+  }
+
   // Universal Profile Checklist for All Students & Colleges
   const profileRequirements = [
     { key: 'full_name', label: 'Full Legal Name', value: profile.full_name },
@@ -65,15 +86,15 @@ export default async function AssessmentPage(props: {
             <p className="text-xs sm:text-sm text-[#7A7067]">Comprehensive career intelligence and diagnostic assessment for all students</p>
           </div>
           <div className="flex items-center gap-2.5">
-            <Link href={`/student/fresher/test?code=SUN-FRESHERS-2026&name=${encodeURIComponent(profile.full_name || 'Student')}&email=${encodeURIComponent(profile.email || '')}`}>
-              <Button
-                size="sm"
-                className="h-10 px-4 rounded-2xl bg-[#A36B40] hover:bg-[#8E5B33] text-white text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-xs"
-              >
-                <Sparkles className="w-4 h-4 text-amber-200" />
-                <span>Start Free Assessment</span>
-              </Button>
-            </Link>
+            <TakeFreeTestModal
+              candidateName={profile.full_name || 'Student'}
+              candidateEmail={profile.email || ''}
+              candidatePhone={studentProfile?.phone || profile.phone || ''}
+              candidateCollege={studentProfile?.institution || 'Sandip University'}
+              candidateQualification={studentProfile?.current_program || ''}
+              defaultTrack={defaultTrack}
+              buttonText="Start Free Assessment"
+            />
             <Link href="/student/assessment">
               <Button
                 variant="outline"
@@ -149,12 +170,16 @@ export default async function AssessmentPage(props: {
               Complete academic data ensures the Career Intelligence Engine evaluates your track with accurate prerequisite filters and domain alignments.
             </p>
             <div className="flex items-center gap-3">
-              <Link href={`/student/fresher/test?code=SUN-FRESHERS-2026&name=${encodeURIComponent(profile.full_name || 'Student')}&email=${encodeURIComponent(profile.email || '')}`}>
-                <Button variant="outline" className="h-11 px-5 border-[#A36B40]/40 text-[#A36B40] hover:bg-[#FAF6F0] font-bold text-xs rounded-2xl transition-all cursor-pointer">
-                  <Sparkles className="w-4 h-4 text-[#A36B40]" />
-                  <span>Take Free Test Now</span>
-                </Button>
-              </Link>
+              <TakeFreeTestModal
+                candidateName={profile.full_name || 'Student'}
+                candidateEmail={profile.email || ''}
+                candidatePhone={studentProfile?.phone || profile.phone || ''}
+                candidateCollege={studentProfile?.institution || 'Sandip University'}
+                candidateQualification={studentProfile?.current_program || ''}
+                defaultTrack={defaultTrack}
+                buttonText="Take Free Test Now"
+                variant="outline"
+              />
               <Link href="/student/profile">
                 <Button className="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all gap-2 cursor-pointer whitespace-nowrap">
                   <span>Complete Profile</span>
@@ -219,27 +244,6 @@ export default async function AssessmentPage(props: {
     .eq('student_id', profile.id)
     .eq('status', 'ACTIVE')
     .maybeSingle()
-
-  const defaultTrack = (studentProfile?.current_program?.toUpperCase().includes('M.') ||
-                        studentProfile?.current_program?.toUpperCase().includes('MBA') ||
-                        studentProfile?.current_program?.toUpperCase().includes('MASTER')) ? 'PG' : 'UG'
-
-  const selectedTrack: 'UG' | 'PG' = searchParams?.track === 'PG' ? 'PG' : (searchParams?.track === 'UG' ? 'UG' : defaultTrack)
-  const isPG = selectedTrack === 'PG'
-
-  if (isStartRequested) {
-    const params = new URLSearchParams({
-      code: 'SUN-FRESHERS-2026',
-      name: profile.full_name || 'Student',
-      email: profile.email || '',
-      phone: studentProfile?.phone || profile.phone || '',
-      level: selectedTrack,
-      college: studentProfile?.institution || 'Sandip University',
-      qualification: studentProfile?.current_program || (selectedTrack === 'UG' ? 'Undergraduate Student' : 'Postgraduate Student'),
-      mentor: 'Admissions & Advisory Council',
-    })
-    redirect(`/student/fresher/test?${params.toString()}`)
-  }
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto font-sans">

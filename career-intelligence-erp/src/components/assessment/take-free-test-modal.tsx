@@ -53,18 +53,7 @@ export function TakeFreeTestModal({
 
   const handleLaunchTrack = (level: 'UG' | 'PG') => {
     setIsOpen(false)
-    const params = new URLSearchParams({
-      code: 'SUN-FRESHERS-2026',
-      name: candidateName || 'Student',
-      email: candidateEmail || '',
-      phone: candidatePhone || '',
-      level,
-      college: candidateCollege || '',
-      qualification: candidateQualification || (level === 'UG' ? 'Undergraduate Student' : 'Postgraduate Student'),
-      mentor: 'Admissions & Advisory Council',
-    })
-
-    router.push(`/student/fresher/test?${params.toString()}`)
+    router.push(`/student/assessment?start=true&track=${level}`)
   }
 
   const triggerClasses = buttonClassName || (

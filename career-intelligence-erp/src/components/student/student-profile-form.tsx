@@ -219,7 +219,7 @@ export function StudentProfileForm({
                 Suitable for students across all universities, autonomous colleges, and educational backgrounds
               </CardDescription>
             </div>
-            <Link href={`/student/fresher/test?code=SUN-FRESHERS-2026&name=${encodeURIComponent(formData.full_name || 'Student')}&email=${encodeURIComponent(initialUser?.email || '')}`}>
+            <Link href="/student/assessment?start=true&track=UG">
               <Button
                 type="button"
                 variant="outline"

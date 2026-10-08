@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { formatDate } from '@/lib/utils'
+import { TakeFreeTestModal } from '@/components/assessment/take-free-test-modal'
 
 export const dynamic = 'force-dynamic'
 
@@ -115,6 +116,10 @@ export default async function StudentDashboardPage() {
   const mentorName = mentor?.full_name || null
   const mentorEmail = mentor?.email || null
 
+  const defaultTrack = (studentProfile?.current_program?.toUpperCase().includes('M.') ||
+                        studentProfile?.current_program?.toUpperCase().includes('MBA') ||
+                        studentProfile?.current_program?.toUpperCase().includes('MASTER')) ? 'PG' : 'UG'
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto font-sans pb-10">
       
@@ -149,17 +154,18 @@ export default async function StudentDashboardPage() {
           </div>
         </div>
 
-        {/* Right Action: Start Free Assessment (Replaces static status capsule) */}
+        {/* Right Action: Start Free Assessment (Opens academic level selector modal & stays inside dashboard) */}
         <div className="relative z-10 flex items-center gap-3 shrink-0">
-          <Link href={`/student/fresher/test?code=SUN-FRESHERS-2026&name=${encodeURIComponent(profile.full_name || 'Student')}&email=${encodeURIComponent(profile.email || '')}`}>
-            <Button
-              className="h-12 px-6 bg-gradient-to-r from-[#A36B40] via-[#B87B4E] to-[#8E5B33] hover:from-[#8E5B33] hover:to-[#784A28] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md shadow-[#A36B40]/25 hover:shadow-lg hover:shadow-[#A36B40]/35 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-2.5 border border-white/20 group"
-            >
-              <Sparkles className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
-              <span>Start Free Assessment</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <TakeFreeTestModal
+            candidateName={profile.full_name || 'Student'}
+            candidateEmail={profile.email || ''}
+            candidatePhone={studentProfile?.phone || profile.phone || ''}
+            candidateCollege={studentProfile?.institution || 'Sandip University'}
+            candidateQualification={studentProfile?.current_program || ''}
+            defaultTrack={defaultTrack}
+            buttonText="Start Free Assessment"
+            buttonClassName="h-12 px-6 bg-gradient-to-r from-[#A36B40] via-[#B87B4E] to-[#8E5B33] hover:from-[#8E5B33] hover:to-[#784A28] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md shadow-[#A36B40]/25 hover:shadow-lg hover:shadow-[#A36B40]/35 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-2.5 border border-white/20 group"
+          />
         </div>
       </div>
 
@@ -312,13 +318,16 @@ export default async function StudentDashboardPage() {
           </div>
 
           <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-0 flex items-center">
-            <Link href={`/student/fresher/test?code=SUN-FRESHERS-2026&name=${encodeURIComponent(profile.full_name || 'Student')}&email=${encodeURIComponent(profile.email || '')}`}>
-              <Button className="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-semibold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-amber-200" />
-                <span>{hasCompletedAssessment ? 'Retake Free Assessment' : 'Start Free Assessment'}</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
+            <TakeFreeTestModal
+              candidateName={profile.full_name || 'Student'}
+              candidateEmail={profile.email || ''}
+              candidatePhone={studentProfile?.phone || profile.phone || ''}
+              candidateCollege={studentProfile?.institution || 'Sandip University'}
+              candidateQualification={studentProfile?.current_program || ''}
+              defaultTrack={defaultTrack}
+              buttonText={hasCompletedAssessment ? 'Retake Free Assessment' : 'Start Free Assessment'}
+              buttonClassName="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-semibold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer flex items-center gap-2"
+            />
           </div>
         </Card>
 
