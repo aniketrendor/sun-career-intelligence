@@ -604,11 +604,6 @@ function FresherTestContent() {
               </Button>
             )}
           </div>
-
-          <div className="max-w-lg mx-auto bg-[#24201C] text-[#DFD7CB] rounded-2xl py-1.5 px-3 flex items-center justify-center gap-2 text-[10px] font-bold">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            <span>Zero negative marking · Real-time contextual engine</span>
-          </div>
         </div>
 
       </div>
@@ -935,12 +930,6 @@ function FresherTestContent() {
                     Questions dynamically adapt to your preferences, logical reasoning, and career attitude.
                   </p>
                 </div>
-              </div>
-
-              {/* Sidebar Clean Non-Overlapping Footer */}
-              <div className="px-3 py-1.5 border-t border-[#F0E8DF] bg-[#FAF6F0]/50 flex items-center justify-center gap-1.5 text-[9px] text-[#7A7067] font-semibold shrink-0">
-                <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
-                <span>Zero negative marking · Adaptive engine</span>
               </div>
             </div>
 

@@ -657,11 +657,6 @@ export function AdaptiveAssessmentCockpit({
                   Questions dynamically adapt to evaluate cognitive ceiling, technical affinity, and vocational orientation.
                 </p>
               </div>
-
-              <div className="pt-2 text-[10px] font-bold text-[#77734B] flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#77734B]" />
-                <span>Zero negative marking · Institutional diagnostic</span>
-              </div>
             </CardContent>
           </Card>
         </div>
