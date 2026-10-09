@@ -570,7 +570,7 @@ export function AdaptiveAssessmentCockpit({
   const currentOptions = v2Active ? currentQV2?.options || [] : currentQV1?.options || []
 
   return (
-    <div className="w-full h-full flex flex-col justify-between gap-2.5 sm:gap-3 font-sans text-[#2C2621] selection:bg-[#A36B40] selection:text-white">
+    <div className="w-full flex flex-col gap-3.5 sm:gap-4.5 pb-16 font-sans text-[#2C2621] selection:bg-[#A36B40] selection:text-white">
       {/* ─── COMPACT TOP BAR ─── */}
       <div className="bg-white/95 backdrop-blur-md border border-[#DFD7CB] rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-xs shrink-0">
         <div className="flex items-center gap-3">
@@ -661,11 +661,11 @@ export function AdaptiveAssessmentCockpit({
         </div>
       </div>
 
-      {/* ─── MAIN TWO-COLUMN VIEWPORT (ZERO SCROLL) ─── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-3.5 items-stretch flex-1 min-h-0">
+      {/* ─── MAIN TWO-COLUMN VIEWPORT (NATURAL VERTICAL SCROLL) ─── */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start w-full">
         {/* Left Column: Adaptive Question Card (8 Cols) */}
-        <div className="lg:col-span-8 flex flex-col h-full">
-          <Card className="bg-white border-[#DFD7CB] text-[#2C2621] shadow-xs relative overflow-hidden flex flex-col justify-between flex-1 rounded-2xl">
+        <div className="lg:col-span-8 flex flex-col">
+          <Card className="bg-white border-[#DFD7CB] text-[#2C2621] shadow-xs relative overflow-hidden flex flex-col rounded-2xl">
             <div className="absolute top-0 left-0 right-0 h-1 bg-[#A36B40]" />
 
             <div className="p-4 sm:p-5 pb-3 border-b border-[#DFD7CB] space-y-2">
@@ -707,8 +707,8 @@ export function AdaptiveAssessmentCockpit({
               ) : null}
             </div>
 
-            {/* Options List (Optimally Spaced across Card Height) */}
-            <div className="p-4 sm:p-5 pt-3 flex-1 flex flex-col justify-around gap-2.5 sm:gap-3">
+            {/* Options List */}
+            <div className="p-4 sm:p-5 pt-3.5 flex flex-col gap-2.5 sm:gap-3">
               {currentOptions.map((opt: any, idx: number) => {
                 const letter = String.fromCharCode(65 + idx)
                 const isSelected = currentSelectedOptionIds.includes(opt.id)
@@ -777,7 +777,7 @@ export function AdaptiveAssessmentCockpit({
             </div>
 
             {/* Bottom Actions Bar */}
-            <div className="p-3 sm:p-4 px-4 sm:px-6 border-t border-[#DFD7CB] flex items-center justify-between bg-[#FAF6F0]/80 rounded-b-2xl">
+            <div className="p-3.5 sm:p-4 px-4 sm:px-6 border-t border-[#DFD7CB] flex items-center justify-between bg-[#FAF6F0]/80 rounded-b-2xl mt-2">
               <div className="flex items-center gap-2.5">
                 <Button
                   variant="outline"
@@ -827,8 +827,8 @@ export function AdaptiveAssessmentCockpit({
         </div>
 
         {/* Right Column: Live Real-Time Career Diagnostic (4 Cols) */}
-        <div className="lg:col-span-4 flex flex-col h-full">
-          <Card className="bg-white border-[#DFD7CB] text-[#2C2621] shadow-xs rounded-2xl flex flex-col justify-between flex-1 p-4 sm:p-5 space-y-3 overflow-hidden">
+        <div className="lg:col-span-4 flex flex-col gap-3 lg:sticky lg:top-4">
+          <Card className="bg-white border-[#DFD7CB] text-[#2C2621] shadow-xs rounded-2xl flex flex-col p-4 sm:p-5 space-y-3.5 overflow-hidden">
             <div className="space-y-3">
               <div className="flex items-center justify-between pb-2 border-b border-[#DFD7CB]">
                 <div className="flex items-center gap-2 text-xs sm:text-[13px] font-bold text-[#2C2621]">
