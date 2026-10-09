@@ -15,29 +15,48 @@ export default async function StudentDashboardLayout({ children }: { children: R
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: profile } = await supabase
-    .from('users')
-    .select('*')
-    .eq('auth_user_id', user.id)
-    .single()
+  let profile: any = null
+  try {
+    const { data } = await supabase
+      .from('users')
+      .select('*')
+      .eq('auth_user_id', user.id)
+      .maybeSingle()
+    profile = data
+  } catch (e) {
+    console.error('Error fetching user profile in student layout:', e)
+  }
 
-  if (!profile || profile.role !== 'STUDENT') redirect('/login')
-  if (profile.status !== 'ACTIVE') redirect('/pending-approval')
+  // Fallback profile if record not yet synchronized
+  const activeProfile = profile || {
+    id: user.id,
+    role: 'STUDENT',
+    status: 'ACTIVE',
+    full_name: (user.user_metadata as any)?.full_name || user.email?.split('@')[0] || 'Student',
+    email: user.email || '',
+  }
 
-  const { data: notifications } = await supabase
-    .from('notifications')
-    .select('id')
-    .eq('user_id', profile.id)
-    .eq('is_read', false)
+  if (activeProfile.role !== 'STUDENT' && profile) redirect('/login')
+  if (activeProfile.status !== 'ACTIVE') redirect('/pending-approval')
 
-  const unreadCount = notifications?.length || 0
+  let unreadCount = 0
+  try {
+    const { data: notifications } = await supabase
+      .from('notifications')
+      .select('id')
+      .eq('user_id', activeProfile.id)
+      .eq('is_read', false)
+    unreadCount = notifications?.length || 0
+  } catch {
+    // Non-critical
+  }
 
   return (
     <AppShell
       navItems={navItems}
-      userRole={profile.role}
-      userName={profile.full_name}
-      userEmail={profile.email}
+      userRole={activeProfile.role}
+      userName={activeProfile.full_name}
+      userEmail={activeProfile.email}
       unreadCount={unreadCount}
     >
       {children}

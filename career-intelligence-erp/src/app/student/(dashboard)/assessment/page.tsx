@@ -24,8 +24,20 @@ export default async function AssessmentPage(props: {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: profile } = await supabase.from('users').select('*').eq('auth_user_id', user.id).single()
-  if (!profile) redirect('/login')
+  let profile: any = null
+  try {
+    const { data } = await supabase.from('users').select('*').eq('auth_user_id', user.id).maybeSingle()
+    profile = data
+  } catch (e) {
+    console.error('Error loading user profile in assessment page:', e)
+  }
+
+  const activeProfile = profile || {
+    id: user.id,
+    role: 'STUDENT',
+    full_name: (user.user_metadata as any)?.full_name || user.email?.split('@')[0] || 'Student',
+    email: user.email || '',
+  }
 
   // Concurrently fetch profile and enrollment with resilient fallbacks
   let studentProfile: any = null
@@ -36,12 +48,12 @@ export default async function AssessmentPage(props: {
       supabase
         .from('student_profiles')
         .select('*')
-        .eq('user_id', profile.id)
+        .eq('user_id', activeProfile.id)
         .maybeSingle(),
       supabase
         .from('enrollments')
         .select('*, program:programs(id, name, code), class:classes(id, name, semester)')
-        .eq('student_id', profile.id)
+        .eq('student_id', activeProfile.id)
         .eq('status', 'ACTIVE')
         .maybeSingle()
     ])
@@ -65,9 +77,9 @@ export default async function AssessmentPage(props: {
 
     return (
       <AdaptiveAssessmentCockpit
-        candidateName={profile.full_name || 'Student'}
-        candidateEmail={profile.email || ''}
-        candidatePhone={studentProfile?.phone || profile.phone || ''}
+        candidateName={activeProfile.full_name || 'Student'}
+        candidateEmail={activeProfile.email || ''}
+        candidatePhone={studentProfile?.phone || activeProfile.phone || ''}
         academicLevel={selectedTrack}
         college={studentProfile?.institution || 'Sandip University'}
         qualification={progName}
@@ -77,52 +89,61 @@ export default async function AssessmentPage(props: {
   }
 
   // Concurrently fetch assessment attempts, fresher diagnostic tests, career profiles, domain scores, and counselor assignment
-  const [
-    attemptsRes,
-    fresherRes,
-    careerProfileRes,
-    domainScoresRes,
-    counselorRes
-  ] = await Promise.all([
-    supabase
-      .from('assessment_attempts')
-      .select(`
-        id, started_at, completed_at, status, time_spent_seconds,
-        version:assessment_versions(
-          id, version_number,
-          template:assessment_templates(id, name, assessment_type)
-        )
-      `)
-      .eq('student_id', profile.id)
-      .order('started_at', { ascending: false }),
-    supabase
-      .from('fresher_leads')
-      .select('*')
-      .ilike('candidate_email', profile.email)
-      .order('created_at', { ascending: false }),
-    supabase
-      .from('career_profiles')
-      .select('*, primary_domain:career_domains!primary_domain_id(name), secondary_domain:career_domains!secondary_domain_id(name)')
-      .eq('student_id', profile.id)
-      .maybeSingle(),
-    supabase
-      .from('domain_scores')
-      .select('domain_id, raw_score, normalized_score, rank, domain:career_domains(name)')
-      .eq('student_id', profile.id)
-      .order('rank', { ascending: true }),
-    supabase
-      .from('student_counselor_assignments')
-      .select('*, counselor:users!counselor_id(full_name)')
-      .eq('student_id', profile.id)
-      .eq('status', 'ACTIVE')
-      .maybeSingle(),
-  ])
+  let adminAttempts: any[] = []
+  let fresherLeads: any[] = []
+  let careerProfile: any = null
+  let domainScores: any = null
+  let counselorAssignment: any = null
 
-  let adminAttempts = attemptsRes.data || []
-  let fresherLeads = fresherRes.data || []
-  const careerProfile = careerProfileRes.data
-  const domainScores = domainScoresRes.data
-  const counselorAssignment = counselorRes.data
+  try {
+    const [
+      attemptsRes,
+      fresherRes,
+      careerProfileRes,
+      domainScoresRes,
+      counselorRes
+    ] = await Promise.all([
+      supabase
+        .from('assessment_attempts')
+        .select(`
+          id, started_at, completed_at, status, time_spent_seconds,
+          version:assessment_versions(
+            id, version_number,
+            template:assessment_templates(id, name, assessment_type)
+          )
+        `)
+        .eq('student_id', activeProfile.id)
+        .order('started_at', { ascending: false }),
+      supabase
+        .from('fresher_leads')
+        .select('*')
+        .ilike('candidate_email', activeProfile.email || '')
+        .order('created_at', { ascending: false }),
+      supabase
+        .from('career_profiles')
+        .select('*, primary_domain:career_domains!primary_domain_id(name), secondary_domain:career_domains!secondary_domain_id(name)')
+        .eq('student_id', activeProfile.id)
+        .maybeSingle(),
+      supabase
+        .from('domain_scores')
+        .select('domain_id, raw_score, normalized_score, rank, domain:career_domains(name)')
+        .eq('student_id', activeProfile.id)
+        .order('rank', { ascending: true }),
+      supabase
+        .from('student_counselor_assignments')
+        .select('*, counselor:users!counselor_id(full_name)')
+        .eq('student_id', activeProfile.id)
+        .eq('status', 'ACTIVE')
+        .maybeSingle(),
+    ])
+    adminAttempts = attemptsRes.data || []
+    fresherLeads = fresherRes.data || []
+    careerProfile = careerProfileRes.data
+    domainScores = domainScoresRes.data
+    counselorAssignment = counselorRes.data
+  } catch (err) {
+    console.error('Error fetching student assessment logs:', err)
+  }
 
   // Fallback to service role admin client if either list is empty
   if (adminAttempts.length === 0 || fresherLeads.length === 0) {
@@ -138,7 +159,7 @@ export default async function AssessmentPage(props: {
               template:assessment_templates(id, name, assessment_type)
             )
           `)
-          .eq('student_id', profile.id)
+          .eq('student_id', activeProfile.id)
           .order('started_at', { ascending: false })
         if (fallbackAtts && fallbackAtts.length > 0) adminAttempts = fallbackAtts
       }
@@ -146,7 +167,7 @@ export default async function AssessmentPage(props: {
         const { data: fallbackLeads } = await adminClient
           .from('fresher_leads')
           .select('*')
-          .ilike('candidate_email', profile.email)
+          .ilike('candidate_email', activeProfile.email || '')
           .order('created_at', { ascending: false })
         if (fallbackLeads && fallbackLeads.length > 0) fresherLeads = fallbackLeads
       }
@@ -197,9 +218,9 @@ export default async function AssessmentPage(props: {
 
     const params = new URLSearchParams({
       code: lead.referral_code || 'SUN-FRESHERS-2026',
-      name: lead.candidate_name || profile.full_name || 'Student',
-      email: lead.candidate_email || profile.email || '',
-      phone: lead.candidate_phone || profile.phone || '',
+      name: lead.candidate_name || activeProfile.full_name || 'Student',
+      email: lead.candidate_email || activeProfile.email || '',
+      phone: lead.candidate_phone || activeProfile.phone || '',
       level: lead.target_level || defaultTrack,
       qualification: lead.highest_qualification || studentProfile?.current_program || '',
       college: lead.last_attempted_college || studentProfile?.institution || 'Sandip University',
@@ -249,9 +270,9 @@ export default async function AssessmentPage(props: {
         </div>
 
         <TakeFreeTestModal
-          candidateName={profile.full_name || 'Student'}
-          candidateEmail={profile.email || ''}
-          candidatePhone={studentProfile?.phone || profile.phone || ''}
+          candidateName={activeProfile.full_name || 'Student'}
+          candidateEmail={activeProfile.email || ''}
+          candidatePhone={studentProfile?.phone || activeProfile.phone || ''}
           candidateCollege={studentProfile?.institution || 'Sandip University'}
           candidateQualification={studentProfile?.current_program || ''}
           defaultTrack={defaultTrack}
