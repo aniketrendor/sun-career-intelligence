@@ -149,9 +149,9 @@ async function runTests() {
     `First question selected: ${step1.nextQuestion?.id} (Level: ${step1.currentLevel})`
   )
 
-  // Simulate 5 L1 Tech responses
+  // Simulate 6 L1 Tech responses (matching the 6 questions per level budget)
   const simulatedResponses: V2ResponseRecord[] = []
-  const l1Pool = getQuestionsByLevel('L1').slice(0, 5)
+  const l1Pool = getQuestionsByLevel('L1').slice(0, 6)
   l1Pool.forEach((q) => {
     // Select option with TECH or ENG
     const techOpt = q.options.find((o) => o.targetDomainCodes.includes('TECH')) || q.options[0]

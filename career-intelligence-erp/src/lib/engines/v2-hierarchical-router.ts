@@ -34,13 +34,13 @@ export interface RouterConfig {
 }
 
 export const DEFAULT_ROUTER_CONFIG: RouterConfig = {
-  maxQuestionsBudget: 28,
+  maxQuestionsBudget: 30,
   levelBudgets: {
-    L1: 5,
-    L2: 5,
-    L3: 5,
-    L4: 7,
-    L5: 4,
+    L1: 6,
+    L2: 6,
+    L3: 6,
+    L4: 6,
+    L5: 6,
     DIFF: 2,
   },
   scoreThresholdForDifferentiation: 12,
@@ -222,7 +222,19 @@ export function selectNextHierarchicalQuestion(params: {
   } else if (countsByLevel.L4 < config.levelBudgets.L4) {
     targetLevel = 'L4'
   } else {
-    // Check if differentiator is needed
+    // Check Level 5 total allocation (exactly 6 questions for Level 5, including any DIFF tie-breakers)
+    const level5Total = (countsByLevel.L5 || 0) + (countsByLevel.DIFF || 0)
+    if (level5Total >= config.levelBudgets.L5) {
+      // Completed all 5 levels (6 questions each = 30 total)
+      return {
+        nextQuestion: null,
+        currentLevel: 'L5',
+        isComplete: true,
+        remainingBudget: 0,
+        topCandidates: topPrograms.slice(0, 5),
+      }
+    }
+
     const top1 = topPrograms[0]
     const top2 = topPrograms[1]
     const score1 = programEvidenceScores[top1] || 0
@@ -231,17 +243,8 @@ export function selectNextHierarchicalQuestion(params: {
 
     if (diffNeeded && countsByLevel.DIFF < config.levelBudgets.DIFF) {
       targetLevel = 'DIFF'
-    } else if (countsByLevel.L5 < config.levelBudgets.L5) {
-      targetLevel = 'L5'
     } else {
-      // Completed all levels
-      return {
-        nextQuestion: null,
-        currentLevel: 'L5',
-        isComplete: true,
-        remainingBudget: 0,
-        topCandidates: topPrograms.slice(0, 5),
-      }
+      targetLevel = 'L5'
     }
   }
 
