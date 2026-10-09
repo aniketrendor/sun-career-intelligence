@@ -8,7 +8,6 @@ const navItems = [
   { label: 'Mentors', href: '/admin/mentors' },
   { label: 'Student Assignments', href: '/admin/assignments' },
   { label: 'Programs', href: '/admin/programs' },
-  { label: 'Classes', href: '/admin/classes' },
   { label: 'Referral Codes', href: '/admin/referral-codes' },
   { label: 'Students', href: '/admin/students' },
   { label: 'Analytics', href: '/admin/analytics' },

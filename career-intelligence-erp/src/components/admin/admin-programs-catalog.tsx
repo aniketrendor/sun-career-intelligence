@@ -296,12 +296,9 @@ export function AdminProgramsCatalog({ initialPrograms }: AdminProgramsCatalogPr
                 <span className="text-[11px] text-[#7A7067]">
                   Academic Year: <strong className="text-[#2C2621]">{prog.academic_year || '2026-27'}</strong>
                 </span>
-                <Link
-                  href={`/admin/classes?program=${prog.id}`}
-                  className="font-bold text-[#A36B40] hover:text-[#8E5B33] flex items-center gap-1 cursor-pointer transition-colors"
-                >
-                  Manage Classes <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <span className="text-[11px] font-bold text-[#A36B40] bg-[#FAF6F0] px-2.5 py-1 rounded-lg border border-[#DFD7CB]">
+                  {prog.course_degree}
+                </span>
               </div>
             </Card>
           )
