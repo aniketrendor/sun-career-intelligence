@@ -181,15 +181,19 @@ export async function enrollStudent(
 
 const studentProfileSchema = z.object({
   full_name: z.string().min(2, 'Please enter a valid full name'),
-  prn: z.string().min(1, 'Student ID / PRN / Roll Number is required').max(60).nullable().optional(),
+  prn: z.string().max(80).nullable().optional(),
   phone: z.string().regex(/^\+91\s?\d{10}$/, 'Contact number must be a valid 10-digit Indian mobile number (+91 XXXXXXXXXX)').nullable().optional(),
   gender: z.string().nullable().optional(),
   date_of_birth: z.string().nullable().optional(),
-  institution: z.string().nullable().optional(),
+  institution: z.string().min(1, 'Educational institution is required'),
+  education_level: z.string().nullable().optional(),
   school: z.string().nullable().optional(),
-  current_program: z.string().nullable().optional(),
+  stream_department: z.string().nullable().optional(),
+  current_program: z.string().min(1, 'Current qualification / program is required'),
   current_semester: z.coerce.number().nullable().optional(),
+  current_class_semester: z.string().nullable().optional(),
   academic_year: z.string().nullable().optional(),
+  student_status: z.string().nullable().optional(),
 })
 
 export async function updateStudentProfile(
@@ -220,17 +224,31 @@ export async function updateStudentProfile(
     }
   }
 
+  const classSemRaw = getField('current_class_semester') || getField('current_semester')
+  // Try extracting numeric semester if present (e.g. "Semester 3" -> 3 or "Year 2" -> 2 or "3" -> 3)
+  let numericSem: number | undefined = undefined
+  if (classSemRaw) {
+    const match = classSemRaw.match(/\d+/)
+    if (match) {
+      numericSem = parseInt(match[0], 10)
+    }
+  }
+
   const rawData = {
     full_name: getField('full_name') || 'Student Member',
-    prn: prnRaw,
+    prn: prnRaw || null,
     phone: phoneRaw,
     gender: getField('gender'),
     date_of_birth: getField('date_of_birth'),
     institution: getField('institution') || getField('school') || 'Sandip University',
-    school: getField('school') || getField('institution'),
-    current_program: getField('current_program'),
-    current_semester: getField('current_semester'),
-    academic_year: getField('academic_year'),
+    education_level: getField('education_level') || 'Undergraduate (UG)',
+    school: getField('stream_department') || getField('school') || getField('institution'),
+    stream_department: getField('stream_department') || getField('school') || null,
+    current_program: getField('current_program') || 'Undergraduate Degree',
+    current_semester: numericSem || 1,
+    current_class_semester: classSemRaw || 'Year 1, Semester 1',
+    academic_year: getField('academic_year') || '2024 - 2028',
+    student_status: getField('student_status') || 'Currently studying',
   }
 
   const validation = studentProfileSchema.safeParse(rawData)
@@ -252,7 +270,22 @@ export async function updateStudentProfile(
 
   if (!profile) return { success: false, error: 'User profile not found.' }
 
-  const { full_name, phone, prn, school, institution, current_program, current_semester, academic_year, gender, date_of_birth } = validation.data
+  const {
+    full_name,
+    phone,
+    prn,
+    school,
+    stream_department,
+    institution,
+    education_level,
+    current_program,
+    current_semester,
+    current_class_semester,
+    academic_year,
+    student_status,
+    gender,
+    date_of_birth
+  } = validation.data
 
   // 1. Update users table (stores full_name and phone)
   const { error: userError } = await adminClient.from('users').update({
@@ -264,20 +297,26 @@ export async function updateStudentProfile(
     return { success: false, error: userError.message || 'Failed to update user record.' }
   }
 
-  // 2. Upsert student_profiles table (does not have phone column)
+  // 2. Upsert student_profiles table
+  const profilePayload: Record<string, any> = {
+    user_id: profile.id,
+    prn: prn || null,
+    school: stream_department || school || null,
+    stream_department: stream_department || school || null,
+    institution: institution || school || null,
+    education_level: education_level || 'Undergraduate (UG)',
+    current_program: current_program || null,
+    current_semester: current_semester || 1,
+    current_class_semester: current_class_semester || null,
+    academic_year: academic_year || null,
+    student_status: student_status || 'Currently studying',
+    ...(gender ? { gender } : {}),
+    ...(date_of_birth ? { date_of_birth } : {}),
+  }
+
   const { error: profileError } = await adminClient
     .from('student_profiles')
-    .upsert({
-      user_id: profile.id,
-      prn: prn || null,
-      school: school || null,
-      institution: institution || school || null,
-      current_program: current_program || null,
-      current_semester: current_semester || 1,
-      academic_year: academic_year || null,
-      ...(gender ? { gender } : {}),
-      ...(date_of_birth ? { date_of_birth } : {}),
-    }, { onConflict: 'user_id' })
+    .upsert(profilePayload, { onConflict: 'user_id' })
 
   if (profileError) {
     return { success: false, error: profileError.message || 'Failed to save student profile.' }
