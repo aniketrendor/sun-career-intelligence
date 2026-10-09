@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { TakeFreeTestModal } from '@/components/assessment/take-free-test-modal'
 import { AdaptiveAssessmentCockpit } from '@/components/assessment/adaptive-assessment-cockpit'
+import { processAssessmentResponses, formatProgramTitle } from '@/lib/engines/index'
 
 export const dynamic = 'force-dynamic'
 
@@ -90,9 +91,8 @@ export default async function AssessmentPage(props: {
     )
   }
 
-  // Concurrently fetch assessment attempts, fresher diagnostic tests, career profiles, domain scores, and counselor assignment
+  // Concurrently fetch assessment attempts, career profiles, domain scores, and counselor assignment
   let adminAttempts: any[] = []
-  let fresherLeads: any[] = []
   let careerProfile: any = null
   let domainScores: any = null
   let counselorAssignment: any = null
@@ -100,7 +100,6 @@ export default async function AssessmentPage(props: {
   try {
     const [
       attemptsRes,
-      fresherRes,
       careerProfileRes,
       domainScoresRes,
       counselorRes
@@ -109,6 +108,7 @@ export default async function AssessmentPage(props: {
         .from('assessment_attempts')
         .select(`
           id, started_at, completed_at, status, time_spent_seconds,
+          responses:assessment_responses(question_id, response_value, response_text),
           version:assessment_versions(
             id, version_number,
             template:assessment_templates(id, name, assessment_type)
@@ -116,11 +116,6 @@ export default async function AssessmentPage(props: {
         `)
         .eq('student_id', activeProfile.id)
         .order('started_at', { ascending: false }),
-      supabase
-        .from('fresher_leads')
-        .select('*')
-        .ilike('candidate_email', activeProfile.email || '')
-        .order('created_at', { ascending: false }),
       supabase
         .from('career_profiles')
         .select('*, primary_domain:career_domains!primary_domain_id(name), secondary_domain:career_domains!secondary_domain_id(name)')
@@ -139,7 +134,6 @@ export default async function AssessmentPage(props: {
         .maybeSingle(),
     ])
     adminAttempts = attemptsRes.data || []
-    fresherLeads = fresherRes.data || []
     careerProfile = careerProfileRes.data
     domainScores = domainScoresRes.data
     counselorAssignment = counselorRes.data
@@ -147,124 +141,98 @@ export default async function AssessmentPage(props: {
     console.error('Error fetching student assessment logs:', err)
   }
 
-  // Fallback to service role admin client if either list is empty
-  if (adminAttempts.length === 0 || fresherLeads.length === 0) {
+  // Fallback to service role admin client if attempts list is empty
+  if (adminAttempts.length === 0) {
     try {
       const adminClient = await createAdminClient()
-      if (adminAttempts.length === 0) {
-        const { data: fallbackAtts } = await adminClient
-          .from('assessment_attempts')
-          .select(`
-            id, started_at, completed_at, status, time_spent_seconds,
-            version:assessment_versions(
-              id, version_number,
-              template:assessment_templates(id, name, assessment_type)
-            )
-          `)
-          .eq('student_id', activeProfile.id)
-          .order('started_at', { ascending: false })
-        if (fallbackAtts && fallbackAtts.length > 0) adminAttempts = fallbackAtts
-      }
-      if (fresherLeads.length === 0) {
-        const { data: fallbackLeads } = await adminClient
-          .from('fresher_leads')
-          .select('*')
-          .ilike('candidate_email', activeProfile.email || '')
-          .order('created_at', { ascending: false })
-        if (fallbackLeads && fallbackLeads.length > 0) fresherLeads = fallbackLeads
-      }
+      const { data: fallbackAtts } = await adminClient
+        .from('assessment_attempts')
+        .select(`
+          id, started_at, completed_at, status, time_spent_seconds,
+          responses:assessment_responses(question_id, response_value, response_text),
+          version:assessment_versions(
+            id, version_number,
+            template:assessment_templates(id, name, assessment_type)
+          )
+        `)
+        .eq('student_id', activeProfile.id)
+        .order('started_at', { ascending: false })
+      if (fallbackAtts && fallbackAtts.length > 0) adminAttempts = fallbackAtts
     } catch {
       // Safe fallback
     }
   }
 
-  // 1. Normalize official attempts
-  const officialTests = (adminAttempts || []).map((item: any) => {
+  // Process and normalize official student attempts
+  const allTests = (adminAttempts || []).map((item: any) => {
     const isCompleted = item.status === 'COMPLETED'
-    const firstDomain = (domainScores as any)?.[0]?.domain
-    const topScoreDomainName = Array.isArray(firstDomain) ? firstDomain[0]?.name : firstDomain?.name
-    const primaryDomainName = (careerProfile as any)?.primary_domain?.name || topScoreDomainName || 'Data Analytics'
-    const overallScore = domainScores?.[0]?.normalized_score
-      ? Math.round(Number(domainScores[0].normalized_score))
-      : 75
     const counselorName = (counselorAssignment as any)?.counselor?.full_name
+    const completedDate = item.completed_at || item.started_at
+
+    // If attempt has responses, evaluate through engine for exact fidelity
+    let topDomainName = 'Evaluating...'
+    let topSpecName = studentProfile?.current_program || 'General Track'
+    let fitScore = 75
+    let trackName = defaultTrack
+
+    if (item.responses && item.responses.length > 0) {
+      const formattedAns: any[] = item.responses.map((r: any) => {
+        let optIds: string[] | undefined
+        let singleOpt: string | undefined
+        if (r.response_text) {
+          try {
+            const p = JSON.parse(r.response_text)
+            if (Array.isArray(p)) optIds = p
+            else if (typeof p === 'string') singleOpt = p
+          } catch {
+            singleOpt = r.response_text
+          }
+        }
+        return {
+          question_id: r.question_id,
+          rating_value: typeof r.response_value === 'number' ? r.response_value : undefined,
+          option_id: singleOpt,
+          option_ids: optIds,
+        }
+      })
+
+      const ev = processAssessmentResponses(formattedAns, {
+        academicLevel: defaultTrack,
+        stream: studentProfile?.current_program || undefined,
+      })
+      if (ev.top_dimensions[0]) {
+        topDomainName = ev.top_dimensions[0].name
+      }
+      if (ev.primary_course) {
+        topSpecName = formatProgramTitle(ev.primary_course.course, ev.primary_course.specialization)
+        fitScore = ev.primary_course.match_score
+      }
+    } else {
+      const firstDomain = (domainScores as any)?.[0]?.domain
+      topDomainName = (careerProfile as any)?.primary_domain?.name || (Array.isArray(firstDomain) ? firstDomain[0]?.name : firstDomain?.name) || 'Academic Diagnostic'
+      if (domainScores?.[0]?.normalized_score) {
+        fitScore = Math.round(Number(domainScores[0].normalized_score))
+      }
+    }
+
     const title = (item.version as any)?.template?.name ||
                   (item.version as any)?.template?.title ||
-                  (defaultTrack === 'PG' ? 'Postgraduate (PG) Career Diagnostic' : 'Undergraduate (UG) Career Diagnostic')
-    const completedDate = item.completed_at || item.started_at
+                  `${defaultTrack === 'PG' ? 'Postgraduate (PG)' : 'Undergraduate (UG)'} Career Diagnostic`
 
     return {
       id: item.id,
       title,
-      badgeText: 'Official Assessment',
+      badgeText: `${defaultTrack} Assessment`,
       status: item.status || 'COMPLETED',
       isCompleted,
       date: completedDate,
-      score: overallScore,
-      topDomain: primaryDomainName,
-      specialization: studentProfile?.current_program || enrollment?.program?.name || 'Business Analytics',
-      counselorAdvisory: counselorName ? `Assigned to ${counselorName}` : 'Automated Diagnostic Verified',
-      reportUrl: '/student/career-profile',
+      score: fitScore,
+      topDomain: topDomainName,
+      specialization: topSpecName,
+      counselorAdvisory: counselorName ? `Assigned to ${counselorName}` : 'Sandip University AI Validated',
+      reportUrl: `/student/career-profile?attemptId=${item.id}`,
       source: 'official' as const,
     }
-  })
-
-  // 2. Normalize adaptive/diagnostic tests taken via cockpit / free test
-  const diagnosticTests = (fresherLeads || []).map((lead: any) => {
-    const isCompleted = lead.status === 'TEST_COMPLETED' || lead.status === 'COMPLETED' || !!lead.test_score || !!lead.fit_score
-    const fitScore = Math.round(Number(lead.fit_score || lead.test_score || 70))
-    const leadDate = lead.created_at
-    const trackLabel = lead.target_level === 'PG' ? 'Postgraduate (PG)' : 'Undergraduate (UG)'
-    const title = `${trackLabel} Career Diagnostic`
-    const counselorName = (counselorAssignment as any)?.counselor?.full_name
-
-    const rawSpec = lead.recommended_spec || lead.highest_qualification || studentProfile?.current_program || 'General Track'
-    const domainLower = (lead.top_domain || '').toLowerCase()
-    const specLower = (lead.recommended_spec || '').toLowerCase()
-    
-    // Reconcile if older database log contained obsolete cross-mapping
-    let displaySpec = rawSpec
-    if (domainLower.includes('analytics') && (specLower.includes('human resource') || !lead.recommended_spec)) {
-      displaySpec = lead.target_level === 'PG' ? 'Business Analytics' : 'Data Analytics'
-    } else if (domainLower.includes('technology') && (specLower.includes('human resource') || specLower.includes('general'))) {
-      displaySpec = lead.target_level === 'PG' ? 'Computer Science & Engineering (AI & ML)' : 'Computer Science & Engineering'
-    }
-
-    const params = new URLSearchParams({
-      code: lead.referral_code || 'SUN-FRESHERS-2026',
-      name: lead.candidate_name || activeProfile.full_name || 'Student',
-      email: lead.candidate_email || activeProfile.email || '',
-      phone: lead.candidate_phone || activeProfile.phone || '',
-      level: lead.target_level || defaultTrack,
-      qualification: lead.highest_qualification || studentProfile?.current_program || '',
-      college: lead.last_attempted_college || studentProfile?.institution || 'Sandip University',
-      topDomain: lead.top_domain || 'Career Alignment',
-      recommendedSpec: displaySpec,
-      fitScore: String(fitScore),
-      portal: 'student',
-    })
-
-    return {
-      id: lead.id,
-      title,
-      badgeText: `${lead.target_level || 'UG'} Diagnostic`,
-      status: isCompleted ? 'COMPLETED' : lead.status,
-      isCompleted,
-      date: leadDate,
-      score: fitScore,
-      topDomain: lead.top_domain || 'Career Alignment',
-      specialization: displaySpec,
-      counselorAdvisory: counselorName ? `Assigned to ${counselorName}` : 'Automated Diagnostic Verified',
-      reportUrl: `/student/fresher/report?${params.toString()}`,
-      source: 'diagnostic' as const,
-    }
-  })
-
-  // 3. Unify and sort chronologically (most recent first)
-  const allTests = [...officialTests, ...diagnosticTests].sort((a, b) => {
-    const timeA = a.date ? new Date(a.date).getTime() : 0
-    const timeB = b.date ? new Date(b.date).getTime() : 0
-    return timeB - timeA
   })
 
   const completedTests = allTests.filter(t => t.isCompleted)

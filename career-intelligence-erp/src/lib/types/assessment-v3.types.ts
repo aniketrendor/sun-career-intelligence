@@ -63,11 +63,54 @@ export interface AssessmentQuestion {
   options: AnswerOption[]
 }
 
+export type MappingReviewStatus = 'APPROVED' | 'PROPOSED' | 'REVIEW_REQUIRED' | 'REJECTED'
+
+export interface ProgramDomainMap {
+  program_domain_map_id: string
+  program_id: string
+  domain_id: string
+  is_primary_domain: boolean
+  mapping_rationale: string
+  confidence_level: 'HIGH' | 'MEDIUM' | 'LOW'
+  review_status: MappingReviewStatus
+  source_reference: string
+}
+
+export interface SpecializationEntity {
+  specialization_id: string
+  specialization_name: string
+  school: string
+  level: AcademicDegreeLevel
+  notes?: string
+}
+
+export interface ProgramSpecializationMap {
+  program_specialization_map_id: string
+  program_id: string
+  specialization_id: string
+  specialization_name: string
+  review_status: MappingReviewStatus
+  source_reference: string
+}
+
 export interface CourseDomainMapping {
   program_id: string
   dimension_id: string
   mapping_method: string
   review_status: 'verified' | 'review_required' | 'keyword_proposed' | string
+}
+
+export interface MappingAuditReport {
+  total_distinct_programs: number
+  programs_mapped_to_domains: number
+  programs_awaiting_domain_review: number
+  total_program_domain_mappings: number
+  total_distinct_specializations: number
+  total_program_specialization_relationships: number
+  specializations_awaiting_review: number
+  duplicate_or_invalid_mappings: number
+  programs_with_no_specialization_listed: number
+  is_complete: boolean
 }
 
 export interface RoutingRule {

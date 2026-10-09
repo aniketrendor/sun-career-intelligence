@@ -16,7 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
-import { submitFresherLead } from '@/lib/actions/key.actions'
+import { submitAdaptiveAssessmentV3 } from '@/lib/actions/assessment.actions'
 import {
   getQuestionsForAssessment,
   ASSESSMENT_LEVEL_CONFIGS,
@@ -224,78 +224,31 @@ export function AdaptiveAssessmentCockpit({
         phone: candidatePhone,
         academicLevel: academicLevel as AcademicDegreeLevel,
         stream: qualification,
-        referralCode,
         mentorName,
       }
 
-      const finalResult = processAssessmentResponses(validAnswers, profile)
-      const primary = finalResult.primary_course || {
-        program_id: 'SUN-023',
-        course: 'B.Tech',
-        specialization: 'Artificial Intelligence & Machine Learning',
-        match_score: 92,
-      }
-
-      const d1 = finalResult.top_dimensions[0] || { name: 'Technology & computing', normalized_score: 94, dimension_id: 'TECHNOLOGY' }
-      const d2 = finalResult.top_dimensions[1] || { name: 'Engineering & applied technology', normalized_score: 86, dimension_id: 'ENGINEERING' }
-      const d3 = finalResult.top_dimensions[2] || { name: 'Business & management', normalized_score: 78, dimension_id: 'BUSINESS' }
-
-      // Persist lead
+      let attemptId = ''
       try {
-        await submitFresherLead({
-          referralCode,
-          candidateName,
-          candidateEmail: candidateEmail || undefined,
-          candidatePhone: candidatePhone || undefined,
-          targetLevel: (academicLevel === 'PG' ? 'PG' : 'UG') as 'UG' | 'PG',
-          highestQualification: qualification || undefined,
-          lastAttemptedCollege: college || undefined,
-          testScore: primary.match_score,
-          fitScore: primary.match_score,
-          topDomain: d1.name,
-          recommendedSpec: primary.specialization,
-        })
+        const res = await submitAdaptiveAssessmentV3(validAnswers, profile)
+        if (res.success && res.data?.attempt_id) {
+          attemptId = res.data.attempt_id
+        }
       } catch (err) {
-        console.warn('Lead persistence notice:', err)
+        console.warn('Student assessment persistence notice:', err)
       }
 
-      // Build Result Params
-      const resultParams = new URLSearchParams({
-        code: referralCode,
-        name: candidateName,
-        email: candidateEmail,
-        phone: candidatePhone,
-        level: academicLevel,
-        qualification,
-        college,
-        mentor: mentorName,
-        topDomain: d1.name,
-        recommendedSpec: primary.specialization,
-        progId: primary.program_id,
-        fitScore: String(primary.match_score),
-        d1Name: d1.name,
-        d1Score: String(d1.normalized_score),
-        d1Code: d1.dimension_id,
-        d2Name: d2.name,
-        d2Score: String(d2.normalized_score),
-        d2Code: d2.dimension_id,
-        d3Name: d3.name,
-        d3Score: String(d3.normalized_score),
-        d3Code: d3.dimension_id,
-        portal: 'student',
-      })
-
-      const dest = `/student/fresher/report?${resultParams.toString()}`
+      toast.success('Career Diagnostic Assessment Completed!')
+      const dest = attemptId ? `/student/career-profile?attemptId=${attemptId}` : '/student/career-profile'
       router.push(dest)
       if (typeof window !== 'undefined') {
         setTimeout(() => {
           window.location.href = dest
-        }, 200)
+        }, 150)
       }
     } catch (err) {
       console.error('Submission error:', err)
-      toast.error('Finalizing career intelligence report...')
-      window.location.href = `/student/fresher/report?code=${encodeURIComponent(referralCode)}&name=${encodeURIComponent(candidateName)}&level=${academicLevel}&portal=student`
+      toast.error('Directing to your Career Intelligence Profile...')
+      window.location.href = '/student/career-profile'
     }
   }
 

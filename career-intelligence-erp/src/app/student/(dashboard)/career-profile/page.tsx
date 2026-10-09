@@ -5,13 +5,13 @@ import {
   Compass, TrendingUp, Award, Target, BookOpen, AlertCircle,
   ArrowRight, ShieldCheck, CheckCircle2, ChevronRight, Sparkles,
   Layers, Check, HelpCircle, UserCheck, MessageSquare, Lightbulb,
-  GraduationCap, History, Clock
+  GraduationCap, History, Clock, Brain, Flame, Activity, Star
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import { processAssessmentResponses } from '@/lib/engines/index'
+import { processAssessmentResponses, formatProgramTitle } from '@/lib/engines/index'
 import type {
   StudentAnswer,
   StudentProfileContext,
@@ -22,7 +22,12 @@ import type {
 
 export const dynamic = 'force-dynamic'
 
-export default async function StudentCareerProfilePage() {
+export default async function StudentCareerProfilePage(props: {
+  searchParams?: Promise<{ attemptId?: string }>
+}) {
+  const searchParams = await props?.searchParams
+  const specificAttemptId = searchParams?.attemptId
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -56,17 +61,33 @@ export default async function StudentCareerProfilePage() {
       .from('assessment_attempts')
       .select('id, status, completed_at, started_at')
       .eq('student_id', profile.id)
-      .eq('status', 'COMPLETED')
       .order('completed_at', { ascending: false })
   ])
 
   const hasCompletedAttempt = (completedAttempts && completedAttempts.length > 0)
-  const latestAttempt = hasCompletedAttempt ? completedAttempts[0] : null
+  
+  let targetAttempt: any = null
+  if (specificAttemptId) {
+    targetAttempt = completedAttempts?.find((a: any) => a.id === specificAttemptId)
+    if (!targetAttempt) {
+      const { data: specificAtt } = await supabase
+        .from('assessment_attempts')
+        .select('id, status, completed_at, started_at')
+        .eq('id', specificAttemptId)
+        .maybeSingle()
+      targetAttempt = specificAtt
+    }
+  }
+
+  if (!targetAttempt && hasCompletedAttempt) {
+    targetAttempt = completedAttempts[0]
+  }
+
   const defaultTrack = studentProfile?.current_program?.toUpperCase().includes('M.') ||
                        studentProfile?.current_program?.toUpperCase().includes('MBA') ||
                        studentProfile?.current_program?.toUpperCase().includes('MASTER') ? 'PG' : 'UG'
 
-  if (!hasCompletedAttempt || !latestAttempt) {
+  if (!targetAttempt) {
     return (
       <div className="space-y-6 max-w-5xl mx-auto font-sans">
         <div>
@@ -99,19 +120,31 @@ export default async function StudentCareerProfilePage() {
     )
   }
 
-  // Fetch responses for latest attempt
+  // Fetch responses for target attempt
   const { data: responses } = await supabase
     .from('assessment_responses')
     .select('question_id, response_value, response_text')
-    .eq('attempt_id', latestAttempt.id)
+    .eq('attempt_id', targetAttempt.id)
 
   const isPG = defaultTrack === 'PG'
 
   const formattedResponses: StudentAnswer[] = (responses || []).map((r) => {
+    let optIds: string[] | undefined
+    let singleOpt: string | undefined
+    if (r.response_text) {
+      try {
+        const p = JSON.parse(r.response_text)
+        if (Array.isArray(p)) optIds = p
+        else if (typeof p === 'string') singleOpt = p
+      } catch {
+        singleOpt = r.response_text
+      }
+    }
     return {
       question_id: r.question_id,
-      rating_value: r.response_value || 3,
-      option_id: r.response_text || undefined,
+      rating_value: typeof r.response_value === 'number' ? r.response_value : undefined,
+      option_id: singleOpt,
+      option_ids: optIds,
     }
   })
 
@@ -124,6 +157,7 @@ export default async function StudentCareerProfilePage() {
 
   const result = processAssessmentResponses(formattedResponses, studentContext)
   const primaryCourse = result.primary_course || result.recommended_courses[0]
+  const topDimensions = result.top_dimensions.slice(0, 3)
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto font-sans">
@@ -131,11 +165,11 @@ export default async function StudentCareerProfilePage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] mb-2">
-            <Compass className="w-3.5 h-3.5 text-[#A36B40]" /> Sandip University Career Trajectory
+            <Compass className="w-3.5 h-3.5 text-[#A36B40]" /> Sandip University Official Diagnostic Result
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">Career Diagnostic Profile</h1>
           <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
-            Review your aptitude metrics across 12 university career dimensions, matched courses, and specialization pathways.
+            Official cognitive aptitude, domain synergy, and career pathway analysis.
           </p>
         </div>
 
@@ -175,15 +209,15 @@ export default async function StudentCareerProfilePage() {
             </span>
           </div>
           <div>
-            <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Top Aligned Domain</span>
+            <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Primary Aligned Domain</span>
             <span className="font-semibold text-white mt-0.5 block truncate">
-              {result.top_dimensions[0]?.name || 'Technology'}
+              {topDimensions[0]?.name || 'Technology'}
             </span>
           </div>
           <div>
             <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Optimal Program Match</span>
             <span className="font-bold text-[#A36B40] text-sm mt-0.5 block truncate">
-              {primaryCourse ? `${primaryCourse.course} ${primaryCourse.specialization} (${primaryCourse.match_score}%)` : 'Evaluating...'}
+              {primaryCourse ? `${formatProgramTitle(primaryCourse.course, primaryCourse.specialization)} (${primaryCourse.match_score}%)` : 'Evaluating...'}
             </span>
           </div>
         </div>
@@ -195,35 +229,46 @@ export default async function StudentCareerProfilePage() {
           <Card className="lg:col-span-2 border-[#DFD7CB] bg-white rounded-3xl shadow-xs overflow-hidden">
             <div className="h-3.5 w-full bg-[#A36B40]" />
             <CardHeader className="pb-4">
-              <div className="flex items-center justify-between gap-2 mb-1">
+              <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
                 <Badge className="bg-[#A36B40]/15 text-[#A36B40] border-0 text-xs font-bold rounded-full px-3 py-1">
-                  Primary Recommendation
+                  Optimal Degree Recommendation
                 </Badge>
-                <span className="text-2xl font-black text-[#A36B40]">
-                  {primaryCourse.match_score}% Match
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl font-black text-[#A36B40]">
+                    {primaryCourse.match_score}%
+                  </span>
+                  <Badge className="bg-[#A36B40] text-white border-0 text-xs font-bold rounded-lg px-2 py-0.5">
+                    A+
+                  </Badge>
+                </div>
               </div>
               <CardTitle className="text-xl sm:text-2xl font-extrabold text-[#2C2621]">
-                {primaryCourse.course} in {primaryCourse.specialization}
+                {formatProgramTitle(primaryCourse.course, primaryCourse.specialization)}
               </CardTitle>
               <CardDescription className="text-xs sm:text-sm text-[#7A7067]">
-                {primaryCourse.school} · Prerequisite Stream: <strong>{primaryCourse.eligibility.required_stream}</strong>
+                {primaryCourse.school} {primaryCourse.program_id ? `· Program Code: ${primaryCourse.program_id}` : ''}
               </CardDescription>
             </CardHeader>
 
             <CardContent className="space-y-5 pt-0">
-              <div>
-                <div className="flex justify-between text-xs font-semibold text-[#7A7067] mb-1.5">
-                  <span>Domain Fit Score</span>
-                  <span className="text-[#2C2621] font-bold">{primaryCourse.match_score}/100</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 bg-[#FAF6F0] rounded-2xl border border-[#DFD7CB] text-xs">
+                <div>
+                  <span className="text-[#7A7067] block text-[10px] font-bold uppercase">Prerequisite Qualification</span>
+                  <span className="font-semibold text-[#2C2621] mt-0.5 block">{primaryCourse.eligibility.required_stream}</span>
                 </div>
-                <Progress value={primaryCourse.match_score} className="h-2.5 bg-[#FAF6F0]" />
+                <div>
+                  <span className="text-[#7A7067] block text-[10px] font-bold uppercase">Eligibility Status</span>
+                  <span className="font-semibold text-[#77734B] mt-0.5 flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    {primaryCourse.eligibility.status === 'VERIFIED_ELIGIBLE' ? 'Verified Eligible' : 'Eligible for Direct Evaluation'}
+                  </span>
+                </div>
               </div>
 
               {/* Rationale and reasons */}
               <div className="space-y-2">
                 <h4 className="text-xs font-bold text-[#7A7067] uppercase tracking-wider flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Key Evidence Rationale
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#77734B]" /> Key Evidence Rationale
                 </h4>
                 <div className="space-y-1.5 text-xs text-[#2C2621]">
                   {primaryCourse.reasons_for_match.map((r: string, i: number) => (
@@ -242,18 +287,18 @@ export default async function StudentCareerProfilePage() {
         <Card className="border-[#DFD7CB] bg-white rounded-3xl shadow-xs flex flex-col justify-between">
           <CardHeader className="pb-3">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#77734B] border border-[#DFD7CB] mb-1">
-              <Lightbulb className="w-3.5 h-3.5 text-[#77734B]" /> Alternative Options
+              <Lightbulb className="w-3.5 h-3.5 text-[#77734B]" /> Alternative Pathways
             </div>
-            <CardTitle className="text-lg font-bold text-[#2C2621]">Alternative Pathways</CardTitle>
+            <CardTitle className="text-lg font-bold text-[#2C2621]">Complementary Degrees</CardTitle>
             <CardDescription className="text-xs text-[#7A7067]">
-              Viable complementary programs
+              Viable complementary programs to consider
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 pt-0">
             {result.alternative_courses.slice(0, 3).map((alt: CourseRecommendation, idx: number) => (
               <div key={idx} className="p-3.5 rounded-2xl border border-[#DFD7CB] bg-[#FAF6F0]/50 space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-[#2C2621]">{alt.course} in {alt.specialization}</span>
+                  <span className="font-bold text-[#2C2621]">{formatProgramTitle(alt.course, alt.specialization)}</span>
                   <Badge className="bg-[#77734B]/15 text-[#77734B] border-0 text-xs font-bold rounded-full px-2 py-0.5">
                     {alt.match_score}%
                   </Badge>
@@ -271,7 +316,48 @@ export default async function StudentCareerProfilePage() {
         </Card>
       </div>
 
-      {/* ─── SECTION 2: 12-DIMENSION CAREER APTITUDE SCORES ─────────────────── */}
+      {/* ─── SECTION 2: TOP 3 RECOMMENDED CAREER DOMAINS ─────────────────────── */}
+      <div className="space-y-4">
+        <div>
+          <h2 className="text-xl font-bold text-[#2C2621]">Top 3 Recommended Career Domains</h2>
+          <p className="text-xs text-[#7A7067]">
+            Ranked by multi-dimensional cognitive aptitude, reasoning, and domain compatibility scoring.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {topDimensions.map((d: DimensionScore, idx: number) => {
+            const rankLabels = ['Rank #1 · Primary Alignment', 'Rank #2 · High Synergy', 'Rank #3 · Complementary Strengths']
+            const badgeStyles = [
+              'bg-[#77734B]/15 text-[#77734B] border-[#77734B]/30',
+              'bg-[#A36B40]/15 text-[#A36B40] border-[#A36B40]/30',
+              'bg-amber-100 text-amber-800 border-amber-300'
+            ]
+
+            return (
+              <Card key={d.dimension_id} className="border-[#DFD7CB] bg-white rounded-3xl p-5 shadow-xs flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Badge variant="outline" className={`text-[10px] font-bold rounded-full px-2.5 py-0.5 ${badgeStyles[idx] || badgeStyles[0]}`}>
+                      {rankLabels[idx]}
+                    </Badge>
+                    <span className="text-sm font-black text-[#A36B40]">{d.normalized_score}%</span>
+                  </div>
+                  <div>
+                    <h3 className="text-base font-extrabold text-[#2C2621]">{d.name}</h3>
+                    <p className="text-xs text-[#7A7067] mt-1 line-clamp-3">{d.definition}</p>
+                  </div>
+                </div>
+                <div className="pt-4">
+                  <Progress value={d.normalized_score} className="h-2 bg-[#FAF6F0]" />
+                </div>
+              </Card>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* ─── SECTION 3: 12-DIMENSION CAREER APTITUDE MATRIX ─────────────────── */}
       <Card className="border-[#DFD7CB] bg-white rounded-3xl shadow-xs">
         <CardHeader>
           <div className="flex items-center justify-between flex-wrap gap-2">

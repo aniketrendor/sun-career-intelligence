@@ -577,6 +577,71 @@ export function getProductionGuardrails(): string[] {
   return dataset.production_guardrails || []
 }
 
+export function getProgramDomainMappings(): ProgramDomainMap[] {
+  return (dataset as any).program_domain_map || []
+}
+
+export function getAllSpecializations(): SpecializationEntity[] {
+  return (dataset as any).specializations || []
+}
+
+export function getProgramSpecializationMappings(): ProgramSpecializationMap[] {
+  return (dataset as any).program_specialization_map || []
+}
+
+export function getSpecializationsForProgram(programId: string): ProgramSpecializationMap[] {
+  const maps = getProgramSpecializationMappings()
+  return maps.filter((m) => m.program_id === programId)
+}
+
+export function getProgramsForDomain(domainId: string): UniversityCourse[] {
+  const pdm = getProgramDomainMappings()
+  const matchingProgramIds = new Set(pdm.filter((m) => m.domain_id === domainId).map((m) => m.program_id))
+  return parsedCourses.filter((c) => matchingProgramIds.has(c.program_id))
+}
+
+export function getMappingReviewAuditReport(): MappingAuditReport {
+  const courses = parsedCourses
+  const pdm = getProgramDomainMappings()
+  const specs = getAllSpecializations()
+  const psm = getProgramSpecializationMappings()
+  const dimensions = dataset.dimensions
+  const validDimIds = new Set(dimensions.map((d) => d.dimension_id))
+  const validProgramIds = new Set(courses.map((c) => c.program_id))
+
+  const mappedProgIds = new Set(pdm.map((m) => m.program_id))
+  const awaitingReviewProgIds = new Set(pdm.filter((m) => m.review_status === 'REVIEW_REQUIRED' || m.review_status === 'PROPOSED').map((m) => m.program_id))
+  const awaitingReviewSpecs = psm.filter((m) => m.review_status === 'REVIEW_REQUIRED' || m.review_status === 'PROPOSED').length
+
+  let invalidOrDuplicateCount = 0
+  const seenPdmKeys = new Set<string>()
+  pdm.forEach((m) => {
+    const key = `${m.program_id}___${m.domain_id}`
+    if (seenPdmKeys.has(key) || !validProgramIds.has(m.program_id) || !validDimIds.has(m.domain_id)) {
+      invalidOrDuplicateCount++
+    }
+    seenPdmKeys.add(key)
+  })
+
+  const genericSpecsCount = courses.filter((c) => {
+    const s = (c.specialization || '').trim().toLowerCase()
+    return !s || s === 'general' || s === 'none' || s === c.course.toLowerCase()
+  }).length
+
+  return {
+    total_distinct_programs: courses.length,
+    programs_mapped_to_domains: mappedProgIds.size,
+    programs_awaiting_domain_review: awaitingReviewProgIds.size,
+    total_program_domain_mappings: pdm.length,
+    total_distinct_specializations: specs.length,
+    total_program_specialization_relationships: psm.length,
+    specializations_awaiting_review: awaitingReviewSpecs,
+    duplicate_or_invalid_mappings: invalidOrDuplicateCount,
+    programs_with_no_specialization_listed: genericSpecsCount,
+    is_complete: courses.length === mappedProgIds.size && invalidOrDuplicateCount === 0,
+  }
+}
+
 /**
  * Data Integrity Validation
  */
@@ -589,6 +654,7 @@ export function validateDatasetIntegrity(): {
   totalMappings: number
   orphanOptions: string[]
   unmappedCourses: string[]
+  mappingAudit: MappingAuditReport
   errors: string[]
 } {
   const errors: string[] = []
@@ -608,15 +674,21 @@ export function validateDatasetIntegrity(): {
     }
   })
 
+  const mappingAudit = getMappingReviewAuditReport()
+  if (!mappingAudit.is_complete) {
+    errors.push(`Mapping audit incomplete: ${mappingAudit.total_distinct_programs - mappingAudit.programs_mapped_to_domains} unmapped programs or ${mappingAudit.duplicate_or_invalid_mappings} invalid mappings found.`)
+  }
+
   return {
     isValid: errors.length === 0,
     totalDimensions: dataset.dimensions.length,
     totalCourses: parsedCourses.length,
     totalQuestions: parsedQuestions.length,
     totalOptions: dataset.answer_options.length,
-    totalMappings: dataset.course_domain_mappings.length,
+    totalMappings: (dataset as any).program_domain_map?.length || dataset.course_domain_mappings.length,
     orphanOptions,
     unmappedCourses,
+    mappingAudit,
     errors,
   }
 }

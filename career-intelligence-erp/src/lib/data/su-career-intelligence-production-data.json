@@ -1087,9 +1087,8 @@
       "notes": "",
       "primary_stream": "Any UG degree",
       "domain_ids": [
-        "ANALYTICS",
         "BUSINESS",
-        "TECHNOLOGY"
+        "ANALYTICS"
       ],
       "active_status": "REVIEW_REQUIRED",
       "eligibility_status": "UNVERIFIED",
@@ -5974,5 +5973,4473 @@
     "Do not use recommendations for admission selection.",
     "Do not present this as a validated psychometric instrument until validity and fairness studies are complete.",
     "Student retains final choice; provide alternatives and mentor support."
+  ],
+  "program_domain_map": [
+    {
+      "program_domain_map_id": "PDM-001",
+      "program_id": "SUN-001",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-002",
+      "program_id": "SUN-001",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-003",
+      "program_id": "SUN-001",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-004",
+      "program_id": "SUN-002",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-005",
+      "program_id": "SUN-002",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-006",
+      "program_id": "SUN-002",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-007",
+      "program_id": "SUN-003",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-008",
+      "program_id": "SUN-003",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-009",
+      "program_id": "SUN-003",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-010",
+      "program_id": "SUN-004",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-011",
+      "program_id": "SUN-004",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-012",
+      "program_id": "SUN-005",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-013",
+      "program_id": "SUN-005",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-014",
+      "program_id": "SUN-005",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-015",
+      "program_id": "SUN-005",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-016",
+      "program_id": "SUN-006",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-017",
+      "program_id": "SUN-006",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-018",
+      "program_id": "SUN-006",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-019",
+      "program_id": "SUN-007",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-020",
+      "program_id": "SUN-007",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-021",
+      "program_id": "SUN-007",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-022",
+      "program_id": "SUN-007",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-023",
+      "program_id": "SUN-008",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-024",
+      "program_id": "SUN-008",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-025",
+      "program_id": "SUN-008",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-026",
+      "program_id": "SUN-008",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-027",
+      "program_id": "SUN-009",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-028",
+      "program_id": "SUN-009",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-029",
+      "program_id": "SUN-009",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-030",
+      "program_id": "SUN-010",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-031",
+      "program_id": "SUN-010",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-032",
+      "program_id": "SUN-011",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-033",
+      "program_id": "SUN-011",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-034",
+      "program_id": "SUN-011",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-035",
+      "program_id": "SUN-012",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-036",
+      "program_id": "SUN-012",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-037",
+      "program_id": "SUN-013",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-038",
+      "program_id": "SUN-014",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-039",
+      "program_id": "SUN-014",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-040",
+      "program_id": "SUN-015",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-041",
+      "program_id": "SUN-015",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-042",
+      "program_id": "SUN-016",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-043",
+      "program_id": "SUN-016",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-044",
+      "program_id": "SUN-016",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-045",
+      "program_id": "SUN-017",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-046",
+      "program_id": "SUN-017",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-047",
+      "program_id": "SUN-018",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-048",
+      "program_id": "SUN-019",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-049",
+      "program_id": "SUN-019",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-050",
+      "program_id": "SUN-019",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Engineering & Technology)"
+    },
+    {
+      "program_domain_map_id": "PDM-051",
+      "program_id": "SUN-020",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-052",
+      "program_id": "SUN-020",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-053",
+      "program_id": "SUN-020",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-054",
+      "program_id": "SUN-021",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-055",
+      "program_id": "SUN-021",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-056",
+      "program_id": "SUN-021",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-057",
+      "program_id": "SUN-021",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-058",
+      "program_id": "SUN-022",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-059",
+      "program_id": "SUN-022",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-060",
+      "program_id": "SUN-022",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-061",
+      "program_id": "SUN-023",
+      "domain_id": "ANALYTICS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes statistical modeling, quantitative analysis, data processing, metrics, or financial modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-062",
+      "program_id": "SUN-023",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-063",
+      "program_id": "SUN-023",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-064",
+      "program_id": "SUN-023",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-065",
+      "program_id": "SUN-024",
+      "domain_id": "ANALYTICS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes statistical modeling, quantitative analysis, data processing, metrics, or financial modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-066",
+      "program_id": "SUN-024",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-067",
+      "program_id": "SUN-024",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-068",
+      "program_id": "SUN-024",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-069",
+      "program_id": "SUN-025",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-070",
+      "program_id": "SUN-025",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-071",
+      "program_id": "SUN-025",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-072",
+      "program_id": "SUN-026",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-073",
+      "program_id": "SUN-026",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-074",
+      "program_id": "SUN-026",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-075",
+      "program_id": "SUN-026",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-076",
+      "program_id": "SUN-027",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-077",
+      "program_id": "SUN-027",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-078",
+      "program_id": "SUN-027",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-079",
+      "program_id": "SUN-028",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-080",
+      "program_id": "SUN-028",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-081",
+      "program_id": "SUN-028",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-082",
+      "program_id": "SUN-029",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-083",
+      "program_id": "SUN-029",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-084",
+      "program_id": "SUN-029",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-085",
+      "program_id": "SUN-030",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-086",
+      "program_id": "SUN-030",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-087",
+      "program_id": "SUN-030",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-088",
+      "program_id": "SUN-031",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-089",
+      "program_id": "SUN-031",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-090",
+      "program_id": "SUN-031",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-091",
+      "program_id": "SUN-032",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-092",
+      "program_id": "SUN-032",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-093",
+      "program_id": "SUN-032",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-094",
+      "program_id": "SUN-032",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-095",
+      "program_id": "SUN-033",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-096",
+      "program_id": "SUN-033",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-097",
+      "program_id": "SUN-033",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-098",
+      "program_id": "SUN-034",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-099",
+      "program_id": "SUN-034",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-100",
+      "program_id": "SUN-034",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-101",
+      "program_id": "SUN-035",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-102",
+      "program_id": "SUN-035",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-103",
+      "program_id": "SUN-035",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Computer Science & Engineering)"
+    },
+    {
+      "program_domain_map_id": "PDM-104",
+      "program_id": "SUN-036",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-105",
+      "program_id": "SUN-037",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-106",
+      "program_id": "SUN-037",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-107",
+      "program_id": "SUN-038",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-108",
+      "program_id": "SUN-038",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-109",
+      "program_id": "SUN-039",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-110",
+      "program_id": "SUN-040",
+      "domain_id": "ANALYTICS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes statistical modeling, quantitative analysis, data processing, metrics, or financial modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-111",
+      "program_id": "SUN-040",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-112",
+      "program_id": "SUN-040",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-113",
+      "program_id": "SUN-041",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-114",
+      "program_id": "SUN-042",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-115",
+      "program_id": "SUN-043",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-116",
+      "program_id": "SUN-043",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-117",
+      "program_id": "SUN-043",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-118",
+      "program_id": "SUN-044",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-119",
+      "program_id": "SUN-045",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-120",
+      "program_id": "SUN-046",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-121",
+      "program_id": "SUN-047",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-122",
+      "program_id": "SUN-047",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-123",
+      "program_id": "SUN-048",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-124",
+      "program_id": "SUN-049",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-125",
+      "program_id": "SUN-049",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-126",
+      "program_id": "SUN-050",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-127",
+      "program_id": "SUN-051",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-128",
+      "program_id": "SUN-052",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-129",
+      "program_id": "SUN-052",
+      "domain_id": "ANALYTICS",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes statistical modeling, quantitative analysis, data processing, metrics, or financial modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-130",
+      "program_id": "SUN-053",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-131",
+      "program_id": "SUN-053",
+      "domain_id": "ANALYTICS",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes statistical modeling, quantitative analysis, data processing, metrics, or financial modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-132",
+      "program_id": "SUN-054",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-133",
+      "program_id": "SUN-054",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-134",
+      "program_id": "SUN-054",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-135",
+      "program_id": "SUN-055",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-136",
+      "program_id": "SUN-055",
+      "domain_id": "ANALYTICS",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes statistical modeling, quantitative analysis, data processing, metrics, or financial modeling.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-137",
+      "program_id": "SUN-056",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-138",
+      "program_id": "SUN-056",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-139",
+      "program_id": "SUN-057",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-140",
+      "program_id": "SUN-058",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-141",
+      "program_id": "SUN-058",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-142",
+      "program_id": "SUN-059",
+      "domain_id": "ANALYTICS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes statistical modeling, quantitative analysis, data processing, metrics, or financial modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-143",
+      "program_id": "SUN-059",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-144",
+      "program_id": "SUN-059",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-145",
+      "program_id": "SUN-060",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-146",
+      "program_id": "SUN-061",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-147",
+      "program_id": "SUN-062",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-148",
+      "program_id": "SUN-062",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-149",
+      "program_id": "SUN-063",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-150",
+      "program_id": "SUN-063",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-151",
+      "program_id": "SUN-063",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-152",
+      "program_id": "SUN-064",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Commerce & Management Studies)"
+    },
+    {
+      "program_domain_map_id": "PDM-153",
+      "program_id": "SUN-065",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-154",
+      "program_id": "SUN-065",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-155",
+      "program_id": "SUN-066",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-156",
+      "program_id": "SUN-066",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-157",
+      "program_id": "SUN-066",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-158",
+      "program_id": "SUN-067",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-159",
+      "program_id": "SUN-067",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-160",
+      "program_id": "SUN-067",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-161",
+      "program_id": "SUN-068",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-162",
+      "program_id": "SUN-068",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-163",
+      "program_id": "SUN-068",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-164",
+      "program_id": "SUN-069",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-165",
+      "program_id": "SUN-069",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-166",
+      "program_id": "SUN-070",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-167",
+      "program_id": "SUN-070",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-168",
+      "program_id": "SUN-070",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Pharmaceutical Sciences)"
+    },
+    {
+      "program_domain_map_id": "PDM-169",
+      "program_id": "SUN-071",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-170",
+      "program_id": "SUN-071",
+      "domain_id": "LAW",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on legal systems, constitutional law, jurisprudence, corporate law, or dispute resolution.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-171",
+      "program_id": "SUN-071",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-172",
+      "program_id": "SUN-071",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-173",
+      "program_id": "SUN-072",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-174",
+      "program_id": "SUN-072",
+      "domain_id": "LAW",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on legal systems, constitutional law, jurisprudence, corporate law, or dispute resolution.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-175",
+      "program_id": "SUN-073",
+      "domain_id": "LAW",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on legal systems, constitutional law, jurisprudence, corporate law, or dispute resolution.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-176",
+      "program_id": "SUN-074",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-177",
+      "program_id": "SUN-074",
+      "domain_id": "LAW",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on legal systems, constitutional law, jurisprudence, corporate law, or dispute resolution.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-178",
+      "program_id": "SUN-074",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-179",
+      "program_id": "SUN-075",
+      "domain_id": "LAW",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on legal systems, constitutional law, jurisprudence, corporate law, or dispute resolution.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-180",
+      "program_id": "SUN-075",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-181",
+      "program_id": "SUN-076",
+      "domain_id": "LAW",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on legal systems, constitutional law, jurisprudence, corporate law, or dispute resolution.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-182",
+      "program_id": "SUN-077",
+      "domain_id": "LAW",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on legal systems, constitutional law, jurisprudence, corporate law, or dispute resolution.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-183",
+      "program_id": "SUN-077",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Law)"
+    },
+    {
+      "program_domain_map_id": "PDM-184",
+      "program_id": "SUN-078",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-185",
+      "program_id": "SUN-079",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-186",
+      "program_id": "SUN-079",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-187",
+      "program_id": "SUN-080",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-188",
+      "program_id": "SUN-080",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-189",
+      "program_id": "SUN-080",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-190",
+      "program_id": "SUN-081",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-191",
+      "program_id": "SUN-082",
+      "domain_id": "ANALYTICS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes statistical modeling, quantitative analysis, data processing, metrics, or financial modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-192",
+      "program_id": "SUN-082",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-193",
+      "program_id": "SUN-082",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-194",
+      "program_id": "SUN-083",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-195",
+      "program_id": "SUN-083",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-196",
+      "program_id": "SUN-083",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-197",
+      "program_id": "SUN-084",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-198",
+      "program_id": "SUN-084",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-199",
+      "program_id": "SUN-084",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-200",
+      "program_id": "SUN-085",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-201",
+      "program_id": "SUN-085",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-202",
+      "program_id": "SUN-086",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-203",
+      "program_id": "SUN-086",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-204",
+      "program_id": "SUN-086",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-205",
+      "program_id": "SUN-087",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-206",
+      "program_id": "SUN-087",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-207",
+      "program_id": "SUN-088",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-208",
+      "program_id": "SUN-088",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-209",
+      "program_id": "SUN-089",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-210",
+      "program_id": "SUN-089",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-211",
+      "program_id": "SUN-090",
+      "domain_id": "ANALYTICS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes statistical modeling, quantitative analysis, data processing, metrics, or financial modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-212",
+      "program_id": "SUN-090",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-213",
+      "program_id": "SUN-090",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-214",
+      "program_id": "SUN-090",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-215",
+      "program_id": "SUN-091",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-216",
+      "program_id": "SUN-091",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Science)"
+    },
+    {
+      "program_domain_map_id": "PDM-217",
+      "program_id": "SUN-092",
+      "domain_id": "DESIGN",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-218",
+      "program_id": "SUN-092",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-219",
+      "program_id": "SUN-093",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-220",
+      "program_id": "SUN-093",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-221",
+      "program_id": "SUN-093",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-222",
+      "program_id": "SUN-094",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-223",
+      "program_id": "SUN-094",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-224",
+      "program_id": "SUN-094",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-225",
+      "program_id": "SUN-095",
+      "domain_id": "DESIGN",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-226",
+      "program_id": "SUN-095",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-227",
+      "program_id": "SUN-095",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-228",
+      "program_id": "SUN-096",
+      "domain_id": "DESIGN",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-229",
+      "program_id": "SUN-097",
+      "domain_id": "DESIGN",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-230",
+      "program_id": "SUN-097",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-231",
+      "program_id": "SUN-098",
+      "domain_id": "DESIGN",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-232",
+      "program_id": "SUN-098",
+      "domain_id": "BUILT_ENV",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with BUILT_ENV competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-233",
+      "program_id": "SUN-099",
+      "domain_id": "DESIGN",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-234",
+      "program_id": "SUN-099",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-235",
+      "program_id": "SUN-100",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-236",
+      "program_id": "SUN-100",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-237",
+      "program_id": "SUN-100",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-238",
+      "program_id": "SUN-101",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-239",
+      "program_id": "SUN-101",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-240",
+      "program_id": "SUN-101",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-241",
+      "program_id": "SUN-102",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-242",
+      "program_id": "SUN-102",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-243",
+      "program_id": "SUN-102",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-244",
+      "program_id": "SUN-103",
+      "domain_id": "DESIGN",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-245",
+      "program_id": "SUN-104",
+      "domain_id": "DESIGN",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-246",
+      "program_id": "SUN-104",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-247",
+      "program_id": "SUN-104",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-248",
+      "program_id": "SUN-105",
+      "domain_id": "TECHNOLOGY",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on software architecture, computing systems, algorithms, cloud, AI, or IT solutions.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-249",
+      "program_id": "SUN-105",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-250",
+      "program_id": "SUN-105",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Design)"
+    },
+    {
+      "program_domain_map_id": "PDM-251",
+      "program_id": "SUN-106",
+      "domain_id": "ENGINEERING",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on engineering design, robotics, electrical/mechanical systems, construction, or technical modeling.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-252",
+      "program_id": "SUN-106",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-253",
+      "program_id": "SUN-106",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-254",
+      "program_id": "SUN-107",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-255",
+      "program_id": "SUN-107",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-256",
+      "program_id": "SUN-107",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-257",
+      "program_id": "SUN-108",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-258",
+      "program_id": "SUN-108",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-259",
+      "program_id": "SUN-108",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-260",
+      "program_id": "SUN-109",
+      "domain_id": "BUSINESS",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum focused on management, business administration, enterprise operations, strategic decision making, or commerce.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-261",
+      "program_id": "SUN-109",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-262",
+      "program_id": "SUN-109",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-263",
+      "program_id": "SUN-110",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-264",
+      "program_id": "SUN-110",
+      "domain_id": "LAW",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on legal systems, constitutional law, jurisprudence, corporate law, or dispute resolution.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-265",
+      "program_id": "SUN-110",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-266",
+      "program_id": "SUN-111",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-267",
+      "program_id": "SUN-111",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-268",
+      "program_id": "SUN-112",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-269",
+      "program_id": "SUN-112",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-270",
+      "program_id": "SUN-113",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-271",
+      "program_id": "SUN-113",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-272",
+      "program_id": "SUN-113",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-273",
+      "program_id": "SUN-113",
+      "domain_id": "COMMUNICATION",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on media, corporate communication, public relations, language, or outreach.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-274",
+      "program_id": "SUN-114",
+      "domain_id": "SCIENCE",
+      "is_primary_domain": true,
+      "mapping_rationale": "Primary domain alignment: Curriculum emphasizes scientific inquiry, mathematics, chemistry, microbiology, biotechnology, or physical sciences.",
+      "confidence_level": "HIGH",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-275",
+      "program_id": "SUN-114",
+      "domain_id": "HEALTH_PHARMA",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on pharmaceutical formulation, pharmacognosy, medical science, or clinical health systems.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-276",
+      "program_id": "SUN-114",
+      "domain_id": "DESIGN",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum centered on visual aesthetics, UI/UX, product design, spatial design, fashion, or creative media.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-277",
+      "program_id": "SUN-114",
+      "domain_id": "PEOPLE",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Curriculum focused on human behavior, personnel management, social structures, community relations, or psychology.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    },
+    {
+      "program_domain_map_id": "PDM-278",
+      "program_id": "SUN-114",
+      "domain_id": "RESEARCH",
+      "is_primary_domain": false,
+      "mapping_rationale": "Secondary synergy: Program aligned with RESEARCH competencies and career pathways.",
+      "confidence_level": "MEDIUM",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Fees Structure 2026-27 (Doctoral)"
+    }
+  ],
+  "specializations": [
+    {
+      "specialization_id": "SPEC-001",
+      "specialization_name": "Aerospace Engineering",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-002",
+      "specialization_name": "Aeronautical Engineering",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-003",
+      "specialization_name": "Civil Engineering",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-004",
+      "specialization_name": "Electrical Engineering",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-005",
+      "specialization_name": "Electronics & Telecommunication Engineering",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-006",
+      "specialization_name": "Mechanical Engineering",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-007",
+      "specialization_name": "Biotechnology",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-008",
+      "specialization_name": "Biomedical Engineering",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-009",
+      "specialization_name": "Planning",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-010",
+      "specialization_name": "Construction Management",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-011",
+      "specialization_name": "Structural Engineering",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-012",
+      "specialization_name": "Transportation Engineering & Planning",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-013",
+      "specialization_name": "Power System",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-014",
+      "specialization_name": "Design Engineering",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-015",
+      "specialization_name": "Mechanical Engineering",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-016",
+      "specialization_name": "Environmental Engineering",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-017",
+      "specialization_name": "Valuation - Land & Building",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-018",
+      "specialization_name": "Electrical Vehicles",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-019",
+      "specialization_name": "Town & Country Planning",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-020",
+      "specialization_name": "Core / General Curriculum",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Standard baseline degree curriculum"
+    },
+    {
+      "specialization_id": "SPEC-021",
+      "specialization_name": "Cloud Technology & Information Security",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-022",
+      "specialization_name": "Cyber Security & Forensic",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-023",
+      "specialization_name": "Artificial Intelligence & Machine Learning",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-024",
+      "specialization_name": "Artificial Intelligence & Data Science",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-025",
+      "specialization_name": "Full Stack Development & Testing with AI & ML",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-026",
+      "specialization_name": "Robotics Process Automation",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-027",
+      "specialization_name": "Artificial Intelligence",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-028",
+      "specialization_name": "Cyber Forensic & Information Security",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-029",
+      "specialization_name": "Virtual & Augmented Reality",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-030",
+      "specialization_name": "Cloud Technology & Information Security",
+      "school": "Computer Science & Engineering",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-031",
+      "specialization_name": "Software Development with AI & ML",
+      "school": "Computer Science & Engineering",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-032",
+      "specialization_name": "Robotics & Process Automation with AI & ML",
+      "school": "Computer Science & Engineering",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-033",
+      "specialization_name": "Core / General Curriculum",
+      "school": "Computer Science & Engineering",
+      "level": "PG",
+      "notes": "Standard baseline degree curriculum"
+    },
+    {
+      "specialization_id": "SPEC-034",
+      "specialization_name": "Financial Management",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-035",
+      "specialization_name": "Marketing Management",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-036",
+      "specialization_name": "Human Resource Management",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-037",
+      "specialization_name": "International Business",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-038",
+      "specialization_name": "Business Analytics",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-039",
+      "specialization_name": "Financial Services",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-040",
+      "specialization_name": "Entrepreneurship",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-041",
+      "specialization_name": "Digital Marketing",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-042",
+      "specialization_name": "International Accounting & Finance, ACCA-UK",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-043",
+      "specialization_name": "Aviation Management",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-044",
+      "specialization_name": "Logistics & Supply Chain Management",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-045",
+      "specialization_name": "Event Management & User Experience",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-046",
+      "specialization_name": "Global Management",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-047",
+      "specialization_name": "Hospitality Management",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-048",
+      "specialization_name": "Accounting & Finance",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-049",
+      "specialization_name": "Costing",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-050",
+      "specialization_name": "Business Analytics",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-051",
+      "specialization_name": "Banking & Financial Services",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-052",
+      "specialization_name": "Human Resource Management",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-053",
+      "specialization_name": "Financial Management",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-054",
+      "specialization_name": "Marketing Management",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-055",
+      "specialization_name": "International Business",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-056",
+      "specialization_name": "Information Technology",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-057",
+      "specialization_name": "Fintech & Data Analytics",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-058",
+      "specialization_name": "Logistics & Supply Chain Management",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-059",
+      "specialization_name": "Entrepreneurship & Startup Management",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-060",
+      "specialization_name": "Artificial Intelligence",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-061",
+      "specialization_name": "Content Strategy",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-062",
+      "specialization_name": "Digital Transformation",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-063",
+      "specialization_name": "Core / General Curriculum",
+      "school": "Pharmaceutical Sciences",
+      "level": "Diploma",
+      "notes": "Standard baseline degree curriculum"
+    },
+    {
+      "specialization_id": "SPEC-064",
+      "specialization_name": "Core / General Curriculum",
+      "school": "Pharmaceutical Sciences",
+      "level": "UG",
+      "notes": "Standard baseline degree curriculum"
+    },
+    {
+      "specialization_id": "SPEC-065",
+      "specialization_name": "Pharmaceutics",
+      "school": "Pharmaceutical Sciences",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-066",
+      "specialization_name": "Pharmacology",
+      "school": "Pharmaceutical Sciences",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-067",
+      "specialization_name": "Pharmaceutical Quality Assurance",
+      "school": "Pharmaceutical Sciences",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-068",
+      "specialization_name": "Industrial Pharmacy",
+      "school": "Pharmaceutical Sciences",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-069",
+      "specialization_name": "Core / General Curriculum",
+      "school": "Law",
+      "level": "UG",
+      "notes": "Standard baseline degree curriculum"
+    },
+    {
+      "specialization_id": "SPEC-070",
+      "specialization_name": "Criminal Law",
+      "school": "Law",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-071",
+      "specialization_name": "Constitutional & Administrative Law",
+      "school": "Law",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-072",
+      "specialization_name": "Corporate & Commercial Law",
+      "school": "Law",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-073",
+      "specialization_name": "Mediation Law",
+      "school": "Law",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-074",
+      "specialization_name": "Wine Technology",
+      "school": "Science",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-075",
+      "specialization_name": "Nanoscience & Nanotechnology",
+      "school": "Science",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-076",
+      "specialization_name": "Microbiology",
+      "school": "Science",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-077",
+      "specialization_name": "Forensic Science",
+      "school": "Science",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-078",
+      "specialization_name": "Computational Mathematics & Data Science",
+      "school": "Science",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-079",
+      "specialization_name": "Chemistry",
+      "school": "Science",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-080",
+      "specialization_name": "Physics",
+      "school": "Science",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-081",
+      "specialization_name": "Forensic Science & Criminology",
+      "school": "Science",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-082",
+      "specialization_name": "Chemistry, Organic/Analytical",
+      "school": "Science",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-083",
+      "specialization_name": "Physics",
+      "school": "Science",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-084",
+      "specialization_name": "Microbiology",
+      "school": "Science",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-085",
+      "specialization_name": "Life Science",
+      "school": "Science",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-086",
+      "specialization_name": "Mathematics",
+      "school": "Science",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-087",
+      "specialization_name": "Forensic Science",
+      "school": "Science",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-088",
+      "specialization_name": "Fashion & Apparel Design",
+      "school": "Design",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-089",
+      "specialization_name": "Beauty Cosmetology",
+      "school": "Design",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-090",
+      "specialization_name": "Interior Design & Decoration",
+      "school": "Design",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-091",
+      "specialization_name": "Communication Design",
+      "school": "Design",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-092",
+      "specialization_name": "Product Design",
+      "school": "Design",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-093",
+      "specialization_name": "Fashion & Lifestyle Design",
+      "school": "Design",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-094",
+      "specialization_name": "Space & Interior Design",
+      "school": "Design",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-095",
+      "specialization_name": "AI & Intelligent Product Media Design",
+      "school": "Design",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-096",
+      "specialization_name": "Immersive Media & Game Design",
+      "school": "Design",
+      "level": "UG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-097",
+      "specialization_name": "Fashion & Apparel Design",
+      "school": "Design",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-098",
+      "specialization_name": "Beauty Cosmetology",
+      "school": "Design",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-099",
+      "specialization_name": "User Experience Design",
+      "school": "Design",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-100",
+      "specialization_name": "Visual Communication Design",
+      "school": "Design",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-101",
+      "specialization_name": "Game Design",
+      "school": "Design",
+      "level": "PG",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-102",
+      "specialization_name": "Engineering & Applications",
+      "school": "Doctoral",
+      "level": "PhD",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-103",
+      "specialization_name": "Pharmacy",
+      "school": "Doctoral",
+      "level": "PhD",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-104",
+      "specialization_name": "Management",
+      "school": "Doctoral",
+      "level": "PhD",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-105",
+      "specialization_name": "Commerce",
+      "school": "Doctoral",
+      "level": "PhD",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-106",
+      "specialization_name": "Law",
+      "school": "Doctoral",
+      "level": "PhD",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-107",
+      "specialization_name": "Sciences",
+      "school": "Doctoral",
+      "level": "PhD",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-108",
+      "specialization_name": "English",
+      "school": "Doctoral",
+      "level": "PhD",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-109",
+      "specialization_name": "Fashion & Apparel Design",
+      "school": "Doctoral",
+      "level": "PhD",
+      "notes": "Industry-focused career track specialization"
+    },
+    {
+      "specialization_id": "SPEC-110",
+      "specialization_name": "Beauty Cosmetology",
+      "school": "Doctoral",
+      "level": "PhD",
+      "notes": "Industry-focused career track specialization"
+    }
+  ],
+  "program_specialization_map": [
+    {
+      "program_specialization_map_id": "PSM-001",
+      "program_id": "SUN-001",
+      "specialization_id": "SPEC-001",
+      "specialization_name": "Aerospace Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-002",
+      "program_id": "SUN-002",
+      "specialization_id": "SPEC-002",
+      "specialization_name": "Aeronautical Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-003",
+      "program_id": "SUN-003",
+      "specialization_id": "SPEC-003",
+      "specialization_name": "Civil Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-004",
+      "program_id": "SUN-004",
+      "specialization_id": "SPEC-004",
+      "specialization_name": "Electrical Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-005",
+      "program_id": "SUN-005",
+      "specialization_id": "SPEC-005",
+      "specialization_name": "Electronics & Telecommunication Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-006",
+      "program_id": "SUN-006",
+      "specialization_id": "SPEC-006",
+      "specialization_name": "Mechanical Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-007",
+      "program_id": "SUN-007",
+      "specialization_id": "SPEC-007",
+      "specialization_name": "Biotechnology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-008",
+      "program_id": "SUN-008",
+      "specialization_id": "SPEC-008",
+      "specialization_name": "Biomedical Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-009",
+      "program_id": "SUN-009",
+      "specialization_id": "SPEC-009",
+      "specialization_name": "Planning",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Plan)"
+    },
+    {
+      "program_specialization_map_id": "PSM-010",
+      "program_id": "SUN-010",
+      "specialization_id": "SPEC-010",
+      "specialization_name": "Construction Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-011",
+      "program_id": "SUN-011",
+      "specialization_id": "SPEC-011",
+      "specialization_name": "Structural Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-012",
+      "program_id": "SUN-012",
+      "specialization_id": "SPEC-012",
+      "specialization_name": "Transportation Engineering & Planning",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-013",
+      "program_id": "SUN-013",
+      "specialization_id": "SPEC-013",
+      "specialization_name": "Power System",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-014",
+      "program_id": "SUN-014",
+      "specialization_id": "SPEC-014",
+      "specialization_name": "Design Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-015",
+      "program_id": "SUN-015",
+      "specialization_id": "SPEC-015",
+      "specialization_name": "Mechanical Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-016",
+      "program_id": "SUN-016",
+      "specialization_id": "SPEC-016",
+      "specialization_name": "Environmental Engineering",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-017",
+      "program_id": "SUN-017",
+      "specialization_id": "SPEC-017",
+      "specialization_name": "Valuation - Land & Building",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-018",
+      "program_id": "SUN-018",
+      "specialization_id": "SPEC-018",
+      "specialization_name": "Electrical Vehicles",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech)"
+    },
+    {
+      "program_specialization_map_id": "PSM-019",
+      "program_id": "SUN-019",
+      "specialization_id": "SPEC-019",
+      "specialization_name": "Town & Country Planning",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Master of Planning)"
+    },
+    {
+      "program_specialization_map_id": "PSM-020",
+      "program_id": "SUN-020",
+      "specialization_id": "SPEC-020",
+      "specialization_name": "Core / General Curriculum",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-021",
+      "program_id": "SUN-021",
+      "specialization_id": "SPEC-021",
+      "specialization_name": "Cloud Technology & Information Security",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-022",
+      "program_id": "SUN-022",
+      "specialization_id": "SPEC-022",
+      "specialization_name": "Cyber Security & Forensic",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-023",
+      "program_id": "SUN-023",
+      "specialization_id": "SPEC-023",
+      "specialization_name": "Artificial Intelligence & Machine Learning",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-024",
+      "program_id": "SUN-024",
+      "specialization_id": "SPEC-024",
+      "specialization_name": "Artificial Intelligence & Data Science",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-025",
+      "program_id": "SUN-025",
+      "specialization_id": "SPEC-025",
+      "specialization_name": "Full Stack Development & Testing with AI & ML",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-026",
+      "program_id": "SUN-026",
+      "specialization_id": "SPEC-026",
+      "specialization_name": "Robotics Process Automation",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-027",
+      "program_id": "SUN-027",
+      "specialization_id": "SPEC-027",
+      "specialization_name": "Artificial Intelligence",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-028",
+      "program_id": "SUN-028",
+      "specialization_id": "SPEC-028",
+      "specialization_name": "Cyber Forensic & Information Security",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-029",
+      "program_id": "SUN-029",
+      "specialization_id": "SPEC-029",
+      "specialization_name": "Virtual & Augmented Reality",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-030",
+      "program_id": "SUN-030",
+      "specialization_id": "SPEC-020",
+      "specialization_name": "Core / General Curriculum",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc Computer Science)"
+    },
+    {
+      "program_specialization_map_id": "PSM-031",
+      "program_id": "SUN-031",
+      "specialization_id": "SPEC-020",
+      "specialization_name": "Core / General Curriculum",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BCA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-032",
+      "program_id": "SUN-032",
+      "specialization_id": "SPEC-030",
+      "specialization_name": "Cloud Technology & Information Security",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-033",
+      "program_id": "SUN-033",
+      "specialization_id": "SPEC-031",
+      "specialization_name": "Software Development with AI & ML",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-034",
+      "program_id": "SUN-034",
+      "specialization_id": "SPEC-032",
+      "specialization_name": "Robotics & Process Automation with AI & ML",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Tech CSE)"
+    },
+    {
+      "program_specialization_map_id": "PSM-035",
+      "program_id": "SUN-035",
+      "specialization_id": "SPEC-033",
+      "specialization_name": "Core / General Curriculum",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MCA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-036",
+      "program_id": "SUN-036",
+      "specialization_id": "SPEC-034",
+      "specialization_name": "Financial Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-037",
+      "program_id": "SUN-037",
+      "specialization_id": "SPEC-035",
+      "specialization_name": "Marketing Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-038",
+      "program_id": "SUN-038",
+      "specialization_id": "SPEC-036",
+      "specialization_name": "Human Resource Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-039",
+      "program_id": "SUN-039",
+      "specialization_id": "SPEC-037",
+      "specialization_name": "International Business",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-040",
+      "program_id": "SUN-040",
+      "specialization_id": "SPEC-038",
+      "specialization_name": "Business Analytics",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-041",
+      "program_id": "SUN-041",
+      "specialization_id": "SPEC-039",
+      "specialization_name": "Financial Services",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA Hons)"
+    },
+    {
+      "program_specialization_map_id": "PSM-042",
+      "program_id": "SUN-042",
+      "specialization_id": "SPEC-040",
+      "specialization_name": "Entrepreneurship",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA Hons)"
+    },
+    {
+      "program_specialization_map_id": "PSM-043",
+      "program_id": "SUN-043",
+      "specialization_id": "SPEC-041",
+      "specialization_name": "Digital Marketing",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-044",
+      "program_id": "SUN-044",
+      "specialization_id": "SPEC-042",
+      "specialization_name": "International Accounting & Finance, ACCA-UK",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-045",
+      "program_id": "SUN-045",
+      "specialization_id": "SPEC-043",
+      "specialization_name": "Aviation Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-046",
+      "program_id": "SUN-046",
+      "specialization_id": "SPEC-044",
+      "specialization_name": "Logistics & Supply Chain Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-047",
+      "program_id": "SUN-047",
+      "specialization_id": "SPEC-045",
+      "specialization_name": "Event Management & User Experience",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-048",
+      "program_id": "SUN-048",
+      "specialization_id": "SPEC-046",
+      "specialization_name": "Global Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-049",
+      "program_id": "SUN-049",
+      "specialization_id": "SPEC-047",
+      "specialization_name": "Hospitality Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (BBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-050",
+      "program_id": "SUN-050",
+      "specialization_id": "SPEC-048",
+      "specialization_name": "Accounting & Finance",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Com)"
+    },
+    {
+      "program_specialization_map_id": "PSM-051",
+      "program_id": "SUN-051",
+      "specialization_id": "SPEC-049",
+      "specialization_name": "Costing",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Com)"
+    },
+    {
+      "program_specialization_map_id": "PSM-052",
+      "program_id": "SUN-052",
+      "specialization_id": "SPEC-050",
+      "specialization_name": "Business Analytics",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (New Age MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-053",
+      "program_id": "SUN-053",
+      "specialization_id": "SPEC-051",
+      "specialization_name": "Banking & Financial Services",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (New Age MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-054",
+      "program_id": "SUN-054",
+      "specialization_id": "SPEC-052",
+      "specialization_name": "Human Resource Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-055",
+      "program_id": "SUN-055",
+      "specialization_id": "SPEC-053",
+      "specialization_name": "Financial Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-056",
+      "program_id": "SUN-056",
+      "specialization_id": "SPEC-054",
+      "specialization_name": "Marketing Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-057",
+      "program_id": "SUN-057",
+      "specialization_id": "SPEC-055",
+      "specialization_name": "International Business",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-058",
+      "program_id": "SUN-058",
+      "specialization_id": "SPEC-056",
+      "specialization_name": "Information Technology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-059",
+      "program_id": "SUN-059",
+      "specialization_id": "SPEC-057",
+      "specialization_name": "Fintech & Data Analytics",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-060",
+      "program_id": "SUN-060",
+      "specialization_id": "SPEC-058",
+      "specialization_name": "Logistics & Supply Chain Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-061",
+      "program_id": "SUN-061",
+      "specialization_id": "SPEC-059",
+      "specialization_name": "Entrepreneurship & Startup Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA)"
+    },
+    {
+      "program_specialization_map_id": "PSM-062",
+      "program_id": "SUN-062",
+      "specialization_id": "SPEC-060",
+      "specialization_name": "Artificial Intelligence",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA 4.0)"
+    },
+    {
+      "program_specialization_map_id": "PSM-063",
+      "program_id": "SUN-063",
+      "specialization_id": "SPEC-061",
+      "specialization_name": "Content Strategy",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA 4.0)"
+    },
+    {
+      "program_specialization_map_id": "PSM-064",
+      "program_id": "SUN-064",
+      "specialization_id": "SPEC-062",
+      "specialization_name": "Digital Transformation",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (MBA 4.0)"
+    },
+    {
+      "program_specialization_map_id": "PSM-065",
+      "program_id": "SUN-065",
+      "specialization_id": "SPEC-063",
+      "specialization_name": "Core / General Curriculum",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (D.Pharm)"
+    },
+    {
+      "program_specialization_map_id": "PSM-066",
+      "program_id": "SUN-066",
+      "specialization_id": "SPEC-064",
+      "specialization_name": "Core / General Curriculum",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Pharm)"
+    },
+    {
+      "program_specialization_map_id": "PSM-067",
+      "program_id": "SUN-067",
+      "specialization_id": "SPEC-065",
+      "specialization_name": "Pharmaceutics",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Pharm)"
+    },
+    {
+      "program_specialization_map_id": "PSM-068",
+      "program_id": "SUN-068",
+      "specialization_id": "SPEC-066",
+      "specialization_name": "Pharmacology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Pharm)"
+    },
+    {
+      "program_specialization_map_id": "PSM-069",
+      "program_id": "SUN-069",
+      "specialization_id": "SPEC-067",
+      "specialization_name": "Pharmaceutical Quality Assurance",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Pharm)"
+    },
+    {
+      "program_specialization_map_id": "PSM-070",
+      "program_id": "SUN-070",
+      "specialization_id": "SPEC-068",
+      "specialization_name": "Industrial Pharmacy",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Pharm)"
+    },
+    {
+      "program_specialization_map_id": "PSM-071",
+      "program_id": "SUN-071",
+      "specialization_id": "SPEC-069",
+      "specialization_name": "Core / General Curriculum",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.A. LL.B. (Hons.))"
+    },
+    {
+      "program_specialization_map_id": "PSM-072",
+      "program_id": "SUN-072",
+      "specialization_id": "SPEC-069",
+      "specialization_name": "Core / General Curriculum",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.B.A. LL.B. (Hons.))"
+    },
+    {
+      "program_specialization_map_id": "PSM-073",
+      "program_id": "SUN-073",
+      "specialization_id": "SPEC-069",
+      "specialization_name": "Core / General Curriculum",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (LL.B. (Hons.))"
+    },
+    {
+      "program_specialization_map_id": "PSM-074",
+      "program_id": "SUN-074",
+      "specialization_id": "SPEC-070",
+      "specialization_name": "Criminal Law",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (LL.M.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-075",
+      "program_id": "SUN-075",
+      "specialization_id": "SPEC-071",
+      "specialization_name": "Constitutional & Administrative Law",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (LL.M.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-076",
+      "program_id": "SUN-076",
+      "specialization_id": "SPEC-072",
+      "specialization_name": "Corporate & Commercial Law",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (LL.M.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-077",
+      "program_id": "SUN-077",
+      "specialization_id": "SPEC-073",
+      "specialization_name": "Mediation Law",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (LL.M.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-078",
+      "program_id": "SUN-078",
+      "specialization_id": "SPEC-074",
+      "specialization_name": "Wine Technology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-079",
+      "program_id": "SUN-079",
+      "specialization_id": "SPEC-075",
+      "specialization_name": "Nanoscience & Nanotechnology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-080",
+      "program_id": "SUN-080",
+      "specialization_id": "SPEC-076",
+      "specialization_name": "Microbiology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-081",
+      "program_id": "SUN-081",
+      "specialization_id": "SPEC-077",
+      "specialization_name": "Forensic Science",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-082",
+      "program_id": "SUN-082",
+      "specialization_id": "SPEC-078",
+      "specialization_name": "Computational Mathematics & Data Science",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-083",
+      "program_id": "SUN-083",
+      "specialization_id": "SPEC-079",
+      "specialization_name": "Chemistry",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-084",
+      "program_id": "SUN-084",
+      "specialization_id": "SPEC-080",
+      "specialization_name": "Physics",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-085",
+      "program_id": "SUN-085",
+      "specialization_id": "SPEC-081",
+      "specialization_name": "Forensic Science & Criminology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-086",
+      "program_id": "SUN-086",
+      "specialization_id": "SPEC-082",
+      "specialization_name": "Chemistry, Organic/Analytical",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-087",
+      "program_id": "SUN-087",
+      "specialization_id": "SPEC-083",
+      "specialization_name": "Physics",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-088",
+      "program_id": "SUN-088",
+      "specialization_id": "SPEC-084",
+      "specialization_name": "Microbiology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-089",
+      "program_id": "SUN-089",
+      "specialization_id": "SPEC-085",
+      "specialization_name": "Life Science",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-090",
+      "program_id": "SUN-090",
+      "specialization_id": "SPEC-086",
+      "specialization_name": "Mathematics",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-091",
+      "program_id": "SUN-091",
+      "specialization_id": "SPEC-087",
+      "specialization_name": "Forensic Science",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-092",
+      "program_id": "SUN-092",
+      "specialization_id": "SPEC-088",
+      "specialization_name": "Fashion & Apparel Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-093",
+      "program_id": "SUN-093",
+      "specialization_id": "SPEC-089",
+      "specialization_name": "Beauty Cosmetology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-094",
+      "program_id": "SUN-094",
+      "specialization_id": "SPEC-090",
+      "specialization_name": "Interior Design & Decoration",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-095",
+      "program_id": "SUN-095",
+      "specialization_id": "SPEC-091",
+      "specialization_name": "Communication Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Des)"
+    },
+    {
+      "program_specialization_map_id": "PSM-096",
+      "program_id": "SUN-096",
+      "specialization_id": "SPEC-092",
+      "specialization_name": "Product Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Des)"
+    },
+    {
+      "program_specialization_map_id": "PSM-097",
+      "program_id": "SUN-097",
+      "specialization_id": "SPEC-093",
+      "specialization_name": "Fashion & Lifestyle Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Des)"
+    },
+    {
+      "program_specialization_map_id": "PSM-098",
+      "program_id": "SUN-098",
+      "specialization_id": "SPEC-094",
+      "specialization_name": "Space & Interior Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Des)"
+    },
+    {
+      "program_specialization_map_id": "PSM-099",
+      "program_id": "SUN-099",
+      "specialization_id": "SPEC-095",
+      "specialization_name": "AI & Intelligent Product Media Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Des)"
+    },
+    {
+      "program_specialization_map_id": "PSM-100",
+      "program_id": "SUN-100",
+      "specialization_id": "SPEC-096",
+      "specialization_name": "Immersive Media & Game Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (B.Des)"
+    },
+    {
+      "program_specialization_map_id": "PSM-101",
+      "program_id": "SUN-101",
+      "specialization_id": "SPEC-097",
+      "specialization_name": "Fashion & Apparel Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-102",
+      "program_id": "SUN-102",
+      "specialization_id": "SPEC-098",
+      "specialization_name": "Beauty Cosmetology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Sc)"
+    },
+    {
+      "program_specialization_map_id": "PSM-103",
+      "program_id": "SUN-103",
+      "specialization_id": "SPEC-099",
+      "specialization_name": "User Experience Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Des)"
+    },
+    {
+      "program_specialization_map_id": "PSM-104",
+      "program_id": "SUN-104",
+      "specialization_id": "SPEC-100",
+      "specialization_name": "Visual Communication Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Des)"
+    },
+    {
+      "program_specialization_map_id": "PSM-105",
+      "program_id": "SUN-105",
+      "specialization_id": "SPEC-101",
+      "specialization_name": "Game Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (M.Des)"
+    },
+    {
+      "program_specialization_map_id": "PSM-106",
+      "program_id": "SUN-106",
+      "specialization_id": "SPEC-102",
+      "specialization_name": "Engineering & Applications",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Ph.D.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-107",
+      "program_id": "SUN-107",
+      "specialization_id": "SPEC-103",
+      "specialization_name": "Pharmacy",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Ph.D.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-108",
+      "program_id": "SUN-108",
+      "specialization_id": "SPEC-104",
+      "specialization_name": "Management",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Ph.D.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-109",
+      "program_id": "SUN-109",
+      "specialization_id": "SPEC-105",
+      "specialization_name": "Commerce",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Ph.D.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-110",
+      "program_id": "SUN-110",
+      "specialization_id": "SPEC-106",
+      "specialization_name": "Law",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Ph.D.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-111",
+      "program_id": "SUN-111",
+      "specialization_id": "SPEC-107",
+      "specialization_name": "Sciences",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Ph.D.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-112",
+      "program_id": "SUN-112",
+      "specialization_id": "SPEC-108",
+      "specialization_name": "English",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Ph.D.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-113",
+      "program_id": "SUN-113",
+      "specialization_id": "SPEC-109",
+      "specialization_name": "Fashion & Apparel Design",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Ph.D.)"
+    },
+    {
+      "program_specialization_map_id": "PSM-114",
+      "program_id": "SUN-114",
+      "specialization_id": "SPEC-110",
+      "specialization_name": "Beauty Cosmetology",
+      "review_status": "APPROVED",
+      "source_reference": "Sandip University Course Matrix 2026-27 (Ph.D.)"
+    }
   ]
 }

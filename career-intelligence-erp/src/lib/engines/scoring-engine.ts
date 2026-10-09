@@ -252,12 +252,31 @@ export function processAssessmentResponses(
     }
   })
 
-  // Sort: Verified Eligible first, then by match score descending, then modern specialized programs over generic 'General'
+  // Sort: Eligible programs first by match score descending, prioritizing primary domain matches and specialized programs over generic 'General'
   recommendedCourses.sort((a, b) => {
-    if (a.eligibility.status === 'VERIFIED_ELIGIBLE' && b.eligibility.status !== 'VERIFIED_ELIGIBLE') return -1
-    if (b.eligibility.status === 'VERIFIED_ELIGIBLE' && a.eligibility.status !== 'VERIFIED_ELIGIBLE') return 1
+    // 1. Ineligible programs go to the very bottom
+    const aIneligible = a.eligibility.status === 'INELIGIBLE' ? 1 : 0
+    const bIneligible = b.eligibility.status === 'INELIGIBLE' ? 1 : 0
+    if (aIneligible !== bIneligible) return aIneligible - bIneligible
+
+    // 2. Sort by match score descending
     if (b.match_score !== a.match_score) return b.match_score - a.match_score
 
+    // 3. Prioritize courses matching candidate's #1 top domain
+    const top1 = topDimensions[0]?.dimension_id
+    const aCourseDef = allCourses.find((c) => c.program_id === a.program_id)
+    const bCourseDef = allCourses.find((c) => c.program_id === b.program_id)
+    const aHasTop1 = top1 && (aCourseDef?.domain_ids || []).includes(top1) ? 1 : 0
+    const bHasTop1 = top1 && (bCourseDef?.domain_ids || []).includes(top1) ? 1 : 0
+    if (bHasTop1 !== aHasTop1) return bHasTop1 - aHasTop1
+
+    // 4. Prioritize courses matching candidate's #2 top domain
+    const top2 = topDimensions[1]?.dimension_id
+    const aHasTop2 = top2 && (aCourseDef?.domain_ids || []).includes(top2) ? 1 : 0
+    const bHasTop2 = top2 && (bCourseDef?.domain_ids || []).includes(top2) ? 1 : 0
+    if (bHasTop2 !== aHasTop2) return bHasTop2 - aHasTop2
+
+    // 5. Prefer specialized courses over generic 'General'
     const aIsGeneral = (a.specialization || '').toLowerCase() === 'general' || (a.specialization || '').toLowerCase() === (a.course || '').toLowerCase() ? 1 : 0
     const bIsGeneral = (b.specialization || '').toLowerCase() === 'general' || (b.specialization || '').toLowerCase() === (b.course || '').toLowerCase() ? 1 : 0
     return aIsGeneral - bIsGeneral
