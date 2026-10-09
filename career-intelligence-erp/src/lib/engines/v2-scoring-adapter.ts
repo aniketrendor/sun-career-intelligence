@@ -8,6 +8,10 @@ import {
   MASTER_QB_V2,
 } from './v2-qb-loader'
 import {
+  getCustomL1Question,
+  type StudentProfileContext,
+} from './v2-hierarchical-router'
+import {
   SANDIP_MASTER_PROGRAMS,
   type SandipProgram,
 } from '@/lib/services/sandip-catalog'
@@ -19,7 +23,6 @@ import type {
   V2AssessmentResult,
   ProgramEvidenceScore,
 } from '@/lib/types/qb-v2.types'
-import type { StudentProfileContext } from './v2-hierarchical-router'
 
 // Domain mapping to 12 Core Cognitive & Behavioral Traits
 const DOMAIN_TO_TRAITS: Record<string, Record<string, number>> = {
@@ -93,7 +96,7 @@ export function processV2Assessment(
 
   // Process each response
   responses.forEach((resp) => {
-    const q = getQuestionById(resp.questionId) || MASTER_QB_V2.differentiators.find((d) => d.id === resp.questionId)
+    const q = getCustomL1Question(resp.questionId) || getQuestionById(resp.questionId) || MASTER_QB_V2.differentiators.find((d) => d.id === resp.questionId)
     if (!q) return
 
     // 1. Handle Ranking question responses
