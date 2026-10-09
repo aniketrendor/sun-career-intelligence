@@ -9,6 +9,8 @@ import {
   runRecommendationEngine,
   generateCareerIntelligenceReport,
   CAREER_DIMENSIONS,
+  executeUnifiedAssessment,
+  isShadowModeEnabled,
 } from '@/lib/engines'
 
 export type ActionResult<T = unknown> = {
@@ -380,6 +382,27 @@ export async function submitAndScoreAssessment(
 
   // 7. Auto-generate skill gaps for top role in primary domain
   await generateSkillGaps(profile.id, attemptId, primaryDbDomain, adminClient)
+
+  // 8. Execute Shadow Mode Telemetry (if enabled) without altering student result
+  if (isShadowModeEnabled()) {
+    try {
+      const shadowExec = executeUnifiedAssessment({
+        legacyResponses: formattedResponses,
+        v2Responses: formattedResponses.map(r => ({
+          questionId: r.questionId,
+          selectedOptionId: r.selectedOptionId,
+        })),
+        profile: {
+          academicLevel: isPG ? 'PG' : 'UG',
+          level: isPG ? 'PG' : 'UG',
+        },
+        forceShadow: true,
+      })
+      console.log('[SHADOW MODE] V1 vs V2 Comparison Diagnostics:', shadowExec.shadowDiagnostics)
+    } catch (shadowErr) {
+      console.warn('[SHADOW MODE] Diagnostic computation warning:', shadowErr)
+    }
+  }
 
   // Audit log
   await adminClient.from('audit_logs').insert({
