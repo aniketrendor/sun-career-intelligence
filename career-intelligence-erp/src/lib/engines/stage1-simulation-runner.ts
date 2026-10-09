@@ -263,7 +263,7 @@ export function runComprehensiveValidation(): {
 }
 
 // Execution entry point
-if (typeof require !== 'undefined' && require.main === module) {
+if (typeof module !== 'undefined' && typeof require !== 'undefined' && require.main === module) {
   const output = runComprehensiveValidation()
   console.log('=== STAGE 1 CAREER INTELLIGENCE VALIDATION RESULTS ===')
   output.results.forEach((r) => {
