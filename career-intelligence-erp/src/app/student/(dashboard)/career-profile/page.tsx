@@ -11,14 +11,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import {
-  processAssessmentResponses,
-  type StudentAnswer,
-  type StudentProfileContext,
-  type AcademicDegreeLevel,
-  type CourseRecommendation,
-  type DimensionScore,
-} from '@/lib/engines'
+import { processAssessmentResponses } from '@/lib/engines/index'
+import type {
+  StudentAnswer,
+  StudentProfileContext,
+  AcademicDegreeLevel,
+  CourseRecommendation,
+  DimensionScore,
+} from '@/lib/types/assessment-v3.types'
 
 export const dynamic = 'force-dynamic'
 

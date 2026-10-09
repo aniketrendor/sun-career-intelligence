@@ -22,13 +22,15 @@ import {
   ASSESSMENT_LEVEL_CONFIGS,
   processAssessmentResponses,
   validateAnswerForQuestion,
-  type AssessmentQuestion,
-  type AnswerOption,
-  type DimensionScore,
-  type StudentAnswer,
-  type StudentProfileContext,
-  type AcademicDegreeLevel,
-} from '@/lib/engines'
+} from '@/lib/engines/index'
+import type {
+  AssessmentQuestion,
+  AnswerOption,
+  DimensionScore,
+  StudentAnswer,
+  StudentProfileContext,
+  AcademicDegreeLevel,
+} from '@/lib/types/assessment-v3.types'
 
 export interface AdaptiveAssessmentCockpitProps {
   referralCode?: string

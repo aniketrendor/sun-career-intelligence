@@ -19,9 +19,11 @@ import {
   getAllCourses,
   getAllDimensions,
   getCourseById,
-  type UniversityCourse,
-  type AssessmentDimension,
-} from '@/lib/engines'
+} from '@/lib/engines/index'
+import type {
+  UniversityCourse,
+  AssessmentDimension,
+} from '@/lib/types/assessment-v3.types'
 
 const ADMISSION_URL = 'https://admission.sandipuniversity.edu.in/'
 

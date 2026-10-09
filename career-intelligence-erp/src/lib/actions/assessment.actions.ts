@@ -4,12 +4,12 @@ import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import type { TraitScore, DomainScore } from '@/lib/types'
 
-import {
-  processAssessmentResponses,
-  type StudentAnswer,
-  type StudentProfileContext,
-  type DimensionScore,
-} from '@/lib/engines'
+import { processAssessmentResponses } from '@/lib/engines/index'
+import type {
+  StudentAnswer,
+  StudentProfileContext,
+  DimensionScore,
+} from '@/lib/types/assessment-v3.types'
 
 export type ActionResult<T = unknown> = {
   success: boolean
