@@ -76,15 +76,17 @@ export default async function AssessmentPage(props: {
       (selectedTrack === 'UG' ? 'Undergraduate Program' : 'Postgraduate Program')
 
     return (
-      <AdaptiveAssessmentCockpit
-        candidateName={activeProfile.full_name || 'Student'}
-        candidateEmail={activeProfile.email || ''}
-        candidatePhone={studentProfile?.phone || activeProfile.phone || ''}
-        academicLevel={selectedTrack}
-        college={studentProfile?.institution || 'Sandip University'}
-        qualification={progName}
-        referralCode="SUN-FRESHERS-2026"
-      />
+      <div className="-mt-2 sm:-mt-4 md:-mt-6 lg:-mt-7 -mx-1 sm:-mx-3 md:-mx-4 lg:-mx-6 pb-2">
+        <AdaptiveAssessmentCockpit
+          candidateName={activeProfile.full_name || 'Student'}
+          candidateEmail={activeProfile.email || ''}
+          candidatePhone={studentProfile?.phone || activeProfile.phone || ''}
+          academicLevel={selectedTrack}
+          college={studentProfile?.institution || 'Sandip University'}
+          qualification={progName}
+          referralCode="SUN-FRESHERS-2026"
+        />
+      </div>
     )
   }
 

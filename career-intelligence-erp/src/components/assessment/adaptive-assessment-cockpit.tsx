@@ -533,39 +533,39 @@ export function AdaptiveAssessmentCockpit({
   const currentOptions = v2Active ? currentQV2?.options || [] : currentQV1?.options || []
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-amber-500 selection:text-black">
-      {/* ─── TOP APP HEADER ─── */}
-      <header className="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 lg:px-8 py-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold">
-            <Brain className="w-5 h-5" />
+    <div className="w-full max-w-6xl mx-auto flex flex-col gap-2 font-sans text-slate-100 selection:bg-amber-500 selection:text-black">
+      {/* ─── COMPACT TOP BAR ─── */}
+      <div className="bg-[#1C1814] border border-[#383129] rounded-xl px-3.5 py-1.5 flex items-center justify-between shadow-md shrink-0">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold shrink-0">
+            <Brain className="w-3.5 h-3.5" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold tracking-tight text-white">Sandip Career Intelligence Assessment</span>
-              <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-amber-500/30 text-amber-400 bg-amber-500/10">
-                {v2Active ? 'QB V2 (891 Bank)' : 'Stage 1 Adaptive'}
+            <div className="flex items-center gap-1.5">
+              <span className="text-xs sm:text-[13px] font-bold text-white tracking-tight leading-tight">Career Diagnostic Cockpit</span>
+              <Badge variant="outline" className="text-[8.5px] px-1.5 py-0 border-amber-500/30 text-amber-400 bg-amber-500/10 h-4">
+                {v2Active ? '891 QB V2' : 'Adaptive'}
               </Badge>
               {v2Active && currentQV2?.level && (
-                <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-blue-500/30 text-blue-400 bg-blue-500/10">
+                <Badge variant="outline" className="text-[8.5px] px-1.5 py-0 border-blue-500/30 text-blue-400 bg-blue-500/10 h-4">
                   {currentQV2.level === 'DIFF' ? 'Tie-Breaker' : currentQV2.level}
                 </Badge>
               )}
             </div>
-            <p className="text-xs text-slate-400">
-              Candidate: <span className="text-slate-200 font-medium">{candidateName}</span> ({academicLevel} Track)
+            <p className="text-[10px] text-slate-400 leading-tight">
+              <span className="text-slate-200 font-medium">{candidateName}</span> · {academicLevel} Track
             </p>
           </div>
         </div>
 
         {/* Progress summary & Exit button */}
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex flex-col items-end gap-1">
-            <div className="flex items-center gap-2 text-xs text-slate-300 font-medium">
-              <span>Question {currentIndex + 1} of 30</span>
-              <span className="text-amber-400 font-bold">({progressPercent}%)</span>
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col items-end gap-0.5">
+            <div className="flex items-center gap-1 text-[11px] text-slate-300 font-medium">
+              <span>Question <span className="text-amber-400 font-bold">{currentIndex + 1}</span>/30</span>
+              <span className="text-slate-400 text-[9px]">({progressPercent}%)</span>
             </div>
-            <div className="w-40 h-1.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/50">
+            <div className="w-24 sm:w-32 h-1.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/50">
               <div
                 className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300"
                 style={{ width: `${progressPercent}%` }}
@@ -577,35 +577,34 @@ export function AdaptiveAssessmentCockpit({
             variant="ghost"
             size="sm"
             onClick={() => setIsExitConfirmOpen(true)}
-            className="text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-slate-800"
+            className="h-7 px-2 text-[11px] text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-slate-800 rounded-lg cursor-pointer"
           >
-            <LogOut className="w-4 h-4 mr-1.5" />
-            Exit
+            <LogOut className="w-3 h-3 mr-1" />
+            <span>Exit</span>
           </Button>
         </div>
-      </header>
+      </div>
 
-      {/* ─── SECTION STAGE STEPPER (5 LEVELS) ─── */}
-      <div className="bg-slate-900/40 border-b border-slate-800/80 px-4 lg:px-8 py-2.5 overflow-x-auto">
-        <div className="max-w-6xl mx-auto flex items-center justify-between min-w-[650px] gap-2">
-          {SECTION_CONFIGS.map((sec, idx) => {
+      {/* ─── SLIM 5-LEVEL STEPPER ─── */}
+      <div className="bg-[#1C1814]/90 border border-[#383129] rounded-xl px-2.5 py-1 shadow-xs shrink-0 overflow-x-auto">
+        <div className="flex items-center justify-between gap-1.5 min-w-[500px]">
+          {SECTION_CONFIGS.map((sec) => {
             const isCurrent = sec.index === currentSection.index
             const isCompleted = currentIndex >= sec.range[1]
-            const isPast = currentIndex >= sec.range[0] - 1
 
             return (
               <div
                 key={sec.index}
-                className={`flex-1 flex items-center gap-2.5 px-3 py-1.5 rounded-lg border transition-all ${
+                className={`flex-1 flex items-center gap-1.5 px-2 py-0.5 rounded-lg border transition-all ${
                   isCurrent
-                    ? 'bg-amber-500/10 border-amber-500/40 text-amber-300 shadow-sm shadow-amber-500/10'
+                    ? 'bg-amber-500/15 border-amber-500/50 text-amber-300 shadow-xs'
                     : isCompleted
-                    ? 'bg-slate-900 border-emerald-500/30 text-emerald-400'
-                    : 'bg-slate-900/40 border-slate-800 text-slate-500'
+                    ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-400'
+                    : 'bg-slate-900/40 border-slate-800/80 text-slate-500'
                 }`}
               >
                 <div
-                  className={`w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold shrink-0 ${
+                  className={`w-4.5 h-4.5 rounded-md flex items-center justify-center text-[9px] font-bold shrink-0 ${
                     isCurrent
                       ? 'bg-amber-500 text-black'
                       : isCompleted
@@ -613,11 +612,11 @@ export function AdaptiveAssessmentCockpit({
                       : 'bg-slate-800 text-slate-400'
                   }`}
                 >
-                  {isCompleted ? <Check className="w-3.5 h-3.5" /> : sec.index}
+                  {isCompleted ? <Check className="w-2.5 h-2.5" /> : sec.index}
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs font-medium truncate">{sec.shortTitle}</div>
-                  <div className="text-[10px] text-slate-500">6 Questions</div>
+                  <div className="text-[10px] font-semibold truncate leading-tight">{sec.shortTitle}</div>
+                  <div className="text-[8.5px] text-slate-400 leading-tight">6 Questions</div>
                 </div>
               </div>
             )
@@ -625,43 +624,46 @@ export function AdaptiveAssessmentCockpit({
         </div>
       </div>
 
-      {/* ─── MAIN COCKPIT VIEWPORT ─── */}
-      <div className="flex-1 max-w-6xl w-full mx-auto p-4 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      {/* ─── MAIN TWO-COLUMN VIEWPORT (ZERO SCROLL) ─── */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 items-stretch flex-1">
         {/* Left Column: Adaptive Question Card (8 Cols) */}
-        <div className="lg:col-span-8 space-y-4">
-          <Card className="bg-slate-900 border-slate-800 text-slate-100 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600" />
-            
-            <CardHeader className="pb-3 border-b border-slate-800/80">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="bg-slate-800 border-slate-700 text-slate-300 text-xs">
+        <div className="lg:col-span-8 flex flex-col">
+          <Card className="bg-[#1C1814] border-[#383129] text-slate-100 shadow-xl relative overflow-hidden flex flex-col justify-between flex-1 rounded-xl">
+            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600" />
+
+            <div className="p-3 sm:p-3.5 pb-2 border-b border-[#383129]/80 space-y-1.5">
+              <div className="flex items-center justify-between flex-wrap gap-1.5">
+                <div className="flex items-center gap-1.5">
+                  <Badge variant="outline" className="bg-slate-800 border-slate-700 text-slate-300 text-[9.5px] px-1.5 py-0 h-4.5">
                     Question {currentIndex + 1} of 30
                   </Badge>
-                  <Badge variant="outline" className="bg-amber-500/10 border-amber-500/30 text-amber-400 text-xs">
+                  <Badge variant="outline" className="bg-amber-500/10 border-amber-500/30 text-amber-400 text-[9.5px] px-1.5 py-0 h-4.5">
                     Level {currentSection.level}: {qNumInCurrentSection} of 6
                   </Badge>
                   {isMultiSelect && (
-                    <Badge variant="outline" className="bg-purple-500/10 border-purple-500/30 text-purple-400 text-xs flex items-center gap-1">
-                      <CheckSquare className="w-3 h-3" /> Multi-Select
+                    <Badge variant="outline" className="bg-purple-500/10 border-purple-500/30 text-purple-400 text-[9.5px] px-1.5 py-0 h-4.5 flex items-center gap-1">
+                      <CheckSquare className="w-2.5 h-2.5" /> Multi-Select
                     </Badge>
                   )}
                 </div>
-                <span className="text-xs text-slate-400 flex items-center gap-1">
-                  <Keyboard className="w-3.5 h-3.5" /> Use keys 1–4 or A–D
+                <span className="text-[9.5px] text-slate-400 flex items-center gap-1">
+                  <Keyboard className="w-2.5 h-2.5" /> Keys 1–4 or A–D
                 </span>
               </div>
-              <CardTitle className="text-base lg:text-lg font-semibold text-white pt-2 leading-relaxed">
-                {currentQText}
-              </CardTitle>
-              {isMultiSelect && (
-                <CardDescription className="text-xs text-purple-300/80 flex items-center gap-1 pt-1">
-                  <Info className="w-3.5 h-3.5" /> Select all options that match your interests or background.
-                </CardDescription>
-              )}
-            </CardHeader>
 
-            <CardContent className="pt-5 space-y-3">
+              <h2 className="text-[13px] sm:text-[15px] font-bold text-white leading-snug">
+                {currentQText}
+              </h2>
+
+              {isMultiSelect && (
+                <p className="text-[10px] text-purple-300/90 flex items-center gap-1">
+                  <Info className="w-2.5 h-2.5" /> Select all options that match your interests or background.
+                </p>
+              )}
+            </div>
+
+            {/* Options List (Compact & Touch-Friendly) */}
+            <div className="p-3 sm:p-3.5 pt-2 space-y-1.5 flex-1 flex flex-col justify-center">
               {currentOptions.map((opt: any, idx: number) => {
                 const letter = String.fromCharCode(65 + idx)
                 const isSelected = currentSelectedOptionIds.includes(opt.id)
@@ -671,142 +673,137 @@ export function AdaptiveAssessmentCockpit({
                   <button
                     key={opt.id}
                     onClick={() => handleSelectOption(opt.id)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 group relative ${
+                    className={`w-full text-left p-2 sm:p-2.5 rounded-xl border transition-all flex items-start gap-2.5 group relative cursor-pointer ${
                       isSelected
-                        ? 'bg-amber-500/15 border-amber-500/60 text-white shadow-md shadow-amber-500/10'
-                        : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40 text-slate-300'
+                        ? 'bg-amber-500/20 border-amber-500/80 text-white shadow-xs shadow-amber-500/10'
+                        : 'bg-slate-900/70 border-[#383129] hover:border-slate-600 hover:bg-slate-800/40 text-slate-200'
                     }`}
                   >
                     <div
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 transition-colors ${
+                      className={`w-5 h-5 rounded-md flex items-center justify-center font-bold text-[10px] shrink-0 transition-colors ${
                         isSelected
                           ? 'bg-amber-500 text-black'
-                          : 'bg-slate-800 border border-slate-700 text-slate-400 group-hover:text-slate-200 group-hover:border-slate-600'
+                          : 'bg-slate-800 border border-slate-700 text-slate-400 group-hover:text-slate-200'
                       }`}
                     >
-                      {isMultiSelect ? (
-                        isSelected ? <Check className="w-4 h-4" /> : letter
-                      ) : (
-                        isSelected ? <Check className="w-4 h-4" /> : letter
-                      )}
+                      {isSelected ? <Check className="w-3 h-3" /> : letter}
                     </div>
-                    <div className="flex-1 text-sm leading-snug pt-0.5">
+                    <div className="flex-1 text-xs sm:text-[12.5px] leading-tight pt-0.5">
                       {optText}
                     </div>
                   </button>
                 )
               })}
+            </div>
 
-              {/* Navigation Actions */}
-              <div className="pt-4 flex items-center justify-between border-t border-slate-800/80">
-                <Button
-                  variant="outline"
-                  onClick={handlePrev}
-                  disabled={currentIndex === 0}
-                  className="border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800"
-                >
-                  <ArrowLeft className="w-4 h-4 mr-1.5" /> Previous
-                </Button>
+            {/* Bottom Actions Bar */}
+            <div className="p-2.5 sm:p-3 pt-2 border-t border-[#383129]/80 flex items-center justify-between">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handlePrev}
+                disabled={currentIndex === 0}
+                className="h-8 px-2.5 text-xs border-[#383129] bg-slate-900/60 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg cursor-pointer"
+              >
+                <ArrowLeft className="w-3 h-3 mr-1" /> Previous
+              </Button>
 
-                <div className="flex items-center gap-2">
-                  {currentIndex === 29 ? (
-                    <Button
-                      onClick={handleFinishAssessment}
-                      disabled={isSubmitting || currentSelectedOptionIds.length === 0}
-                      className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-black font-semibold shadow-lg shadow-emerald-500/20"
-                    >
-                      {isSubmitting ? 'Analyzing...' : 'Generate Career Intelligence Report'}
-                      <Sparkles className="w-4 h-4 ml-2" />
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={handleNext}
-                      disabled={currentSelectedOptionIds.length === 0}
-                      className="bg-amber-500 hover:bg-amber-600 text-black font-semibold shadow-lg shadow-amber-500/20"
-                    >
-                      Next Question
-                      <ArrowRight className="w-4 h-4 ml-1.5" />
-                    </Button>
-                  )}
-                </div>
+              <div className="flex items-center gap-2">
+                {currentIndex === 29 ? (
+                  <Button
+                    size="sm"
+                    onClick={handleFinishAssessment}
+                    disabled={isSubmitting || currentSelectedOptionIds.length === 0}
+                    className="h-8 px-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-black text-xs font-bold shadow-sm shadow-emerald-500/20 rounded-lg cursor-pointer"
+                  >
+                    {isSubmitting ? 'Analyzing...' : 'Generate Career Report'}
+                    <Sparkles className="w-3 h-3 ml-1.5" />
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    onClick={handleNext}
+                    disabled={currentSelectedOptionIds.length === 0}
+                    className="h-8 px-4 bg-[#A36B40] hover:bg-[#8C4E2D] text-white text-xs font-bold shadow-sm shadow-[#A36B40]/25 rounded-lg cursor-pointer transition-all"
+                  >
+                    <span>Next Question</span>
+                    <ArrowRight className="w-3 h-3 ml-1.5" />
+                  </Button>
+                )}
               </div>
-            </CardContent>
+            </div>
           </Card>
         </div>
 
-        {/* Right Column: Real-Time Psychometric & Evidence Signal Radar (4 Cols) */}
-        <div className="lg:col-span-4 space-y-4">
-          <Card className="bg-slate-900 border-slate-800 text-slate-100 shadow-xl">
-            <CardHeader className="pb-3 border-b border-slate-800/80">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-semibold flex items-center gap-2 text-slate-200">
-                  <Activity className="w-4 h-4 text-amber-400" />
-                  Live Career Diagnostic
-                </CardTitle>
-                <Badge variant="outline" className="text-[10px] text-amber-400 border-amber-500/30">
+        {/* Right Column: Live Real-Time Career Diagnostic (4 Cols) */}
+        <div className="lg:col-span-4 flex flex-col">
+          <Card className="bg-[#1C1814] border-[#383129] text-slate-100 shadow-xl rounded-xl flex flex-col justify-between flex-1 p-3 sm:p-3.5 space-y-2">
+            <div>
+              <div className="flex items-center justify-between pb-1.5 border-b border-[#383129]/80">
+                <div className="flex items-center gap-1 text-[11.5px] font-bold text-white">
+                  <Activity className="w-3 h-3 text-amber-400" />
+                  <span>Live Career Diagnostic</span>
+                </div>
+                <Badge variant="outline" className="text-[8.5px] text-amber-400 border-amber-500/30 px-1 py-0 h-4">
                   {answeredCount}/30 Recorded
                 </Badge>
               </div>
-              <CardDescription className="text-xs text-slate-400">
-                Signals synthesized from your response patterns
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-4 space-y-4">
-              {/* Top Emerging Career Alignment */}
-              <div>
-                <div className="text-xs text-slate-400 font-medium mb-1.5 flex items-center justify-between">
-                  <span>Primary Career Leaning:</span>
-                  <span className="text-amber-400 font-bold">{psychometricContext.primaryLeaning}</span>
+
+              {/* Primary Career Leaning */}
+              <div className="pt-1.5 pb-1">
+                <div className="text-[10px] text-slate-400 font-medium flex items-center justify-between">
+                  <span>Primary Leaning:</span>
+                  <span className="text-amber-400 font-bold truncate max-w-[130px] text-[10.5px]">{psychometricContext.primaryLeaning}</span>
                 </div>
               </div>
 
-              {/* Emerging Top Domains */}
-              <div className="space-y-2 pt-2 border-t border-slate-800/80">
-                <div className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                  <Target className="w-3.5 h-3.5 text-amber-400" />
-                  Emerging Domain Compatibility
+              {/* Top 3 Emerging Domains */}
+              <div className="space-y-1 pt-1.5 border-t border-[#383129]/80">
+                <div className="text-[10px] font-semibold text-slate-300 flex items-center gap-1">
+                  <Target className="w-2.5 h-2.5 text-amber-400" />
+                  Domain Compatibility
                 </div>
-                {psychometricContext.topDomains.slice(0, 4).map((d) => (
-                  <div key={d.id} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs text-slate-300">
-                      <span className="truncate pr-2">{d.name}</span>
-                      <span className="text-amber-400 font-mono font-medium">{d.score}%</span>
+                {psychometricContext.topDomains.slice(0, 3).map((d) => (
+                  <div key={d.id} className="space-y-0.5">
+                    <div className="flex items-center justify-between text-[10px] text-slate-300">
+                      <span className="truncate pr-1">{d.name}</span>
+                      <span className="text-amber-400 font-mono font-bold text-[9.5px]">{d.score}%</span>
                     </div>
-                    <Progress value={d.score} className="h-1.5 bg-slate-800" />
+                    <Progress value={d.score} className="h-1 bg-slate-800" />
                   </div>
                 ))}
               </div>
 
               {/* Top Trait Signals */}
-              <div className="space-y-2 pt-2 border-t border-slate-800/80">
-                <div className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                  <Flame className="w-3.5 h-3.5 text-orange-400" />
-                  Strongest Cognitive & Vocational Traits
+              <div className="space-y-1 pt-1.5 border-t border-[#383129]/80">
+                <div className="text-[10px] font-semibold text-slate-300 flex items-center gap-1">
+                  <Flame className="w-2.5 h-2.5 text-orange-400" />
+                  Top Cognitive Traits
                 </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {psychometricContext.topTraits.slice(0, 5).map((t) => (
+                <div className="flex flex-wrap gap-1">
+                  {psychometricContext.topTraits.slice(0, 4).map((t) => (
                     <Badge
                       key={t.code}
                       variant="outline"
-                      className="bg-slate-800 border-slate-700 text-slate-300 text-[11px] py-0.5"
+                      className="bg-slate-800/80 border-slate-700 text-slate-300 text-[9px] px-1.5 py-0 h-4 leading-none"
                     >
                       {t.name}
                     </Badge>
                   ))}
                 </div>
               </div>
+            </div>
 
-              {/* Assessment Context Box */}
-              <div className="bg-slate-950/60 rounded-lg p-3 border border-slate-800 text-[11px] text-slate-400 space-y-1.5">
-                <div className="flex items-center gap-1.5 text-slate-300 font-medium">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  Sandip University 114 Program Catalog
-                </div>
-                <p>
-                  Your responses are being mapped against degree programs across 8 university schools.
-                </p>
+            {/* Assessment Context Box */}
+            <div className="bg-slate-950/60 rounded-lg p-2 border border-[#383129] text-[9.5px] text-slate-400 space-y-0.5">
+              <div className="flex items-center gap-1 text-slate-300 font-bold">
+                <ShieldCheck className="w-2.5 h-2.5 text-emerald-400" />
+                Sandip University Catalog
               </div>
-            </CardContent>
+              <p className="leading-tight text-[9px]">
+                Responses mapped across 114 degree programs in 8 university schools.
+              </p>
+            </div>
           </Card>
         </div>
       </div>
@@ -814,24 +811,24 @@ export function AdaptiveAssessmentCockpit({
       {/* ─── EXIT CONFIRMATION MODAL ─── */}
       {isExitConfirmOpen && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <Card className="bg-slate-900 border-slate-800 text-slate-100 max-w-md w-full shadow-2xl">
-            <CardHeader>
-              <CardTitle className="text-base text-white flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-amber-400" />
+          <Card className="bg-[#1C1814] border-[#383129] text-slate-100 max-w-md w-full shadow-2xl rounded-2xl">
+            <CardHeader className="p-5 pb-3">
+              <CardTitle className="text-sm text-white flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-amber-400" />
                 Exit Assessment?
               </CardTitle>
               <CardDescription className="text-xs text-slate-400">
                 You have answered {answeredCount} of 30 questions. Your progress will not be saved if you exit now.
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex items-center justify-end gap-3 pt-2">
+            <CardContent className="p-5 pt-2 flex items-center justify-end gap-2.5">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setIsExitConfirmOpen(false)}
-                className="border-slate-800 text-slate-300"
+                className="h-8 text-xs border-[#383129] text-slate-300 rounded-xl"
               >
-                Continue Assessment
+                Continue Test
               </Button>
               <Button
                 variant="destructive"
@@ -840,6 +837,7 @@ export function AdaptiveAssessmentCockpit({
                   if (onExit) onExit()
                   else router.push('/student/assessment')
                 }}
+                className="h-8 text-xs rounded-xl"
               >
                 Exit
               </Button>
@@ -851,29 +849,30 @@ export function AdaptiveAssessmentCockpit({
       {/* ─── SUBMISSION CONFIRMATION MODAL ─── */}
       {isSubmitConfirmOpen && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <Card className="bg-slate-900 border-slate-800 text-slate-100 max-w-md w-full shadow-2xl">
-            <CardHeader>
-              <CardTitle className="text-base text-white flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-emerald-400" />
+          <Card className="bg-[#1C1814] border-[#383129] text-slate-100 max-w-md w-full shadow-2xl rounded-2xl">
+            <CardHeader className="p-5 pb-3">
+              <CardTitle className="text-sm text-white flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-emerald-400" />
                 Ready to Generate Report?
               </CardTitle>
               <CardDescription className="text-xs text-slate-400">
                 You have completed {answeredCount} questions. Click submit to process your official Career Intelligence Report.
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex items-center justify-end gap-3 pt-2">
+            <CardContent className="p-5 pt-2 flex items-center justify-end gap-2.5">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setIsSubmitConfirmOpen(false)}
-                className="border-slate-800 text-slate-300"
+                className="h-8 text-xs border-[#383129] text-slate-300 rounded-xl"
               >
                 Review Answers
               </Button>
               <Button
+                size="sm"
                 onClick={executeFinalSubmission}
                 disabled={isSubmitting}
-                className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold"
+                className="h-8 text-xs bg-emerald-500 hover:bg-emerald-600 text-black font-bold rounded-xl"
               >
                 {isSubmitting ? 'Processing...' : 'Submit & View Report'}
               </Button>
