@@ -1,0 +1,240 @@
+{
+  "totalClusters": 23,
+  "clusters": [
+    {
+      "overlapGroup": "Aerospace/Aeronautical",
+      "programIds": [
+        "SUN-001",
+        "SUN-002"
+      ],
+      "whyItOverlaps": "Same discipline under different names; questions cannot separate them.",
+      "recommendedAction": "Differentiated by DIFF-01 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Mechanical (B.Tech/M.Tech)",
+      "programIds": [
+        "SUN-006",
+        "SUN-015"
+      ],
+      "whyItOverlaps": "Same discipline at UG and PG level.",
+      "recommendedAction": "Differentiated by DIFF-02 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "AI cluster",
+      "programIds": [
+        "SUN-023",
+        "SUN-024",
+        "SUN-027"
+      ],
+      "whyItOverlaps": "Three AI specializations under B.Tech CSE with near-identical pathway wording.",
+      "recommendedAction": "Differentiated by DIFF-03 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "AI cluster (MBA 4.0)",
+      "programIds": [
+        "SUN-062"
+      ],
+      "whyItOverlaps": null,
+      "recommendedAction": "Differentiated by DIFF-03 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Cybersecurity cluster",
+      "programIds": [
+        "SUN-022",
+        "SUN-028"
+      ],
+      "whyItOverlaps": "SUN-022 and SUN-028 nearly identical.",
+      "recommendedAction": "Differentiated by DIFF-04 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Marketing cluster",
+      "programIds": [
+        "SUN-037",
+        "SUN-043",
+        "SUN-056"
+      ],
+      "whyItOverlaps": "Marketing, digital marketing and content overlap.",
+      "recommendedAction": "Differentiated by DIFF-05 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Finance cluster",
+      "programIds": [
+        "SUN-036",
+        "SUN-041",
+        "SUN-053",
+        "SUN-055"
+      ],
+      "whyItOverlaps": "Finance, financial services and corporate finance overlap.",
+      "recommendedAction": "Differentiated by DIFF-06 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Accounting cluster",
+      "programIds": [
+        "SUN-044",
+        "SUN-050",
+        "SUN-051"
+      ],
+      "whyItOverlaps": "Accounting, audit and costing overlap.",
+      "recommendedAction": "Differentiated by DIFF-07 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Analytics cluster",
+      "programIds": [
+        "SUN-040",
+        "SUN-052"
+      ],
+      "whyItOverlaps": "Business analytics appears in BBA and MBA.",
+      "recommendedAction": "Differentiated by DIFF-08 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Fintech cluster",
+      "programIds": [
+        "SUN-059"
+      ],
+      "whyItOverlaps": "Fintech and financial services overlap.",
+      "recommendedAction": "Differentiated by DIFF-09 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Logistics cluster",
+      "programIds": [
+        "SUN-046",
+        "SUN-060"
+      ],
+      "whyItOverlaps": "Logistics appears in BBA and MBA.",
+      "recommendedAction": "Differentiated by DIFF-10 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Microbiology cluster",
+      "programIds": [
+        "SUN-080",
+        "SUN-088"
+      ],
+      "whyItOverlaps": "B.Sc and M.Sc microbiology.",
+      "recommendedAction": "Differentiated by DIFF-11 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Physics cluster",
+      "programIds": [
+        "SUN-084",
+        "SUN-087"
+      ],
+      "whyItOverlaps": "B.Sc and M.Sc physics.",
+      "recommendedAction": "Differentiated by DIFF-12 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Forensic cluster",
+      "programIds": [
+        "SUN-081",
+        "SUN-085",
+        "SUN-091"
+      ],
+      "whyItOverlaps": "Three forensic courses.",
+      "recommendedAction": "Differentiated by DIFF-13 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Chemistry cluster",
+      "programIds": [
+        "SUN-083",
+        "SUN-086"
+      ],
+      "whyItOverlaps": "B.Sc and M.Sc chemistry.",
+      "recommendedAction": "Differentiated by DIFF-14 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Fashion cluster",
+      "programIds": [
+        "SUN-092",
+        "SUN-097"
+      ],
+      "whyItOverlaps": "Fashion & Apparel vs Fashion & Lifestyle.",
+      "recommendedAction": "Differentiated by DIFF-15 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Interior cluster",
+      "programIds": [
+        "SUN-094",
+        "SUN-098"
+      ],
+      "whyItOverlaps": "Interior Design vs Space & Interior.",
+      "recommendedAction": "Differentiated by DIFF-16 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Visual communication cluster",
+      "programIds": [
+        "SUN-095",
+        "SUN-104"
+      ],
+      "whyItOverlaps": "Communication Design (B.Des) vs Visual Communication (M.Des).",
+      "recommendedAction": "Differentiated by DIFF-17 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "AI media/UX cluster",
+      "programIds": [
+        "SUN-099",
+        "SUN-103"
+      ],
+      "whyItOverlaps": "AI media design and UX share interface work.",
+      "recommendedAction": "Differentiated by DIFF-18 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Planning cluster",
+      "programIds": [
+        "SUN-009",
+        "SUN-019"
+      ],
+      "whyItOverlaps": "B.Plan vs Master of Planning.",
+      "recommendedAction": "Differentiated by DIFF-19 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Game cluster",
+      "programIds": [
+        "SUN-100",
+        "SUN-105"
+      ],
+      "whyItOverlaps": "Immersive media & game (B.Des) vs game design (M.Des).",
+      "recommendedAction": "Differentiated by DIFF-20 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Law UG (general)",
+      "programIds": [
+        "SUN-071",
+        "SUN-072",
+        "SUN-073"
+      ],
+      "whyItOverlaps": "Three general LL.B. variants.",
+      "recommendedAction": "Differentiated by DIFF-21 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    },
+    {
+      "overlapGroup": "Pharmacy diploma/UG",
+      "programIds": [
+        "SUN-065",
+        "SUN-066"
+      ],
+      "whyItOverlaps": "D.Pharm and B.Pharm.",
+      "recommendedAction": "Differentiated by DIFF-22 (tie-breaker question on the Differentiators sheet).",
+      "status": "Partly resolved - existing twin questions still share evidence"
+    }
+  ]
+}
