@@ -1,0 +1,5979 @@
+{
+  "schema_version": "1.0.0",
+  "assessment_version": "SU-CIS-2026-27-v1",
+  "status": "draft_review_required",
+  "source": {
+    "file": "Sandip University Career Intelligence Master Course Dataset",
+    "academic_year": "2026-27",
+    "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+  },
+  "dimensions": [
+    {
+      "dimension_id": "ANALYTICS",
+      "name": "Analytics & data",
+      "definition": "Interest in patterns, quantitative information, and evidence-based decisions",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "BUSINESS",
+      "name": "Business & management",
+      "definition": "Interest in organisations, markets, finance, and business decisions",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "TECHNOLOGY",
+      "name": "Technology & computing",
+      "definition": "Interest in software, digital systems, and technical solutions",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "ENGINEERING",
+      "name": "Engineering & applied technology",
+      "definition": "Interest in designing, building, testing, and improving systems",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "SCIENCE",
+      "name": "Science & research",
+      "definition": "Interest in scientific investigation, experiments, and evidence",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "HEALTH_PHARMA",
+      "name": "Health & pharmaceutical sciences",
+      "definition": "Interest in medicines, health science, formulation, and clinical/research work",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "DESIGN",
+      "name": "Design & creativity",
+      "definition": "Interest in visual, product, fashion, spatial, and experience design",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "LAW",
+      "name": "Law & legal systems",
+      "definition": "Interest in rights, rules, legal arguments, and dispute resolution",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "PEOPLE",
+      "name": "People & society",
+      "definition": "Interest in human behaviour, communication, service, and social needs",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "BUILT_ENV",
+      "name": "Built environment & planning",
+      "definition": "Interest in buildings, infrastructure, cities, transport, and spaces",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "RESEARCH",
+      "name": "Research & academia",
+      "definition": "Interest in specialised research and advanced study",
+      "status": "proposed_review_required"
+    },
+    {
+      "dimension_id": "COMMUNICATION",
+      "name": "Communication & media",
+      "definition": "Interest in content, storytelling, visual communication, and audience needs",
+      "status": "proposed_review_required"
+    }
+  ],
+  "courses": [
+    {
+      "program_id": "SUN-001",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "course": "B.Tech",
+      "specialization": "Aerospace Engineering",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Aerospace engineering, aviation, design, manufacturing",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "BUSINESS",
+        "ENGINEERING",
+        "DESIGN"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-002",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "course": "B.Tech",
+      "specialization": "Aeronautical Engineering",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Aircraft design, aerospace, aviation, manufacturing",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "BUSINESS",
+        "ENGINEERING",
+        "DESIGN"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-003",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "course": "B.Tech",
+      "specialization": "Civil Engineering",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Construction, infrastructure, structural engineering, project management",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "BUSINESS",
+        "ENGINEERING",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-004",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "course": "B.Tech",
+      "specialization": "Electrical Engineering",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Power systems, electrical design, automation, energy",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "ENGINEERING",
+        "DESIGN"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-005",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "course": "B.Tech",
+      "specialization": "Electronics & Telecommunication Engineering",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Telecom, embedded systems, electronics, networking",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "PEOPLE",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-006",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "course": "B.Tech",
+      "specialization": "Mechanical Engineering",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Manufacturing, automotive, design, production, robotics",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "DESIGN"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-007",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "course": "B.Tech",
+      "specialization": "Biotechnology",
+      "suitable_12th_stream": "PCB/PCM",
+      "career_domains": "Biotech, pharmaceuticals, research, food and life sciences",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "ENGINEERING",
+        "SCIENCE",
+        "HEALTH_PHARMA",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-008",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "course": "B.Tech",
+      "specialization": "Biomedical Engineering",
+      "suitable_12th_stream": "PCB/PCM",
+      "career_domains": "Medical devices, healthcare technology, biomedical research",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "ENGINEERING",
+        "SCIENCE",
+        "HEALTH_PHARMA",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-009",
+      "school": "Engineering & Technology",
+      "level": "UG",
+      "course": "B.Plan",
+      "specialization": "Planning",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Urban planning, regional planning, infrastructure, public policy",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "ENGINEERING",
+        "PEOPLE",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-010",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "M.Tech",
+      "specialization": "Construction Management",
+      "suitable_12th_stream": "Relevant engineering",
+      "career_domains": "Construction management, project management, infrastructure",
+      "notes": "",
+      "primary_stream": "Engineering / Relevant UG",
+      "domain_ids": [
+        "BUSINESS",
+        "ENGINEERING",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-011",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "M.Tech",
+      "specialization": "Structural Engineering",
+      "suitable_12th_stream": "Relevant engineering",
+      "career_domains": "Structural design, civil engineering, construction",
+      "notes": "",
+      "primary_stream": "Engineering / Relevant UG",
+      "domain_ids": [
+        "ENGINEERING",
+        "DESIGN",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-012",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "M.Tech",
+      "specialization": "Transportation Engineering & Planning",
+      "suitable_12th_stream": "Relevant engineering",
+      "career_domains": "Transport planning, highways, infrastructure",
+      "notes": "",
+      "primary_stream": "Engineering / Relevant UG",
+      "domain_ids": [
+        "ENGINEERING",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-013",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "M.Tech",
+      "specialization": "Power System",
+      "suitable_12th_stream": "Relevant engineering",
+      "career_domains": "Power systems, electrical utilities, energy",
+      "notes": "",
+      "primary_stream": "Engineering / Relevant UG",
+      "domain_ids": [
+        "ENGINEERING"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-014",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "M.Tech",
+      "specialization": "Design Engineering",
+      "suitable_12th_stream": "Relevant engineering",
+      "career_domains": "Product design, CAD, mechanical design, manufacturing",
+      "notes": "",
+      "primary_stream": "Engineering / Relevant UG",
+      "domain_ids": [
+        "ENGINEERING",
+        "DESIGN"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-015",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "M.Tech",
+      "specialization": "Mechanical Engineering",
+      "suitable_12th_stream": "Relevant engineering",
+      "career_domains": "Mechanical design, manufacturing, production",
+      "notes": "",
+      "primary_stream": "Engineering / Relevant UG",
+      "domain_ids": [
+        "ENGINEERING",
+        "DESIGN"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-016",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "M.Tech",
+      "specialization": "Environmental Engineering",
+      "suitable_12th_stream": "Relevant engineering/science",
+      "career_domains": "Environmental consulting, sustainability, water and waste management",
+      "notes": "",
+      "primary_stream": "Relevant engineering/science",
+      "domain_ids": [
+        "BUSINESS",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-017",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "M.Tech",
+      "specialization": "Valuation - Land & Building",
+      "suitable_12th_stream": "Civil/Architecture",
+      "career_domains": "Property valuation, real estate, infrastructure",
+      "notes": "",
+      "primary_stream": "Engineering / Architecture",
+      "domain_ids": [
+        "ENGINEERING",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-018",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "M.Tech",
+      "specialization": "Electrical Vehicles",
+      "suitable_12th_stream": "Relevant engineering",
+      "career_domains": "EV systems, automotive, battery and mobility technology",
+      "notes": "",
+      "primary_stream": "Engineering / Relevant UG",
+      "domain_ids": [
+        "ENGINEERING"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-019",
+      "school": "Engineering & Technology",
+      "level": "PG",
+      "course": "Master of Planning",
+      "specialization": "Town & Country Planning",
+      "suitable_12th_stream": "Relevant degree",
+      "career_domains": "Urban planning, regional planning, public policy",
+      "notes": "",
+      "primary_stream": "Relevant UG",
+      "domain_ids": [
+        "ENGINEERING",
+        "PEOPLE",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-020",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "General",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Software development, IT, technology consulting",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-021",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "Cloud Technology & Information Security",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Cloud computing, cybersecurity, IT infrastructure",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-022",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "Cyber Security & Forensic",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Cybersecurity, digital forensics, information security",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-023",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "Artificial Intelligence & Machine Learning",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "AI, ML, data science, software",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "ANALYTICS",
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-024",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "Artificial Intelligence & Data Science",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "AI, data science, analytics, software",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "ANALYTICS",
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-025",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "Full Stack Development & Testing with AI & ML",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Software development, testing, AI, web technology",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-026",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "Robotics Process Automation",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "RPA, automation, business technology",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "BUSINESS",
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-027",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "Artificial Intelligence",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "AI, machine learning, intelligent systems",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-028",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "Cyber Forensic & Information Security",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "Cyber forensics, cybersecurity, information security",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-029",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Tech CSE",
+      "specialization": "Virtual & Augmented Reality",
+      "suitable_12th_stream": "PCM",
+      "career_domains": "AR/VR, immersive technology, gaming, simulation",
+      "notes": "",
+      "primary_stream": "PCM",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-030",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "B.Sc Computer Science",
+      "specialization": "General",
+      "suitable_12th_stream": "Science + Mathematics",
+      "career_domains": "Software, IT, programming, data",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-031",
+      "school": "Computer Science & Engineering",
+      "level": "UG",
+      "course": "BCA",
+      "specialization": "General",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Software, application development, IT support, web development",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-032",
+      "school": "Computer Science & Engineering",
+      "level": "PG",
+      "course": "M.Tech CSE",
+      "specialization": "Cloud Technology & Information Security",
+      "suitable_12th_stream": "Relevant degree",
+      "career_domains": "Cloud, cybersecurity, IT infrastructure",
+      "notes": "",
+      "primary_stream": "Relevant UG",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-033",
+      "school": "Computer Science & Engineering",
+      "level": "PG",
+      "course": "M.Tech CSE",
+      "specialization": "Software Development with AI & ML",
+      "suitable_12th_stream": "Relevant degree",
+      "career_domains": "Software engineering, AI, ML",
+      "notes": "",
+      "primary_stream": "Relevant UG",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-034",
+      "school": "Computer Science & Engineering",
+      "level": "PG",
+      "course": "M.Tech CSE",
+      "specialization": "Robotics & Process Automation with AI & ML",
+      "suitable_12th_stream": "Relevant degree",
+      "career_domains": "Robotics, RPA, AI, automation",
+      "notes": "",
+      "primary_stream": "Relevant UG",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-035",
+      "school": "Computer Science & Engineering",
+      "level": "PG",
+      "course": "MCA",
+      "specialization": "General",
+      "suitable_12th_stream": "Any graduation, preferably Mathematics",
+      "career_domains": "Software, IT, application development, data",
+      "notes": "",
+      "primary_stream": "Any graduation, preferably Mathematics",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "ENGINEERING",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-036",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Financial Management",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Finance, banking, investment, corporate finance",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-037",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Marketing Management",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Marketing, sales, brand management, digital marketing",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-038",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Human Resource Management",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "HR, recruitment, talent management, learning and development",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS",
+        "PEOPLE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-039",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "International Business",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "International trade, global business, export-import",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-040",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Business Analytics",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Business analytics, data analytics, consulting, decision support",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "ANALYTICS",
+        "BUSINESS",
+        "TECHNOLOGY"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-041",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA Hons",
+      "specialization": "Financial Services",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Banking, financial services, investment, insurance",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-042",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA Hons",
+      "specialization": "Entrepreneurship",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Startups, entrepreneurship, business development",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-043",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Digital Marketing",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Digital marketing, social media, performance marketing",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS",
+        "PEOPLE",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-044",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "International Accounting & Finance, ACCA-UK",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Accounting, audit, taxation, finance",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-045",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Aviation Management",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Airports, airlines, aviation operations",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-046",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Logistics & Supply Chain Management",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Logistics, procurement, supply chain, operations",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-047",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Event Management & User Experience",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Events, experience design, customer experience",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS",
+        "DESIGN"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-048",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Global Management",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "International business, management, consulting",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-049",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "BBA",
+      "specialization": "Hospitality Management",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Hotels, hospitality, tourism, service management",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS",
+        "PEOPLE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-050",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "B.Com",
+      "specialization": "Accounting & Finance",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Accounting, finance, taxation, audit",
+      "notes": "Tally certification",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-051",
+      "school": "Commerce & Management Studies",
+      "level": "UG",
+      "course": "B.Com",
+      "specialization": "Costing",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Accounting, finance, taxation, audit",
+      "notes": "Tally certification",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-052",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "New Age MBA",
+      "specialization": "Business Analytics",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Business analytics, data analytics, consulting",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "ANALYTICS",
+        "BUSINESS",
+        "TECHNOLOGY"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-053",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "New Age MBA",
+      "specialization": "Banking & Financial Services",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Banking, finance, insurance, financial services",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-054",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA",
+      "specialization": "Human Resource Management",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "HR, talent management, people analytics",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "ANALYTICS",
+        "BUSINESS",
+        "PEOPLE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-055",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA",
+      "specialization": "Financial Management",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Corporate finance, investment, financial planning",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS",
+        "ENGINEERING",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-056",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA",
+      "specialization": "Marketing Management",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Marketing, sales, brand management",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-057",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA",
+      "specialization": "International Business",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Global business, export-import, international trade",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-058",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA",
+      "specialization": "Information Technology",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "IT management, technology consulting, digital systems",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS",
+        "TECHNOLOGY"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-059",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA",
+      "specialization": "Fintech & Data Analytics",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Fintech, financial analytics, data analytics",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "ANALYTICS",
+        "BUSINESS",
+        "TECHNOLOGY"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-060",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA",
+      "specialization": "Logistics & Supply Chain Management",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Supply chain, procurement, logistics, operations",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-061",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA",
+      "specialization": "Entrepreneurship & Startup Management",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Entrepreneurship, startups, business development",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-062",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA 4.0",
+      "specialization": "Artificial Intelligence",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "AI strategy, intelligent systems, business technology",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS",
+        "TECHNOLOGY"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-063",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA 4.0",
+      "specialization": "Content Strategy",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Content, digital media, brand strategy, communications",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS",
+        "PEOPLE",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-064",
+      "school": "Commerce & Management Studies",
+      "level": "PG",
+      "course": "MBA 4.0",
+      "specialization": "Digital Transformation",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Digital strategy, transformation, technology consulting",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-065",
+      "school": "Pharmaceutical Sciences",
+      "level": "Diploma",
+      "course": "D.Pharm",
+      "specialization": "General",
+      "suitable_12th_stream": "PCB/PCM",
+      "career_domains": "Pharmacy, dispensing, pharmacy operations",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-066",
+      "school": "Pharmaceutical Sciences",
+      "level": "UG",
+      "course": "B.Pharm",
+      "specialization": "General",
+      "suitable_12th_stream": "PCB/PCM",
+      "career_domains": "Pharmacy, pharmaceutical industry, clinical research",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-067",
+      "school": "Pharmaceutical Sciences",
+      "level": "PG",
+      "course": "M.Pharm",
+      "specialization": "Pharmaceutics",
+      "suitable_12th_stream": "B.Pharm",
+      "career_domains": "Drug formulation, manufacturing, pharmaceutical R&D",
+      "notes": "",
+      "primary_stream": "Pharmacy",
+      "domain_ids": [
+        "ENGINEERING",
+        "SCIENCE",
+        "HEALTH_PHARMA"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-068",
+      "school": "Pharmaceutical Sciences",
+      "level": "PG",
+      "course": "M.Pharm",
+      "specialization": "Pharmacology",
+      "suitable_12th_stream": "B.Pharm",
+      "career_domains": "Drug research, clinical research, pharmacovigilance",
+      "notes": "",
+      "primary_stream": "Pharmacy",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-069",
+      "school": "Pharmaceutical Sciences",
+      "level": "PG",
+      "course": "M.Pharm",
+      "specialization": "Pharmaceutical Quality Assurance",
+      "suitable_12th_stream": "B.Pharm",
+      "career_domains": "Quality assurance, quality control, regulatory affairs",
+      "notes": "",
+      "primary_stream": "Pharmacy",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-070",
+      "school": "Pharmaceutical Sciences",
+      "level": "PG",
+      "course": "M.Pharm",
+      "specialization": "Industrial Pharmacy",
+      "suitable_12th_stream": "B.Pharm",
+      "career_domains": "Pharmaceutical manufacturing, production, quality",
+      "notes": "",
+      "primary_stream": "Pharmacy",
+      "domain_ids": [
+        "ENGINEERING",
+        "SCIENCE",
+        "HEALTH_PHARMA"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-071",
+      "school": "Law",
+      "level": "UG",
+      "course": "B.A. LL.B. (Hons.)",
+      "specialization": "General",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Law, litigation, legal research, public policy",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "SCIENCE",
+        "LAW",
+        "PEOPLE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-072",
+      "school": "Law",
+      "level": "UG",
+      "course": "B.B.A. LL.B. (Hons.)",
+      "specialization": "General",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Corporate law, business law, compliance",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "BUSINESS",
+        "LAW"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-073",
+      "school": "Law",
+      "level": "UG",
+      "course": "LL.B. (Hons.)",
+      "specialization": "General",
+      "suitable_12th_stream": "Any graduation",
+      "career_domains": "Legal practice, litigation, corporate legal",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "LAW"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-074",
+      "school": "Law",
+      "level": "PG",
+      "course": "LL.M.",
+      "specialization": "Criminal Law",
+      "suitable_12th_stream": "Law degree",
+      "career_domains": "Criminal litigation, prosecution, legal research",
+      "notes": "",
+      "primary_stream": "Law",
+      "domain_ids": [
+        "SCIENCE",
+        "LAW",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-075",
+      "school": "Law",
+      "level": "PG",
+      "course": "LL.M.",
+      "specialization": "Constitutional & Administrative Law",
+      "suitable_12th_stream": "Law degree",
+      "career_domains": "Constitutional law, public policy, government/legal practice",
+      "notes": "",
+      "primary_stream": "Law",
+      "domain_ids": [
+        "LAW",
+        "PEOPLE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-076",
+      "school": "Law",
+      "level": "PG",
+      "course": "LL.M.",
+      "specialization": "Corporate & Commercial Law",
+      "suitable_12th_stream": "Law degree",
+      "career_domains": "Corporate law, commercial contracts, compliance",
+      "notes": "",
+      "primary_stream": "Law",
+      "domain_ids": [
+        "LAW"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-077",
+      "school": "Law",
+      "level": "PG",
+      "course": "LL.M.",
+      "specialization": "Mediation Law",
+      "suitable_12th_stream": "Law degree",
+      "career_domains": "Mediation, dispute resolution, legal practice",
+      "notes": "",
+      "primary_stream": "Law",
+      "domain_ids": [
+        "LAW",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-078",
+      "school": "Science",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Wine Technology",
+      "suitable_12th_stream": "Science",
+      "career_domains": "Wine production, food technology, quality control",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-079",
+      "school": "Science",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Nanoscience & Nanotechnology",
+      "suitable_12th_stream": "Science",
+      "career_domains": "Nanotechnology, materials science, research",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-080",
+      "school": "Science",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Microbiology",
+      "suitable_12th_stream": "Science",
+      "career_domains": "Microbiology, biotech, pharmaceuticals, research",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-081",
+      "school": "Science",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Forensic Science",
+      "suitable_12th_stream": "Science",
+      "career_domains": "Forensics, crime labs, investigation support",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-082",
+      "school": "Science",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Computational Mathematics & Data Science",
+      "suitable_12th_stream": "Science + Mathematics",
+      "career_domains": "Data science, analytics, mathematical modelling",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "ANALYTICS",
+        "TECHNOLOGY",
+        "SCIENCE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-083",
+      "school": "Science",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Chemistry",
+      "suitable_12th_stream": "Science + Chemistry",
+      "career_domains": "Chemistry, laboratories, pharmaceuticals, research",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-084",
+      "school": "Science",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Physics",
+      "suitable_12th_stream": "Science + Physics & Mathematics",
+      "career_domains": "Physics, research, electronics, scientific computing",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "ENGINEERING",
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-085",
+      "school": "Science",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Forensic Science & Criminology",
+      "suitable_12th_stream": "Science",
+      "career_domains": "Forensics, criminology, investigation support",
+      "notes": "",
+      "primary_stream": "Science",
+      "domain_ids": [
+        "SCIENCE",
+        "PEOPLE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-086",
+      "school": "Science",
+      "level": "PG",
+      "course": "M.Sc",
+      "specialization": "Chemistry, Organic/Analytical",
+      "suitable_12th_stream": "Relevant science degree",
+      "career_domains": "Chemical analysis, pharmaceuticals, research",
+      "notes": "",
+      "primary_stream": "Science / Relevant UG",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-087",
+      "school": "Science",
+      "level": "PG",
+      "course": "M.Sc",
+      "specialization": "Physics",
+      "suitable_12th_stream": "Relevant science degree",
+      "career_domains": "Physics, research, scientific computing",
+      "notes": "",
+      "primary_stream": "Science / Relevant UG",
+      "domain_ids": [
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-088",
+      "school": "Science",
+      "level": "PG",
+      "course": "M.Sc",
+      "specialization": "Microbiology",
+      "suitable_12th_stream": "Relevant science degree",
+      "career_domains": "Microbiology, biotech, pharmaceuticals",
+      "notes": "",
+      "primary_stream": "Science / Relevant UG",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-089",
+      "school": "Science",
+      "level": "PG",
+      "course": "M.Sc",
+      "specialization": "Life Science",
+      "suitable_12th_stream": "Relevant science degree",
+      "career_domains": "Life sciences, research, biotech",
+      "notes": "",
+      "primary_stream": "Science / Relevant UG",
+      "domain_ids": [
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-090",
+      "school": "Science",
+      "level": "PG",
+      "course": "M.Sc",
+      "specialization": "Mathematics",
+      "suitable_12th_stream": "Relevant science degree",
+      "career_domains": "Mathematics, analytics, education, quantitative research",
+      "notes": "",
+      "primary_stream": "Science / Relevant UG",
+      "domain_ids": [
+        "ANALYTICS",
+        "SCIENCE",
+        "PEOPLE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-091",
+      "school": "Science",
+      "level": "PG",
+      "course": "M.Sc",
+      "specialization": "Forensic Science",
+      "suitable_12th_stream": "Relevant science degree",
+      "career_domains": "Forensic laboratories, investigation, research",
+      "notes": "",
+      "primary_stream": "Science / Relevant UG",
+      "domain_ids": [
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-092",
+      "school": "Design",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Fashion & Apparel Design",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Fashion, apparel, merchandising",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "DESIGN",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-093",
+      "school": "Design",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Beauty Cosmetology",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Beauty, cosmetology, wellness services",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "HEALTH_PHARMA",
+        "DESIGN",
+        "PEOPLE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-094",
+      "school": "Design",
+      "level": "UG",
+      "course": "B.Sc",
+      "specialization": "Interior Design & Decoration",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Interior design, space planning, decoration",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "ENGINEERING",
+        "DESIGN",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-095",
+      "school": "Design",
+      "level": "UG",
+      "course": "B.Des",
+      "specialization": "Communication Design",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Graphic design, communication, branding, UI/visual design",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "DESIGN",
+        "PEOPLE",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-096",
+      "school": "Design",
+      "level": "UG",
+      "course": "B.Des",
+      "specialization": "Product Design",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Product design, industrial design, innovation",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "DESIGN"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-097",
+      "school": "Design",
+      "level": "UG",
+      "course": "B.Des",
+      "specialization": "Fashion & Lifestyle Design",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Fashion, lifestyle, apparel, merchandising",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "DESIGN",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-098",
+      "school": "Design",
+      "level": "UG",
+      "course": "B.Des",
+      "specialization": "Space & Interior Design",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Interior design, spatial design, architecture support",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "DESIGN",
+        "BUILT_ENV"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-099",
+      "school": "Design",
+      "level": "UG",
+      "course": "B.Des",
+      "specialization": "AI & Intelligent Product Media Design",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "AI-enabled design, product/media design",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "DESIGN",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-100",
+      "school": "Design",
+      "level": "UG",
+      "course": "B.Des",
+      "specialization": "Immersive Media & Game Design",
+      "suitable_12th_stream": "Any stream",
+      "career_domains": "Game design, immersive media, AR/VR",
+      "notes": "",
+      "primary_stream": "Commerce / Arts / Science / Any",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "DESIGN",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-101",
+      "school": "Design",
+      "level": "PG",
+      "course": "M.Sc",
+      "specialization": "Fashion & Apparel Design",
+      "suitable_12th_stream": "Graduation",
+      "career_domains": "Fashion, apparel, design management",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "BUSINESS",
+        "DESIGN",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-102",
+      "school": "Design",
+      "level": "PG",
+      "course": "M.Sc",
+      "specialization": "Beauty Cosmetology",
+      "suitable_12th_stream": "Graduation",
+      "career_domains": "Beauty, cosmetology, wellness",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "HEALTH_PHARMA",
+        "DESIGN",
+        "PEOPLE"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-103",
+      "school": "Design",
+      "level": "PG",
+      "course": "M.Des",
+      "specialization": "User Experience Design",
+      "suitable_12th_stream": "Graduation",
+      "career_domains": "UX, UI, product design, digital experiences",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "DESIGN"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-104",
+      "school": "Design",
+      "level": "PG",
+      "course": "M.Des",
+      "specialization": "Visual Communication Design",
+      "suitable_12th_stream": "Graduation",
+      "career_domains": "Visual communication, branding, graphic design",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "DESIGN",
+        "PEOPLE",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-105",
+      "school": "Design",
+      "level": "PG",
+      "course": "M.Des",
+      "specialization": "Game Design",
+      "suitable_12th_stream": "Graduation",
+      "career_domains": "Game design, immersive media, gaming",
+      "notes": "",
+      "primary_stream": "Any UG degree",
+      "domain_ids": [
+        "TECHNOLOGY",
+        "DESIGN",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-106",
+      "school": "Doctoral",
+      "level": "PhD",
+      "course": "Ph.D.",
+      "specialization": "Engineering & Applications",
+      "suitable_12th_stream": "Relevant Master's degree",
+      "career_domains": "Research, academia, specialized professional research",
+      "notes": "",
+      "primary_stream": "Relevant PG degree",
+      "domain_ids": [
+        "ENGINEERING",
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-107",
+      "school": "Doctoral",
+      "level": "PhD",
+      "course": "Ph.D.",
+      "specialization": "Pharmacy",
+      "suitable_12th_stream": "Relevant Master's degree",
+      "career_domains": "Research, academia, specialized professional research",
+      "notes": "",
+      "primary_stream": "Relevant PG degree",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-108",
+      "school": "Doctoral",
+      "level": "PhD",
+      "course": "Ph.D.",
+      "specialization": "Management",
+      "suitable_12th_stream": "Relevant Master's degree",
+      "career_domains": "Research, academia, specialized professional research",
+      "notes": "",
+      "primary_stream": "Relevant PG degree",
+      "domain_ids": [
+        "BUSINESS",
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-109",
+      "school": "Doctoral",
+      "level": "PhD",
+      "course": "Ph.D.",
+      "specialization": "Commerce",
+      "suitable_12th_stream": "Relevant Master's degree",
+      "career_domains": "Research, academia, specialized professional research",
+      "notes": "",
+      "primary_stream": "Relevant PG degree",
+      "domain_ids": [
+        "BUSINESS",
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-110",
+      "school": "Doctoral",
+      "level": "PhD",
+      "course": "Ph.D.",
+      "specialization": "Law",
+      "suitable_12th_stream": "Relevant Master's degree",
+      "career_domains": "Research, academia, specialized professional research",
+      "notes": "",
+      "primary_stream": "Relevant PG degree",
+      "domain_ids": [
+        "SCIENCE",
+        "LAW",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-111",
+      "school": "Doctoral",
+      "level": "PhD",
+      "course": "Ph.D.",
+      "specialization": "Sciences",
+      "suitable_12th_stream": "Relevant Master's degree",
+      "career_domains": "Research, academia, specialized professional research",
+      "notes": "",
+      "primary_stream": "Relevant PG degree",
+      "domain_ids": [
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-112",
+      "school": "Doctoral",
+      "level": "PhD",
+      "course": "Ph.D.",
+      "specialization": "English",
+      "suitable_12th_stream": "Relevant Master's degree",
+      "career_domains": "Research, academia, specialized professional research",
+      "notes": "",
+      "primary_stream": "Relevant PG degree",
+      "domain_ids": [
+        "SCIENCE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-113",
+      "school": "Doctoral",
+      "level": "PhD",
+      "course": "Ph.D.",
+      "specialization": "Fashion & Apparel Design",
+      "suitable_12th_stream": "Relevant Master's degree",
+      "career_domains": "Research, academia, specialized professional research",
+      "notes": "",
+      "primary_stream": "Relevant PG degree",
+      "domain_ids": [
+        "SCIENCE",
+        "DESIGN",
+        "RESEARCH",
+        "COMMUNICATION"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    },
+    {
+      "program_id": "SUN-114",
+      "school": "Doctoral",
+      "level": "PhD",
+      "course": "Ph.D.",
+      "specialization": "Beauty Cosmetology",
+      "suitable_12th_stream": "Relevant Master's degree",
+      "career_domains": "Research, academia, specialized professional research",
+      "notes": "",
+      "primary_stream": "Relevant PG degree",
+      "domain_ids": [
+        "SCIENCE",
+        "HEALTH_PHARMA",
+        "DESIGN",
+        "PEOPLE",
+        "RESEARCH"
+      ],
+      "active_status": "REVIEW_REQUIRED",
+      "eligibility_status": "UNVERIFIED",
+      "source_academic_year": "2026-27",
+      "source_url": "https://www.sandipuniversity.edu.in/fees-structure.php"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "L1-001",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I enjoy finding patterns in numbers, information, or events.",
+      "dimension_id": "ANALYTICS",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L1-002",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I enjoy understanding how organisations, markets, or businesses work.",
+      "dimension_id": "BUSINESS",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L1-003",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I enjoy creating visual concepts, products, or original content.",
+      "dimension_id": "DESIGN",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L1-004",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I enjoy understanding how software, machines, or digital systems work.",
+      "dimension_id": "TECHNOLOGY",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L1-005",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I enjoy investigating scientific questions and looking for evidence.",
+      "dimension_id": "SCIENCE",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L1-006",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I enjoy helping people understand problems and find solutions.",
+      "dimension_id": "PEOPLE",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L1-007",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I enjoy interpreting rules, rights, evidence, or public issues.",
+      "dimension_id": "LAW",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L1-008",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I enjoy building, testing, or improving practical systems.",
+      "dimension_id": "ENGINEERING",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L1-009",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I enjoy communicating ideas or creating content for an audience.",
+      "dimension_id": "COMMUNICATION",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L1-010",
+      "level": "L1",
+      "question_type": "LIKERT",
+      "construct": "Broad career interest",
+      "question_text": "I am interested in buildings, infrastructure, cities, transport, or spaces.",
+      "dimension_id": "BUILT_ENV",
+      "routing_rule": "CORE",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Rate from 1 to 5. Interest is not the same as aptitude."
+    },
+    {
+      "question_id": "L2-001",
+      "level": "L2",
+      "question_type": "MCQ",
+      "construct": "Preferred project",
+      "question_text": "Which project would you most like to work on?",
+      "dimension_id": "",
+      "routing_rule": "ADAPTIVE_BY_L1",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "For MCQ options are preference signals, not right/wrong answers."
+    },
+    {
+      "question_id": "L2-002",
+      "level": "L2",
+      "question_type": "LIKERT",
+      "construct": "Learning preference",
+      "question_text": "I would enjoy learning through practical projects, experiments, or case studies.",
+      "dimension_id": "",
+      "routing_rule": "ADAPTIVE_BY_L1",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "For MCQ options are preference signals, not right/wrong answers."
+    },
+    {
+      "question_id": "L2-003",
+      "level": "L2",
+      "question_type": "LIKERT",
+      "construct": "Learning preference",
+      "question_text": "I would enjoy working with data and evidence to solve open-ended problems.",
+      "dimension_id": "ANALYTICS",
+      "routing_rule": "ADAPTIVE_BY_L1",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "For MCQ options are preference signals, not right/wrong answers."
+    },
+    {
+      "question_id": "L2-004",
+      "level": "L2",
+      "question_type": "LIKERT",
+      "construct": "Learning preference",
+      "question_text": "I would enjoy designing, building, or improving products and systems.",
+      "dimension_id": "ENGINEERING",
+      "routing_rule": "ADAPTIVE_BY_L1",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "For MCQ options are preference signals, not right/wrong answers."
+    },
+    {
+      "question_id": "L2-005",
+      "level": "L2",
+      "question_type": "LIKERT",
+      "construct": "Learning preference",
+      "question_text": "I would enjoy studying people, communication, and social needs.",
+      "dimension_id": "PEOPLE",
+      "routing_rule": "ADAPTIVE_BY_L1",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "For MCQ options are preference signals, not right/wrong answers."
+    },
+    {
+      "question_id": "L2-006",
+      "level": "L2",
+      "question_type": "LIKERT",
+      "construct": "Learning preference",
+      "question_text": "I would enjoy studying organisations, markets, finance, or management.",
+      "dimension_id": "BUSINESS",
+      "routing_rule": "ADAPTIVE_BY_L1",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "For MCQ options are preference signals, not right/wrong answers."
+    },
+    {
+      "question_id": "L2-007",
+      "level": "L2",
+      "question_type": "LIKERT",
+      "construct": "Learning preference",
+      "question_text": "I would enjoy studying laws, evidence, and formal arguments.",
+      "dimension_id": "LAW",
+      "routing_rule": "ADAPTIVE_BY_L1",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "For MCQ options are preference signals, not right/wrong answers."
+    },
+    {
+      "question_id": "L2-008",
+      "level": "L2",
+      "question_type": "LIKERT",
+      "construct": "Interdisciplinary interest",
+      "question_text": "I want to explore courses that combine two or more fields.",
+      "dimension_id": "TECHNOLOGY",
+      "routing_rule": "ADAPTIVE_BY_L1",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "For MCQ options are preference signals, not right/wrong answers."
+    },
+    {
+      "question_id": "L3-001",
+      "level": "L3",
+      "question_type": "MCQ",
+      "construct": "Course subject interest",
+      "question_text": "Which subject area would you most like to study in depth?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L2",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Dynamic course options must be loaded from active, reviewed catalog records."
+    },
+    {
+      "question_id": "L3-002",
+      "level": "L3",
+      "question_type": "LIKERT",
+      "construct": "Course curriculum fit",
+      "question_text": "The core subjects described for my leading course sound interesting.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L2",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Dynamic course options must be loaded from active, reviewed catalog records."
+    },
+    {
+      "question_id": "L3-003",
+      "level": "L3",
+      "question_type": "LIKERT",
+      "construct": "Learning activity fit",
+      "question_text": "The sample projects and practical work described for this course interest me.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L2",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Dynamic course options must be loaded from active, reviewed catalog records."
+    },
+    {
+      "question_id": "L3-004",
+      "level": "L3",
+      "question_type": "LIKERT",
+      "construct": "Learning preference",
+      "question_text": "I am willing to practise regularly to develop the skills required by this course.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L2",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Dynamic course options must be loaded from active, reviewed catalog records."
+    },
+    {
+      "question_id": "L3-005",
+      "level": "L3",
+      "question_type": "MCQ",
+      "construct": "Course comparison",
+      "question_text": "What would help you compare two courses?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L2",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Dynamic course options must be loaded from active, reviewed catalog records."
+    },
+    {
+      "question_id": "L3-006",
+      "level": "L3",
+      "question_type": "MCQ",
+      "construct": "Course selection",
+      "question_text": "Which course description would you like to explore first?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L2",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Dynamic course options must be loaded from active, reviewed catalog records."
+    },
+    {
+      "question_id": "L3-007",
+      "level": "L3",
+      "question_type": "LIKERT",
+      "construct": "Course awareness",
+      "question_text": "I understand the main subjects and demands of my preferred course.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L2",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Dynamic course options must be loaded from active, reviewed catalog records."
+    },
+    {
+      "question_id": "L3-008",
+      "level": "L3",
+      "question_type": "MCQ",
+      "construct": "Decision state",
+      "question_text": "Which best describes your current course decision?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L2",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Dynamic course options must be loaded from active, reviewed catalog records."
+    },
+    {
+      "question_id": "L4-001",
+      "level": "L4",
+      "question_type": "MCQ",
+      "construct": "Specialization interest",
+      "question_text": "Which type of task would you most like to do?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L3",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Only display options attached to the selected course and marked active/verified."
+    },
+    {
+      "question_id": "L4-002",
+      "level": "L4",
+      "question_type": "LIKERT",
+      "construct": "Specialization interest",
+      "question_text": "I would enjoy studying the specialist subjects described for this option.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L3",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Only display options attached to the selected course and marked active/verified."
+    },
+    {
+      "question_id": "L4-003",
+      "level": "L4",
+      "question_type": "LIKERT",
+      "construct": "Specialization interest",
+      "question_text": "I would enjoy doing projects similar to the examples shown for this specialization.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L3",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Only display options attached to the selected course and marked active/verified."
+    },
+    {
+      "question_id": "L4-004",
+      "level": "L4",
+      "question_type": "MCQ",
+      "construct": "Computing specialization",
+      "question_text": "Which computing focus would you like to explore?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L3",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Only display options attached to the selected course and marked active/verified."
+    },
+    {
+      "question_id": "L4-005",
+      "level": "L4",
+      "question_type": "MCQ",
+      "construct": "Design specialization",
+      "question_text": "Which design outcome would you most like to create?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L3",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Only display options attached to the selected course and marked active/verified."
+    },
+    {
+      "question_id": "L4-006",
+      "level": "L4",
+      "question_type": "LIKERT",
+      "construct": "Specialization awareness",
+      "question_text": "I understand the differences between my leading specialization options.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L3",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Only display options attached to the selected course and marked active/verified."
+    },
+    {
+      "question_id": "L4-007",
+      "level": "L4",
+      "question_type": "MCQ",
+      "construct": "Specialization comparison",
+      "question_text": "What matters most when comparing specializations?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L3",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Only display options attached to the selected course and marked active/verified."
+    },
+    {
+      "question_id": "L4-008",
+      "level": "L4",
+      "question_type": "MCQ",
+      "construct": "Specialization preference",
+      "question_text": "Which two options would you like to compare with a mentor?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L3",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "Only display options attached to the selected course and marked active/verified."
+    },
+    {
+      "question_id": "L5-001",
+      "level": "L5",
+      "question_type": "MCQ",
+      "construct": "Decision readiness",
+      "question_text": "What best describes your current decision?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L4",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "L5 validates readiness and student preference; it must not override eligibility rules."
+    },
+    {
+      "question_id": "L5-002",
+      "level": "L5",
+      "question_type": "MCQ",
+      "construct": "Eligibility status",
+      "question_text": "Have you checked the official entry requirements for your leading option?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L4",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "L5 validates readiness and student preference; it must not override eligibility rules."
+    },
+    {
+      "question_id": "L5-003",
+      "level": "L5",
+      "question_type": "LIKERT",
+      "construct": "Goal alignment",
+      "question_text": "The career pathways shown for this course fit my goals.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L4",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "L5 validates readiness and student preference; it must not override eligibility rules."
+    },
+    {
+      "question_id": "L5-004",
+      "level": "L5",
+      "question_type": "LIKERT",
+      "construct": "Informed choice",
+      "question_text": "I understand the main benefits, demands, and limitations of this option.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L4",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "L5 validates readiness and student preference; it must not override eligibility rules."
+    },
+    {
+      "question_id": "L5-005",
+      "level": "L5",
+      "question_type": "LIKERT",
+      "construct": "Recommendation explanation feedback",
+      "question_text": "The explanation for why this option was recommended makes sense to me.",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L4",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "L5 validates readiness and student preference; it must not override eligibility rules."
+    },
+    {
+      "question_id": "L5-006",
+      "level": "L5",
+      "question_type": "MCQ",
+      "construct": "Final preference",
+      "question_text": "What would you like to do next?",
+      "dimension_id": "",
+      "routing_rule": "AFTER_L4",
+      "required": true,
+      "status": "DRAFT_REVIEW_REQUIRED",
+      "note": "L5 validates readiness and student preference; it must not override eligibility rules."
+    }
+  ],
+  "answer_options": [
+    {
+      "option_id": "L1-001-O1",
+      "question_id": "L1-001",
+      "option_label": "Strongly disagree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-001-O2",
+      "question_id": "L1-001",
+      "option_label": "Disagree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-001-O3",
+      "question_id": "L1-001",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-001-O4",
+      "question_id": "L1-001",
+      "option_label": "Agree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-001-O5",
+      "question_id": "L1-001",
+      "option_label": "Strongly agree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-002-O1",
+      "question_id": "L1-002",
+      "option_label": "Strongly disagree",
+      "dimension_id": "BUSINESS",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-002-O2",
+      "question_id": "L1-002",
+      "option_label": "Disagree",
+      "dimension_id": "BUSINESS",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-002-O3",
+      "question_id": "L1-002",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "BUSINESS",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-002-O4",
+      "question_id": "L1-002",
+      "option_label": "Agree",
+      "dimension_id": "BUSINESS",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-002-O5",
+      "question_id": "L1-002",
+      "option_label": "Strongly agree",
+      "dimension_id": "BUSINESS",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-003-O1",
+      "question_id": "L1-003",
+      "option_label": "Strongly disagree",
+      "dimension_id": "DESIGN",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-003-O2",
+      "question_id": "L1-003",
+      "option_label": "Disagree",
+      "dimension_id": "DESIGN",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-003-O3",
+      "question_id": "L1-003",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "DESIGN",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-003-O4",
+      "question_id": "L1-003",
+      "option_label": "Agree",
+      "dimension_id": "DESIGN",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-003-O5",
+      "question_id": "L1-003",
+      "option_label": "Strongly agree",
+      "dimension_id": "DESIGN",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-004-O1",
+      "question_id": "L1-004",
+      "option_label": "Strongly disagree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-004-O2",
+      "question_id": "L1-004",
+      "option_label": "Disagree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-004-O3",
+      "question_id": "L1-004",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-004-O4",
+      "question_id": "L1-004",
+      "option_label": "Agree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-004-O5",
+      "question_id": "L1-004",
+      "option_label": "Strongly agree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-005-O1",
+      "question_id": "L1-005",
+      "option_label": "Strongly disagree",
+      "dimension_id": "SCIENCE",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-005-O2",
+      "question_id": "L1-005",
+      "option_label": "Disagree",
+      "dimension_id": "SCIENCE",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-005-O3",
+      "question_id": "L1-005",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "SCIENCE",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-005-O4",
+      "question_id": "L1-005",
+      "option_label": "Agree",
+      "dimension_id": "SCIENCE",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-005-O5",
+      "question_id": "L1-005",
+      "option_label": "Strongly agree",
+      "dimension_id": "SCIENCE",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-006-O1",
+      "question_id": "L1-006",
+      "option_label": "Strongly disagree",
+      "dimension_id": "PEOPLE",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-006-O2",
+      "question_id": "L1-006",
+      "option_label": "Disagree",
+      "dimension_id": "PEOPLE",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-006-O3",
+      "question_id": "L1-006",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "PEOPLE",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-006-O4",
+      "question_id": "L1-006",
+      "option_label": "Agree",
+      "dimension_id": "PEOPLE",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-006-O5",
+      "question_id": "L1-006",
+      "option_label": "Strongly agree",
+      "dimension_id": "PEOPLE",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-007-O1",
+      "question_id": "L1-007",
+      "option_label": "Strongly disagree",
+      "dimension_id": "LAW",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-007-O2",
+      "question_id": "L1-007",
+      "option_label": "Disagree",
+      "dimension_id": "LAW",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-007-O3",
+      "question_id": "L1-007",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "LAW",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-007-O4",
+      "question_id": "L1-007",
+      "option_label": "Agree",
+      "dimension_id": "LAW",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-007-O5",
+      "question_id": "L1-007",
+      "option_label": "Strongly agree",
+      "dimension_id": "LAW",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-008-O1",
+      "question_id": "L1-008",
+      "option_label": "Strongly disagree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-008-O2",
+      "question_id": "L1-008",
+      "option_label": "Disagree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-008-O3",
+      "question_id": "L1-008",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-008-O4",
+      "question_id": "L1-008",
+      "option_label": "Agree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-008-O5",
+      "question_id": "L1-008",
+      "option_label": "Strongly agree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-009-O1",
+      "question_id": "L1-009",
+      "option_label": "Strongly disagree",
+      "dimension_id": "COMMUNICATION",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-009-O2",
+      "question_id": "L1-009",
+      "option_label": "Disagree",
+      "dimension_id": "COMMUNICATION",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-009-O3",
+      "question_id": "L1-009",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "COMMUNICATION",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-009-O4",
+      "question_id": "L1-009",
+      "option_label": "Agree",
+      "dimension_id": "COMMUNICATION",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-009-O5",
+      "question_id": "L1-009",
+      "option_label": "Strongly agree",
+      "dimension_id": "COMMUNICATION",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-010-O1",
+      "question_id": "L1-010",
+      "option_label": "Strongly disagree",
+      "dimension_id": "BUILT_ENV",
+      "score_value": 1,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-010-O2",
+      "question_id": "L1-010",
+      "option_label": "Disagree",
+      "dimension_id": "BUILT_ENV",
+      "score_value": 2,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-010-O3",
+      "question_id": "L1-010",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "BUILT_ENV",
+      "score_value": 3,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-010-O4",
+      "question_id": "L1-010",
+      "option_label": "Agree",
+      "dimension_id": "BUILT_ENV",
+      "score_value": 4,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L1-010-O5",
+      "question_id": "L1-010",
+      "option_label": "Strongly agree",
+      "dimension_id": "BUILT_ENV",
+      "score_value": 5,
+      "mapping_or_feedback": "Likert response contributes to this interest dimension"
+    },
+    {
+      "option_id": "L2-001-A",
+      "question_id": "L2-001",
+      "option_label": "Analyse business performance",
+      "dimension_id": "BUSINESS",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal; option not objectively correct"
+    },
+    {
+      "option_id": "L2-001-B",
+      "question_id": "L2-001",
+      "option_label": "Build a digital product",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal; option not objectively correct"
+    },
+    {
+      "option_id": "L2-001-C",
+      "question_id": "L2-001",
+      "option_label": "Investigate a scientific question",
+      "dimension_id": "SCIENCE",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal; option not objectively correct"
+    },
+    {
+      "option_id": "L2-001-D",
+      "question_id": "L2-001",
+      "option_label": "Design a product or visual experience",
+      "dimension_id": "DESIGN",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal; option not objectively correct"
+    },
+    {
+      "option_id": "L2-002-O1",
+      "question_id": "L2-002",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-002-O2",
+      "question_id": "L2-002",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-002-O3",
+      "question_id": "L2-002",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-002-O4",
+      "question_id": "L2-002",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-002-O5",
+      "question_id": "L2-002",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-003-O1",
+      "question_id": "L2-003",
+      "option_label": "Strongly disagree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-003-O2",
+      "question_id": "L2-003",
+      "option_label": "Disagree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-003-O3",
+      "question_id": "L2-003",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-003-O4",
+      "question_id": "L2-003",
+      "option_label": "Agree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-003-O5",
+      "question_id": "L2-003",
+      "option_label": "Strongly agree",
+      "dimension_id": "ANALYTICS",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-004-O1",
+      "question_id": "L2-004",
+      "option_label": "Strongly disagree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-004-O2",
+      "question_id": "L2-004",
+      "option_label": "Disagree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-004-O3",
+      "question_id": "L2-004",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-004-O4",
+      "question_id": "L2-004",
+      "option_label": "Agree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-004-O5",
+      "question_id": "L2-004",
+      "option_label": "Strongly agree",
+      "dimension_id": "ENGINEERING",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-005-O1",
+      "question_id": "L2-005",
+      "option_label": "Strongly disagree",
+      "dimension_id": "PEOPLE",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-005-O2",
+      "question_id": "L2-005",
+      "option_label": "Disagree",
+      "dimension_id": "PEOPLE",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-005-O3",
+      "question_id": "L2-005",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "PEOPLE",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-005-O4",
+      "question_id": "L2-005",
+      "option_label": "Agree",
+      "dimension_id": "PEOPLE",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-005-O5",
+      "question_id": "L2-005",
+      "option_label": "Strongly agree",
+      "dimension_id": "PEOPLE",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-006-O1",
+      "question_id": "L2-006",
+      "option_label": "Strongly disagree",
+      "dimension_id": "BUSINESS",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-006-O2",
+      "question_id": "L2-006",
+      "option_label": "Disagree",
+      "dimension_id": "BUSINESS",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-006-O3",
+      "question_id": "L2-006",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "BUSINESS",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-006-O4",
+      "question_id": "L2-006",
+      "option_label": "Agree",
+      "dimension_id": "BUSINESS",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-006-O5",
+      "question_id": "L2-006",
+      "option_label": "Strongly agree",
+      "dimension_id": "BUSINESS",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-007-O1",
+      "question_id": "L2-007",
+      "option_label": "Strongly disagree",
+      "dimension_id": "LAW",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-007-O2",
+      "question_id": "L2-007",
+      "option_label": "Disagree",
+      "dimension_id": "LAW",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-007-O3",
+      "question_id": "L2-007",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "LAW",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-007-O4",
+      "question_id": "L2-007",
+      "option_label": "Agree",
+      "dimension_id": "LAW",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-007-O5",
+      "question_id": "L2-007",
+      "option_label": "Strongly agree",
+      "dimension_id": "LAW",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-008-O1",
+      "question_id": "L2-008",
+      "option_label": "Strongly disagree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-008-O2",
+      "question_id": "L2-008",
+      "option_label": "Disagree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-008-O3",
+      "question_id": "L2-008",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-008-O4",
+      "question_id": "L2-008",
+      "option_label": "Agree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L2-008-O5",
+      "question_id": "L2-008",
+      "option_label": "Strongly agree",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference signal"
+    },
+    {
+      "option_id": "L3-001-A",
+      "question_id": "L3-001",
+      "option_label": "Data, analysis, and evidence",
+      "dimension_id": "ANALYTICS",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-001-B",
+      "question_id": "L3-001",
+      "option_label": "Business, markets, and organisations",
+      "dimension_id": "BUSINESS",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-001-C",
+      "question_id": "L3-001",
+      "option_label": "Software and digital systems",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-001-D",
+      "question_id": "L3-001",
+      "option_label": "Scientific investigation",
+      "dimension_id": "SCIENCE",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-002-O1",
+      "question_id": "L3-002",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-002-O2",
+      "question_id": "L3-002",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-002-O3",
+      "question_id": "L3-002",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-002-O4",
+      "question_id": "L3-002",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-002-O5",
+      "question_id": "L3-002",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-003-O1",
+      "question_id": "L3-003",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-003-O2",
+      "question_id": "L3-003",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-003-O3",
+      "question_id": "L3-003",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-003-O4",
+      "question_id": "L3-003",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-003-O5",
+      "question_id": "L3-003",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-004-O1",
+      "question_id": "L3-004",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-004-O2",
+      "question_id": "L3-004",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-004-O3",
+      "question_id": "L3-004",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-004-O4",
+      "question_id": "L3-004",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-004-O5",
+      "question_id": "L3-004",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-005-A",
+      "question_id": "L3-005",
+      "option_label": "Core subjects",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-005-B",
+      "question_id": "L3-005",
+      "option_label": "Typical projects",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-005-C",
+      "question_id": "L3-005",
+      "option_label": "Career pathways",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-005-D",
+      "question_id": "L3-005",
+      "option_label": "Entry requirements and study demands",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-006-DYNAMIC",
+      "question_id": "L3-006",
+      "option_label": "Options populated from filtered course catalog",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-007-O1",
+      "question_id": "L3-007",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-007-O2",
+      "question_id": "L3-007",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-007-O3",
+      "question_id": "L3-007",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-007-O4",
+      "question_id": "L3-007",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-007-O5",
+      "question_id": "L3-007",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported fit; not a measure of actual ability"
+    },
+    {
+      "option_id": "L3-008-A",
+      "question_id": "L3-008",
+      "option_label": "I have one clear choice",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-008-B",
+      "question_id": "L3-008",
+      "option_label": "I am comparing two or three options",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-008-C",
+      "question_id": "L3-008",
+      "option_label": "I am still exploring",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L3-008-D",
+      "question_id": "L3-008",
+      "option_label": "I want to check a course I already prefer",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference or routing signal"
+    },
+    {
+      "option_id": "L4-001-A",
+      "question_id": "L4-001",
+      "option_label": "Forecast finances or evaluate financial performance",
+      "dimension_id": "BUSINESS",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-001-B",
+      "question_id": "L4-001",
+      "option_label": "Understand customers and develop campaigns",
+      "dimension_id": "BUSINESS",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-001-C",
+      "question_id": "L4-001",
+      "option_label": "Develop people and improve team performance",
+      "dimension_id": "PEOPLE",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-001-D",
+      "question_id": "L4-001",
+      "option_label": "Improve operations and supply chains",
+      "dimension_id": "BUSINESS",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-001-E",
+      "question_id": "L4-001",
+      "option_label": "Analyse data to support decisions",
+      "dimension_id": "ANALYTICS",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-002-O1",
+      "question_id": "L4-002",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-002-O2",
+      "question_id": "L4-002",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-002-O3",
+      "question_id": "L4-002",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-002-O4",
+      "question_id": "L4-002",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-002-O5",
+      "question_id": "L4-002",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-003-O1",
+      "question_id": "L4-003",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-003-O2",
+      "question_id": "L4-003",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-003-O3",
+      "question_id": "L4-003",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-003-O4",
+      "question_id": "L4-003",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-003-O5",
+      "question_id": "L4-003",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-004-A",
+      "question_id": "L4-004",
+      "option_label": "AI and machine learning",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-004-B",
+      "question_id": "L4-004",
+      "option_label": "Cybersecurity",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-004-C",
+      "question_id": "L4-004",
+      "option_label": "Software development",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-004-D",
+      "question_id": "L4-004",
+      "option_label": "Cloud systems",
+      "dimension_id": "TECHNOLOGY",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-004-E",
+      "question_id": "L4-004",
+      "option_label": "Data science",
+      "dimension_id": "ANALYTICS",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-005-A",
+      "question_id": "L4-005",
+      "option_label": "A product",
+      "dimension_id": "DESIGN",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-005-B",
+      "question_id": "L4-005",
+      "option_label": "A space or interior",
+      "dimension_id": "DESIGN",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-005-C",
+      "question_id": "L4-005",
+      "option_label": "Fashion or apparel",
+      "dimension_id": "DESIGN",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-005-D",
+      "question_id": "L4-005",
+      "option_label": "A visual or digital experience",
+      "dimension_id": "DESIGN",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-006-O1",
+      "question_id": "L4-006",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-006-O2",
+      "question_id": "L4-006",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-006-O3",
+      "question_id": "L4-006",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-006-O4",
+      "question_id": "L4-006",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-006-O5",
+      "question_id": "L4-006",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Self-reported preference"
+    },
+    {
+      "option_id": "L4-007-A",
+      "question_id": "L4-007",
+      "option_label": "Subjects studied",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-007-B",
+      "question_id": "L4-007",
+      "option_label": "Typical work and projects",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-007-C",
+      "question_id": "L4-007",
+      "option_label": "Skills developed",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-007-D",
+      "question_id": "L4-007",
+      "option_label": "Career pathways",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-007-E",
+      "question_id": "L4-007",
+      "option_label": "My own interest",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L4-008-DYNAMIC",
+      "question_id": "L4-008",
+      "option_label": "Options populated from specializations attached to selected course",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Preference signal"
+    },
+    {
+      "option_id": "L5-001-A",
+      "question_id": "L5-001",
+      "option_label": "Ready to choose",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-001-B",
+      "question_id": "L5-001",
+      "option_label": "Need to compare options",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-001-C",
+      "question_id": "L5-001",
+      "option_label": "Need more information",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-001-D",
+      "question_id": "L5-001",
+      "option_label": "Want mentor support",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-002-A",
+      "question_id": "L5-002",
+      "option_label": "Yes, and I appear to meet them",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-002-B",
+      "question_id": "L5-002",
+      "option_label": "Not yet",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-002-C",
+      "question_id": "L5-002",
+      "option_label": "I may not meet them",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-002-D",
+      "question_id": "L5-002",
+      "option_label": "I need help checking",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-003-O1",
+      "question_id": "L5-003",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-003-O2",
+      "question_id": "L5-003",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-003-O3",
+      "question_id": "L5-003",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-003-O4",
+      "question_id": "L5-003",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-003-O5",
+      "question_id": "L5-003",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-004-O1",
+      "question_id": "L5-004",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-004-O2",
+      "question_id": "L5-004",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-004-O3",
+      "question_id": "L5-004",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-004-O4",
+      "question_id": "L5-004",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-004-O5",
+      "question_id": "L5-004",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-005-O1",
+      "question_id": "L5-005",
+      "option_label": "Strongly disagree",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-005-O2",
+      "question_id": "L5-005",
+      "option_label": "Disagree",
+      "dimension_id": "",
+      "score_value": 2,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-005-O3",
+      "question_id": "L5-005",
+      "option_label": "Neither agree nor disagree",
+      "dimension_id": "",
+      "score_value": 3,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-005-O4",
+      "question_id": "L5-005",
+      "option_label": "Agree",
+      "dimension_id": "",
+      "score_value": 4,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-005-O5",
+      "question_id": "L5-005",
+      "option_label": "Strongly agree",
+      "dimension_id": "",
+      "score_value": 5,
+      "mapping_or_feedback": "Feedback only; do not treat as psychometric trait"
+    },
+    {
+      "option_id": "L5-006-A",
+      "question_id": "L5-006",
+      "option_label": "Explore the top recommendation",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-006-B",
+      "question_id": "L5-006",
+      "option_label": "Compare alternatives",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-006-C",
+      "question_id": "L5-006",
+      "option_label": "Speak with a mentor",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-006-D",
+      "question_id": "L5-006",
+      "option_label": "Review eligibility",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    },
+    {
+      "option_id": "L5-006-E",
+      "question_id": "L5-006",
+      "option_label": "Continue exploring",
+      "dimension_id": "",
+      "score_value": 1,
+      "mapping_or_feedback": "Workflow/feedback signal; not suitability score"
+    }
+  ],
+  "course_domain_mappings": [
+    {
+      "program_id": "SUN-001",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-001",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-001",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-002",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-002",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-002",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-003",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-003",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-003",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-004",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-004",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-005",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-005",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-005",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-005",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-006",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-006",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-006",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-007",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-007",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-007",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-007",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-008",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-008",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-008",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-008",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-009",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-009",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-009",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-010",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-010",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-010",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-011",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-011",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-011",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-012",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-012",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-013",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-014",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-014",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-015",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-015",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-016",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-016",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-016",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-017",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-017",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-018",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-019",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-019",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-019",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-020",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-020",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-020",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-021",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-021",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-021",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-021",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-022",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-022",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-022",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-023",
+      "dimension_id": "ANALYTICS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-023",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-023",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-023",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-024",
+      "dimension_id": "ANALYTICS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-024",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-024",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-024",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-025",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-025",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-025",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-026",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-026",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-026",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-026",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-027",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-027",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-027",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-028",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-028",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-028",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-029",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-029",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-029",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-030",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-030",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-030",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-031",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-031",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-031",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-032",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-032",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-032",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-032",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-033",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-033",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-033",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-034",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-034",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-034",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-035",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-035",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-035",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-036",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-037",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-037",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-038",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-038",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-039",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-040",
+      "dimension_id": "ANALYTICS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-040",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-040",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-041",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-042",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-043",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-043",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-043",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-044",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-045",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-046",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-047",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-047",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-048",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-049",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-049",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-050",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-051",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-052",
+      "dimension_id": "ANALYTICS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-052",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-052",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-053",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-054",
+      "dimension_id": "ANALYTICS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-054",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-054",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-055",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-055",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-055",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-056",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-056",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-057",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-058",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-058",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-059",
+      "dimension_id": "ANALYTICS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-059",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-059",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-060",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-061",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-062",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-062",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-063",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-063",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-063",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-064",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-065",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-065",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-066",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-066",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-066",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-067",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-067",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-067",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-068",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-068",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-068",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-069",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-069",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-070",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-070",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-070",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-071",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-071",
+      "dimension_id": "LAW",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-071",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-071",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-072",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-072",
+      "dimension_id": "LAW",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-073",
+      "dimension_id": "LAW",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-074",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-074",
+      "dimension_id": "LAW",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-074",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-075",
+      "dimension_id": "LAW",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-075",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-076",
+      "dimension_id": "LAW",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-077",
+      "dimension_id": "LAW",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-077",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-078",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-079",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-079",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-080",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-080",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-080",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-081",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-082",
+      "dimension_id": "ANALYTICS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-082",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-082",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-083",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-083",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-083",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-084",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-084",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-084",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-085",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-085",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-086",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-086",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-086",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-087",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-087",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-088",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-088",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-089",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-089",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-090",
+      "dimension_id": "ANALYTICS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-090",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-090",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-090",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-091",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-091",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-092",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-092",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-093",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-093",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-093",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-094",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-094",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-094",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-095",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-095",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-095",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-096",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-097",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-097",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-098",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-098",
+      "dimension_id": "BUILT_ENV",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-099",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-099",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-100",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-100",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-100",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-101",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-101",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-101",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-102",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-102",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-102",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-103",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-104",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-104",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-104",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-105",
+      "dimension_id": "TECHNOLOGY",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-105",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-105",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-106",
+      "dimension_id": "ENGINEERING",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-106",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-106",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-107",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-107",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-107",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-108",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-108",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-108",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-109",
+      "dimension_id": "BUSINESS",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-109",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-109",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-110",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-110",
+      "dimension_id": "LAW",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-110",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-111",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-111",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-112",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-112",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-113",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-113",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-113",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-113",
+      "dimension_id": "COMMUNICATION",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-114",
+      "dimension_id": "SCIENCE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-114",
+      "dimension_id": "HEALTH_PHARMA",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-114",
+      "dimension_id": "DESIGN",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-114",
+      "dimension_id": "PEOPLE",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    },
+    {
+      "program_id": "SUN-114",
+      "dimension_id": "RESEARCH",
+      "mapping_method": "keyword_proposed",
+      "review_status": "review_required"
+    }
+  ],
+  "routing_rules": [
+    {
+      "level": "L1",
+      "rule": "common_interest_inventory"
+    },
+    {
+      "level": "L2",
+      "rule": "adaptive_program_family"
+    },
+    {
+      "level": "L3",
+      "rule": "course_fit_after_profile_and_eligibility_filter"
+    },
+    {
+      "level": "L4",
+      "rule": "specialization_module_for_selected_course"
+    },
+    {
+      "level": "L5",
+      "rule": "readiness_goals_eligibility_and_student_choice"
+    }
+  ],
+  "production_guardrails": [
+    "All course and specialization mappings require faculty review.",
+    "All eligibility rules remain unverified until approved by admissions for the academic year.",
+    "Do not use recommendations for admission selection.",
+    "Do not present this as a validated psychometric instrument until validity and fairness studies are complete.",
+    "Student retains final choice; provide alternatives and mentor support."
+  ]
+}

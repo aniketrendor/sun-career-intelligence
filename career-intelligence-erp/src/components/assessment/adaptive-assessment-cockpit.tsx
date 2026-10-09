@@ -10,7 +10,7 @@ import {
   Award, Check, ChevronRight, Layers, FileText,
   Brain, Compass, Target, BookmarkCheck, Zap, Keyboard,
   BarChart3, BarChart2, RotateCcw, Info, Activity, Flame,
-  LogOut, X, CheckSquare, Square
+  LogOut, X, CheckSquare, Square, Star, Radio
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -18,92 +18,35 @@ import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { submitFresherLead } from '@/lib/actions/key.actions'
 import {
-  Stage1Question,
-  UG_STAGE1_QUESTIONS,
-  STAGE1_DIMENSION_DEFS,
-} from '@/lib/engines/stage1-bank-data'
-import {
-  selectNextAdaptiveQuestion,
-  computeStudentContext,
-  AnswerHistoryItem,
-  StudentPsychometricContext,
-} from '@/lib/engines/adaptive-question-selector'
-import {
+  getQuestionsForAssessment,
+  ASSESSMENT_LEVEL_CONFIGS,
   processAssessmentResponses,
-  ResponseRecord,
-} from '@/lib/engines/assessment-engine'
-import {
-  runRecommendationEngine,
-} from '@/lib/engines/recommendation-engine'
-import {
-  resolveOptimalSpecialization,
-} from '@/lib/engines/stage1-domain-pathway-mapper'
-import {
-  selectNextHierarchicalQuestion,
-  processV2Assessment,
-  isV2Enabled,
-  MASTER_QB_V2,
+  validateAnswerForQuestion,
+  type AssessmentQuestion,
+  type StudentAnswer,
+  type StudentProfileContext,
+  type AcademicDegreeLevel,
 } from '@/lib/engines'
-import type {
-  QBQuestionV2,
-  V2ResponseRecord,
-} from '@/lib/types/qb-v2.types'
-
-// ─── 5 HIERARCHICAL LEVEL CONFIGURATIONS (6 QUESTIONS PER LEVEL = 30 TOTAL) ───
-const SECTION_CONFIGS = [
-  {
-    index: 1,
-    level: 1,
-    title: 'Level 1: Broad Career Domain Exploration',
-    shortTitle: 'Level 1: Broad Domain',
-    range: [1, 6],
-    description: 'Identifies broad career interests across Technology, Engineering, Business, Design, Science, Law, and Healthcare.',
-  },
-  {
-    index: 2,
-    level: 2,
-    title: 'Level 2: Program Family Routing',
-    shortTitle: 'Level 2: Program Family',
-    range: [7, 12],
-    description: 'Narrows down candidate degree clusters and vocational pathways based on emerging preferences.',
-  },
-  {
-    index: 3,
-    level: 3,
-    title: 'Level 3: Degree & Course Differentiation',
-    shortTitle: 'Level 3: Course Architecture',
-    range: [13, 18],
-    description: 'Compares specific degree structures (e.g. B.Tech vs BCA vs B.Sc, BBA vs B.Com, LLB vs BA LLB).',
-  },
-  {
-    index: 4,
-    level: 4,
-    title: 'Level 4: Specialization Identification',
-    shortTitle: 'Level 4: Specialization',
-    range: [19, 24],
-    description: 'Evaluates focus areas such as AI/ML, Cloud Security, FinTech, Media Design, Biotechnology, and Operations.',
-  },
-  {
-    index: 5,
-    level: 5,
-    title: 'Level 5: Deep Specialization & Differentiators',
-    shortTitle: 'Level 5: Final Differentiation',
-    range: [25, 30],
-    description: 'Applies targeted tie-breaker differentiator questions to distinguish closely competing programs.',
-  },
-]
 
 export interface AdaptiveAssessmentCockpitProps {
   referralCode?: string
   candidateName: string
   candidateEmail: string
   candidatePhone?: string
-  academicLevel: 'UG' | 'PG'
+  academicLevel: 'UG' | 'PG' | 'Diploma' | 'PhD'
   qualification?: string
   college?: string
   mentorName?: string
   onExit?: () => void
 }
+
+const LIKERT_OPTIONS = [
+  { value: 1, label: 'Strongly Disagree', short: '1' },
+  { value: 2, label: 'Disagree', short: '2' },
+  { value: 3, label: 'Neutral', short: '3' },
+  { value: 4, label: 'Agree', short: '4' },
+  { value: 5, label: 'Strongly Agree', short: '5' },
+]
 
 export function AdaptiveAssessmentCockpit({
   referralCode = 'SUN-FRESHERS-2026',
@@ -118,228 +61,141 @@ export function AdaptiveAssessmentCockpit({
 }: AdaptiveAssessmentCockpitProps) {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
-  const v2Active = useMemo(() => isV2Enabled(), [])
-
-  // Dynamic Adaptive Question Stack (starts with Question 1, expands up to 30)
-  const [activeQuestionsV2, setActiveQuestionsV2] = useState<QBQuestionV2[]>(() => {
-    const step1 = selectNextHierarchicalQuestion({
-      responses: [],
-      profile: { academicLevel, stream: qualification },
-    })
-    return step1.nextQuestion ? [step1.nextQuestion] : [MASTER_QB_V2.questions[0]]
-  })
-  const [activeQuestionsV1, setActiveQuestionsV1] = useState<Stage1Question[]>(() => {
-    return [UG_STAGE1_QUESTIONS[0]]
-  })
   const [currentIndex, setCurrentIndex] = useState(0)
-  
-  // Selected answers: map of questionId -> array of option IDs
-  const [selectedAnswersMap, setSelectedAnswersMap] = useState<Record<string, string[]>>({})
+  const [answersMap, setAnswersMap] = useState<Record<string, StudentAnswer>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitConfirmOpen, setIsSubmitConfirmOpen] = useState(false)
   const [isExitConfirmOpen, setIsExitConfirmOpen] = useState(false)
 
-  // Initialize first question on mount
+  const questions: AssessmentQuestion[] = useMemo(() => getQuestionsForAssessment(), [])
+  const totalQuestions = questions.length
+
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // Current Question accessor
-  const currentQV2: QBQuestionV2 | undefined = activeQuestionsV2[currentIndex] || activeQuestionsV2[0]
-  const currentQV1: Stage1Question | undefined = activeQuestionsV1[currentIndex] || activeQuestionsV1[0] || (UG_STAGE1_QUESTIONS[0])
+  const currentQuestion = questions[currentIndex] || questions[0]
+  const currentAnswer = answersMap[currentQuestion?.question_id]
 
-  const currentQId = v2Active ? currentQV2?.id : currentQV1?.id
-  const currentQText = v2Active ? currentQV2?.questionText : currentQV1?.question
-  const isMultiSelect = true
-  const isRanking = false
+  const levelConfig = useMemo(() => {
+    return (
+      ASSESSMENT_LEVEL_CONFIGS.find((c) => c.level === currentQuestion?.level) ||
+      ASSESSMENT_LEVEL_CONFIGS[0]
+    )
+  }, [currentQuestion?.level])
 
-  const currentSectionIndex = Math.min(4, Math.max(0, Math.floor(currentIndex / 6)))
-  const currentSection = SECTION_CONFIGS[currentSectionIndex] || SECTION_CONFIGS[0]
-  const qNumInCurrentSection = (currentIndex % 6) + 1
+  // Count answered questions
+  const answeredCount = useMemo(() => {
+    return Object.values(answersMap).filter((ans) => {
+      if (typeof ans.rating_value === 'number') return true
+      if (ans.option_id) return true
+      if (ans.option_ids && ans.option_ids.length > 0) return true
+      return false
+    }).length
+  }, [answersMap])
 
-  const answeredCount = Object.keys(selectedAnswersMap).filter((k) => (selectedAnswersMap[k]?.length || 0) > 0).length
-  const progressPercent = Math.round((answeredCount / 30) * 100)
+  const progressPercent = Math.round((answeredCount / totalQuestions) * 100)
 
-  // Current selected option IDs for this question
-  const currentSelectedOptionIds = useMemo(() => {
-    if (!currentQId) return []
-    return selectedAnswersMap[currentQId] || []
-  }, [currentQId, selectedAnswersMap])
-
-  // Real-time Psychometric Context / Evidence Computation
-  const psychometricContext: StudentPsychometricContext = useMemo(() => {
-    if (v2Active) {
-      // Build running V2 responses with multi-select support across all levels
-      const responses: V2ResponseRecord[] = activeQuestionsV2
-        .filter((q) => !!selectedAnswersMap[q.id]?.length)
-        .map((q) => {
-          const ans = selectedAnswersMap[q.id] || []
-          return {
-            questionId: q.id,
-            selectedOptionIds: ans,
-          }
-        })
-      const v2Res = processV2Assessment(responses, { academicLevel, stream: qualification })
-      
-      const traits: Record<string, number> = {}
-      const topTraits: { code: string; name: string; score: number }[] = []
-      Object.entries(v2Res.traitScores).forEach(([code, t]) => {
-        traits[code] = t.normalizedScore
-        topTraits.push({ code, name: t.name, score: t.normalizedScore })
-      })
-      topTraits.sort((a, b) => b.score - a.score)
-
-      const topDomains = v2Res.topDomains.map((d) => ({
-        id: d.code,
-        name: d.name,
-        score: d.score,
-      }))
-
-      return {
-        traits,
-        totalWeight: 100,
-        topTraits,
-        topDomains,
-        primaryLeaning: topDomains[0]?.name || 'Technology & Computing',
-        answeredCount,
-      }
-    } else {
-      const history: AnswerHistoryItem[] = activeQuestionsV1
-        .filter((q) => !!selectedAnswersMap[q.id]?.[0])
-        .map((q) => ({
-          question: q,
-          selectedOptionId: selectedAnswersMap[q.id]![0],
-        }))
-      return computeStudentContext(history)
+  // Real-time live profile evaluation
+  const liveResult = useMemo(() => {
+    const validAnswers = Object.values(answersMap)
+    const profile: StudentProfileContext = {
+      fullName: candidateName,
+      email: candidateEmail,
+      phone: candidatePhone,
+      academicLevel: academicLevel as AcademicDegreeLevel,
+      stream: qualification,
+      referralCode,
+      mentorName,
     }
-  }, [activeQuestionsV2, activeQuestionsV1, selectedAnswersMap, v2Active, academicLevel, qualification, answeredCount])
+    return processAssessmentResponses(validAnswers, profile)
+  }, [answersMap, candidateName, candidateEmail, candidatePhone, academicLevel, qualification, referralCode, mentorName])
 
-  // Option selection handler (pure multi-select toggle across all levels)
-  const handleSelectOption = (optionId: string) => {
-    if (!currentQId) return
+  // Answer handlers
+  const handleSelectRating = (val: number) => {
+    if (!currentQuestion) return
+    setAnswersMap((prev) => ({
+      ...prev,
+      [currentQuestion.question_id]: {
+        question_id: currentQuestion.question_id,
+        rating_value: val,
+      },
+    }))
+  }
 
-    setSelectedAnswersMap((prev) => {
-      const existing = prev[currentQId] || []
-      if (existing.includes(optionId)) {
-        return { ...prev, [currentQId]: existing.filter((id) => id !== optionId) }
+  const handleSelectSingle = (optId: string) => {
+    if (!currentQuestion) return
+    setAnswersMap((prev) => ({
+      ...prev,
+      [currentQuestion.question_id]: {
+        question_id: currentQuestion.question_id,
+        option_id: optId,
+      },
+    }))
+  }
+
+  const handleSelectMulti = (optId: string) => {
+    if (!currentQuestion) return
+    const existing = currentAnswer?.option_ids || []
+    const isAlreadySelected = existing.includes(optId)
+
+    const opt = currentQuestion.options.find((o) => o.option_id === optId)
+    const isMutuallyExclusive = opt?.is_mutually_exclusive
+
+    let updated: string[] = []
+    if (isMutuallyExclusive) {
+      updated = isAlreadySelected ? [] : [optId]
+    } else {
+      const filtered = existing.filter((id) => {
+        const o = currentQuestion.options.find((item) => item.option_id === id)
+        return !o?.is_mutually_exclusive
+      })
+      if (isAlreadySelected) {
+        updated = filtered.filter((id) => id !== optId)
       } else {
-        return { ...prev, [currentQId]: [...existing, optionId] }
+        const max = currentQuestion.max_selections ?? 4
+        if (filtered.length >= max) {
+          toast.info(`Maximum ${max} options allowed for this question.`)
+          return
+        }
+        updated = [...filtered, optId]
       }
-    })
+    }
+
+    setAnswersMap((prev) => ({
+      ...prev,
+      [currentQuestion.question_id]: {
+        question_id: currentQuestion.question_id,
+        option_ids: updated,
+      },
+    }))
   }
 
-  const handleResetRanking = () => {
-    if (!currentQId) return
-    setSelectedAnswersMap((prev) => ({ ...prev, [currentQId]: [] }))
+  // Navigation handlers
+  const validation = validateAnswerForQuestion(currentQuestion, currentAnswer)
+
+  const handleNext = () => {
+    if (!validation.isValid) {
+      toast.error(validation.errorMessage || 'Please answer the question before continuing.')
+      return
+    }
+
+    if (currentIndex < totalQuestions - 1) {
+      setCurrentIndex((prev) => prev + 1)
+    } else {
+      handleFinishAssessment()
+    }
   }
 
-  // Previous Question
   const handlePrev = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1)
+      setCurrentIndex((prev) => prev - 1)
     }
   }
 
-  // Dynamic Next Question Progression
-  const handleNext = () => {
-    if (!currentQId || !selectedAnswersMap[currentQId]?.length) {
-      toast.warning('Please select an option before moving to the next question.')
-      return
-    }
-
-    if (currentIndex >= 29) {
-      handleFinishAssessment()
-      return
-    }
-
-    const nextIndex = currentIndex + 1
-
-    if (v2Active) {
-      if (nextIndex < activeQuestionsV2.length) {
-        setCurrentIndex(nextIndex)
-        return
-      }
-
-      // Dynamically select next hierarchical question
-      const responses: V2ResponseRecord[] = activeQuestionsV2.slice(0, currentIndex + 1).map((q) => {
-        const ans = selectedAnswersMap[q.id] || [q.options[0]?.id || 'A']
-        return {
-          questionId: q.id,
-          selectedOptionIds: ans,
-        }
-      })
-
-      const step = selectNextHierarchicalQuestion({
-        responses,
-        profile: { academicLevel, stream: qualification },
-      })
-
-      if (step.nextQuestion) {
-        setActiveQuestionsV2((prev) => [...prev, step.nextQuestion!])
-        setCurrentIndex(nextIndex)
-      } else {
-        handleFinishAssessment()
-      }
-    } else {
-      if (nextIndex < activeQuestionsV1.length) {
-        setCurrentIndex(nextIndex)
-        return
-      }
-
-      const history: AnswerHistoryItem[] = activeQuestionsV1.slice(0, currentIndex + 1).map((q) => ({
-        question: q,
-        selectedOptionId: selectedAnswersMap[q.id]?.[0] || (q.options[0]?.id || 'A'),
-      }))
-
-      const nextQuestion = selectNextAdaptiveQuestion({
-        track: academicLevel,
-        targetIndex: nextIndex,
-        history,
-        askedQuestionIds: activeQuestionsV1.map((q) => q.id),
-        seed: 2026,
-      })
-
-      setActiveQuestionsV1((prev) => [...prev, nextQuestion])
-      setCurrentIndex(nextIndex)
-    }
-  }
-
-  // Keyboard navigation shortcuts
-  useEffect(() => {
-    if (!mounted) return
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (isSubmitConfirmOpen || isExitConfirmOpen) return
-      const target = e.target as HTMLElement | null
-      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) return
-
-      const key = e.key.toLowerCase()
-      const options = v2Active ? currentQV2?.options : currentQV1?.options
-
-      if (key === '1' || key === 'a') {
-        if (options?.[0]) handleSelectOption(options[0].id)
-      } else if (key === '2' || key === 'b') {
-        if (options?.[1]) handleSelectOption(options[1].id)
-      } else if (key === '3' || key === 'c') {
-        if (options?.[2]) handleSelectOption(options[2].id)
-      } else if (key === '4' || key === 'd') {
-        if (options?.[3]) handleSelectOption(options[3].id)
-      } else if (key === 'arrowright' || key === 'enter') {
-        e.preventDefault()
-        handleNext()
-      } else if (key === 'arrowleft') {
-        e.preventDefault()
-        handlePrev()
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [mounted, currentQV2, currentQV1, isSubmitConfirmOpen, isExitConfirmOpen, currentIndex, selectedAnswersMap, v2Active])
-
-  // Final Assessment Submission
+  // Final Submission
   const handleFinishAssessment = () => {
-    if (answeredCount < 30) {
+    if (answeredCount < totalQuestions) {
       setIsSubmitConfirmOpen(true)
       return
     }
@@ -352,196 +208,127 @@ export function AdaptiveAssessmentCockpit({
     toast.success('Analyzing responses through the Sandip University Career Intelligence Engine...')
 
     try {
-      if (v2Active) {
-        // ─── V2 ASSESSMENT EVALUATION ──────────────────────────────────────────
-        const v2Responses: V2ResponseRecord[] = activeQuestionsV2.map((q) => {
-          const ans = selectedAnswersMap[q.id] || [q.options[0]?.id || 'A']
-          return {
-            questionId: q.id,
-            selectedOptionIds: ans,
-          }
-        })
+      const validAnswers = Object.values(answersMap)
+      const profile: StudentProfileContext = {
+        fullName: candidateName,
+        email: candidateEmail,
+        phone: candidatePhone,
+        academicLevel: academicLevel as AcademicDegreeLevel,
+        stream: qualification,
+        referralCode,
+        mentorName,
+      }
 
-        const v2Result = processV2Assessment(v2Responses, {
-          academicLevel,
-          stream: qualification,
-        })
+      const finalResult = processAssessmentResponses(validAnswers, profile)
+      const primary = finalResult.primary_course || {
+        program_id: 'SUN-023',
+        course: 'B.Tech',
+        specialization: 'Artificial Intelligence & Machine Learning',
+        match_score: 92,
+      }
 
-        const primaryProg = v2Result.primaryProgram || {
-          programId: 'SUN-023',
-          name: 'B.Tech CSE in Artificial Intelligence & Machine Learning',
-          specialization: 'Artificial Intelligence & Machine Learning',
-          finalCompositeScore: 92,
-        }
+      const d1 = finalResult.top_dimensions[0] || { name: 'Technology & computing', normalized_score: 94, dimension_id: 'TECHNOLOGY' }
+      const d2 = finalResult.top_dimensions[1] || { name: 'Engineering & applied technology', normalized_score: 86, dimension_id: 'ENGINEERING' }
+      const d3 = finalResult.top_dimensions[2] || { name: 'Business & management', normalized_score: 78, dimension_id: 'BUSINESS' }
 
-        const domain1 = v2Result.topDomains[0] || { name: 'Technology & Computing', code: 'TECH', score: 94 }
-        const domain2 = v2Result.topDomains[1] || { name: 'Engineering & Architecture', code: 'ENG', score: 86 }
-        const domain3 = v2Result.topDomains[2] || { name: 'Management & Commerce', code: 'BUS', score: 78 }
-
-        const topDomainName = domain1.name
-        const overallFit = primaryProg.finalCompositeScore
-        const recommendedSpec = primaryProg.specialization || primaryProg.name
-
-        // Persist lead in database safely without blocking navigation
-        try {
-          await submitFresherLead({
-            referralCode,
-            candidateName,
-            candidateEmail: candidateEmail || undefined,
-            candidatePhone: candidatePhone || undefined,
-            targetLevel: academicLevel,
-            highestQualification: qualification || undefined,
-            lastAttemptedCollege: college || undefined,
-            testScore: Math.round(overallFit),
-            fitScore: Math.round(overallFit),
-            topDomain: topDomainName,
-            recommendedSpec,
-          })
-        } catch (persistErr) {
-          console.warn('Lead persistence notice:', persistErr)
-        }
-
-        const resultParams = new URLSearchParams({
-          code: referralCode,
-          name: candidateName,
-          email: candidateEmail,
-          phone: candidatePhone,
-          level: academicLevel,
-          qualification,
-          college,
-          mentor: mentorName,
-          topDomain: topDomainName,
-          recommendedSpec,
-          progId: primaryProg.programId,
-          fitScore: String(Math.round(overallFit)),
-          d1Name: domain1.name,
-          d1Score: String(domain1.score),
-          d1Code: domain1.code,
-          d1Label: domain1.score >= 80 ? 'Strong Alignment' : 'Moderate Alignment',
-          d2Name: domain2.name,
-          d2Score: String(domain2.score),
-          d2Code: domain2.code,
-          d2Label: domain2.score >= 80 ? 'Strong Alignment' : 'Moderate Alignment',
-          d3Name: domain3.name,
-          d3Score: String(domain3.score),
-          d3Code: domain3.code,
-          d3Label: domain3.score >= 80 ? 'Strong Alignment' : 'Moderate Alignment',
-          archetypeTitle: v2Result.careerArchetype?.title || 'Applied Innovator',
-          archetypeSummary: v2Result.careerArchetype?.summary || '',
-          riasecCode: v2Result.riasecProfile?.fullCode || 'IER',
-          riasecName: v2Result.riasecProfile?.primaryName || 'Investigative',
-          cogAna: String(v2Result.cognitivePillars?.analytical || 85),
-          cogSys: String(v2Result.cognitivePillars?.systemsThinking || 82),
-          cogCre: String(v2Result.cognitivePillars?.creativity || 75),
-          cogStr: String(v2Result.cognitivePillars?.strategicBusiness || 78),
-          cogSoc: String(v2Result.cognitivePillars?.socialHumanity || 70),
-          cogSci: String(v2Result.cognitivePillars?.scientificRigor || 80),
-          portal: 'student',
-        })
-
-        const destinationUrl = `/student/fresher/report?${resultParams.toString()}`
-        router.push(destinationUrl)
-        if (typeof window !== 'undefined') {
-          setTimeout(() => {
-            window.location.href = destinationUrl
-          }, 200)
-        }
-      } else {
-        // ─── LEGACY V1 EVALUATION (Fallback) ──────────────────────────────────
-        const responseRecords: ResponseRecord[] = activeQuestionsV1.map((q) => {
-          const selectedOptId = selectedAnswersMap[q.id]?.[0] || (q.options[0]?.id || 'A')
-          const optIndex = q.options.findIndex((o) => o.id === selectedOptId)
-          return {
-            questionId: q.id,
-            selectedOptionId: selectedOptId,
-            responseValue: optIndex >= 0 ? optIndex + 1 : 1,
-          }
-        })
-
-        const processedAssessment = processAssessmentResponses(
-          responseRecords,
-          undefined,
-          academicLevel
-        )
-
-        const recommendationOutput = runRecommendationEngine(
-          processedAssessment.traitScores,
-          processedAssessment.qualityMetrics,
-          {
-            level: academicLevel,
-            previousDegree: qualification,
-          }
-        )
-
-        const sortedDomains = [...recommendationOutput.domainScores].sort(
-          (a, b) => b.compatibilityScore - a.compatibilityScore
-        )
-        const domain1 = sortedDomains[0] || { name: 'Computer Science & Information Technology', code: 'CS_IT', compatibilityScore: 94, alignmentLabel: 'Strong Alignment' }
-        const domain2 = sortedDomains[1] || { name: 'Engineering & Advanced Technology', code: 'ENG_TECH', compatibilityScore: 86, alignmentLabel: 'High Compatibility' }
-        const domain3 = sortedDomains[2] || { name: 'Business & Management', code: 'BUS_MGMT', compatibilityScore: 78, alignmentLabel: 'Moderate Alignment' }
-
-        const topDomainName = domain1.name
-        const overallFit = domain1.compatibilityScore
-
-        const optimalSpec = resolveOptimalSpecialization(
-          domain1.code || domain1.id,
-          domain2.code || domain2.id,
-          domain3.code || domain3.id,
-          academicLevel
-        )
-        const recommendedSpec = optimalSpec.specialization
-
+      // Persist lead
+      try {
         await submitFresherLead({
           referralCode,
           candidateName,
           candidateEmail: candidateEmail || undefined,
           candidatePhone: candidatePhone || undefined,
-          targetLevel: academicLevel,
+          targetLevel: (academicLevel === 'PG' ? 'PG' : 'UG') as 'UG' | 'PG',
           highestQualification: qualification || undefined,
           lastAttemptedCollege: college || undefined,
-          testScore: Math.round(overallFit),
-          fitScore: Math.round(overallFit),
-          topDomain: topDomainName,
-          recommendedSpec,
+          testScore: primary.match_score,
+          fitScore: primary.match_score,
+          topDomain: d1.name,
+          recommendedSpec: primary.specialization,
         })
+      } catch (err) {
+        console.warn('Lead persistence notice:', err)
+      }
 
-        const resultParams = new URLSearchParams({
-          code: referralCode,
-          name: candidateName,
-          email: candidateEmail,
-          phone: candidatePhone,
-          level: academicLevel,
-          qualification,
-          college,
-          mentor: mentorName,
-          topDomain: topDomainName,
-          recommendedSpec,
-          fitScore: String(Math.round(overallFit)),
-          d1Name: domain1.name,
-          d1Score: String(domain1.compatibilityScore),
-          d1Code: domain1.code,
-          d1Label: domain1.alignmentLabel,
-          d2Name: domain2.name,
-          d2Score: String(domain2.compatibilityScore),
-          d2Code: domain2.code,
-          d2Label: domain2.alignmentLabel,
-          d3Name: domain3.name,
-          d3Score: String(domain3.compatibilityScore),
-          d3Code: domain3.code,
-          d3Label: domain3.alignmentLabel,
-          portal: 'student',
-        })
+      // Build Result Params
+      const resultParams = new URLSearchParams({
+        code: referralCode,
+        name: candidateName,
+        email: candidateEmail,
+        phone: candidatePhone,
+        level: academicLevel,
+        qualification,
+        college,
+        mentor: mentorName,
+        topDomain: d1.name,
+        recommendedSpec: primary.specialization,
+        progId: primary.program_id,
+        fitScore: String(primary.match_score),
+        d1Name: d1.name,
+        d1Score: String(d1.normalized_score),
+        d1Code: d1.dimension_id,
+        d2Name: d2.name,
+        d2Score: String(d2.normalized_score),
+        d2Code: d2.dimension_id,
+        d3Name: d3.name,
+        d3Score: String(d3.normalized_score),
+        d3Code: d3.dimension_id,
+        portal: 'student',
+      })
 
+      const dest = `/student/fresher/report?${resultParams.toString()}`
+      router.push(dest)
+      if (typeof window !== 'undefined') {
         setTimeout(() => {
-          window.location.href = `/student/fresher/report?${resultParams.toString()}`
-        }, 500)
+          window.location.href = dest
+        }, 200)
       }
     } catch (err) {
       console.error('Submission error:', err)
-      toast.error('Finalizing assessment report...')
+      toast.error('Finalizing career intelligence report...')
       window.location.href = `/student/fresher/report?code=${encodeURIComponent(referralCode)}&name=${encodeURIComponent(candidateName)}&level=${academicLevel}&portal=student`
     }
   }
+
+  // Keyboard Navigation
+  useEffect(() => {
+    if (!mounted) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isSubmitConfirmOpen || isExitConfirmOpen) return
+      const target = e.target as HTMLElement | null
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) return
+
+      const key = e.key.toLowerCase()
+
+      if (currentQuestion.question_type === 'rating_scale') {
+        if (['1', '2', '3', '4', '5'].includes(key)) {
+          handleSelectRating(parseInt(key, 10))
+        }
+      } else if (currentQuestion.question_type === 'single_select') {
+        const idx = ['a', 'b', 'c', 'd', 'e'].indexOf(key)
+        if (idx >= 0 && currentQuestion.options[idx]) {
+          handleSelectSingle(currentQuestion.options[idx].option_id)
+        }
+      } else if (currentQuestion.question_type === 'multi_select') {
+        const idx = ['a', 'b', 'c', 'd', 'e'].indexOf(key)
+        if (idx >= 0 && currentQuestion.options[idx]) {
+          handleSelectMulti(currentQuestion.options[idx].option_id)
+        }
+      }
+
+      if (key === 'arrowright' || key === 'enter') {
+        e.preventDefault()
+        handleNext()
+      } else if (key === 'arrowleft') {
+        e.preventDefault()
+        handlePrev()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [mounted, currentQuestion, answersMap, isSubmitConfirmOpen, isExitConfirmOpen, currentIndex])
 
   if (!mounted) {
     return (
@@ -552,100 +339,96 @@ export function AdaptiveAssessmentCockpit({
         <div className="space-y-1">
           <h3 className="text-base font-bold text-[#2C2621]">Loading Career Assessment Cockpit...</h3>
           <p className="text-xs text-[#7A7067]">
-            Calibrating 891-Question Bank and psychometric dimensions for {candidateName} ({academicLevel} Track)
+            Calibrating 5-Level Adaptive Assessment for {candidateName} ({academicLevel} Track)
           </p>
         </div>
       </div>
     )
   }
 
-  const currentOptions = v2Active ? currentQV2?.options || [] : currentQV1?.options || []
-
   return (
-    <div className="w-full flex flex-col gap-3.5 sm:gap-4.5 pb-16 font-sans text-[#2C2621] selection:bg-[#A36B40] selection:text-white">
-      {/* ─── COMPACT TOP BAR ─── */}
-      <div className="bg-white/95 backdrop-blur-md border border-[#DFD7CB] rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-xs shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-[#A36B40]/10 border border-[#A36B40]/30 flex items-center justify-center text-[#A36B40] font-bold shrink-0 shadow-xs">
-            <Brain className="w-4 h-4" />
+    <div className="flex flex-col gap-4 font-sans pb-10">
+      {/* ─── HEADER: APPLICANT CONTEXT & METRICS BAR ─── */}
+      <div className="bg-white border border-[#DFD7CB] rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3.5">
+          <div className="w-11 h-11 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] text-[#A36B40] flex items-center justify-center font-bold text-base shadow-xs shrink-0">
+            {candidateName.charAt(0).toUpperCase() || 'S'}
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs sm:text-sm font-bold text-[#2C2621] tracking-tight leading-tight">Career Diagnostic Cockpit</span>
-              <Badge variant="outline" className="text-[9px] px-2 py-0.5 border-[#DFD7CB] text-[#A36B40] bg-[#FAF6F0] h-4.5 font-semibold">
-                {v2Active ? '891 QB V2' : 'Adaptive'}
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-base sm:text-lg font-bold text-[#2C2621] leading-tight">
+                {candidateName}
+              </h1>
+              <Badge variant="outline" className="text-[11px] font-semibold bg-[#FAF6F0] border-[#DFD7CB] text-[#A36B40] px-2 py-0.5">
+                {academicLevel} Track
               </Badge>
-              {v2Active && currentQV2?.level && (
-                <Badge variant="outline" className="text-[9px] px-2 py-0.5 border-[#DFD7CB] text-[#2C2621] bg-[#FAF6F0] h-4.5 font-semibold">
-                  {currentQV2.level === 'DIFF' ? 'Tie-Breaker' : currentQV2.level}
+              {referralCode && (
+                <Badge variant="secondary" className="text-[11px] font-medium bg-[#FAF6F0] border border-[#DFD7CB] text-[#6A5E54] px-2 py-0.5">
+                  Ref: {referralCode}
                 </Badge>
               )}
             </div>
-            <p className="text-[11px] text-[#6A5E54] leading-tight mt-0.5">
-              <span className="text-[#2C2621] font-semibold">{candidateName}</span> · {academicLevel} Track · Sandip University
+            <p className="text-xs text-[#7A7067] flex items-center gap-2 mt-0.5">
+              <span>{qualification || 'Standard High School / Academic Background'}</span>
+              <span>•</span>
+              <span className="text-[#A36B40] font-medium">Sandip University Career Intelligence</span>
             </p>
           </div>
         </div>
 
-        {/* Progress summary & Exit button */}
-        <div className="flex items-center gap-4">
-          <div className="flex flex-col items-end gap-1">
-            <div className="flex items-center gap-1.5 text-xs text-[#6A5E54] font-medium">
-              <span>Question <span className="text-[#A36B40] font-bold">{currentIndex + 1}</span> / 30</span>
-              <span className="text-[#8C7E72] text-[10px]">({progressPercent}%)</span>
+        {/* Global Progress Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:w-80">
+          <div className="flex-1 space-y-1.5">
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-semibold text-[#2C2621]">Assessment Progress</span>
+              <span className="font-bold text-[#A36B40]">{answeredCount} of {totalQuestions} ({progressPercent}%)</span>
             </div>
-            <div className="w-28 sm:w-36 md:w-44 h-2 bg-[#EBE5DB] rounded-full overflow-hidden border border-[#DFD7CB]">
-              <div
-                className="h-full bg-[#A36B40] transition-all duration-300 shadow-xs"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
+            <Progress value={progressPercent} className="h-2 bg-[#FAF6F0] border border-[#DFD7CB]" />
           </div>
 
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={() => setIsExitConfirmOpen(true)}
-            className="h-8 px-2.5 text-xs text-[#6A5E54] hover:text-red-600 hover:bg-red-50 border border-[#DFD7CB] bg-white rounded-xl cursor-pointer transition-all"
+            className="h-8 px-3 text-xs border-[#DFD7CB] text-[#7A7067] hover:text-[#2C2621] hover:bg-[#FAF6F0] shrink-0 cursor-pointer rounded-xl"
           >
-            <LogOut className="w-3.5 h-3.5 mr-1" />
-            <span>Exit</span>
+            <LogOut className="w-3.5 h-3.5 mr-1 text-[#7A7067]" /> Exit
           </Button>
         </div>
       </div>
 
-      {/* ─── 5-LEVEL STEPPER ─── */}
-      <div className="bg-white border border-[#DFD7CB] rounded-2xl p-1.5 shadow-xs shrink-0">
-        <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
-          {SECTION_CONFIGS.map((sec) => {
-            const isCurrent = sec.index === currentSection.index
-            const isCompleted = currentIndex >= sec.range[1]
+      {/* ─── 5-LEVEL PROGRESS STEPPER ─── */}
+      <div className="bg-white border border-[#DFD7CB] rounded-2xl p-3 sm:p-4 shadow-xs overflow-x-auto">
+        <div className="flex items-center justify-between min-w-[620px] gap-2">
+          {ASSESSMENT_LEVEL_CONFIGS.map((sec) => {
+            const isCurrent = sec.level === currentQuestion.level
+            const isCompleted = ASSESSMENT_LEVEL_CONFIGS.findIndex(c => c.level === currentQuestion.level) > ASSESSMENT_LEVEL_CONFIGS.findIndex(c => c.level === sec.level)
 
             return (
               <div
-                key={sec.index}
-                className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl border transition-all ${
+                key={sec.level}
+                className={`flex-1 flex items-center gap-2.5 p-2 rounded-xl transition-all ${
                   isCurrent
-                    ? 'bg-[#FAF6F0] border-[#A36B40] text-[#A36B40] ring-1 ring-[#A36B40]/30 shadow-xs'
+                    ? 'bg-[#FAF6F0] border border-[#A36B40]/40 text-[#2C2621] shadow-xs'
                     : isCompleted
-                    ? 'bg-emerald-50/80 border-emerald-300 text-emerald-700'
-                    : 'bg-[#FAF6F0]/40 border-[#E8E1D7] text-[#8C7E72]'
+                    ? 'bg-[#FAF6F0]/40 border border-[#DFD7CB]/60 text-[#7A7067]'
+                    : 'opacity-50 text-[#8C7E72]'
                 }`}
               >
                 <div
-                  className={`w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-lg flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                  className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ${
                     isCurrent
-                      ? 'bg-[#A36B40] text-white shadow-xs'
+                      ? 'bg-[#A36B40] text-white'
                       : isCompleted
                       ? 'bg-emerald-600 text-white'
-                      : 'bg-[#EBE5DB] text-[#6A5E54]'
+                      : 'bg-[#FAF6F0] border border-[#DFD7CB] text-[#8C7E72]'
                   }`}
                 >
-                  {isCompleted ? <Check className="w-3 h-3" /> : sec.index}
+                  {isCompleted ? <Check className="w-3.5 h-3.5" /> : `L${sec.levelNumber}`}
                 </div>
-                <div className="min-w-0 hidden sm:block">
-                  <div className="text-[11px] font-semibold truncate leading-tight">{sec.shortTitle}</div>
-                  <div className="text-[9px] text-[#8C7E72] leading-tight">6 Questions (Q{sec.range[0]}-{sec.range[1]})</div>
+                <div className="min-w-0">
+                  <div className="text-[11px] font-bold truncate leading-tight">{sec.title}</div>
+                  <div className="text-[10px] text-[#7A7067] truncate">{sec.subtitle}</div>
                 </div>
               </div>
             )
@@ -653,9 +436,9 @@ export function AdaptiveAssessmentCockpit({
         </div>
       </div>
 
-      {/* ─── MAIN TWO-COLUMN VIEWPORT (NATURAL VERTICAL SCROLL) ─── */}
+      {/* ─── MAIN TWO-COLUMN VIEWPORT ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start w-full">
-        {/* Left Column: Adaptive Question Card (8 Cols) */}
+        {/* Left Column: Question Card (8 Cols) */}
         <div className="lg:col-span-8 flex flex-col">
           <Card className="bg-white border-[#DFD7CB] text-[#2C2621] shadow-xs relative overflow-hidden flex flex-col rounded-2xl">
             <div className="absolute top-0 left-0 right-0 h-1 bg-[#A36B40]" />
@@ -664,149 +447,165 @@ export function AdaptiveAssessmentCockpit({
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-2">
                   <Badge variant="outline" className="bg-[#FAF6F0] border-[#DFD7CB] text-[#2C2621] text-[10px] px-2 py-0.5 h-5 font-semibold">
-                    Question {currentIndex + 1} of 30
+                    Question {currentIndex + 1} of {totalQuestions}
                   </Badge>
                   <Badge variant="outline" className="bg-[#FAF6F0] border-[#DFD7CB] text-[#A36B40] text-[10px] px-2 py-0.5 h-5 font-semibold">
-                    Level {currentSection.level}: Question {qNumInCurrentSection} of 6
+                    {levelConfig.title}
                   </Badge>
-                  {isRanking ? (
-                    <Badge variant="outline" className="bg-[#FAF6F0] border-[#A36B40]/40 text-[#A36B40] text-[10px] px-2 py-0.5 h-5 flex items-center gap-1 font-semibold">
-                      <Layers className="w-3 h-3" /> Ranking (1st → 4th)
-                    </Badge>
-                  ) : isMultiSelect ? (
-                    <Badge variant="outline" className="bg-[#FAF6F0] border-[#DFD7CB] text-[#A36B40] text-[10px] px-2 py-0.5 h-5 flex items-center gap-1 font-semibold">
-                      <CheckSquare className="w-3 h-3" /> {currentSection.level === 1 ? '12-Domain Multi-Select' : 'Multi-Select'}
-                    </Badge>
-                  ) : null}
+                  <Badge variant="outline" className="bg-[#FAF6F0] border-[#DFD7CB] text-[#77734B] text-[10px] px-2 py-0.5 h-5 font-semibold">
+                    {currentQuestion.question_type === 'rating_scale' ? 'Rating Scale (1–5)' : currentQuestion.question_type === 'multi_select' ? 'Multi-Select (Choose 1 or more)' : 'Single-Select'}
+                  </Badge>
                 </div>
                 <span className="text-[10px] text-[#8C7E72] flex items-center gap-1">
-                  <Keyboard className="w-3 h-3" /> Keys 1–4 or A–D
+                  <Keyboard className="w-3 h-3" /> Keys {currentQuestion.question_type === 'rating_scale' ? '1–5' : 'A–D'} or Enter
                 </span>
               </div>
 
               <h2 className="text-base sm:text-lg md:text-xl font-bold text-[#2C2621] leading-snug tracking-tight">
-                {currentQText}
+                {currentQuestion.question_text}
               </h2>
 
-              {isRanking ? (
+              {currentQuestion.note && (
                 <p className="text-[11px] text-[#6A5E54] flex items-center gap-1.5 bg-[#FAF6F0] border border-[#DFD7CB] px-2.5 py-1 rounded-lg">
-                  <Info className="w-3.5 h-3.5 text-[#A36B40] shrink-0" /> Click options in order of preference (1st Choice → 4th Choice). Click ranked item again to remove.
+                  <Info className="w-3.5 h-3.5 text-[#A36B40] shrink-0" /> {currentQuestion.note}
                 </p>
-              ) : isMultiSelect ? (
-                <p className="text-[11px] text-[#6A5E54] flex items-center gap-1.5 bg-[#FAF6F0] border border-[#DFD7CB] px-2.5 py-1 rounded-lg">
-                  <Info className="w-3.5 h-3.5 text-[#A36B40] shrink-0" /> Select all options that match your interests across 12 university career domains.
-                </p>
-              ) : null}
+              )}
             </div>
 
-            {/* Options List */}
-            <div className="p-4 sm:p-5 pt-3.5 flex flex-col gap-2.5 sm:gap-3">
-              {currentOptions.map((opt: any, idx: number) => {
-                const letter = String.fromCharCode(65 + idx)
-                const isSelected = currentSelectedOptionIds.includes(opt.id)
-                const optText = opt.displayText || opt.text || opt.rawText
-                const rankIndex = isRanking ? currentSelectedOptionIds.indexOf(opt.id) : -1
+            {/* ─── Question Body by Type ─── */}
+            <div className="p-4 sm:p-5 pt-3.5 flex flex-col gap-3">
+              {/* Type 1: Rating Scale (1 to 5 Likert) */}
+              {currentQuestion.question_type === 'rating_scale' && (
+                <div className="space-y-3 py-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
+                    {LIKERT_OPTIONS.map((item) => {
+                      const isSelected = currentAnswer?.rating_value === item.value
+                      return (
+                        <button
+                          key={item.value}
+                          onClick={() => handleSelectRating(item.value)}
+                          className={`p-3.5 rounded-2xl border transition-all flex flex-col items-center justify-center text-center space-y-1.5 cursor-pointer ${
+                            isSelected
+                              ? 'bg-[#A36B40] text-white border-[#8E5B34] shadow-sm ring-2 ring-[#A36B40]/25'
+                              : 'bg-white border-[#DFD7CB] hover:border-[#A36B40] hover:bg-[#FAF6F0]/60 text-[#2C2621]'
+                          }`}
+                        >
+                          <span className={`w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center ${
+                            isSelected ? 'bg-white text-[#A36B40]' : 'bg-[#FAF6F0] border border-[#DFD7CB] text-[#6A5E54]'
+                          }`}>
+                            {item.short}
+                          </span>
+                          <span className="text-xs font-bold leading-tight">{item.label}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
 
-                return (
-                  <button
-                    key={opt.id}
-                    onClick={() => handleSelectOption(opt.id)}
-                    className={`w-full text-left p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all flex items-center justify-between gap-3 group relative cursor-pointer ${
-                      isRanking
-                        ? rankIndex === 0
-                          ? 'bg-[#FAF6F0] border-[#A36B40] text-[#2C2621] ring-2 ring-[#A36B40]/25 shadow-xs'
-                          : rankIndex === 1
-                          ? 'bg-blue-50/70 border-blue-300 text-[#2C2621] shadow-xs'
-                          : rankIndex === 2
-                          ? 'bg-purple-50/70 border-purple-300 text-[#2C2621] shadow-xs'
-                          : rankIndex === 3
-                          ? 'bg-slate-50 border-slate-300 text-[#2C2621]'
-                          : 'bg-white border-[#DFD7CB] hover:border-[#A36B40] hover:bg-[#FAF6F0]/60 text-[#2C2621]'
-                        : isSelected
-                        ? 'bg-[#FAF6F0] border-[#A36B40] text-[#2C2621] ring-2 ring-[#A36B40]/25 shadow-xs'
-                        : 'bg-white border-[#DFD7CB] hover:border-[#A36B40] hover:bg-[#FAF6F0]/60 text-[#2C2621]'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
-                          isRanking
-                            ? rankIndex === 0
-                              ? 'bg-[#A36B40] text-white shadow-xs'
-                              : rankIndex === 1
-                              ? 'bg-blue-600 text-white'
-                              : rankIndex === 2
-                              ? 'bg-purple-600 text-white'
-                              : rankIndex === 3
-                              ? 'bg-slate-600 text-white'
-                              : 'bg-[#FAF6F0] border border-[#DFD7CB] text-[#6A5E54] group-hover:text-[#A36B40] group-hover:border-[#A36B40]'
-                            : isSelected
-                            ? 'bg-[#A36B40] text-white'
-                            : 'bg-[#FAF6F0] border border-[#DFD7CB] text-[#6A5E54] group-hover:text-[#A36B40] group-hover:border-[#A36B40]'
+              {/* Type 2: Multi-Select Options */}
+              {currentQuestion.question_type === 'multi_select' && (
+                <div className="flex flex-col gap-2.5">
+                  {currentQuestion.options.map((opt, idx) => {
+                    const letter = String.fromCharCode(65 + idx)
+                    const isSelected = (currentAnswer?.option_ids || []).includes(opt.option_id)
+
+                    return (
+                      <button
+                        key={opt.option_id}
+                        onClick={() => handleSelectMulti(opt.option_id)}
+                        className={`w-full text-left p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all flex items-center justify-between gap-3 group relative cursor-pointer ${
+                          isSelected
+                            ? 'bg-[#FAF6F0] border-[#A36B40] text-[#2C2621] ring-2 ring-[#A36B40]/25 shadow-xs'
+                            : 'bg-white border-[#DFD7CB] hover:border-[#A36B40] hover:bg-[#FAF6F0]/60 text-[#2C2621]'
                         }`}
                       >
-                        {isRanking
-                          ? rankIndex >= 0
-                            ? `#${rankIndex + 1}`
-                            : letter
-                          : isSelected
-                          ? <Check className="w-4 h-4" />
-                          : letter}
-                      </div>
-                      <span className="text-xs sm:text-sm md:text-[15px] font-medium leading-relaxed text-[#2C2621]">
-                        {optText}
-                      </span>
-                    </div>
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div
+                            className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
+                              isSelected
+                                ? 'bg-[#A36B40] text-white'
+                                : 'bg-[#FAF6F0] border border-[#DFD7CB] text-[#6A5E54] group-hover:text-[#A36B40] group-hover:border-[#A36B40]'
+                            }`}
+                          >
+                            {isSelected ? <Check className="w-4 h-4" /> : letter}
+                          </div>
+                          <span className="text-xs sm:text-sm md:text-[15px] font-medium leading-relaxed text-[#2C2621]">
+                            {opt.option_label}
+                          </span>
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
 
-                    {isRanking && rankIndex >= 0 && (
-                      <span className="text-[10px] sm:text-xs font-bold text-[#A36B40] px-2.5 py-1 rounded-lg bg-[#FAF6F0] border border-[#DFD7CB] shrink-0">
-                        {rankIndex === 0 ? '1st Choice' : rankIndex === 1 ? '2nd Choice' : rankIndex === 2 ? '3rd Choice' : '4th Choice'}
-                      </span>
-                    )}
-                  </button>
-                )
-              })}
+              {/* Type 3: Single-Select Options */}
+              {currentQuestion.question_type === 'single_select' && (
+                <div className="flex flex-col gap-2.5">
+                  {currentQuestion.options.map((opt, idx) => {
+                    const letter = String.fromCharCode(65 + idx)
+                    const isSelected = currentAnswer?.option_id === opt.option_id
+
+                    return (
+                      <button
+                        key={opt.option_id}
+                        onClick={() => handleSelectSingle(opt.option_id)}
+                        className={`w-full text-left p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all flex items-center justify-between gap-3 group relative cursor-pointer ${
+                          isSelected
+                            ? 'bg-[#FAF6F0] border-[#A36B40] text-[#2C2621] ring-2 ring-[#A36B40]/25 shadow-xs'
+                            : 'bg-white border-[#DFD7CB] hover:border-[#A36B40] hover:bg-[#FAF6F0]/60 text-[#2C2621]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div
+                            className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
+                              isSelected
+                                ? 'bg-[#A36B40] text-white'
+                                : 'bg-[#FAF6F0] border border-[#DFD7CB] text-[#6A5E54] group-hover:text-[#A36B40] group-hover:border-[#A36B40]'
+                            }`}
+                          >
+                            {isSelected ? <Check className="w-4 h-4" /> : letter}
+                          </div>
+                          <span className="text-xs sm:text-sm md:text-[15px] font-medium leading-relaxed text-[#2C2621]">
+                            {opt.option_label}
+                          </span>
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Bottom Actions Bar */}
             <div className="p-3.5 sm:p-4 px-4 sm:px-6 border-t border-[#DFD7CB] flex items-center justify-between bg-[#FAF6F0]/80 rounded-b-2xl mt-2">
-              <div className="flex items-center gap-2.5">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handlePrev}
-                  disabled={currentIndex === 0}
-                  className="h-9 px-3.5 text-xs border-[#DFD7CB] bg-white text-[#6A5E54] hover:text-[#2C2621] hover:bg-[#FAF6F0] rounded-xl cursor-pointer"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Previous
-                </Button>
-
-                {isRanking && currentSelectedOptionIds.length > 0 && (
-                  <button
-                    onClick={handleResetRanking}
-                    className="text-xs text-[#A36B40] hover:text-[#8C4E2D] underline cursor-pointer px-2 py-1 font-medium"
-                  >
-                    Reset Rank
-                  </button>
-                )}
-              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handlePrev}
+                disabled={currentIndex === 0}
+                className="h-9 px-3.5 text-xs border-[#DFD7CB] bg-white text-[#6A5E54] hover:text-[#2C2621] hover:bg-[#FAF6F0] rounded-xl cursor-pointer"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Previous
+              </Button>
 
               <div className="flex items-center gap-2.5">
-                {currentIndex === 29 ? (
+                {currentIndex === totalQuestions - 1 ? (
                   <Button
                     size="sm"
                     onClick={handleFinishAssessment}
-                    disabled={isSubmitting || currentSelectedOptionIds.length === 0}
+                    disabled={isSubmitting || !validation.isValid}
                     className="h-9 sm:h-10 px-5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow-sm rounded-xl cursor-pointer"
                   >
-                    {isSubmitting ? 'Analyzing Responses...' : 'Generate Career Report'}
+                    {isSubmitting ? 'Analyzing Responses...' : 'Generate Career Intelligence Report'}
                     <Sparkles className="w-4 h-4 ml-2" />
                   </Button>
                 ) : (
                   <Button
                     size="sm"
                     onClick={handleNext}
-                    disabled={currentSelectedOptionIds.length === 0}
+                    disabled={!validation.isValid}
                     className="h-9 sm:h-10 px-5 sm:px-6 bg-[#A36B40] hover:bg-[#8C4E2D] text-white text-xs sm:text-sm font-bold shadow-sm rounded-xl cursor-pointer transition-all"
                   >
                     <span>Next Question</span>
@@ -818,7 +617,7 @@ export function AdaptiveAssessmentCockpit({
           </Card>
         </div>
 
-        {/* Right Column: Live Real-Time Career Diagnostic (4 Cols) */}
+        {/* Right Column: Live Diagnostic Panel (4 Cols) */}
         <div className="lg:col-span-4 flex flex-col gap-3 lg:sticky lg:top-4">
           <Card className="bg-white border-[#DFD7CB] text-[#2C2621] shadow-xs rounded-2xl flex flex-col p-4 sm:p-5 space-y-3.5 overflow-hidden">
             <div className="space-y-3">
@@ -829,147 +628,68 @@ export function AdaptiveAssessmentCockpit({
                   <span>Live Career Diagnostic</span>
                 </div>
                 <Badge variant="outline" className="text-[10px] text-[#A36B40] bg-[#FAF6F0] border-[#DFD7CB] px-2 py-0.5 h-5 font-semibold">
-                  {answeredCount}/30 Recorded
+                  {answeredCount}/{totalQuestions} Recorded
                 </Badge>
               </div>
 
-              {/* Primary Career Leaning */}
+              {/* Primary Emerging Domain */}
               <div className="bg-[#FAF6F0] border border-[#DFD7CB] rounded-xl p-3.5 space-y-1">
                 <div className="text-[10px] text-[#8C7E72] uppercase font-bold tracking-wider flex items-center gap-1.5">
                   <Compass className="w-3.5 h-3.5 text-[#A36B40]" />
-                  Primary Predicted Leaning
+                  Primary Emerging Domain
                 </div>
                 <div className="text-sm sm:text-base font-bold text-[#A36B40] truncate">
-                  {psychometricContext.primaryLeaning}
+                  {liveResult.top_dimensions[0]?.name || 'Analyzing interests...'}
                 </div>
               </div>
 
-              {/* Top 3 Emerging Domains */}
+              {/* Top 3 Emerging Dimensions */}
               <div className="space-y-2 pt-1 border-t border-[#DFD7CB]">
                 <div className="text-xs font-semibold text-[#2C2621] flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
                     <Target className="w-3.5 h-3.5 text-[#A36B40]" />
-                    Domain Compatibility
+                    Dimension Compatibility
                   </span>
-                  <span className="text-[10px] text-[#8C7E72]">Match %</span>
+                  <span className="text-[10px] text-[#8C7E72]">Live %</span>
                 </div>
-                {psychometricContext.topDomains.slice(0, 3).map((d) => (
-                  <div key={d.id} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs text-[#2C2621]">
-                      <span className="truncate pr-2 font-medium">{d.name}</span>
-                      <span className="text-[#A36B40] font-mono font-bold text-xs">{d.score}%</span>
-                    </div>
-                    <Progress value={d.score} className="h-1.5 bg-[#EBE5DB]" />
-                  </div>
-                ))}
-              </div>
 
-              {/* Top Trait Signals */}
-              <div className="space-y-2 pt-1 border-t border-[#DFD7CB]">
-                <div className="text-xs font-semibold text-[#2C2621] flex items-center gap-1.5">
-                  <Flame className="w-3.5 h-3.5 text-[#A36B40]" />
-                  Top Cognitive Traits
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {psychometricContext.topTraits.slice(0, 4).map((t) => (
-                    <Badge
-                      key={t.code}
-                      variant="outline"
-                      className="bg-[#FAF6F0] border-[#DFD7CB] text-[#2C2621] text-[10px] sm:text-[11px] px-2.5 py-1 rounded-lg"
-                    >
-                      {t.name}
-                    </Badge>
+                <div className="space-y-2">
+                  {liveResult.top_dimensions.slice(0, 3).map((dom, i) => (
+                    <div key={dom.dimension_id} className="space-y-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-[#6A5E54] truncate max-w-[180px]">
+                          {i + 1}. {dom.name}
+                        </span>
+                        <span className="font-mono font-bold text-[#A36B40]">{dom.normalized_score}%</span>
+                      </div>
+                      <Progress value={dom.normalized_score} className="h-1.5 bg-[#FAF6F0]" />
+                    </div>
                   ))}
                 </div>
               </div>
-            </div>
 
-            {/* Assessment Context Box */}
-            <div className="bg-[#FAF6F0] rounded-xl p-3 border border-[#DFD7CB] text-[11px] text-[#6A5E54] space-y-1 mt-2">
-              <div className="flex items-center gap-1.5 text-[#2C2621] font-bold">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                Sandip University Catalog
-              </div>
-              <p className="leading-relaxed text-[10px] text-[#6A5E54]">
-                Responses mapped across 114 degree programs in 8 university schools.
-              </p>
+              {/* Emerging Primary Course Match */}
+              {liveResult.primary_course && (
+                <div className="pt-2 border-t border-[#DFD7CB] space-y-1.5">
+                  <div className="text-[10px] text-[#8C7E72] uppercase font-bold tracking-wider flex items-center gap-1.5">
+                    <Award className="w-3.5 h-3.5 text-[#77734B]" />
+                    Emerging Course Match
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] space-y-1">
+                    <div className="text-xs font-bold text-[#2C2621] leading-tight">
+                      {liveResult.primary_course.course} in {liveResult.primary_course.specialization}
+                    </div>
+                    <div className="flex items-center justify-between text-[10px]">
+                      <span className="text-[#7A7067]">{liveResult.primary_course.school}</span>
+                      <span className="font-mono font-bold text-emerald-700">{liveResult.primary_course.match_score}% Match</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </Card>
         </div>
       </div>
-
-      {/* ─── EXIT CONFIRMATION MODAL ─── */}
-      {isExitConfirmOpen && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <Card className="bg-white border-[#DFD7CB] text-[#2C2621] max-w-md w-full shadow-2xl rounded-2xl">
-            <CardHeader className="p-5 pb-3">
-              <CardTitle className="text-sm text-[#2C2621] flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-[#A36B40]" />
-                Exit Assessment?
-              </CardTitle>
-              <CardDescription className="text-xs text-[#6A5E54]">
-                You have answered {answeredCount} of 30 questions. Your progress will not be saved if you exit now.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-5 pt-2 flex items-center justify-end gap-2.5">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsExitConfirmOpen(false)}
-                className="h-8 text-xs border-[#DFD7CB] text-[#6A5E54] bg-white hover:bg-[#FAF6F0] rounded-xl"
-              >
-                Continue Test
-              </Button>
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={() => {
-                  if (onExit) onExit()
-                  else router.push('/student/assessment')
-                }}
-                className="h-8 text-xs rounded-xl"
-              >
-                Exit
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {/* ─── SUBMISSION CONFIRMATION MODAL ─── */}
-      {isSubmitConfirmOpen && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <Card className="bg-white border-[#DFD7CB] text-[#2C2621] max-w-md w-full shadow-2xl rounded-2xl">
-            <CardHeader className="p-5 pb-3">
-              <CardTitle className="text-sm text-[#2C2621] flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-emerald-600" />
-                Ready to Generate Report?
-              </CardTitle>
-              <CardDescription className="text-xs text-[#6A5E54]">
-                You have completed {answeredCount} questions. Click submit to process your official Career Intelligence Report.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-5 pt-2 flex items-center justify-end gap-2.5">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsSubmitConfirmOpen(false)}
-                className="h-8 text-xs border-[#DFD7CB] text-[#6A5E54] bg-white hover:bg-[#FAF6F0] rounded-xl"
-              >
-                Review Answers
-              </Button>
-              <Button
-                size="sm"
-                onClick={executeFinalSubmission}
-                disabled={isSubmitting}
-                className="h-8 text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl"
-              >
-                {isSubmitting ? 'Processing...' : 'Submit & View Report'}
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      )}
     </div>
   )
 }

@@ -1,14 +1,9 @@
-export * from './career-matrix'
-export * from './question-bank'
-export * from './stage1-bank-data'
-export * from './assessment-engine'
-export * from './recommendation-engine'
-export * from './report-engine'
-export * from './stage1-assessment-core'
-export * from './stage1-simulation-runner'
-export * from './stage1-domain-pathway-mapper'
-export * from './v2-qb-loader'
-export * from './v2-hierarchical-router'
-export * from './v2-scoring-adapter'
-export * from './v2-audit-governance'
-export * from './v2-shadow-runner'
+/**
+ * Master Index for Sandip University Career Intelligence Engines (V3)
+ */
+
+export * from '@/lib/types/assessment-v3.types'
+export * from './data-access'
+export * from './eligibility-engine'
+export * from './scoring-engine'
+export * from './assessment-router'

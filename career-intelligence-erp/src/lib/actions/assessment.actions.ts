@@ -9,8 +9,8 @@ import {
   runRecommendationEngine,
   generateCareerIntelligenceReport,
   CAREER_DIMENSIONS,
-  executeUnifiedAssessment,
-  isShadowModeEnabled,
+  type StudentAnswer,
+  type StudentProfileContext,
 } from '@/lib/engines'
 
 export type ActionResult<T = unknown> = {
@@ -260,24 +260,22 @@ export async function submitAndScoreAssessment(
     .from('traits')
     .select('id, name, category')
 
-  // ─── ENGINE 1: Assessment Engine (Trait Scoring & Quality/Consistency) ───
-  const formattedResponses = responses.map(r => {
-    let letter = (r.response_text || '').toUpperCase()
-    if (!['A', 'B', 'C', 'D'].includes(letter)) {
-      letter = r.response_value === 1 ? 'A' : r.response_value === 2 ? 'B' : r.response_value === 3 ? 'C' : r.response_value === 4 ? 'D' : 'A'
-    }
+  // ─── ENGINE 1: Assessment Engine (V3 Multi-Dimension Scoring) ───
+  const formattedResponses: StudentAnswer[] = responses.map(r => {
     return {
-      questionId: r.question_id,
-      responseValue: r.response_value || 1,
-      selectedOptionId: letter,
+      question_id: r.question_id,
+      rating_value: r.response_value || 3,
+      option_id: r.response_text || undefined,
     }
   })
 
-  const processedAssessment = processAssessmentResponses(
-    formattedResponses,
-    undefined,
-    detectedTrack
-  )
+  const studentContext: StudentProfileContext = {
+    fullName: profile.full_name || 'Student',
+    academicLevel: detectedTrack,
+    stream: studentProf?.current_program || undefined,
+  }
+
+  const processedAssessment = processAssessmentResponses(formattedResponses, studentContext)
 
   // Persist trait scores to DB
   if (dbTraits && dbTraits.length > 0) {
@@ -291,17 +289,17 @@ export async function submitAndScoreAssessment(
 
     dbTraits.forEach((trait) => {
       // Find matching score from processed assessment
-      const matched = Object.values(processedAssessment.traitScores).find(
+      const matched = processedAssessment.dimension_scores.find(
         (s) => s.name.toLowerCase().includes(trait.name.toLowerCase()) || trait.name.toLowerCase().includes(s.name.toLowerCase())
-      ) || processedAssessment.sortedTraitScores[0]
+      ) || processedAssessment.dimension_scores[0]
 
-      const scoreVal = matched ? matched.normalizedScore : 65
+      const scoreVal = matched ? matched.normalized_score : 65
 
       traitScoresToInsert.push({
         attempt_id: attemptId,
         student_id: profile.id,
         trait_id: trait.id,
-        raw_score: matched ? matched.rawScore : 30,
+        raw_score: matched ? Math.round(matched.raw_score) : 30,
         normalized_score: scoreVal,
       })
     })
@@ -311,24 +309,17 @@ export async function submitAndScoreAssessment(
     }
   }
 
-  // ─── ENGINE 2: Recommendation Engine (Domains, Courses, Eligibility, Confidence) ───
-  const recOutput = runRecommendationEngine(
-    processedAssessment.traitScores,
-    processedAssessment.qualityMetrics,
-    { level: isPG ? 'PG' : 'UG' }
-  )
-
-  // Persist domain scores
+  // ─── ENGINE 2: Domain Scoring ───
   const { data: dbDomains } = await adminClient
     .from('career_domains')
     .select('id, name')
 
   if (dbDomains && dbDomains.length > 0) {
     const domainScoresToInsert: DomainScore[] = dbDomains.map((dbD, idx) => {
-      const matchedDomain = recOutput.domainScores.find(
+      const matchedDomain = processedAssessment.dimension_scores.find(
         (d) => d.name.toLowerCase().includes(dbD.name.toLowerCase()) || dbD.name.toLowerCase().includes(d.name.toLowerCase())
       )
-      const score = matchedDomain ? matchedDomain.compatibilityScore : (75 - idx * 5)
+      const score = matchedDomain ? matchedDomain.normalized_score : (75 - idx * 5)
       const label =
         score >= 80 ? 'Strong alignment' :
         score >= 65 ? 'Moderate alignment' :
@@ -353,56 +344,30 @@ export async function submitAndScoreAssessment(
     }
   }
 
-  // ─── ENGINE 3: Report & Explainability Engine ──────────────────────────────
-  const intelligenceReport = generateCareerIntelligenceReport(
-    processedAssessment,
-    recOutput,
-    profile.full_name
-  )
-
   // 6. Save or update Career Profile
-  const topDomainName = recOutput.primaryDomain?.name || recOutput.domainScores?.[0]?.name
+  const topDomainName = processedAssessment.top_dimensions[0]?.name
   const matchedPrimary = dbDomains?.find(d => d.name.toLowerCase().includes(topDomainName?.toLowerCase() || '') || topDomainName?.toLowerCase().includes(d.name.toLowerCase()))
   const primaryDbDomain = matchedPrimary?.id || dbDomains?.[0]?.id
 
-  const secondDomainName = recOutput.domainScores?.[1]?.name
+  const secondDomainName = processedAssessment.top_dimensions[1]?.name
   const matchedSecondary = dbDomains?.find(d => d.name.toLowerCase().includes(secondDomainName?.toLowerCase() || '') || secondDomainName?.toLowerCase().includes(d.name.toLowerCase()))
   const secondaryDbDomain = matchedSecondary?.id || dbDomains?.[1]?.id
+
+  const primaryCourse = processedAssessment.primary_course || processedAssessment.recommended_courses[0]
 
   await adminClient.from('career_profiles').upsert({
     student_id: profile.id,
     attempt_id: attemptId,
-    profile_label: intelligenceReport.profileSummary.primaryArchetype,
-    profile_description: intelligenceReport.evidence.headline,
+    profile_label: primaryCourse ? `${primaryCourse.course} in ${primaryCourse.specialization}` : 'Career Diagnostic Profile',
+    profile_description: primaryCourse?.reasons_for_match?.[0] || 'Career match evaluated across 12 university dimensions.',
     primary_domain_id: primaryDbDomain,
     secondary_domain_id: secondaryDbDomain,
-    top_traits: processedAssessment.sortedTraitScores.slice(0, 5).map(t => t.name),
+    top_traits: processedAssessment.top_dimensions.map(t => t.name),
     generated_at: new Date().toISOString(),
   }, { onConflict: 'student_id' })
 
   // 7. Auto-generate skill gaps for top role in primary domain
   await generateSkillGaps(profile.id, attemptId, primaryDbDomain, adminClient)
-
-  // 8. Execute Shadow Mode Telemetry (if enabled) without altering student result
-  if (isShadowModeEnabled()) {
-    try {
-      const shadowExec = executeUnifiedAssessment({
-        legacyResponses: formattedResponses,
-        v2Responses: formattedResponses.map(r => ({
-          questionId: r.questionId,
-          selectedOptionId: r.selectedOptionId,
-        })),
-        profile: {
-          academicLevel: isPG ? 'PG' : 'UG',
-          level: isPG ? 'PG' : 'UG',
-        },
-        forceShadow: true,
-      })
-      console.log('[SHADOW MODE] V1 vs V2 Comparison Diagnostics:', shadowExec.shadowDiagnostics)
-    } catch (shadowErr) {
-      console.warn('[SHADOW MODE] Diagnostic computation warning:', shadowErr)
-    }
-  }
 
   // Audit log
   await adminClient.from('audit_logs').insert({

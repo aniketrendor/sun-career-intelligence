@@ -8,17 +8,20 @@ import {
   GraduationCap, Award, CheckCircle2, ArrowRight, ExternalLink,
   Sparkles, ShieldCheck, Mail, Phone, BookOpen, Download,
   Building2, Users, FileText, Check, Star, Compass, Cpu, Cloud,
-  Layers, BarChart3, ArrowUpRight, MapPin, Calendar, CheckCheck
+  Layers, BarChart3, ArrowUpRight, MapPin, Calendar, CheckCheck,
+  AlertCircle, Info, Target, BookmarkCheck
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import {
-  getDomainCardData,
-  resolveOptimalSpecialization,
-  normalizeDomain,
-} from '@/lib/engines/stage1-domain-pathway-mapper'
+  getAllCourses,
+  getAllDimensions,
+  getCourseById,
+  type UniversityCourse,
+  type AssessmentDimension,
+} from '@/lib/engines'
 
 const ADMISSION_URL = 'https://admission.sandipuniversity.edu.in/'
 
@@ -32,65 +35,59 @@ function FresherReportContent() {
   const candidatePhone = searchParams?.get('phone') || ''
   const academicLevel = (searchParams?.get('level') === 'PG' ? 'PG' : 'UG') as 'UG' | 'PG'
   const mentorName = searchParams?.get('mentor') || 'Admissions & Advisory Council'
+  const qualification = searchParams?.get('qualification') || ''
+  const progId = searchParams?.get('progId') || ''
+  const recommendedSpec = searchParams?.get('recommendedSpec') || 'Computer Science & Engineering'
+  const fitScore = Number(searchParams?.get('fitScore') || 92)
 
-  // Extract Top 3 Domains and Scores deterministically from parameters
-  const d1Name = searchParams?.get('d1Name') || searchParams?.get('topDomain') || 'Computing & IT'
-  const d1Score = Number(searchParams?.get('d1Score') || searchParams?.get('fitScore') || 90)
-  const d1Code = searchParams?.get('d1Code') || 'COMPUTING_IT'
+  // Extract Top 3 Dimensions and Scores
+  const d1Name = searchParams?.get('d1Name') || 'Technology & computing'
+  const d1Score = Number(searchParams?.get('d1Score') || 94)
+  const d1Code = searchParams?.get('d1Code') || 'TECHNOLOGY'
 
-  const d2Name = searchParams?.get('d2Name') || 'Engineering'
-  const d2Score = Number(searchParams?.get('d2Score') || 82)
+  const d2Name = searchParams?.get('d2Name') || 'Engineering & applied technology'
+  const d2Score = Number(searchParams?.get('d2Score') || 86)
   const d2Code = searchParams?.get('d2Code') || 'ENGINEERING'
 
-  const d3Name = searchParams?.get('d3Name') || 'Management'
-  const d3Score = Number(searchParams?.get('d3Score') || 75)
-  const d3Code = searchParams?.get('d3Code') || 'MANAGEMENT'
+  const d3Name = searchParams?.get('d3Name') || 'Business & management'
+  const d3Score = Number(searchParams?.get('d3Score') || 78)
+  const d3Code = searchParams?.get('d3Code') || 'BUSINESS'
 
-  // Extract Tri-Factor Psychometric Dimensions
-  const archetypeTitle = searchParams?.get('archetypeTitle') || 'Systems & Algorithmic Architect'
-  const archetypeSummary = searchParams?.get('archetypeSummary') || 'Demonstrates strong analytical reasoning and algorithmic intuition with a natural drive to optimize complex systems.'
-  const riasecCode = searchParams?.get('riasecCode') || 'IER'
-  const riasecName = searchParams?.get('riasecName') || 'Investigative & Enterprising'
+  // Look up matched course from catalog
+  const allCourses = useMemo(() => getAllCourses(), [])
+  const matchedCourse: UniversityCourse = useMemo(() => {
+    if (progId) {
+      const found = getCourseById(progId)
+      if (found) return found
+    }
+    const levelCourses = allCourses.filter((c) => c.level === academicLevel)
+    return levelCourses.find((c) => c.specialization.toLowerCase().includes(recommendedSpec.toLowerCase())) ||
+      levelCourses[0] || {
+        program_id: 'SUN-001',
+        school: 'Engineering & Technology',
+        level: academicLevel,
+        course: 'B.Tech',
+        specialization: recommendedSpec,
+        suitable_12th_stream: 'PCM',
+        career_domains: 'Software engineering, artificial intelligence, cloud architecture',
+        domain_ids: ['TECHNOLOGY', 'ENGINEERING'],
+        active_status: 'ACTIVE',
+      }
+  }, [progId, recommendedSpec, academicLevel, allCourses])
 
-  const cogAna = Number(searchParams?.get('cogAna') || 88)
-  const cogSys = Number(searchParams?.get('cogSys') || 84)
-  const cogCre = Number(searchParams?.get('cogCre') || 76)
-  const cogStr = Number(searchParams?.get('cogStr') || 78)
-  const cogSoc = Number(searchParams?.get('cogSoc') || 72)
-  const cogSci = Number(searchParams?.get('cogSci') || 82)
+  // Alternative recommendations from catalog matching top domains
+  const alternativeCourses = useMemo(() => {
+    return allCourses
+      .filter((c) => c.level === academicLevel && c.program_id !== matchedCourse.program_id)
+      .filter((c) => c.domain_ids.includes(d1Code) || c.domain_ids.includes(d2Code))
+      .slice(0, 3)
+  }, [allCourses, academicLevel, matchedCourse.program_id, d1Code, d2Code])
 
-  const cognitivePillarsList = [
-    { name: 'Analytical & Computational Logic', score: cogAna, desc: 'Algorithmic deconstruction, abstract reasoning, and data structure modeling.' },
-    { name: 'Systems & Architectural Thinking', score: cogSys, desc: 'Complex infrastructure design, system workflows, and scalable integration.' },
-    { name: 'Creative & Divergent Ideation', score: cogCre, desc: 'Novel problem solving, human-centered UI/UX, and visual synthesis.' },
-    { name: 'Strategic Leadership & Business', score: cogStr, desc: 'Commercial viability, stakeholder prioritization, and value creation.' },
-    { name: 'Social & Collaborative Dynamics', score: cogSoc, desc: 'Interpersonal communication, empathy, and ethical governance.' },
-    { name: 'Empirical Scientific Rigor', score: cogSci, desc: 'Hypothesis testing, research methodology, and evidence validation.' },
+  const top3Domains = [
+    { name: d1Name, score: d1Score, code: d1Code, rank: 1, label: 'Primary Alignment', badgeBg: 'bg-emerald-100 text-emerald-800' },
+    { name: d2Name, score: d2Score, code: d2Code, rank: 2, label: 'High Synergy', badgeBg: 'bg-blue-100 text-blue-800' },
+    { name: d3Name, score: d3Score, code: d3Code, rank: 3, label: 'Complementary Strengths', badgeBg: 'bg-amber-100 text-amber-800' },
   ]
-
-  // Resolve Canonical Domain Cards (Zero Hardcoded Index Mappings)
-  const card1 = useMemo(() => getDomainCardData(d1Code || d1Name, d1Score, 1, academicLevel), [d1Code, d1Name, d1Score, academicLevel])
-  const card2 = useMemo(() => getDomainCardData(d2Code || d2Name, d2Score, 2, academicLevel), [d2Code, d2Name, d2Score, academicLevel])
-  const card3 = useMemo(() => getDomainCardData(d3Code || d3Name, d3Score, 3, academicLevel), [d3Code, d3Name, d3Score, academicLevel])
-
-  const top3Domains = [card1, card2, card3]
-
-  // Resolve Optimal Specialization based on Top 3 Domains & Synergies
-  const optimalProgram = useMemo(() => {
-    return resolveOptimalSpecialization(
-      card1.code,
-      card2.code,
-      card3.code,
-      academicLevel
-    )
-  }, [card1.code, card2.code, card3.code, academicLevel])
-
-  const fitScore = card1.score
-
-  const handleApplyClick = () => {
-    toast.success('Opening Sandip University Online Admission Portal...')
-    window.open(ADMISSION_URL, '_blank', 'noopener,noreferrer')
-  }
 
   const handlePrint = () => {
     if (typeof window !== 'undefined') {
@@ -102,7 +99,7 @@ function FresherReportContent() {
     <div className="min-h-screen bg-[#FAF6F0] py-8 sm:py-10 px-4 sm:px-6 lg:px-8 font-sans text-[#2C2621]">
       <div className="max-w-4xl mx-auto space-y-6">
         
-        {/* Top University Header Card */}
+        {/* Top Header Card */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-3xl border border-[#DFD7CB] shadow-sm">
           <div className="flex items-center gap-3.5 sm:gap-4">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#A36B40] via-[#C6A18D] to-[#77734B] flex items-center justify-center text-white shadow-md shadow-[#A36B40]/25 shrink-0">
@@ -150,8 +147,8 @@ function FresherReportContent() {
           {[
             { step: '1', title: 'Advisor', desc: mentorName.split(' ')[0] || 'Admissions', done: true },
             { step: '2', title: 'Token', desc: referralCode, done: true },
-            { step: '3', title: `${academicLevel} Test`, desc: '30/30 Complete', done: true },
-            { step: '4', title: 'Fit Report', desc: `${fitScore}% Fit`, done: true },
+            { step: '3', title: `${academicLevel} Test`, desc: 'Completed', done: true },
+            { step: '4', title: 'Fit Report', desc: `${fitScore}% Match`, done: true },
             { step: '5', title: 'Admission', desc: 'Action Ready', active: true },
           ].map((item, idx) => (
             <div
@@ -201,67 +198,7 @@ function FresherReportContent() {
           </div>
         </div>
 
-        {/* ─── PSYCHOMETRIC ARCHETYPE & RIASEC PROFILE SECTION ────────── */}
-        <div className="bg-white rounded-3xl p-6 border border-[#DFD7CB] shadow-sm space-y-5">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#DFD7CB]">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#A36B40]" />
-                <h3 className="text-base sm:text-lg font-black text-[#2C2621]">
-                  Psychometric & Cognitive Trait Profile
-                </h3>
-              </div>
-              <p className="text-xs text-[#7A7067]">
-                Multi-dimensional psychometric diagnosis calibrated across 12 psychological dimensions and RIASEC vocational scales.
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="bg-[#FAF6F0] border-[#A36B40]/40 text-[#A36B40] text-xs font-bold px-3 py-1">
-                Holland RIASEC: {riasecCode}
-              </Badge>
-            </div>
-          </div>
-
-          {/* Career Archetype Banner */}
-          <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="space-y-1 max-w-xl">
-              <span className="text-[10px] uppercase font-extrabold text-[#8C7E72] tracking-wider block">
-                Identified Career Archetype
-              </span>
-              <h4 className="text-base font-extrabold text-[#A36B40]">
-                {archetypeTitle}
-              </h4>
-              <p className="text-xs text-[#5C544D] leading-relaxed">
-                {archetypeSummary || `Demonstrates high alignment for ${card1.name} with advanced problem-solving agility.`}
-              </p>
-            </div>
-            <div className="shrink-0 text-right sm:border-l sm:border-[#DFD7CB] sm:pl-4">
-              <span className="text-[10px] uppercase font-bold text-[#8C7E72] block">Vocational Trait</span>
-              <span className="text-xs font-bold text-[#2C2621] block mt-0.5">{riasecName}</span>
-            </div>
-          </div>
-
-          {/* 6 Core Cognitive Pillars Grid */}
-          <div className="space-y-3 pt-2">
-            <span className="text-xs font-bold text-[#2C2621] uppercase tracking-wider block">
-              Core Cognitive & Applied Aptitude Pillars (0–100 Scale)
-            </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              {cognitivePillarsList.map((pillar, idx) => (
-                <div key={idx} className="p-3.5 rounded-2xl bg-white border border-[#DFD7CB] space-y-2 shadow-2xs">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#2C2621]">{pillar.name}</span>
-                    <span className="text-xs font-mono font-extrabold text-[#A36B40]">{pillar.score}%</span>
-                  </div>
-                  <Progress value={pillar.score} className="h-2 bg-[#FAF6F0]" />
-                  <p className="text-[10px] text-[#7A7067] leading-tight">{pillar.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Hero Specialization Recommendation Card (Derived Deterministically) */}
+        {/* Hero Specialization Recommendation Card */}
         <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#1F1915] via-[#2A221C] to-[#1A1512] text-white shadow-xl border border-[#3E342D] relative overflow-hidden">
           <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#A36B40]/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#77734B]/15 rounded-full blur-3xl pointer-events-none" />
@@ -273,25 +210,25 @@ function FresherReportContent() {
               <div className="space-y-2">
                 <Badge className="bg-[#A36B40]/30 text-[#E8C5A8] border-[#A36B40]/60 text-xs font-bold gap-1.5 px-3 py-1">
                   <Star className="w-3.5 h-3.5 fill-[#E8C5A8] text-[#E8C5A8]" />
-                  Optimal {academicLevel} Specialization Identified
+                  Optimal {academicLevel} Degree Recommendation
                 </Badge>
                 <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight pt-1">
-                  {optimalProgram.specialization}
+                  {matchedCourse.course} in {matchedCourse.specialization}
                 </h2>
                 <p className="text-xs sm:text-sm text-[#DFD7CB] font-medium">
-                  {optimalProgram.degree} · <span className="text-[#C6A18D]">{optimalProgram.faculty}</span>
+                  {matchedCourse.school} · <span className="text-[#C6A18D]">Program Code: {matchedCourse.program_id}</span>
                 </p>
               </div>
 
               <div className="shrink-0 flex items-center gap-3.5 bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/15 self-start">
                 <div className="text-right">
                   <span className="text-[10px] text-[#DFD7CB] uppercase tracking-wider block font-bold">
-                    Domain Alignment
+                    Suitability Fit
                   </span>
                   <span className="text-2xl font-black text-white">{fitScore}%</span>
                 </div>
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#A36B40] to-[#8E5B34] border border-amber-300/30 flex items-center justify-center font-black text-lg text-white shadow-md">
-                  {fitScore >= 80 ? 'A+' : fitScore >= 65 ? 'A' : fitScore >= 50 ? 'B+' : 'B'}
+                  {fitScore >= 85 ? 'A+' : fitScore >= 70 ? 'A' : 'B+'}
                 </div>
               </div>
             </div>
@@ -303,15 +240,15 @@ function FresherReportContent() {
                   <MapPin className="w-3.5 h-3.5" />
                   <span className="text-[10px] uppercase font-bold tracking-wider">Campus Location</span>
                 </div>
-                <span className="font-semibold text-white block">{optimalProgram.campus}</span>
+                <span className="font-semibold text-white block">Sandip University, Nashik Campus</span>
               </div>
 
               <div className="p-3.5 bg-white/5 rounded-2xl border border-white/10 space-y-1">
                 <div className="flex items-center gap-1.5 text-[#C6A18D]">
                   <Calendar className="w-3.5 h-3.5" />
-                  <span className="text-[10px] uppercase font-bold tracking-wider">Program Duration</span>
+                  <span className="text-[10px] uppercase font-bold tracking-wider">Prerequisite Stream</span>
                 </div>
-                <span className="font-semibold text-white block">{optimalProgram.duration}</span>
+                <span className="font-semibold text-white block">{matchedCourse.suitable_12th_stream || 'General'}</span>
               </div>
 
               <div className="p-3.5 bg-white/5 rounded-2xl border border-white/10 space-y-1">
@@ -319,14 +256,16 @@ function FresherReportContent() {
                   <CheckCheck className="w-3.5 h-3.5" />
                   <span className="text-[10px] uppercase font-bold tracking-wider">Admission Status</span>
                 </div>
-                <span className="font-semibold text-emerald-300 block">{optimalProgram.admissionStatus}</span>
+                <span className="font-semibold text-emerald-300 block">Admissions Open 2026-27</span>
               </div>
             </div>
 
-            {/* Program Rationale */}
+            {/* Evaluation Rationale */}
             <div className="p-3.5 bg-white/5 rounded-2xl border border-white/10 text-xs text-[#DFD7CB] space-y-1">
               <span className="text-[10px] font-bold text-[#C6A18D] uppercase tracking-wider block">Evaluation Rationale</span>
-              <p className="leading-relaxed">{optimalProgram.rationale}</p>
+              <p className="leading-relaxed">
+                Candidate exhibits highest alignment for <strong>{d1Name} ({d1Score}%)</strong> and <strong>{d2Name} ({d2Score}%)</strong>. This degree program delivers direct career specialization into {matchedCourse.career_domains}.
+              </p>
             </div>
 
             {/* Primary Action Button */}
@@ -349,7 +288,7 @@ function FresherReportContent() {
           </div>
         </div>
 
-        {/* ─── TOP 3 RECOMMENDED CAREER DOMAINS (BEST FIT) ────────── */}
+        {/* ─── TOP 3 RECOMMENDED CAREER DOMAINS ────────── */}
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
@@ -379,10 +318,10 @@ function FresherReportContent() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
                     <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full ${dom.badgeBg}`}>
-                      Rank #{dom.rank} · {dom.rank === 1 ? 'Best Fit' : dom.rank === 2 ? 'Alternative' : 'Complementary'}
+                      Rank #{dom.rank} · {dom.label}
                     </span>
                     <span className="text-[11px] font-bold text-[#77734B]">
-                      {dom.label}
+                      {dom.score}% Score
                     </span>
                   </div>
 
@@ -390,36 +329,50 @@ function FresherReportContent() {
                     <h4 className="text-base font-black text-[#2C2621] leading-tight">
                       {dom.name}
                     </h4>
-                    <span className="text-xs font-mono font-extrabold text-[#A36B40] block mt-1.5">
-                      Compatibility: {dom.score}% Match
-                    </span>
                   </div>
 
-                  {/* Progress Meter */}
-                  <div className="space-y-1">
-                    <Progress value={dom.score} className="h-2.5" />
-                  </div>
+                  <Progress value={dom.score} className="h-2 bg-[#FAF6F0]" />
 
                   <p className="text-xs text-[#5C544D] leading-relaxed">
-                    {dom.rationale}
+                    Demonstrates strong behavioral affinity, interest intensity, and problem-solving readiness in this academic domain.
                   </p>
-                </div>
-
-                <div className="pt-2 border-t border-[#FAF6F0] space-y-1.5">
-                  <span className="text-[10px] uppercase font-extrabold text-[#7A7067] tracking-wider block">
-                    Recommended {academicLevel} Pathway
-                  </span>
-                  <div className="text-xs font-bold text-[#2C2621] bg-[#FAF6F0] p-2.5 rounded-xl border border-[#DFD7CB]">
-                    {dom.degreePath}
-                  </div>
-                  <span className="text-[10px] text-[#7A7067] block">
-                    Faculty: {dom.faculty}
-                  </span>
                 </div>
               </Card>
             ))}
           </div>
         </div>
+
+        {/* ─── ALTERNATIVE UNIVERSITY DEGREE PATHWAYS ────────── */}
+        {alternativeCourses.length > 0 && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-black text-[#2C2621] tracking-tight flex items-center gap-2">
+              <Layers className="w-5 h-5 text-[#77734B]" />
+              <span>Alternative Degree Pathways to Consider</span>
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {alternativeCourses.map((alt) => (
+                <Card key={alt.program_id} className="p-5 rounded-3xl bg-white border border-[#DFD7CB] space-y-3 shadow-xs">
+                  <div className="flex items-center justify-between">
+                    <Badge variant="outline" className="text-[10px] text-[#A36B40] bg-[#FAF6F0] border-[#DFD7CB]">
+                      {alt.level} Degree
+                    </Badge>
+                    <span className="text-[10px] text-[#7A7067] font-mono">{alt.program_id}</span>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-[#2C2621] leading-tight">
+                      {alt.course} in {alt.specialization}
+                    </h4>
+                    <p className="text-[11px] text-[#7A7067] mt-1">{alt.school}</p>
+                  </div>
+                  <div className="pt-2 border-t border-[#FAF6F0] text-[11px] text-[#5C544D]">
+                    Prerequisite: <strong>{alt.suitable_12th_stream || 'Any'}</strong>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Advisory Council Endorsement Card */}
         <div className="bg-white p-6 rounded-3xl border border-[#DFD7CB] shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
@@ -434,7 +387,7 @@ function FresherReportContent() {
               </div>
             </div>
             <p className="text-xs text-[#5C544D] leading-relaxed">
-              Based on the 30-question diagnostic assessment, candidate <strong className="text-[#2C2621]">{candidateName}</strong> demonstrates highest aptitude alignment for <strong className="text-[#A36B40]">{card1.name} ({card1.score}%)</strong> with strong alternative pathways in <strong className="text-[#2C2621]">{card2.name} ({card2.score}%)</strong> and <strong className="text-[#2C2621]">{card3.name} ({card3.score}%)</strong>.
+              Based on the diagnostic assessment, candidate <strong className="text-[#2C2621]">{candidateName}</strong> is recommended for <strong className="text-[#A36B40]">{matchedCourse.course} in {matchedCourse.specialization}</strong> at Sandip University.
             </p>
           </div>
 
