@@ -69,11 +69,7 @@ export default async function AssessmentPage(props: {
   const missingFields = profileRequirements.filter(r => !r.value || String(r.value).trim().length === 0)
   const completenessPercent = Math.round((completedFields.length / profileRequirements.length) * 100)
 
-  // Gated: 100% profile completion is strictly required to start or take an assessment
-  if (isStartRequested && completenessPercent < 100) {
-    redirect('/student/profile?gate=assessment')
-  }
-
+  // If start is requested and profile is 100% complete, render the cockpit
   if (isStartRequested && completenessPercent === 100) {
     return (
       <AdaptiveAssessmentCockpit
