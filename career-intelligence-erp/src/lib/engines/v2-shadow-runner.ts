@@ -43,9 +43,10 @@ export interface UnifiedAssessmentExecutionResult {
  */
 export function isV2Enabled(): boolean {
   if (typeof process !== 'undefined' && process.env) {
-    return process.env.NEXT_PUBLIC_CAREER_QB_V2_ENABLED === 'true' || process.env.CAREER_QB_V2_ENABLED === 'true'
+    if (process.env.NEXT_PUBLIC_CAREER_QB_V2_ENABLED === 'false') return false
+    if (process.env.NEXT_PUBLIC_CAREER_QB_V2_ENABLED === 'true' || process.env.CAREER_QB_V2_ENABLED === 'true') return true
   }
-  return false
+  return true
 }
 
 /**
@@ -68,8 +69,8 @@ export function executeUnifiedAssessment(params: {
   forceV2?: boolean
   forceShadow?: boolean
 }): UnifiedAssessmentExecutionResult {
-  const v2Active = params.forceV2 || isV2Enabled()
-  const shadowActive = params.forceShadow || isShadowModeEnabled()
+  const shadowActive = params.forceShadow !== undefined ? params.forceShadow : isShadowModeEnabled()
+  const v2Active = params.forceV2 !== undefined ? params.forceV2 : (!shadowActive && isV2Enabled())
 
   const levelVal: 'UG' | 'PG' =
     params.profile?.level === 'PG' || params.profile?.academicLevel === 'PG' ? 'PG' : 'UG'

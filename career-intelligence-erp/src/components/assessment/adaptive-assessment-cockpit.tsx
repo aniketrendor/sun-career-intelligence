@@ -42,6 +42,7 @@ import {
   selectNextHierarchicalQuestion,
   processV2Assessment,
   isV2Enabled,
+  MASTER_QB_V2,
 } from '@/lib/engines'
 import type {
   QBQuestionV2,
@@ -120,8 +121,16 @@ export function AdaptiveAssessmentCockpit({
   const v2Active = useMemo(() => isV2Enabled(), [])
 
   // Dynamic Adaptive Question Stack (starts with Question 1, expands up to 30)
-  const [activeQuestionsV2, setActiveQuestionsV2] = useState<QBQuestionV2[]>([])
-  const [activeQuestionsV1, setActiveQuestionsV1] = useState<Stage1Question[]>([])
+  const [activeQuestionsV2, setActiveQuestionsV2] = useState<QBQuestionV2[]>(() => {
+    const step1 = selectNextHierarchicalQuestion({
+      responses: [],
+      profile: { academicLevel, stream: qualification },
+    })
+    return step1.nextQuestion ? [step1.nextQuestion] : [MASTER_QB_V2.questions[0]]
+  })
+  const [activeQuestionsV1, setActiveQuestionsV1] = useState<Stage1Question[]>(() => {
+    return [UG_STAGE1_QUESTIONS[0]]
+  })
   const [currentIndex, setCurrentIndex] = useState(0)
   
   // Selected answers: map of questionId -> array of option IDs
@@ -133,29 +142,7 @@ export function AdaptiveAssessmentCockpit({
   // Initialize first question on mount
   useEffect(() => {
     setMounted(true)
-    if (v2Active) {
-      if (activeQuestionsV2.length === 0) {
-        const step1 = selectNextHierarchicalQuestion({
-          responses: [],
-          profile: { academicLevel, stream: qualification },
-        })
-        if (step1.nextQuestion) {
-          setActiveQuestionsV2([step1.nextQuestion])
-        }
-      }
-    } else {
-      if (activeQuestionsV1.length === 0) {
-        const q1 = selectNextAdaptiveQuestion({
-          track: academicLevel,
-          targetIndex: 0,
-          history: [],
-          askedQuestionIds: [],
-          seed: 2026,
-        })
-        setActiveQuestionsV1([q1])
-      }
-    }
-  }, [academicLevel, activeQuestionsV2.length, activeQuestionsV1.length, v2Active, qualification])
+  }, [])
 
   // Current Question accessor
   const currentQV2: QBQuestionV2 | undefined = activeQuestionsV2[currentIndex] || activeQuestionsV2[0]

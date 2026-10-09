@@ -55,7 +55,7 @@ export default async function AssessmentPage(props: {
   const profileRequirements = [
     { key: 'full_name', label: 'Full Legal Name', value: profile.full_name },
     { key: 'phone', label: 'Contact Mobile Number', value: profile.phone || studentProfile?.phone },
-    { key: 'institution', label: 'College / University / School', value: studentProfile?.institution || enrollment?.program?.institution?.name },
+    { key: 'institution', label: 'College / University / School', value: studentProfile?.institution || enrollment?.program?.name },
     { key: 'education_level', label: 'Education Level', value: studentProfile?.education_level },
     { key: 'current_program', label: 'Degree / Program / Class', value: studentProfile?.current_program || enrollment?.program?.name },
     { key: 'current_semester', label: 'Class / Year / Semester', value: studentProfile?.current_class_semester || (studentProfile?.current_semester ? `Semester ${studentProfile?.current_semester}` : (enrollment?.class?.semester ? `Semester ${enrollment.class.semester}` : '')) },
