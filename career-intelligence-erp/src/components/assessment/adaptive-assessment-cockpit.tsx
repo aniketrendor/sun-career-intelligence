@@ -71,7 +71,10 @@ export function AdaptiveAssessmentCockpit({
   const [isSubmitConfirmOpen, setIsSubmitConfirmOpen] = useState(false)
   const [isExitConfirmOpen, setIsExitConfirmOpen] = useState(false)
 
-  const questions: AssessmentQuestion[] = useMemo(() => getQuestionsForAssessment(), [])
+  const questions: AssessmentQuestion[] = useMemo(
+    () => getQuestionsForAssessment(academicLevel as AcademicDegreeLevel),
+    [academicLevel]
+  )
   const totalQuestions = questions.length
 
   useEffect(() => {

@@ -12,6 +12,7 @@ import type {
   AssessmentLevel,
   AssessmentQuestion,
   StudentAnswer,
+  AcademicDegreeLevel,
 } from '@/lib/types/assessment-v3.types'
 
 export interface LevelConfig {
@@ -66,8 +67,126 @@ export const ASSESSMENT_LEVEL_CONFIGS: LevelConfig[] = [
   },
 ]
 
-export function getQuestionsForAssessment(): AssessmentQuestion[] {
-  return getAllQuestions()
+export function getQuestionsForAssessment(track: AcademicDegreeLevel = 'UG'): AssessmentQuestion[] {
+  const baseQuestions = getAllQuestions()
+  if (track === 'PG') {
+    return baseQuestions.map((q) => {
+      if (q.question_id === 'L3-006') {
+        return {
+          ...q,
+          note: 'Select the postgraduate degree pathways (Masters / MBA / M.Tech / M.Sc) that best fit your goals.',
+          options: [
+            {
+              option_id: 'L3-006-PG-A',
+              question_id: 'L3-006',
+              option_label: 'M.Tech in Computer Science & Engineering (AI, Cloud & Cyber Security)',
+              dimension_id: 'TECHNOLOGY',
+              score_value: 5,
+              mapping_or_feedback: 'Technology & Computing postgraduate pathway',
+            },
+            {
+              option_id: 'L3-006-PG-B',
+              question_id: 'L3-006',
+              option_label: 'MBA in Financial Management & Business Analytics',
+              dimension_id: 'BUSINESS',
+              score_value: 5,
+              mapping_or_feedback: 'Business & Management postgraduate pathway',
+            },
+            {
+              option_id: 'L3-006-PG-C',
+              question_id: 'L3-006',
+              option_label: 'M.Pharm in Pharmaceutics & Regulatory Affairs',
+              dimension_id: 'HEALTH_PHARMA',
+              score_value: 5,
+              mapping_or_feedback: 'Health & Pharmacy postgraduate pathway',
+            },
+            {
+              option_id: 'L3-006-PG-D',
+              question_id: 'L3-006',
+              option_label: 'M.Des in User Experience (UX) & Industrial Product Design',
+              dimension_id: 'DESIGN',
+              score_value: 5,
+              mapping_or_feedback: 'Design & Creativity postgraduate pathway',
+            },
+            {
+              option_id: 'L3-006-PG-E',
+              question_id: 'L3-006',
+              option_label: 'LL.M in Corporate & Commercial Law / Cyber Law',
+              dimension_id: 'LAW',
+              score_value: 5,
+              mapping_or_feedback: 'Law & Legal Systems postgraduate pathway',
+            },
+            {
+              option_id: 'L3-006-PG-F',
+              question_id: 'L3-006',
+              option_label: 'M.Sc in Applied Data Science, AI & Statistical Analytics',
+              dimension_id: 'ANALYTICS',
+              score_value: 5,
+              mapping_or_feedback: 'Analytics & Data postgraduate pathway',
+            },
+          ],
+        }
+      }
+      if (q.question_id === 'L4-008') {
+        return {
+          ...q,
+          note: 'Select the postgraduate specialization comparison you would like to evaluate with a mentor.',
+          options: [
+            {
+              option_id: 'L4-008-PG-A',
+              question_id: 'L4-008',
+              option_label: 'Executive AI & Deep Learning Systems vs Cloud Infrastructure',
+              dimension_id: 'TECHNOLOGY',
+              score_value: 5,
+              mapping_or_feedback: 'Specialization comparison',
+            },
+            {
+              option_id: 'L4-008-PG-B',
+              question_id: 'L4-008',
+              option_label: 'FinTech & Quantitative Finance vs Strategic Brand Marketing',
+              dimension_id: 'BUSINESS',
+              score_value: 5,
+              mapping_or_feedback: 'Specialization comparison',
+            },
+            {
+              option_id: 'L4-008-PG-C',
+              question_id: 'L4-008',
+              option_label: 'Advanced Pharmacology & Drug Development vs Clinical Research',
+              dimension_id: 'HEALTH_PHARMA',
+              score_value: 5,
+              mapping_or_feedback: 'Specialization comparison',
+            },
+            {
+              option_id: 'L4-008-PG-D',
+              question_id: 'L4-008',
+              option_label: 'Advanced Human-Computer Interaction (HCI) vs Strategic Design Management',
+              dimension_id: 'DESIGN',
+              score_value: 5,
+              mapping_or_feedback: 'Specialization comparison',
+            },
+            {
+              option_id: 'L4-008-PG-E',
+              question_id: 'L4-008',
+              option_label: 'International Commercial Arbitration vs Cyber Law & Digital Governance',
+              dimension_id: 'LAW',
+              score_value: 5,
+              mapping_or_feedback: 'Specialization comparison',
+            },
+            {
+              option_id: 'L4-008-PG-F',
+              question_id: 'L4-008',
+              option_label: 'Big Data Analytics & Business Intelligence vs Predictive Machine Learning',
+              dimension_id: 'ANALYTICS',
+              score_value: 5,
+              mapping_or_feedback: 'Specialization comparison',
+            },
+          ],
+        }
+      }
+      return q
+    })
+  }
+  return baseQuestions
 }
 
 export function getLevelConfig(level: AssessmentLevel): LevelConfig {
