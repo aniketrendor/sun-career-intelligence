@@ -14,6 +14,10 @@ import type {
   AssessmentLevel,
   QuestionType,
   AcademicDegreeLevel,
+  ProgramDomainMap,
+  SpecializationEntity,
+  ProgramSpecializationMap,
+  MappingAuditReport,
 } from '@/lib/types/assessment-v3.types'
 
 // Raw JSON typed interfaces
