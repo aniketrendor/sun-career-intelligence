@@ -27,6 +27,7 @@ import type {
   AssessmentQuestion,
   AnswerOption,
   DimensionScore,
+  CourseRecommendation,
   StudentAnswer,
   StudentProfileContext,
   AcademicDegreeLevel,
@@ -695,21 +696,45 @@ export function AdaptiveAssessmentCockpit({
                 )}
               </div>
 
-              {/* Emerging Primary Course Match */}
-              {answeredCount > 0 && liveResult.primary_course && (
-                <div className="pt-2 border-t border-[#DFD7CB] space-y-1.5">
-                  <div className="text-[10px] text-[#8C7E72] uppercase font-bold tracking-wider flex items-center gap-1.5">
-                    <Award className="w-3.5 h-3.5 text-[#77734B]" />
-                    Emerging Course Match
+              {/* Emerging Top 3 Course Recommendations */}
+              {answeredCount > 0 && liveResult.recommended_courses && liveResult.recommended_courses.length > 0 && (
+                <div className="pt-2.5 border-t border-[#DFD7CB] space-y-2">
+                  <div className="text-[10px] text-[#8C7E72] uppercase font-bold tracking-wider flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <Award className="w-3.5 h-3.5 text-[#77734B]" />
+                      <span>Top Recommendations</span>
+                    </div>
+                    <span className="text-[9px] font-semibold text-[#A36B40] bg-[#FAF6F0] px-1.5 py-0.5 rounded border border-[#DFD7CB]">
+                      Top 3
+                    </span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] space-y-1">
-                    <div className="text-xs font-bold text-[#2C2621] leading-tight">
-                      {liveResult.primary_course.course} in {liveResult.primary_course.specialization}
-                    </div>
-                    <div className="flex items-center justify-between text-[10px]">
-                      <span className="text-[#7A7067]">{liveResult.primary_course.school}</span>
-                      <span className="font-mono font-bold text-emerald-700">{liveResult.primary_course.match_score}% Match</span>
-                    </div>
+                  <div className="space-y-1.5">
+                    {liveResult.recommended_courses.slice(0, 3).map((course: CourseRecommendation, idx: number) => (
+                      <div 
+                        key={course.program_id || idx} 
+                        className="p-2 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] hover:border-[#A36B40]/50 transition-colors space-y-1"
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="text-xs font-bold text-[#2C2621] leading-tight flex items-start gap-1.5 min-w-0">
+                            <span className="flex-shrink-0 w-4 h-4 rounded-full bg-[#2C2621] text-[#FAF6F0] text-[10px] font-mono flex items-center justify-center font-bold mt-0.5">
+                              {idx + 1}
+                            </span>
+                            <span className="truncate">
+                              {course.course}{course.specialization ? ` in ${course.specialization}` : ''}
+                            </span>
+                          </div>
+                          <span className="flex-shrink-0 text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-1.5 py-0.2 rounded">
+                            {course.match_score}%
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between text-[10px] text-[#7A7067] pl-5.5">
+                          <span className="truncate max-w-[170px]">{course.school}</span>
+                          {course.eligibility?.status === 'VERIFIED_ELIGIBLE' && (
+                            <span className="text-[9px] text-emerald-600 font-medium">Eligible</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
