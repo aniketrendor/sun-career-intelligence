@@ -439,13 +439,13 @@ export default async function StudentCareerProfilePage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-lg font-bold text-[#2C2621]">10 Career Dimension Scores</CardTitle>
+                <CardTitle className="text-lg font-bold text-[#2C2621]">Career Dimension Scores</CardTitle>
                 <CardDescription className="text-xs text-[#7A7067]">
                   Normalized metrics (0–100) separating interest from cognitive aptitude
                 </CardDescription>
               </div>
               <Badge variant="outline" className="text-xs bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] rounded-full px-3 py-1">
-                10 Dimensions
+                {processedAssessment.sortedTraitScores.length} Evaluated Dimensions
               </Badge>
             </div>
           </CardHeader>

@@ -248,18 +248,22 @@ export function processAssessmentResponses(
 
   Object.keys(traitAccumulator).forEach((code) => {
     const acc = traitAccumulator[code]
+    const isMeasured = acc.max > 0
+
     // Calibrate 4-option forced-choice ratio into realistic psychometric percentile curve (35% concentration = 85-94% fit)
-    const rawRatio = acc.max > 0 ? acc.raw / acc.max : 0.2
+    const rawRatio = isMeasured ? acc.raw / acc.max : 0.2
     const calibrated = Math.round((rawRatio / 0.38) * 55 + 38)
-    const boundedScore = Math.min(95, Math.max(15, calibrated))
+    const boundedScore = isMeasured ? Math.min(95, Math.max(15, calibrated)) : 50
 
     // Variance / Signal strength for this trait
     const avg = acc.signals.length > 0 ? acc.signals.reduce((a, b) => a + b, 0) / acc.signals.length : 3
     const signalVariance = Math.min(100, Math.round(Math.abs(avg - 3) * 45 + 50))
 
+    const resolvedName = STAGE1_DIMENSION_DEFS[code]?.name || CAREER_DIMENSIONS[code]?.name || code
+
     const resObj: TraitScoreResult = {
       code,
-      name: CAREER_DIMENSIONS[code]?.name || code,
+      name: resolvedName,
       rawScore: Math.round(acc.raw * 10) / 10,
       maxPossible: Math.round(acc.max * 10) / 10,
       normalizedScore: boundedScore,
@@ -267,8 +271,59 @@ export function processAssessmentResponses(
     }
 
     traitScores[code] = resObj
-    sortedScores.push(resObj)
+
+    // Only surface traits that were actually tested with questions in this assessment
+    if (isMeasured) {
+      sortedScores.push(resObj)
+    }
   })
+
+  // Bridge corresponding dimension signals between Stage 1 codes and Standard codes
+  const CODE_BRIDGES: [string, string][] = [
+    ['ANA', 'AR'], ['AR', 'ANA'],
+    ['NUM', 'QR'], ['QR', 'NUM'],
+    ['TECH', 'TC'], ['TC', 'TECH'],
+    ['SCI', 'SC'], ['SC', 'SCI'],
+    ['RES', 'RE'], ['RE', 'RES'],
+    ['CRE', 'CR'], ['CR', 'CRE'],
+    ['COM', 'CO'], ['CO', 'COM'],
+    ['SOC', 'SO'], ['SO', 'SOC'],
+    ['BUS', 'BU'], ['BU', 'BUS'],
+    ['LEAD', 'LE'], ['LE', 'LEAD'],
+  ]
+
+  CODE_BRIDGES.forEach(([src, tgt]) => {
+    if (traitScores[src] && traitScores[src].maxPossible > 0 && (!traitScores[tgt] || traitScores[tgt].maxPossible === 0)) {
+      traitScores[tgt] = {
+        code: tgt,
+        name: STAGE1_DIMENSION_DEFS[tgt]?.name || CAREER_DIMENSIONS[tgt]?.name || tgt,
+        rawScore: traitScores[src].rawScore,
+        maxPossible: traitScores[src].maxPossible,
+        normalizedScore: traitScores[src].normalizedScore,
+        signalStrength: traitScores[src].signalStrength,
+      }
+    }
+  })
+
+  // If no dimensions were measured (fallback), take top core dimensions
+  if (sortedScores.length === 0) {
+    const fallbackCodes = track === 'PG'
+      ? ['RES', 'TECH', 'ANA', 'BUS', 'NUM', 'SPEC', 'IND', 'LEAD', 'STR', 'COM']
+      : ['INT', 'ANA', 'NUM', 'TECH', 'SCI', 'COM', 'CRE', 'SOC', 'BUS', 'RES']
+    fallbackCodes.forEach((code) => {
+      const def = CAREER_DIMENSIONS[code] || STAGE1_DIMENSION_DEFS[code]
+      if (def) {
+        sortedScores.push({
+          code,
+          name: def.name,
+          rawScore: 10,
+          maxPossible: 20,
+          normalizedScore: 65,
+          signalStrength: 60,
+        })
+      }
+    })
+  }
 
   sortedScores.sort((a, b) => b.normalizedScore - a.normalizedScore)
 

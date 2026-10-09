@@ -24,6 +24,20 @@ export const CAREER_DIMENSIONS: Record<string, DimensionDef> = {
   BUS: { code: 'BUS', name: 'Business & Commercial Orientation', description: 'Commercial acumen, organizational economics and entrepreneurial drive', category: 'COMMON' },
   RES: { code: 'RES', name: 'Research Orientation', description: 'Deep curiosity, literature synthesis and independent investigative inquiry', category: 'COMMON' },
 
+  // Stage 1 Dimensions
+  AR: { code: 'AR', name: 'Analytical Reasoning', description: 'Breaks complex problems into parts; evaluates assumptions and relationships', category: 'COMMON' },
+  LR: { code: 'LR', name: 'Logical Reasoning', description: 'Recognizes rules, sequences, deductions and valid conclusions', category: 'COMMON' },
+  QR: { code: 'QR', name: 'Quantitative Reasoning', description: 'Mathematical relationships, ratios, computational modeling and quantitative data', category: 'COMMON' },
+  PS: { code: 'PS', name: 'Problem Solving', description: 'Develops structured solutions to unfamiliar practical problems', category: 'COMMON' },
+  SC: { code: 'SC', name: 'Scientific Thinking', description: 'Empirical inquiry, hypotheses testing, experimental controls and scientific method', category: 'COMMON' },
+  RE: { code: 'RE', name: 'Research Orientation', description: 'Investigative inquiry, literature synthesis and evidence-backed claims', category: 'COMMON' },
+  TC: { code: 'TC', name: 'Technology Orientation', description: 'Interest and aptitude for computing, systems and technology', category: 'COMMON' },
+  CR: { code: 'CR', name: 'Creativity & Innovation', description: 'Generates alternatives, novel ideas and user-centered improvements', category: 'COMMON' },
+  CO: { code: 'CO', name: 'Communication & Expression', description: 'Explains, interprets and adapts information for different audiences', category: 'COMMON' },
+  SO: { code: 'SO', name: 'Social Orientation', description: 'Shows interest in people, behaviour, society and stakeholder needs', category: 'COMMON' },
+  LE: { code: 'LE', name: 'Leadership & Management', description: 'Plans, prioritizes, coordinates, resolves trade-offs and allocates resources', category: 'COMMON' },
+  BU: { code: 'BU', name: 'Business Orientation', description: 'Understands value, markets, finance, customers, risk and entrepreneurship', category: 'COMMON' },
+
   // PG Specific Dimensions
   ADV: { code: 'ADV', name: 'Advanced Subject Mastery', description: 'Deep technical rigor and advanced conceptual mastery', category: 'PG' },
   PRA: { code: 'PRA', name: 'Practical Application', description: 'Real-world deployment, hands-on labs and industrial execution', category: 'PG' },
