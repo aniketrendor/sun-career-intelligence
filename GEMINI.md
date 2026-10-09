@@ -7,5 +7,8 @@
 
 ## 2. Automatic Vercel Deployment
 - The repository (`aniketrendor/sun-career-intelligence`) is connected to Vercel at `sun-career-intelligence.vercel.app`.
-- Pushing to `origin/main` automatically triggers a production deployment on Vercel.
-- Always keep Vercel updated after every change by completing the commit and push workflow immediately.
+- After every git push to `origin/main`, **ALWAYS** trigger the Vercel Deploy Hook to guarantee instant production deployment:
+  ```powershell
+  Invoke-RestMethod -Uri 'https://api.vercel.com/v1/integrations/deploy/prj_yi2ZODS9dre6QX2VrPmW7LGi2X2h/OeTQOZouKx' -Method Post
+  ```
+- Always verify that the deployment completes cleanly.
