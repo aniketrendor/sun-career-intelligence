@@ -75,6 +75,35 @@ export function StudentProfileForm({
     phone_digits: initial10DigitPhone,
   })
 
+  // Live profile completeness calculation across form fields
+  const isNameValid = formData.full_name.trim().length >= 2
+  const isInstitutionValid = formData.institution.trim().length >= 2
+  const isEducationLevelValid = Boolean(formData.education_level)
+  const isProgramValid = formData.current_qualification.trim().length >= 2
+  const isClassValid = formData.current_class_semester.trim().length >= 1
+  const isStatusValid = Boolean(formData.student_status)
+  const isPhoneValid = /^\d{10}$/.test(formData.phone_digits)
+  const isStreamValid = formData.stream_department.trim().length >= 1
+  const isBatchValid = formData.academic_year.trim().length >= 1
+  const isPrnValid = formData.prn.trim().length >= 1
+
+  const requirements = [
+    { key: 'full_name', label: 'Full Name', valid: isNameValid },
+    { key: 'institution', label: 'Institution', valid: isInstitutionValid },
+    { key: 'education_level', label: 'Education Level', valid: isEducationLevelValid },
+    { key: 'current_qualification', label: 'Program / Qualification', valid: isProgramValid },
+    { key: 'current_class_semester', label: 'Class / Semester', valid: isClassValid },
+    { key: 'student_status', label: 'Student Status', valid: isStatusValid },
+    { key: 'phone', label: 'Contact Number', valid: isPhoneValid },
+    { key: 'stream_department', label: 'Stream / Subject', valid: isStreamValid },
+    { key: 'academic_year', label: 'Academic Session', valid: isBatchValid },
+    { key: 'prn', label: 'Student ID / Roll No.', valid: isPrnValid },
+  ]
+
+  const completedCount = requirements.filter(r => r.valid).length
+  const totalCount = requirements.length
+  const completenessPercent = Math.round((completedCount / totalCount) * 100)
+
   const handlePhoneChange = (val: string) => {
     const digitsOnly = val.replace(/\D/g, '').slice(0, 10)
     setFormData(prev => ({ ...prev, phone_digits: digitsOnly }))
@@ -149,28 +178,54 @@ export function StudentProfileForm({
             </div>
           </div>
 
-          <Link href="/student/assessment?start=true&track=UG">
-            <Button
-              type="button"
-              variant="outline"
-              className="h-10 px-4 rounded-xl border-[#DFD7CB] bg-white hover:bg-[#FAF6F0] text-[#8C4E2D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all cursor-pointer whitespace-nowrap"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#8C4E2D]" />
-              <span>Start Free Assessment</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#8C4E2D]" />
-            </Button>
-          </Link>
+          <div className="flex items-center gap-3 self-start sm:self-auto">
+            <Link href="/student/assessment?start=true&track=UG">
+              <Button
+                type="button"
+                variant="outline"
+                className="h-10 px-4 rounded-xl border-[#DFD7CB] bg-white hover:bg-[#FAF6F0] text-[#8C4E2D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all cursor-pointer whitespace-nowrap"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#8C4E2D]" />
+                <span>Start Free Assessment</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#8C4E2D]" />
+              </Button>
+            </Link>
+          </div>
         </div>
 
-        {/* Universal Student Profile Pill Banner */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3.5 py-4 border-b border-[#F0EAE1]">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F5ECE2] text-[#8C4E2D] text-xs font-bold border border-[#E9DDD0] shrink-0 self-start sm:self-auto">
-            <GraduationCap className="w-4 h-4 text-[#8C4E2D]" />
-            <span>Universal student profile</span>
+        {/* Universal Student Profile Pill Banner & Live Progress Bar */}
+        <div className="py-4 border-b border-[#F0EAE1] space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F5ECE2] text-[#8C4E2D] text-xs font-bold border border-[#E9DDD0] shrink-0 self-start sm:self-auto">
+                <GraduationCap className="w-4 h-4 text-[#8C4E2D]" />
+                <span>Universal student profile</span>
+              </div>
+              <p className="text-xs text-[#64748B] leading-relaxed">
+                This single form works for all education levels. The fields adapt based on your selected education level, but you can still fill everything in one place.
+              </p>
+            </div>
+
+            <div className="shrink-0 flex items-center gap-2">
+              <span className="text-xs font-bold text-[#8C4E2D] bg-[#F5ECE2] px-2.5 py-1 rounded-lg border border-[#E9DDD0]/80">
+                {completenessPercent}% Complete
+              </span>
+            </div>
           </div>
-          <p className="text-xs text-[#64748B] leading-relaxed">
-            This single form works for all education levels. The fields adapt based on your selected education level, but you can still fill everything in one place.
-          </p>
+
+          {/* Profile Completeness Progress Bar */}
+          <div className="space-y-1 pt-1">
+            <div className="flex items-center justify-between text-[11px] text-[#7A7067]">
+              <span>Profile Completeness</span>
+              <span>{completedCount} of {totalCount} fields completed</span>
+            </div>
+            <div className="h-2 w-full bg-[#F5ECE2] rounded-full overflow-hidden border border-[#E9DDD0]/70">
+              <div
+                className="h-full bg-gradient-to-r from-[#A36B40] to-[#8C4E2D] rounded-full transition-all duration-500 ease-out shadow-xs"
+                style={{ width: `${completenessPercent}%` }}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Form Body matching Image 2 */}
