@@ -151,6 +151,7 @@ export function AdaptiveAssessmentCockpit({
   const currentQId = v2Active ? currentQV2?.id : currentQV1?.id
   const currentQText = v2Active ? currentQV2?.questionText : currentQV1?.question
   const isMultiSelect = v2Active && currentQV2?.questionType === 'Multi-select'
+  const isRanking = v2Active && currentQV2?.questionType === 'Ranking'
 
   const currentSectionIndex = Math.min(4, Math.max(0, Math.floor(currentIndex / 6)))
   const currentSection = SECTION_CONFIGS[currentSectionIndex] || SECTION_CONFIGS[0]
@@ -168,13 +169,18 @@ export function AdaptiveAssessmentCockpit({
   // Real-time Psychometric Context / Evidence Computation
   const psychometricContext: StudentPsychometricContext = useMemo(() => {
     if (v2Active) {
-      // Build running V2 responses
+      // Build running V2 responses with ranking support
       const responses: V2ResponseRecord[] = activeQuestionsV2
         .filter((q) => !!selectedAnswersMap[q.id]?.length)
-        .map((q) => ({
-          questionId: q.id,
-          selectedOptionIds: selectedAnswersMap[q.id],
-        }))
+        .map((q) => {
+          const isQRank = q.questionType === 'Ranking'
+          const ans = selectedAnswersMap[q.id] || []
+          return {
+            questionId: q.id,
+            rankings: isQRank ? ans : undefined,
+            selectedOptionIds: isQRank ? undefined : ans,
+          }
+        })
       const v2Res = processV2Assessment(responses, { academicLevel, stream: qualification })
       
       const traits: Record<string, number> = {}
@@ -210,13 +216,21 @@ export function AdaptiveAssessmentCockpit({
     }
   }, [activeQuestionsV2, activeQuestionsV1, selectedAnswersMap, v2Active, academicLevel, qualification, answeredCount])
 
-  // Option selection handler (supports single and multi-select)
+  // Option selection handler (supports single, multi-select, and ranking)
   const handleSelectOption = (optionId: string) => {
     if (!currentQId) return
 
     setSelectedAnswersMap((prev) => {
       const existing = prev[currentQId] || []
-      if (isMultiSelect) {
+      if (isRanking) {
+        if (existing.includes(optionId)) {
+          // Toggle off if already selected in rank
+          return { ...prev, [currentQId]: existing.filter((id) => id !== optionId) }
+        } else {
+          // Append next rank
+          return { ...prev, [currentQId]: [...existing, optionId] }
+        }
+      } else if (isMultiSelect) {
         if (existing.includes(optionId)) {
           return { ...prev, [currentQId]: existing.filter((id) => id !== optionId) }
         } else {
@@ -226,6 +240,11 @@ export function AdaptiveAssessmentCockpit({
         return { ...prev, [currentQId]: [optionId] }
       }
     })
+  }
+
+  const handleResetRanking = () => {
+    if (!currentQId) return
+    setSelectedAnswersMap((prev) => ({ ...prev, [currentQId]: [] }))
   }
 
   // Previous Question
@@ -256,10 +275,15 @@ export function AdaptiveAssessmentCockpit({
       }
 
       // Dynamically select next hierarchical question
-      const responses: V2ResponseRecord[] = activeQuestionsV2.slice(0, currentIndex + 1).map((q) => ({
-        questionId: q.id,
-        selectedOptionIds: selectedAnswersMap[q.id] || [q.options[0]?.id || 'A'],
-      }))
+      const responses: V2ResponseRecord[] = activeQuestionsV2.slice(0, currentIndex + 1).map((q) => {
+        const isQRank = q.questionType === 'Ranking'
+        const ans = selectedAnswersMap[q.id] || (isQRank ? q.options.map((o) => o.id) : [q.options[0]?.id || 'A'])
+        return {
+          questionId: q.id,
+          rankings: isQRank ? ans : undefined,
+          selectedOptionIds: isQRank ? undefined : ans,
+        }
+      })
 
       const step = selectNextHierarchicalQuestion({
         responses,
@@ -346,10 +370,15 @@ export function AdaptiveAssessmentCockpit({
     try {
       if (v2Active) {
         // ─── V2 ASSESSMENT EVALUATION ──────────────────────────────────────────
-        const v2Responses: V2ResponseRecord[] = activeQuestionsV2.map((q) => ({
-          questionId: q.id,
-          selectedOptionIds: selectedAnswersMap[q.id] || [q.options[0]?.id || 'A'],
-        }))
+        const v2Responses: V2ResponseRecord[] = activeQuestionsV2.map((q) => {
+          const isQRank = q.questionType === 'Ranking'
+          const ans = selectedAnswersMap[q.id] || (isQRank ? q.options.map((o) => o.id) : [q.options[0]?.id || 'A'])
+          return {
+            questionId: q.id,
+            rankings: isQRank ? ans : undefined,
+            selectedOptionIds: isQRank ? undefined : ans,
+          }
+        })
 
         const v2Result = processV2Assessment(v2Responses, {
           academicLevel,
@@ -640,11 +669,15 @@ export function AdaptiveAssessmentCockpit({
                   <Badge variant="outline" className="bg-amber-500/10 border-amber-500/30 text-amber-400 text-[9.5px] px-1.5 py-0 h-4.5">
                     Level {currentSection.level}: {qNumInCurrentSection} of 6
                   </Badge>
-                  {isMultiSelect && (
+                  {isRanking ? (
+                    <Badge variant="outline" className="bg-amber-500/15 border-amber-500/40 text-amber-300 text-[9.5px] px-1.5 py-0 h-4.5 flex items-center gap-1">
+                      <Layers className="w-2.5 h-2.5" /> Ranking (1st → 4th)
+                    </Badge>
+                  ) : isMultiSelect ? (
                     <Badge variant="outline" className="bg-purple-500/10 border-purple-500/30 text-purple-400 text-[9.5px] px-1.5 py-0 h-4.5 flex items-center gap-1">
                       <CheckSquare className="w-2.5 h-2.5" /> Multi-Select
                     </Badge>
-                  )}
+                  ) : null}
                 </div>
                 <span className="text-[9.5px] text-slate-400 flex items-center gap-1">
                   <Keyboard className="w-2.5 h-2.5" /> Keys 1–4 or A–D
@@ -655,11 +688,15 @@ export function AdaptiveAssessmentCockpit({
                 {currentQText}
               </h2>
 
-              {isMultiSelect && (
+              {isRanking ? (
+                <p className="text-[10px] text-amber-300/90 flex items-center gap-1">
+                  <Info className="w-2.5 h-2.5" /> Click options in order of preference (1st Choice → 4th Choice). Click ranked item again to remove.
+                </p>
+              ) : isMultiSelect ? (
                 <p className="text-[10px] text-purple-300/90 flex items-center gap-1">
                   <Info className="w-2.5 h-2.5" /> Select all options that match your interests or background.
                 </p>
-              )}
+              ) : null}
             </div>
 
             {/* Options List (Compact & Touch-Friendly) */}
@@ -668,28 +705,60 @@ export function AdaptiveAssessmentCockpit({
                 const letter = String.fromCharCode(65 + idx)
                 const isSelected = currentSelectedOptionIds.includes(opt.id)
                 const optText = opt.displayText || opt.text || opt.rawText
+                const rankIndex = isRanking ? currentSelectedOptionIds.indexOf(opt.id) : -1
 
                 return (
                   <button
                     key={opt.id}
                     onClick={() => handleSelectOption(opt.id)}
                     className={`w-full text-left p-2 sm:p-2.5 rounded-xl border transition-all flex items-start gap-2.5 group relative cursor-pointer ${
-                      isSelected
+                      isRanking
+                        ? rankIndex === 0
+                          ? 'bg-amber-500/25 border-amber-400 text-white shadow-xs'
+                          : rankIndex === 1
+                          ? 'bg-blue-500/20 border-blue-400/80 text-white shadow-xs'
+                          : rankIndex === 2
+                          ? 'bg-purple-500/20 border-purple-400/80 text-white shadow-xs'
+                          : rankIndex === 3
+                          ? 'bg-slate-800/90 border-slate-600 text-slate-200'
+                          : 'bg-slate-900/70 border-[#383129] hover:border-slate-600 hover:bg-slate-800/40 text-slate-200'
+                        : isSelected
                         ? 'bg-amber-500/20 border-amber-500/80 text-white shadow-xs shadow-amber-500/10'
                         : 'bg-slate-900/70 border-[#383129] hover:border-slate-600 hover:bg-slate-800/40 text-slate-200'
                     }`}
                   >
                     <div
                       className={`w-5 h-5 rounded-md flex items-center justify-center font-bold text-[10px] shrink-0 transition-colors ${
-                        isSelected
+                        isRanking
+                          ? rankIndex === 0
+                            ? 'bg-amber-500 text-black shadow-xs'
+                            : rankIndex === 1
+                            ? 'bg-blue-400 text-black'
+                            : rankIndex === 2
+                            ? 'bg-purple-400 text-black'
+                            : rankIndex === 3
+                            ? 'bg-slate-600 text-white'
+                            : 'bg-slate-800 border border-slate-700 text-slate-400 group-hover:text-slate-200'
+                          : isSelected
                           ? 'bg-amber-500 text-black'
                           : 'bg-slate-800 border border-slate-700 text-slate-400 group-hover:text-slate-200'
                       }`}
                     >
-                      {isSelected ? <Check className="w-3 h-3" /> : letter}
+                      {isRanking
+                        ? rankIndex >= 0
+                          ? `#${rankIndex + 1}`
+                          : letter
+                        : isSelected
+                        ? <Check className="w-3 h-3" />
+                        : letter}
                     </div>
-                    <div className="flex-1 text-xs sm:text-[12.5px] leading-tight pt-0.5">
-                      {optText}
+                    <div className="flex-1 text-xs sm:text-[12.5px] leading-tight pt-0.5 flex items-center justify-between">
+                      <span>{optText}</span>
+                      {isRanking && rankIndex >= 0 && (
+                        <span className="text-[9.5px] font-semibold opacity-90 px-1.5 py-0.5 rounded-md bg-black/40 ml-2 shrink-0">
+                          {rankIndex === 0 ? '1st Choice' : rankIndex === 1 ? '2nd Choice' : rankIndex === 2 ? '3rd Choice' : '4th Choice'}
+                        </span>
+                      )}
                     </div>
                   </button>
                 )
@@ -698,15 +767,26 @@ export function AdaptiveAssessmentCockpit({
 
             {/* Bottom Actions Bar */}
             <div className="p-2.5 sm:p-3 pt-2 border-t border-[#383129]/80 flex items-center justify-between">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handlePrev}
-                disabled={currentIndex === 0}
-                className="h-8 px-2.5 text-xs border-[#383129] bg-slate-900/60 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg cursor-pointer"
-              >
-                <ArrowLeft className="w-3 h-3 mr-1" /> Previous
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handlePrev}
+                  disabled={currentIndex === 0}
+                  className="h-8 px-2.5 text-xs border-[#383129] bg-slate-900/60 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg cursor-pointer"
+                >
+                  <ArrowLeft className="w-3 h-3 mr-1" /> Previous
+                </Button>
+
+                {isRanking && currentSelectedOptionIds.length > 0 && (
+                  <button
+                    onClick={handleResetRanking}
+                    className="text-[10px] text-amber-400/80 hover:text-amber-300 underline cursor-pointer px-1"
+                  >
+                    Reset Rank
+                  </button>
+                )}
+              </div>
 
               <div className="flex items-center gap-2">
                 {currentIndex === 29 ? (

@@ -88,7 +88,49 @@ export function processV2Assessment(
     const q = getQuestionById(resp.questionId) || MASTER_QB_V2.differentiators.find((d) => d.id === resp.questionId)
     if (!q) return
 
-    // Extract selected option IDs (support both single-select and multi-select)
+    // 1. Handle Ranking question responses
+    if (resp.rankings && Array.isArray(resp.rankings) && resp.rankings.length > 0) {
+      routingHistory.push({
+        level: (q as any).level || 'DIFF',
+        questionId: q.id,
+        selectedOptionIds: resp.rankings,
+      })
+
+      const rankWeights = [1.0, 0.7, 0.45, 0.2, 0.1]
+      resp.rankings.forEach((optId, rIdx) => {
+        const weight = (rankWeights[rIdx] || 0.1) * ((q as any).weight || 1.0)
+        const opt = q.options.find((o) => o.id === optId || o.key === optId)
+        if (!opt) return
+
+        opt.targetDomainCodes.forEach((d) => {
+          domainScoreMap[d] = (domainScoreMap[d] || 0) + (14 * weight)
+
+          const traitWeights = DOMAIN_TO_TRAITS[d]
+          if (traitWeights) {
+            Object.entries(traitWeights).forEach(([tCode, tWeight]) => {
+              if (traitAccumulator[tCode]) {
+                traitAccumulator[tCode].raw += tWeight * weight
+                traitAccumulator[tCode].count += 1
+              }
+            })
+          }
+        })
+
+        opt.targetProgramIds.forEach((pid) => {
+          if (programEvidenceMap[pid]) {
+            const boost = q.id.startsWith('DIFF') ? 25 : 18
+            programEvidenceMap[pid].rawEvidence += boost * weight
+            programEvidenceMap[pid].evidenceCount += 1
+            if (q.id.startsWith('DIFF')) {
+              programEvidenceMap[pid].differentiatorVotes.push(q.id)
+            }
+          }
+        })
+      })
+      return
+    }
+
+    // 2. Handle Single-select and Multi-select responses
     let selectedIds: string[] = []
     if (resp.selectedOptionIds && Array.isArray(resp.selectedOptionIds) && resp.selectedOptionIds.length > 0) {
       selectedIds = resp.selectedOptionIds
