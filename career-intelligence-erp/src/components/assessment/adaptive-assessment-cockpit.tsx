@@ -23,6 +23,8 @@ import {
   processAssessmentResponses,
   validateAnswerForQuestion,
   type AssessmentQuestion,
+  type AnswerOption,
+  type DimensionScore,
   type StudentAnswer,
   type StudentProfileContext,
   type AcademicDegreeLevel,
@@ -79,7 +81,7 @@ export function AdaptiveAssessmentCockpit({
 
   const levelConfig = useMemo(() => {
     return (
-      ASSESSMENT_LEVEL_CONFIGS.find((c) => c.level === currentQuestion?.level) ||
+      ASSESSMENT_LEVEL_CONFIGS.find((c: { level: string }) => c.level === currentQuestion?.level) ||
       ASSESSMENT_LEVEL_CONFIGS[0]
     )
   }, [currentQuestion?.level])
@@ -139,19 +141,19 @@ export function AdaptiveAssessmentCockpit({
     const existing = currentAnswer?.option_ids || []
     const isAlreadySelected = existing.includes(optId)
 
-    const opt = currentQuestion.options.find((o) => o.option_id === optId)
+    const opt = currentQuestion.options.find((o: AnswerOption) => o.option_id === optId)
     const isMutuallyExclusive = opt?.is_mutually_exclusive
 
     let updated: string[] = []
     if (isMutuallyExclusive) {
       updated = isAlreadySelected ? [] : [optId]
     } else {
-      const filtered = existing.filter((id) => {
-        const o = currentQuestion.options.find((item) => item.option_id === id)
+      const filtered = existing.filter((id: string) => {
+        const o = currentQuestion.options.find((item: AnswerOption) => item.option_id === id)
         return !o?.is_mutually_exclusive
       })
       if (isAlreadySelected) {
-        updated = filtered.filter((id) => id !== optId)
+        updated = filtered.filter((id: string) => id !== optId)
       } else {
         const max = currentQuestion.max_selections ?? 4
         if (filtered.length >= max) {
@@ -400,9 +402,9 @@ export function AdaptiveAssessmentCockpit({
       {/* ─── 5-LEVEL PROGRESS STEPPER ─── */}
       <div className="bg-white border border-[#DFD7CB] rounded-2xl p-3 sm:p-4 shadow-xs overflow-x-auto">
         <div className="flex items-center justify-between min-w-[620px] gap-2">
-          {ASSESSMENT_LEVEL_CONFIGS.map((sec) => {
+          {ASSESSMENT_LEVEL_CONFIGS.map((sec: { level: string; levelNumber: number; title: string; subtitle: string; description: string }) => {
             const isCurrent = sec.level === currentQuestion.level
-            const isCompleted = ASSESSMENT_LEVEL_CONFIGS.findIndex(c => c.level === currentQuestion.level) > ASSESSMENT_LEVEL_CONFIGS.findIndex(c => c.level === sec.level)
+            const isCompleted = ASSESSMENT_LEVEL_CONFIGS.findIndex((c: { level: string }) => c.level === currentQuestion.level) > ASSESSMENT_LEVEL_CONFIGS.findIndex((c: { level: string }) => c.level === sec.level)
 
             return (
               <div
@@ -506,7 +508,7 @@ export function AdaptiveAssessmentCockpit({
               {/* Type 2: Multi-Select Options */}
               {currentQuestion.question_type === 'multi_select' && (
                 <div className="flex flex-col gap-2.5">
-                  {currentQuestion.options.map((opt, idx) => {
+                  {currentQuestion.options.map((opt: AnswerOption, idx: number) => {
                     const letter = String.fromCharCode(65 + idx)
                     const isSelected = (currentAnswer?.option_ids || []).includes(opt.option_id)
 
@@ -543,7 +545,7 @@ export function AdaptiveAssessmentCockpit({
               {/* Type 3: Single-Select Options */}
               {currentQuestion.question_type === 'single_select' && (
                 <div className="flex flex-col gap-2.5">
-                  {currentQuestion.options.map((opt, idx) => {
+                  {currentQuestion.options.map((opt: AnswerOption, idx: number) => {
                     const letter = String.fromCharCode(65 + idx)
                     const isSelected = currentAnswer?.option_id === opt.option_id
 
@@ -667,7 +669,7 @@ export function AdaptiveAssessmentCockpit({
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    {liveResult.top_dimensions.slice(0, 3).map((dom, i) => (
+                    {liveResult.top_dimensions.slice(0, 3).map((dom: DimensionScore, i: number) => (
                       <div key={dom.dimension_id} className="space-y-1">
                         <div className="flex items-center justify-between text-xs">
                           <span className="text-[#6A5E54] truncate max-w-[180px]">
