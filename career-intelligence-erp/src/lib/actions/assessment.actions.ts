@@ -6,9 +6,6 @@ import type { TraitScore, DomainScore } from '@/lib/types'
 
 import {
   processAssessmentResponses,
-  runRecommendationEngine,
-  generateCareerIntelligenceReport,
-  CAREER_DIMENSIONS,
   type StudentAnswer,
   type StudentProfileContext,
   type DimensionScore,
