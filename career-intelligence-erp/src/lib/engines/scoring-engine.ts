@@ -27,6 +27,45 @@ import type {
   AssessmentLevel,
 } from '@/lib/types/assessment-v3.types'
 
+const DOMAIN_ALIAS_MAP: Record<string, string> = {
+  BUSINESS: 'DOM-01',
+  FINANCE: 'DOM-02',
+  MARKETING: 'DOM-03',
+  ENTREPRENEURSHIP: 'DOM-04',
+  ANALYTICS: 'DOM-05',
+  TECHNOLOGY: 'DOM-06',
+  COMPUTING: 'DOM-06',
+  AI: 'DOM-07',
+  CYBER: 'DOM-08',
+  ENGINEERING: 'DOM-09',
+  AEROSPACE: 'DOM-10',
+  AVIATION: 'DOM-10',
+  CIVIL: 'DOM-11',
+  BUILT_ENV: 'DOM-12',
+  ARCHITECTURE: 'DOM-12',
+  ENERGY: 'DOM-13',
+  ENVIRONMENT: 'DOM-13',
+  BIOTECH: 'DOM-14',
+  PHARMA: 'DOM-15',
+  HEALTH_PHARMA: 'DOM-15',
+  BIOMEDICAL: 'DOM-16',
+  SCIENCE: 'DOM-17',
+  CHEMISTRY: 'DOM-17',
+  PHYSICS: 'DOM-17',
+  DESIGN: 'DOM-18',
+  LAW: 'DOM-19',
+  RESEARCH: 'DOM-20',
+  PEOPLE: 'DOM-01',
+  COMMUNICATION: 'DOM-03',
+  LOGISTICS: 'DOM-01',
+  SECURITY: 'DOM-08',
+}
+
+function resolveCanonicalDimId(dimId?: string): string | undefined {
+  if (!dimId) return undefined
+  return DOMAIN_ALIAS_MAP[dimId] || dimId
+}
+
 export function processAssessmentResponses(
   answers: StudentAnswer[],
   profile: StudentProfileContext
@@ -65,12 +104,12 @@ export function processAssessmentResponses(
     // A. Rating Scale (1-5 Likert)
     if (q.question_type === 'rating_scale' || typeof ans.rating_value === 'number') {
       const rating = ans.rating_value ?? 3
-      const dimId = q.dimension_id
-      if (dimId && rawDimensionMap[dimId]) {
+      const canonicalId = resolveCanonicalDimId(q.dimension_id)
+      if (canonicalId && rawDimensionMap[canonicalId]) {
         // Likert 1 to 5 maps to (rating - 1) * 2.5 (0 to 10 points)
         const score = (rating - 1) * 2.5
-        rawDimensionMap[dimId].raw += score
-        rawDimensionMap[dimId].count += 1
+        rawDimensionMap[canonicalId].raw += score
+        rawDimensionMap[canonicalId].count += 1
       }
       return
     }
@@ -91,16 +130,16 @@ export function processAssessmentResponses(
         specializationPreferences.push(opt.option_label)
       }
 
-      const targetDim = opt.dimension_id || q.dimension_id
-      if (targetDim && rawDimensionMap[targetDim]) {
+      const canonicalId = resolveCanonicalDimId(opt.dimension_id || q.dimension_id)
+      if (canonicalId && rawDimensionMap[canonicalId]) {
         const baseScore = opt.score_value || 5
-        rawDimensionMap[targetDim].raw += baseScore * normFactor
-        rawDimensionMap[targetDim].count += 1
+        rawDimensionMap[canonicalId].raw += baseScore * normFactor
+        rawDimensionMap[canonicalId].count += 1
       }
     })
   })
 
-  // 2. Normalize 12 Dimension Scores to 0-100 scale
+  // 2. Normalize 20 Dimension Scores to 0-100 scale
   let maxRaw = 0
   Object.values(rawDimensionMap).forEach((v) => {
     if (v.raw > maxRaw) maxRaw = v.raw
@@ -111,12 +150,15 @@ export function processAssessmentResponses(
     let normalized = 0
     if (maxRaw > 0 && data.raw > 0) {
       normalized = Math.min(98, Math.max(25, Math.round((data.raw / maxRaw) * 100)))
+    } else if (maxRaw === 0) {
+      normalized = 50
     }
 
     const confidence: 'HIGH' | 'MODERATE' | 'EXPLORATORY' = 
       data.count >= 3 ? 'HIGH' : data.count >= 1 ? 'MODERATE' : 'EXPLORATORY'
 
     return {
+      domain_id: d.domain_id || d.dimension_id,
       dimension_id: d.dimension_id,
       name: d.name,
       definition: d.definition,
@@ -129,7 +171,7 @@ export function processAssessmentResponses(
 
   // Sort dimensions by score
   dimensionScores.sort((a, b) => b.normalized_score - a.normalized_score)
-  const topDimensions = maxRaw > 0 ? dimensionScores.filter(d => d.signals_count > 0).slice(0, 4) : []
+  const topDimensions = dimensionScores.slice(0, 4)
 
   const topDimensionScoreMap = new Map<string, number>()
   dimensionScores.forEach((d) => topDimensionScoreMap.set(d.dimension_id, d.normalized_score))

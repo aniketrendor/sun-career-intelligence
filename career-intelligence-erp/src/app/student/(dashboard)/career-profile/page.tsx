@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -29,12 +29,14 @@ export default async function StudentCareerProfilePage(props: {
   const specificAttemptId = searchParams?.attemptId
 
   const supabase = await createClient()
+  const adminClient = await createAdminClient()
+
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: profile } = await supabase
+  const { data: profile } = await adminClient
     .from('users')
-    .select('id, full_name, role')
+    .select('id, full_name, email, role')
     .eq('auth_user_id', user.id)
     .single()
 
@@ -46,18 +48,18 @@ export default async function StudentCareerProfilePage(props: {
     { data: enrollment },
     { data: completedAttempts }
   ] = await Promise.all([
-    supabase
+    adminClient
       .from('student_profiles')
       .select('prn, current_program, academic_year, school, institution')
       .eq('user_id', profile.id)
       .maybeSingle(),
-    supabase
+    adminClient
       .from('enrollments')
       .select('academic_year, program:programs(name, code), class:classes(semester)')
       .eq('student_id', profile.id)
       .eq('status', 'ACTIVE')
       .maybeSingle(),
-    supabase
+    adminClient
       .from('assessment_attempts')
       .select('id, status, completed_at, started_at')
       .eq('student_id', profile.id)
@@ -70,7 +72,7 @@ export default async function StudentCareerProfilePage(props: {
   if (specificAttemptId) {
     targetAttempt = completedAttempts?.find((a: any) => a.id === specificAttemptId)
     if (!targetAttempt) {
-      const { data: specificAtt } = await supabase
+      const { data: specificAtt } = await adminClient
         .from('assessment_attempts')
         .select('id, status, completed_at, started_at')
         .eq('id', specificAttemptId)
@@ -120,8 +122,8 @@ export default async function StudentCareerProfilePage(props: {
     )
   }
 
-  // Fetch responses for target attempt
-  const { data: responses } = await supabase
+  // Fetch responses for target attempt using adminClient to ensure 100% data access
+  const { data: responses } = await adminClient
     .from('assessment_responses')
     .select('question_id, response_value, response_text')
     .eq('attempt_id', targetAttempt.id)
@@ -151,6 +153,7 @@ export default async function StudentCareerProfilePage(props: {
   // Process through V3 Career Intelligence Engine
   const studentContext: StudentProfileContext = {
     fullName: profile.full_name || 'Student',
+    email: profile.email || undefined,
     academicLevel: isPG ? 'PG' : 'UG',
     stream: studentProfile?.current_program || undefined,
   }
@@ -169,7 +172,7 @@ export default async function StudentCareerProfilePage(props: {
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">Career Diagnostic Profile</h1>
           <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
-            Official cognitive aptitude, domain synergy, and career pathway analysis.
+            Official cognitive aptitude, 20-domain synergy, and university program pathway analysis.
           </p>
         </div>
 
@@ -211,7 +214,7 @@ export default async function StudentCareerProfilePage(props: {
           <div>
             <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Primary Aligned Domain</span>
             <span className="font-semibold text-white mt-0.5 block truncate">
-              {topDimensions[0]?.name || 'Technology'}
+              {topDimensions[0]?.name || 'Computing & Software Development'}
             </span>
           </div>
           <div>
@@ -287,7 +290,7 @@ export default async function StudentCareerProfilePage(props: {
         <Card className="border-[#DFD7CB] bg-white rounded-3xl shadow-xs flex flex-col justify-between">
           <CardHeader className="pb-3">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#77734B] border border-[#DFD7CB] mb-1">
-              <Lightbulb className="w-3.5 h-3.5 text-[#77734B]" /> Alternative Pathways
+              <Lightbulb className="w-3.5 h-3.5 text-[#77734B]" /> Alternative Options
             </div>
             <CardTitle className="text-lg font-bold text-[#2C2621]">Complementary Degrees</CardTitle>
             <CardDescription className="text-xs text-[#7A7067]">
@@ -357,18 +360,18 @@ export default async function StudentCareerProfilePage(props: {
         </div>
       </div>
 
-      {/* ─── SECTION 3: 12-DIMENSION CAREER APTITUDE MATRIX ─────────────────── */}
+      {/* ─── SECTION 3: 20-DIMENSION CAREER APTITUDE MATRIX ─────────────────── */}
       <Card className="border-[#DFD7CB] bg-white rounded-3xl shadow-xs">
         <CardHeader>
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div>
-              <CardTitle className="text-lg font-bold text-[#2C2621]">12 Career Dimension Scores</CardTitle>
+              <CardTitle className="text-lg font-bold text-[#2C2621]">20 Master Career Domain Scores</CardTitle>
               <CardDescription className="text-xs text-[#7A7067]">
-                Multi-dimensional scores across all 12 university academic domains (0–100 scale)
+                Multi-dimensional scores across all 20 university master career domains (0–100 scale)
               </CardDescription>
             </div>
             <Badge variant="outline" className="text-xs bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] rounded-full px-3 py-1">
-              12 Dimensions Evaluated
+              20 Domains Evaluated
             </Badge>
           </div>
         </CardHeader>
