@@ -150,8 +150,8 @@ export function AdaptiveAssessmentCockpit({
 
   const currentQId = v2Active ? currentQV2?.id : currentQV1?.id
   const currentQText = v2Active ? currentQV2?.questionText : currentQV1?.question
-  const isMultiSelect = v2Active && currentQV2?.questionType === 'Multi-select'
-  const isRanking = v2Active && currentQV2?.questionType === 'Ranking'
+  const isMultiSelect = v2Active && (currentQV2?.level === 'L1' || currentQV2?.questionType === 'Multi-select')
+  const isRanking = v2Active && currentQV2?.questionType === 'Ranking' && currentQV2?.level !== 'L1'
 
   const currentSectionIndex = Math.min(4, Math.max(0, Math.floor(currentIndex / 6)))
   const currentSection = SECTION_CONFIGS[currentSectionIndex] || SECTION_CONFIGS[0]
@@ -400,20 +400,24 @@ export function AdaptiveAssessmentCockpit({
         const overallFit = primaryProg.finalCompositeScore
         const recommendedSpec = primaryProg.specialization || primaryProg.name
 
-        // Persist lead in database
-        await submitFresherLead({
-          referralCode,
-          candidateName,
-          candidateEmail: candidateEmail || undefined,
-          candidatePhone: candidatePhone || undefined,
-          targetLevel: academicLevel,
-          highestQualification: qualification || undefined,
-          lastAttemptedCollege: college || undefined,
-          testScore: Math.round(overallFit),
-          fitScore: Math.round(overallFit),
-          topDomain: topDomainName,
-          recommendedSpec,
-        })
+        // Persist lead in database safely without blocking navigation
+        try {
+          await submitFresherLead({
+            referralCode,
+            candidateName,
+            candidateEmail: candidateEmail || undefined,
+            candidatePhone: candidatePhone || undefined,
+            targetLevel: academicLevel,
+            highestQualification: qualification || undefined,
+            lastAttemptedCollege: college || undefined,
+            testScore: Math.round(overallFit),
+            fitScore: Math.round(overallFit),
+            topDomain: topDomainName,
+            recommendedSpec,
+          })
+        } catch (persistErr) {
+          console.warn('Lead persistence notice:', persistErr)
+        }
 
         const resultParams = new URLSearchParams({
           code: referralCode,
@@ -443,9 +447,13 @@ export function AdaptiveAssessmentCockpit({
           portal: 'student',
         })
 
-        setTimeout(() => {
-          window.location.href = `/student/fresher/report?${resultParams.toString()}`
-        }, 500)
+        const destinationUrl = `/student/fresher/report?${resultParams.toString()}`
+        router.push(destinationUrl)
+        if (typeof window !== 'undefined') {
+          setTimeout(() => {
+            window.location.href = destinationUrl
+          }, 200)
+        }
       } else {
         // ─── LEGACY V1 EVALUATION (Fallback) ──────────────────────────────────
         const responseRecords: ResponseRecord[] = activeQuestionsV1.map((q) => {
@@ -675,7 +683,7 @@ export function AdaptiveAssessmentCockpit({
                     </Badge>
                   ) : isMultiSelect ? (
                     <Badge variant="outline" className="bg-purple-500/10 border-purple-500/30 text-purple-400 text-[10px] px-2 py-0.5 h-5 flex items-center gap-1 font-semibold">
-                      <CheckSquare className="w-3 h-3" /> Multi-Select
+                      <CheckSquare className="w-3 h-3" /> {currentSection.level === 1 ? '12-Domain Multi-Select' : 'Multi-Select'}
                     </Badge>
                   ) : null}
                 </div>
@@ -694,7 +702,7 @@ export function AdaptiveAssessmentCockpit({
                 </p>
               ) : isMultiSelect ? (
                 <p className="text-[11px] text-purple-300/90 flex items-center gap-1.5 bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 rounded-lg">
-                  <Info className="w-3.5 h-3.5 shrink-0" /> Select all options that match your interests or background.
+                  <Info className="w-3.5 h-3.5 shrink-0" /> Select all options that match your interests across 12 university career domains.
                 </p>
               ) : null}
             </div>

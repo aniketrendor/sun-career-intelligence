@@ -24,13 +24,17 @@ import type { StudentProfileContext } from './v2-hierarchical-router'
 // Domain mapping to 12 Core Cognitive & Behavioral Traits
 const DOMAIN_TO_TRAITS: Record<string, Record<string, number>> = {
   TECH: { TC: 30, LR: 25, PS: 25, AR: 20 },
+  AI_DATA: { TC: 30, AR: 25, QR: 25, PS: 20 },
   ENG: { AR: 30, PS: 25, TC: 25, QR: 20 },
   BUS: { BU: 35, LE: 25, CO: 20, SO: 20 },
+  FIN: { QR: 35, BU: 25, LR: 20, AR: 20 },
   DESIGN: { CR: 40, CO: 25, TC: 20, PS: 15 },
-  SCI: { SC: 35, RE: 30, AR: 20, QR: 15 },
   LAW: { LR: 35, CO: 30, SO: 20, AR: 15 },
   HEALTH: { SC: 30, SO: 30, PS: 20, RE: 20 },
+  SCI: { SC: 35, RE: 30, AR: 20, QR: 15 },
   SOCIAL: { SO: 35, CO: 30, LE: 20, CR: 15 },
+  MEDIA: { CO: 35, CR: 30, SO: 20, BU: 15 },
+  HOSPITALITY: { SO: 35, CO: 30, BU: 20, LE: 15 },
 }
 
 /**
@@ -65,16 +69,20 @@ export function processV2Assessment(
     }
   })
 
-  // ─── 3. Domain Signal Accumulator ──────────────────────────────────────────
+  // ─── 3. Domain Signal Accumulator across all 12 Domains ────────────────────
   const domainScoreMap: Record<string, number> = {
     TECH: 0,
+    AI_DATA: 0,
     ENG: 0,
     BUS: 0,
+    FIN: 0,
     DESIGN: 0,
-    SCI: 0,
     LAW: 0,
     HEALTH: 0,
+    SCI: 0,
     SOCIAL: 0,
+    MEDIA: 0,
+    HOSPITALITY: 0,
   }
 
   const routingHistory: {
@@ -336,25 +344,34 @@ export function processV2Assessment(
 function getDomainDisplayName(code: string): string {
   const map: Record<string, string> = {
     TECH: 'Technology & Computing',
+    AI_DATA: 'Artificial Intelligence & Data Science',
     ENG: 'Engineering & Architecture',
-    BUS: 'Management & Commerce',
-    DESIGN: 'Design & Visual Arts',
-    SCI: 'Pure & Applied Sciences',
-    LAW: 'Law & Governance',
+    BUS: 'Management & Business Administration',
+    FIN: 'Commerce, Banking & FinTech',
+    DESIGN: 'Design, UI/UX & Visual Arts',
+    LAW: 'Law & Legal Studies',
     HEALTH: 'Pharmaceutical & Health Sciences',
-    SOCIAL: 'Social Sciences & Humanities',
+    SCI: 'Pure & Applied Sciences',
+    SOCIAL: 'Social Sciences & Psychology',
+    MEDIA: 'Media & Digital Communication',
+    HOSPITALITY: 'Hospitality & Tourism Management',
   }
   return map[code] || code
 }
 
 function mapDomainNameToCode(name: string): string {
   const lower = name.toLowerCase()
+  if (lower.includes('ai') || lower.includes('data science') || lower.includes('machine learning')) return 'AI_DATA'
+  if (lower.includes('fintech') || lower.includes('banking') || lower.includes('finance') || lower.includes('accounting') || lower.includes('commerce')) return 'FIN'
   if (lower.includes('tech') || lower.includes('comput') || lower.includes('software')) return 'TECH'
-  if (lower.includes('eng') || lower.includes('aero') || lower.includes('civil') || lower.includes('mech')) return 'ENG'
-  if (lower.includes('bus') || lower.includes('manag') || lower.includes('comm') || lower.includes('fin')) return 'BUS'
-  if (lower.includes('des') || lower.includes('anim') || lower.includes('fashion') || lower.includes('interior')) return 'DESIGN'
-  if (lower.includes('law') || lower.includes('legal') || lower.includes('crimin')) return 'LAW'
-  if (lower.includes('pharm') || lower.includes('health') || lower.includes('medic')) return 'HEALTH'
-  if (lower.includes('sci') || lower.includes('micro') || lower.includes('chem') || lower.includes('phys')) return 'SCI'
+  if (lower.includes('eng') || lower.includes('aero') || lower.includes('civil') || lower.includes('mech') || lower.includes('robot')) return 'ENG'
+  if (lower.includes('media') || lower.includes('journalism') || lower.includes('broadcast')) return 'MEDIA'
+  if (lower.includes('hotel') || lower.includes('tourism') || lower.includes('hospitality')) return 'HOSPITALITY'
+  if (lower.includes('bus') || lower.includes('manag') || lower.includes('bba') || lower.includes('mba')) return 'BUS'
+  if (lower.includes('des') || lower.includes('anim') || lower.includes('fashion') || lower.includes('interior') || lower.includes('vfx')) return 'DESIGN'
+  if (lower.includes('law') || lower.includes('legal') || lower.includes('crimin') || lower.includes('llb')) return 'LAW'
+  if (lower.includes('pharm') || lower.includes('health') || lower.includes('medic') || lower.includes('nurs')) return 'HEALTH'
+  if (lower.includes('psych') || lower.includes('social') || lower.includes('humanities') || lower.includes('liberal')) return 'SOCIAL'
+  if (lower.includes('sci') || lower.includes('micro') || lower.includes('chem') || lower.includes('phys') || lower.includes('bio') || lower.includes('math')) return 'SCI'
   return 'TECH'
 }

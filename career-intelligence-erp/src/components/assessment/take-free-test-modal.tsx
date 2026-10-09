@@ -115,9 +115,9 @@ export function TakeFreeTestModal({
   )
 
   const steps = [
-    { id: 1, title: 'Candidate Profile & Enrollment Check', detail: candidateName ? `${candidateName} (${candidateEmail})` : candidateEmail },
-    { id: 2, title: `Calibrating 30-Question Adaptive Pool`, detail: `${selectedTrack === 'PG' ? 'Postgraduate (PG)' : 'Undergraduate (UG)'} track questions` },
-    { id: 3, title: 'Synthesizing 12-Dimension Psychometric Matrix', detail: 'Cognitive reasoning, aptitude & domain discrimination' },
+    { id: 1, title: 'Candidate Profile & Track Verification', detail: `${selectedTrack === 'PG' ? 'Postgraduate (PG)' : 'Undergraduate (UG)'} Track · ${candidateName || 'Student'}` },
+    { id: 2, title: 'Level 1: 12-Domain Exploration Matrix', detail: 'Multi-select interest mapping across all 12 university career domains' },
+    { id: 3, title: 'Real-Time Hierarchical Branching Engine', detail: 'Dynamic calibration: L2–L5 questions selected live based on your past answers' },
     { id: 4, title: 'Assessment Cockpit Ready', detail: 'Launching distraction-free evaluation session...' },
   ]
 
@@ -157,8 +157,8 @@ export function TakeFreeTestModal({
                       Preparing Your {selectedTrack === 'PG' ? 'Postgraduate' : 'Undergraduate'} Diagnostic
                     </h2>
                     <p className="text-xs sm:text-sm text-[#7A7067] mt-1 leading-relaxed">
-                      Calibrating personalized 30-question adaptive assessment session for{' '}
-                      <span className="font-bold text-[#2C2621]">{candidateName || 'Student'}</span>.
+                      Initializing real-time adaptive diagnostic session for{' '}
+                      <span className="font-bold text-[#2C2621]">{candidateName || 'Student'}</span>. Every question dynamically branches based on your previous answers.
                     </p>
                   </div>
 
@@ -172,15 +172,15 @@ export function TakeFreeTestModal({
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-[#2C2621] flex items-center gap-1.5">
                       <Brain className="w-4 h-4 text-[#A36B40]" />
-                      Engine Calibration Progress
+                      Adaptive Engine Calibration
                     </span>
                     <span className="font-mono font-bold text-[#A36B40]">{waitingProgress}%</span>
                   </div>
                   <Progress value={waitingProgress} className="h-2.5 bg-white border border-[#DFD7CB]/60" />
                   <p className="text-[11px] text-[#7A7067] font-medium pt-0.5">
-                    {waitingStep === 1 && 'Checking university enrollment and student credentials...'}
-                    {waitingStep === 2 && `Synthesizing ${selectedTrack} difficulty parameters & question bank...`}
-                    {waitingStep === 3 && 'Initializing multi-signal psychometric & aptitude scoring matrix...'}
+                    {waitingStep === 1 && 'Verifying track eligibility and student profile...'}
+                    {waitingStep === 2 && 'Calibrating Level 1 multi-select 12-domain interest matrix...'}
+                    {waitingStep === 3 && 'Initializing real-time hierarchical adaptive routing engine...'}
                     {waitingStep === 4 && 'Session ready! Transferring to adaptive cockpit...'}
                   </p>
                 </div>

@@ -197,7 +197,7 @@ export function getQuestionDomainCode(q: QBQuestionV2 | QBDifferentiator): strin
 }
 
 /**
- * Analyze responses and accumulate domain signals and candidate program scores
+ * Analyze responses and accumulate domain signals and candidate program scores across all 12 domains
  */
 export function evaluateEvidenceFromResponses(
   responses: V2ResponseRecord[],
@@ -212,13 +212,17 @@ export function evaluateEvidenceFromResponses(
 
   const domainScores: Record<string, number> = {
     TECH: 0,
+    AI_DATA: 0,
     ENG: 0,
     BUS: 0,
+    FIN: 0,
     DESIGN: 0,
-    SCI: 0,
     LAW: 0,
     HEALTH: 0,
+    SCI: 0,
     SOCIAL: 0,
+    MEDIA: 0,
+    HOSPITALITY: 0,
   }
 
   const programEvidenceScores: Record<string, number> = {}
