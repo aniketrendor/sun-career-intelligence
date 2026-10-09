@@ -197,17 +197,15 @@ export default async function AssessmentPage(props: {
     )
   }
 
-  const adminClient = await createAdminClient()
-
   // Concurrently fetch assessment attempts, fresher diagnostic tests, career profiles, domain scores, and counselor assignment
   const [
-    { data: adminAttempts },
-    { data: fresherLeads },
-    { data: careerProfile },
-    { data: domainScores },
-    { data: counselorAssignment }
+    attemptsRes,
+    fresherRes,
+    careerProfileRes,
+    domainScoresRes,
+    counselorRes
   ] = await Promise.all([
-    adminClient
+    supabase
       .from('assessment_attempts')
       .select(`
         id, started_at, completed_at, status, time_spent_seconds,
@@ -218,28 +216,65 @@ export default async function AssessmentPage(props: {
       `)
       .eq('student_id', profile.id)
       .order('started_at', { ascending: false }),
-    adminClient
+    supabase
       .from('fresher_leads')
       .select('*')
       .ilike('candidate_email', profile.email)
       .order('created_at', { ascending: false }),
-    adminClient
+    supabase
       .from('career_profiles')
       .select('*, primary_domain:career_domains!primary_domain_id(name), secondary_domain:career_domains!secondary_domain_id(name)')
       .eq('student_id', profile.id)
       .maybeSingle(),
-    adminClient
+    supabase
       .from('domain_scores')
       .select('domain_id, raw_score, normalized_score, rank, domain:career_domains(name)')
       .eq('student_id', profile.id)
       .order('rank', { ascending: true }),
-    adminClient
+    supabase
       .from('student_counselor_assignments')
       .select('*, counselor:users!counselor_id(full_name)')
       .eq('student_id', profile.id)
       .eq('status', 'ACTIVE')
       .maybeSingle(),
   ])
+
+  let adminAttempts = attemptsRes.data || []
+  let fresherLeads = fresherRes.data || []
+  const careerProfile = careerProfileRes.data
+  const domainScores = domainScoresRes.data
+  const counselorAssignment = counselorRes.data
+
+  // Fallback to service role admin client if either list is empty
+  if (adminAttempts.length === 0 || fresherLeads.length === 0) {
+    try {
+      const adminClient = await createAdminClient()
+      if (adminAttempts.length === 0) {
+        const { data: fallbackAtts } = await adminClient
+          .from('assessment_attempts')
+          .select(`
+            id, started_at, completed_at, status, time_spent_seconds,
+            version:assessment_versions(
+              id, version_number,
+              template:assessment_templates(id, name, assessment_type)
+            )
+          `)
+          .eq('student_id', profile.id)
+          .order('started_at', { ascending: false })
+        if (fallbackAtts && fallbackAtts.length > 0) adminAttempts = fallbackAtts
+      }
+      if (fresherLeads.length === 0) {
+        const { data: fallbackLeads } = await adminClient
+          .from('fresher_leads')
+          .select('*')
+          .ilike('candidate_email', profile.email)
+          .order('created_at', { ascending: false })
+        if (fallbackLeads && fallbackLeads.length > 0) fresherLeads = fallbackLeads
+      }
+    } catch {
+      // Safe fallback
+    }
+  }
 
   // 1. Normalize official attempts
   const officialTests = (adminAttempts || []).map((item: any) => {
@@ -328,7 +363,7 @@ export default async function AssessmentPage(props: {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] mb-2">
             <History className="w-3.5 h-3.5 text-[#A36B40]" /> Longitudinal Trajectory
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">My Assessment</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">My Assessment & History</h1>
           <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
             Review past career tests, score progression across semesters, and domain recommendations.
           </p>
