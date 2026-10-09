@@ -514,7 +514,21 @@ export function AdaptiveAssessmentCockpit({
     }
   }
 
-  if (!mounted) return null
+  if (!mounted) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center p-8 text-center space-y-4 font-sans">
+        <div className="w-12 h-12 rounded-2xl bg-[#A36B40]/15 text-[#A36B40] flex items-center justify-center animate-pulse">
+          <Brain className="w-6 h-6 text-[#A36B40]" />
+        </div>
+        <div className="space-y-1">
+          <h3 className="text-base font-bold text-[#2C2621]">Loading Career Assessment Cockpit...</h3>
+          <p className="text-xs text-[#7A7067]">
+            Calibrating 891-Question Bank and psychometric dimensions for {candidateName} ({academicLevel} Track)
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   const currentOptions = v2Active ? currentQV2?.options || [] : currentQV1?.options || []
 
