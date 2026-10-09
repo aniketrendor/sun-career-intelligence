@@ -179,17 +179,34 @@ export function StudentProfileForm({
           </div>
 
           <div className="flex items-center gap-3 self-start sm:self-auto">
-            <Link href="/student/assessment?start=true&track=UG">
+            {completenessPercent === 100 ? (
+              <Link href="/student/assessment?start=true&track=UG">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="h-10 px-4 rounded-xl border-[#8C4E2D] bg-[#F5ECE2] hover:bg-[#8C4E2D] hover:text-white text-[#8C4E2D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all cursor-pointer whitespace-nowrap"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#8C4E2D]" />
+                  <span>Start Free Assessment</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Button>
+              </Link>
+            ) : (
               <Button
                 type="button"
                 variant="outline"
-                className="h-10 px-4 rounded-xl border-[#DFD7CB] bg-white hover:bg-[#FAF6F0] text-[#8C4E2D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all cursor-pointer whitespace-nowrap"
+                onClick={() => {
+                  toast.error(`Please complete your profile to 100% (${totalCount - completedCount} field(s) remaining) and click "Save & Verify Profile" to unlock the assessment.`)
+                }}
+                className="h-10 px-4 rounded-xl border-[#DFD7CB] bg-white text-[#7A7067] hover:text-[#8C4E2D] hover:border-[#8C4E2D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all cursor-pointer whitespace-nowrap opacity-85"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#8C4E2D]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#A36B40]" />
                 <span>Start Free Assessment</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#8C4E2D]" />
+                <span className="text-[10px] bg-[#FAF6F0] text-[#8C4E2D] px-1.5 py-0.5 rounded border border-[#DFD7CB]">
+                  {completenessPercent}%
+                </span>
               </Button>
-            </Link>
+            )}
           </div>
         </div>
 
@@ -207,8 +224,12 @@ export function StudentProfileForm({
             </div>
 
             <div className="shrink-0 flex items-center gap-2">
-              <span className="text-xs font-bold text-[#8C4E2D] bg-[#F5ECE2] px-2.5 py-1 rounded-lg border border-[#E9DDD0]/80">
-                {completenessPercent}% Complete
+              <span className={`text-xs font-bold px-2.5 py-1 rounded-lg border ${
+                completenessPercent === 100
+                  ? 'text-emerald-700 bg-emerald-50 border-emerald-200'
+                  : 'text-[#8C4E2D] bg-[#F5ECE2] border-[#E9DDD0]/80'
+              }`}>
+                {completenessPercent === 100 ? '✓ 100% Ready for Assessment' : `${completenessPercent}% Complete`}
               </span>
             </div>
           </div>
@@ -216,12 +237,16 @@ export function StudentProfileForm({
           {/* Profile Completeness Progress Bar */}
           <div className="space-y-1 pt-1">
             <div className="flex items-center justify-between text-[11px] text-[#7A7067]">
-              <span>Profile Completeness</span>
+              <span>Profile Completeness (100% required to take assessment)</span>
               <span>{completedCount} of {totalCount} fields completed</span>
             </div>
             <div className="h-2 w-full bg-[#F5ECE2] rounded-full overflow-hidden border border-[#E9DDD0]/70">
               <div
-                className="h-full bg-gradient-to-r from-[#A36B40] to-[#8C4E2D] rounded-full transition-all duration-500 ease-out shadow-xs"
+                className={`h-full rounded-full transition-all duration-500 ease-out shadow-xs ${
+                  completenessPercent === 100
+                    ? 'bg-emerald-600'
+                    : 'bg-gradient-to-r from-[#A36B40] to-[#8C4E2D]'
+                }`}
                 style={{ width: `${completenessPercent}%` }}
               />
             </div>
@@ -244,7 +269,7 @@ export function StudentProfileForm({
                   value={formData.full_name}
                   onChange={(e) => handleInputChange('full_name', e.target.value)}
                   required
-                  placeholder="Enter your full legal name"
+                  placeholder="e.g. Alex Johnson (Enter your full legal name)"
                   className="pl-10 h-11 rounded-xl border-[#DFD7CB] bg-white focus:border-[#8C4E2D] text-sm text-[#142033] placeholder:text-[#9C9388] transition-colors"
                 />
               </div>
@@ -262,7 +287,7 @@ export function StudentProfileForm({
                   value={formData.institution}
                   onChange={(e) => handleInputChange('institution', e.target.value)}
                   required
-                  placeholder="School, college, university or institute"
+                  placeholder="e.g. Sandip University, Oxford, SPPU, State College"
                   className="pl-10 h-11 rounded-xl border-[#DFD7CB] bg-white focus:border-[#8C4E2D] text-sm text-[#142033] placeholder:text-[#9C9388] transition-colors"
                 />
               </div>
@@ -307,7 +332,7 @@ export function StudentProfileForm({
                   value={formData.current_qualification}
                   onChange={(e) => handleInputChange('current_qualification', e.target.value)}
                   required
-                  placeholder="e.g. Class 12, B.Com, B.Tech, MBA, PhD"
+                  placeholder="e.g. Class 12, B.Tech, B.Com, MBA, BCA, Diploma, PhD"
                   className="pl-10 h-11 rounded-xl border-[#DFD7CB] bg-white focus:border-[#8C4E2D] text-sm text-[#142033] placeholder:text-[#9C9388] transition-colors"
                 />
               </div>
@@ -332,7 +357,7 @@ export function StudentProfileForm({
                   name="prn"
                   value={formData.prn}
                   onChange={(e) => handleInputChange('prn', e.target.value)}
-                  placeholder="PRN, enrollment number or roll number (optional)"
+                  placeholder="e.g. 250102041007, Roll No., PRN, or Student ID"
                   className="pl-10 h-11 rounded-xl border-[#DFD7CB] bg-white focus:border-[#8C4E2D] text-sm text-[#142033] placeholder:text-[#9C9388] transition-colors font-sans"
                 />
               </div>
@@ -349,7 +374,7 @@ export function StudentProfileForm({
                   name="stream_department"
                   value={formData.stream_department}
                   onChange={(e) => handleInputChange('stream_department', e.target.value)}
-                  placeholder="e.g. Commerce, Computer Science, Arts"
+                  placeholder="e.g. Computer Science, Mechanical, Commerce, Arts, Science"
                   className="pl-10 h-11 rounded-xl border-[#DFD7CB] bg-white focus:border-[#8C4E2D] text-sm text-[#142033] placeholder:text-[#9C9388] transition-colors"
                 />
               </div>
@@ -368,7 +393,7 @@ export function StudentProfileForm({
                   value={formData.current_class_semester}
                   onChange={(e) => handleInputChange('current_class_semester', e.target.value)}
                   required
-                  placeholder="e.g. Class 12, Year 2, Semester 3"
+                  placeholder="e.g. Semester 3, Year 2, Class 12"
                   className="pl-10 h-11 rounded-xl border-[#DFD7CB] bg-white focus:border-[#8C4E2D] text-sm text-[#142033] placeholder:text-[#9C9388] transition-colors"
                 />
               </div>
@@ -385,7 +410,7 @@ export function StudentProfileForm({
                   name="academic_year"
                   value={formData.academic_year}
                   onChange={(e) => handleInputChange('academic_year', e.target.value)}
-                  placeholder="e.g. 2024 – 2027"
+                  placeholder="e.g. 2024 – 2028, 2025 – 2027"
                   className="pl-10 h-11 rounded-xl border-[#DFD7CB] bg-white focus:border-[#8C4E2D] text-sm text-[#142033] placeholder:text-[#9C9388] transition-colors"
                 />
               </div>
@@ -425,7 +450,7 @@ export function StudentProfileForm({
                 <Input
                   value={formData.email}
                   disabled
-                  placeholder="Enter your email address"
+                  placeholder="e.g. student@institution.edu"
                   className="pl-10 h-11 rounded-xl border-[#DFD7CB] bg-[#FAF8F5] text-sm text-[#142033] placeholder:text-[#9C9388]"
                 />
               </div>

@@ -51,7 +51,30 @@ export default async function AssessmentPage(props: {
 
   const selectedTrack: 'UG' | 'PG' = searchParams?.track === 'PG' ? 'PG' : (searchParams?.track === 'UG' ? 'UG' : defaultTrack)
 
-  if (isStartRequested) {
+  // Universal Profile Checklist for All Students & Colleges (10 Core Fields)
+  const profileRequirements = [
+    { key: 'full_name', label: 'Full Legal Name', value: profile.full_name },
+    { key: 'phone', label: 'Contact Mobile Number', value: profile.phone || studentProfile?.phone },
+    { key: 'institution', label: 'College / University / School', value: studentProfile?.institution || enrollment?.program?.institution?.name },
+    { key: 'education_level', label: 'Education Level', value: studentProfile?.education_level },
+    { key: 'current_program', label: 'Degree / Program / Class', value: studentProfile?.current_program || enrollment?.program?.name },
+    { key: 'current_semester', label: 'Class / Year / Semester', value: studentProfile?.current_class_semester || (studentProfile?.current_semester ? `Semester ${studentProfile?.current_semester}` : (enrollment?.class?.semester ? `Semester ${enrollment.class.semester}` : '')) },
+    { key: 'student_status', label: 'Student Status', value: studentProfile?.student_status },
+    { key: 'stream_department', label: 'Stream / Department / Subject', value: studentProfile?.stream_department || studentProfile?.school },
+    { key: 'academic_year', label: 'Academic Session / Batch', value: studentProfile?.academic_year || enrollment?.academic_year },
+    { key: 'prn', label: 'Student ID / Roll No. / PRN', value: studentProfile?.prn },
+  ]
+
+  const completedFields = profileRequirements.filter(r => !!r.value && String(r.value).trim().length > 0)
+  const missingFields = profileRequirements.filter(r => !r.value || String(r.value).trim().length === 0)
+  const completenessPercent = Math.round((completedFields.length / profileRequirements.length) * 100)
+
+  // Gated: 100% profile completion is strictly required to start or take an assessment
+  if (isStartRequested && completenessPercent < 100) {
+    redirect('/student/profile?gate=assessment')
+  }
+
+  if (isStartRequested && completenessPercent === 100) {
     return (
       <AdaptiveAssessmentCockpit
         candidateName={profile.full_name || 'Student'}
@@ -65,22 +88,7 @@ export default async function AssessmentPage(props: {
     )
   }
 
-  // Universal Profile Checklist for All Students & Colleges
-  const profileRequirements = [
-    { key: 'full_name', label: 'Full Legal Name', value: profile.full_name },
-    { key: 'phone', label: 'Contact Phone Number', value: profile.phone || studentProfile?.phone },
-    { key: 'prn', label: 'Student ID / Roll No. / PRN', value: studentProfile?.prn },
-    { key: 'institution', label: 'College / University', value: studentProfile?.institution || enrollment?.program?.institution?.name || 'Sandip University' },
-    { key: 'academic_year', label: 'Academic Batch / Year', value: studentProfile?.academic_year || enrollment?.academic_year },
-    { key: 'current_program', label: 'Degree / Program Track', value: studentProfile?.current_program || enrollment?.program?.name },
-    { key: 'current_semester', label: 'Current Semester / Year', value: studentProfile?.current_semester || enrollment?.class?.semester },
-  ]
-
-  const completedFields = profileRequirements.filter(r => !!r.value && String(r.value).trim().length > 0)
-  const missingFields = profileRequirements.filter(r => !r.value || String(r.value).trim().length === 0)
-  const completenessPercent = Math.round((completedFields.length / profileRequirements.length) * 100)
-
-  // Gated: Existing students must have profile completeness, or can start free assessment directly
+  // Gated UI when profile completeness is below 100%
   if (completenessPercent < 100) {
     return (
       <div className="space-y-6 max-w-5xl mx-auto font-sans">
@@ -90,15 +98,6 @@ export default async function AssessmentPage(props: {
             <p className="text-xs sm:text-sm text-[#7A7067]">Comprehensive career intelligence and diagnostic assessment for all students</p>
           </div>
           <div className="flex items-center gap-2.5">
-            <TakeFreeTestModal
-              candidateName={profile.full_name || 'Student'}
-              candidateEmail={profile.email || ''}
-              candidatePhone={studentProfile?.phone || profile.phone || ''}
-              candidateCollege={studentProfile?.institution || 'Sandip University'}
-              candidateQualification={studentProfile?.current_program || ''}
-              defaultTrack={defaultTrack}
-              buttonText="Start Free Assessment"
-            />
             <Link href="/student/assessment">
               <Button
                 variant="outline"
@@ -119,9 +118,9 @@ export default async function AssessmentPage(props: {
                 <UserCheck className="w-7 h-7" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-[#2C2621]">Complete Your Academic Records</h2>
+                <h2 className="text-lg font-bold text-[#2C2621]">100% Profile Completion Required to Unlock Assessment</h2>
                 <p className="text-xs text-[#7A7067]">
-                  Personalize your assessment results by confirming your university, stream, and student records.
+                  To provide accurate domain matching and longitudinal scoring, your full academic record must be completed (100%).
                 </p>
               </div>
             </div>
@@ -134,13 +133,13 @@ export default async function AssessmentPage(props: {
           <div className="space-y-2">
             <div className="h-2.5 w-full bg-[#FAF6F0] rounded-full overflow-hidden border border-[#DFD7CB]">
               <div
-                className="h-full bg-[#A36B40] transition-all rounded-full"
+                className="h-full bg-gradient-to-r from-[#A36B40] to-[#8C4E2D] transition-all rounded-full"
                 style={{ width: `${completenessPercent}%` }}
               />
             </div>
             <div className="flex justify-between text-xs text-[#7A7067]">
               <span>{completedFields.length} of {profileRequirements.length} fields completed</span>
-              <span>{missingFields.length} field(s) remaining</span>
+              <span className="text-[#8C4E2D] font-bold">{missingFields.length} field(s) remaining for 100%</span>
             </div>
           </div>
 
@@ -171,22 +170,12 @@ export default async function AssessmentPage(props: {
 
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-[#DFD7CB]">
             <p className="text-xs text-[#7A7067] max-w-xl">
-              Complete academic data ensures the Career Intelligence Engine evaluates your track with accurate prerequisite filters and domain alignments.
+              Complete all required fields in your profile to instantly unlock the 30-question diagnostic assessment.
             </p>
             <div className="flex items-center gap-3">
-              <TakeFreeTestModal
-                candidateName={profile.full_name || 'Student'}
-                candidateEmail={profile.email || ''}
-                candidatePhone={studentProfile?.phone || profile.phone || ''}
-                candidateCollege={studentProfile?.institution || 'Sandip University'}
-                candidateQualification={studentProfile?.current_program || ''}
-                defaultTrack={defaultTrack}
-                buttonText="Take Free Test Now"
-                variant="outline"
-              />
               <Link href="/student/profile">
-                <Button className="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all gap-2 cursor-pointer whitespace-nowrap">
-                  <span>Complete Profile</span>
+                <Button className="h-11 px-7 bg-[#8C4E2D] hover:bg-[#783E22] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#8C4E2D]/25 transition-all gap-2 cursor-pointer whitespace-nowrap">
+                  <span>Complete Profile to 100%</span>
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
