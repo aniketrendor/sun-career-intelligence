@@ -27,23 +27,29 @@ export default async function AssessmentPage(props: {
   const { data: profile } = await supabase.from('users').select('*').eq('auth_user_id', user.id).single()
   if (!profile) redirect('/login')
 
-  // Fetch Student Profile & Enrollment records concurrently
-  const [
-    { data: studentProfile },
-    { data: enrollment }
-  ] = await Promise.all([
-    supabase
-      .from('student_profiles')
-      .select('*')
-      .eq('user_id', profile.id)
-      .maybeSingle(),
-    supabase
-      .from('enrollments')
-      .select('*, program:programs(id, name, code), class:classes(id, name, semester)')
-      .eq('student_id', profile.id)
-      .eq('status', 'ACTIVE')
-      .maybeSingle()
-  ])
+  // Concurrently fetch profile and enrollment with resilient fallbacks
+  let studentProfile: any = null
+  let enrollment: any = null
+
+  try {
+    const [spRes, enRes] = await Promise.all([
+      supabase
+        .from('student_profiles')
+        .select('*')
+        .eq('user_id', profile.id)
+        .maybeSingle(),
+      supabase
+        .from('enrollments')
+        .select('*, program:programs(id, name, code), class:classes(id, name, semester)')
+        .eq('student_id', profile.id)
+        .eq('status', 'ACTIVE')
+        .maybeSingle()
+    ])
+    studentProfile = spRes.data
+    enrollment = enRes.data
+  } catch (e) {
+    console.error('Error loading student profile or enrollment:', e)
+  }
 
   const defaultTrack = (studentProfile?.current_program?.toUpperCase().includes('M.') ||
                         studentProfile?.current_program?.toUpperCase().includes('MBA') ||
@@ -51,26 +57,12 @@ export default async function AssessmentPage(props: {
 
   const selectedTrack: 'UG' | 'PG' = searchParams?.track === 'PG' ? 'PG' : (searchParams?.track === 'UG' ? 'UG' : defaultTrack)
 
-  // Universal Profile Checklist for All Students & Colleges (10 Core Fields)
-  const profileRequirements = [
-    { key: 'full_name', label: 'Full Legal Name', value: profile.full_name },
-    { key: 'phone', label: 'Contact Mobile Number', value: profile.phone || studentProfile?.phone },
-    { key: 'institution', label: 'College / University / School', value: studentProfile?.institution || enrollment?.program?.name },
-    { key: 'education_level', label: 'Education Level', value: studentProfile?.education_level },
-    { key: 'current_program', label: 'Degree / Program / Class', value: studentProfile?.current_program || enrollment?.program?.name },
-    { key: 'current_semester', label: 'Class / Year / Semester', value: studentProfile?.current_class_semester || (studentProfile?.current_semester ? `Semester ${studentProfile?.current_semester}` : (enrollment?.class?.semester ? `Semester ${enrollment.class.semester}` : '')) },
-    { key: 'student_status', label: 'Student Status', value: studentProfile?.student_status },
-    { key: 'stream_department', label: 'Stream / Department / Subject', value: studentProfile?.stream_department || studentProfile?.school },
-    { key: 'academic_year', label: 'Academic Session / Batch', value: studentProfile?.academic_year || enrollment?.academic_year },
-    { key: 'prn', label: 'Student ID / Roll No. / PRN', value: studentProfile?.prn },
-  ]
+  // If start is requested, launch the assessment cockpit directly
+  if (isStartRequested) {
+    const progName = studentProfile?.current_program ||
+      (Array.isArray(enrollment?.program) ? enrollment?.program?.[0]?.name : enrollment?.program?.name) ||
+      (selectedTrack === 'UG' ? 'Undergraduate Program' : 'Postgraduate Program')
 
-  const completedFields = profileRequirements.filter(r => !!r.value && String(r.value).trim().length > 0)
-  const missingFields = profileRequirements.filter(r => !r.value || String(r.value).trim().length === 0)
-  const completenessPercent = Math.round((completedFields.length / profileRequirements.length) * 100)
-
-  // If start is requested and profile is 100% complete, render the cockpit
-  if (isStartRequested && completenessPercent === 100) {
     return (
       <AdaptiveAssessmentCockpit
         candidateName={profile.full_name || 'Student'}
@@ -78,107 +70,9 @@ export default async function AssessmentPage(props: {
         candidatePhone={studentProfile?.phone || profile.phone || ''}
         academicLevel={selectedTrack}
         college={studentProfile?.institution || 'Sandip University'}
-        qualification={studentProfile?.current_program || (selectedTrack === 'UG' ? 'Undergraduate Student' : 'Postgraduate Student')}
+        qualification={progName}
         referralCode="SUN-FRESHERS-2026"
       />
-    )
-  }
-
-  // Gated UI when profile completeness is below 100%
-  if (completenessPercent < 100) {
-    return (
-      <div className="space-y-6 max-w-5xl mx-auto font-sans">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">Career Assessment</h1>
-            <p className="text-xs sm:text-sm text-[#7A7067]">Comprehensive career intelligence and diagnostic assessment for all students</p>
-          </div>
-          <div className="flex items-center gap-2.5">
-            <Link href="/student/assessment">
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-10 px-4 rounded-2xl border-[#DFD7CB] bg-white text-xs font-semibold text-[#2C2621] hover:text-[#A36B40] hover:border-[#A36B40] hover:bg-[#FAF6F0] transition-all cursor-pointer flex items-center gap-2 shadow-xs"
-              >
-                <History className="w-4 h-4 text-[#A36B40]" />
-                <span>Assessment History</span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        <div className="bg-white border border-[#DFD7CB] rounded-3xl p-8 sm:p-10 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#DFD7CB]">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-[#FAF6F0] text-[#A36B40] flex items-center justify-center border border-[#DFD7CB]">
-                <UserCheck className="w-7 h-7" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold text-[#2C2621]">100% Profile Completion Required to Unlock Assessment</h2>
-                <p className="text-xs text-[#7A7067]">
-                  To provide accurate domain matching and longitudinal scoring, your full academic record must be completed (100%).
-                </p>
-              </div>
-            </div>
-            <div className="text-left sm:text-right">
-              <span className="text-2xl font-extrabold text-[#A36B40]">{completenessPercent}%</span>
-              <span className="text-xs text-[#7A7067] block">Profile Completeness</span>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="h-2.5 w-full bg-[#FAF6F0] rounded-full overflow-hidden border border-[#DFD7CB]">
-              <div
-                className="h-full bg-gradient-to-r from-[#A36B40] to-[#8C4E2D] transition-all rounded-full"
-                style={{ width: `${completenessPercent}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-xs text-[#7A7067]">
-              <span>{completedFields.length} of {profileRequirements.length} fields completed</span>
-              <span className="text-[#8C4E2D] font-bold">{missingFields.length} field(s) remaining for 100%</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {profileRequirements.map(req => {
-              const isFilled = !!req.value && String(req.value).trim().length > 0
-              return (
-                <div
-                  key={req.key}
-                  className={`p-3.5 rounded-2xl border flex items-center justify-between gap-2 text-xs transition-colors ${
-                    isFilled ? 'bg-[#FAF6F0]/60 border-[#77734B]/30 text-[#2C2621]' : 'bg-white border-[#DFD7CB] text-[#7A7067]'
-                  }`}
-                >
-                  <span className="font-semibold">{req.label}</span>
-                  {isFilled ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#77734B] bg-[#77734B]/10 px-2 py-0.5 rounded-full">
-                      <CheckCircle2 className="w-3 h-3" /> Done
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A36B40] bg-[#FAF6F0] border border-[#DFD7CB] px-2 py-0.5 rounded-full">
-                      <AlertCircle className="w-3 h-3" /> Required
-                    </span>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-
-          <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-[#DFD7CB]">
-            <p className="text-xs text-[#7A7067] max-w-xl">
-              Complete all required fields in your profile to instantly unlock the 30-question diagnostic assessment.
-            </p>
-            <div className="flex items-center gap-3">
-              <Link href="/student/profile">
-                <Button className="h-11 px-7 bg-[#8C4E2D] hover:bg-[#783E22] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#8C4E2D]/25 transition-all gap-2 cursor-pointer whitespace-nowrap">
-                  <span>Complete Profile to 100%</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
     )
   }
 

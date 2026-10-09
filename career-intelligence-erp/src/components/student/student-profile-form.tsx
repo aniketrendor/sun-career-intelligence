@@ -75,7 +75,7 @@ export function StudentProfileForm({
     phone_digits: initial10DigitPhone,
   })
 
-  // Live profile completeness calculation across form fields
+  // Core Required Fields for Assessment Readiness (marked with * on form)
   const isNameValid = formData.full_name.trim().length >= 2
   const isInstitutionValid = formData.institution.trim().length >= 2
   const isEducationLevelValid = Boolean(formData.education_level)
@@ -83,26 +83,36 @@ export function StudentProfileForm({
   const isClassValid = formData.current_class_semester.trim().length >= 1
   const isStatusValid = Boolean(formData.student_status)
   const isPhoneValid = /^\d{10}$/.test(formData.phone_digits)
+
+  // Optional Fields
   const isStreamValid = formData.stream_department.trim().length >= 1
   const isBatchValid = formData.academic_year.trim().length >= 1
   const isPrnValid = formData.prn.trim().length >= 1
 
-  const requirements = [
-    { key: 'full_name', label: 'Full Name', valid: isNameValid },
-    { key: 'institution', label: 'Institution', valid: isInstitutionValid },
-    { key: 'education_level', label: 'Education Level', valid: isEducationLevelValid },
-    { key: 'current_qualification', label: 'Program / Qualification', valid: isProgramValid },
-    { key: 'current_class_semester', label: 'Class / Semester', valid: isClassValid },
-    { key: 'student_status', label: 'Student Status', valid: isStatusValid },
-    { key: 'phone', label: 'Contact Number', valid: isPhoneValid },
-    { key: 'stream_department', label: 'Stream / Subject', valid: isStreamValid },
-    { key: 'academic_year', label: 'Academic Session', valid: isBatchValid },
-    { key: 'prn', label: 'Student ID / Roll No.', valid: isPrnValid },
+  const requiredFields = [
+    { key: 'full_name', label: 'Full Name *', valid: isNameValid },
+    { key: 'institution', label: 'Educational Institution *', valid: isInstitutionValid },
+    { key: 'education_level', label: 'Education Level *', valid: isEducationLevelValid },
+    { key: 'current_qualification', label: 'Current Qualification / Program *', valid: isProgramValid },
+    { key: 'current_class_semester', label: 'Current Class / Semester *', valid: isClassValid },
+    { key: 'student_status', label: 'Student Status *', valid: isStatusValid },
+    { key: 'phone', label: 'Contact Mobile Number *', valid: isPhoneValid },
   ]
 
-  const completedCount = requirements.filter(r => r.valid).length
-  const totalCount = requirements.length
-  const completenessPercent = Math.round((completedCount / totalCount) * 100)
+  const optionalFields = [
+    { key: 'prn', label: 'Student ID / Roll No.', valid: isPrnValid },
+    { key: 'stream_department', label: 'Stream / Department', valid: isStreamValid },
+    { key: 'academic_year', label: 'Academic Session / Batch', valid: isBatchValid },
+  ]
+
+  const completedRequiredCount = requiredFields.filter(r => r.valid).length
+  const totalRequiredCount = requiredFields.length
+  const isAssessmentReady = completedRequiredCount === totalRequiredCount
+
+  const allFields = [...requiredFields, ...optionalFields]
+  const totalCompletedCount = allFields.filter(r => r.valid).length
+  const totalFieldsCount = allFields.length
+  const completenessPercent = Math.round((totalCompletedCount / totalFieldsCount) * 100)
 
   const handlePhoneChange = (val: string) => {
     const digitsOnly = val.replace(/\D/g, '').slice(0, 10)
@@ -151,7 +161,7 @@ export function StudentProfileForm({
     startTransition(async () => {
       const res = await updateStudentProfile({ success: false }, fd)
       if (res.success) {
-        toast.success('Academic profile saved successfully! Verified for assessment.')
+        toast.success('Academic profile saved successfully! Ready for assessment.')
         router.refresh()
       } else {
         toast.error(res.error || 'Failed to update profile.')
@@ -162,7 +172,7 @@ export function StudentProfileForm({
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6">
       <Card className="border border-[#EBE4D8] rounded-3xl shadow-sm bg-white overflow-hidden p-6 sm:p-9">
-        {/* Top Header matching Image 2 */}
+        {/* Top Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#F0EAE1]">
           <div className="flex items-center gap-3.5">
             <div className="w-12 h-12 rounded-full bg-[#EBE2D7] text-[#8C4E2D] flex items-center justify-center shrink-0 shadow-inner">
@@ -179,7 +189,7 @@ export function StudentProfileForm({
           </div>
 
           <div className="flex items-center gap-3 self-start sm:self-auto">
-            {completenessPercent === 100 ? (
+            {isAssessmentReady ? (
               <Link href="/student/assessment?start=true&track=UG">
                 <Button
                   type="button"
@@ -196,21 +206,22 @@ export function StudentProfileForm({
                 type="button"
                 variant="outline"
                 onClick={() => {
-                  toast.error(`Please complete your profile to 100% (${totalCount - completedCount} field(s) remaining) and click "Save & Verify Profile" to unlock the assessment.`)
+                  const missingRequired = requiredFields.filter(r => !r.valid).map(r => r.label).join(', ')
+                  toast.error(`Please fill all required fields (${missingRequired}) and save your profile to start assessment.`)
                 }}
                 className="h-10 px-4 rounded-xl border-[#DFD7CB] bg-white text-[#7A7067] hover:text-[#8C4E2D] hover:border-[#8C4E2D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all cursor-pointer whitespace-nowrap opacity-85"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#A36B40]" />
                 <span>Start Free Assessment</span>
                 <span className="text-[10px] bg-[#FAF6F0] text-[#8C4E2D] px-1.5 py-0.5 rounded border border-[#DFD7CB]">
-                  {completenessPercent}%
+                  {completedRequiredCount}/{totalRequiredCount} Required
                 </span>
               </Button>
             )}
           </div>
         </div>
 
-        {/* Universal Student Profile Pill Banner & Live Progress Bar */}
+        {/* Universal Student Profile Pill Banner & Assessment Readiness Status */}
         <div className="py-4 border-b border-[#F0EAE1] space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -219,35 +230,35 @@ export function StudentProfileForm({
                 <span>Universal student profile</span>
               </div>
               <p className="text-xs text-[#64748B] leading-relaxed">
-                This single form works for all education levels. The fields adapt based on your selected education level, but you can still fill everything in one place.
+                Fill the required fields (marked with *) to unlock the career diagnostic assessment. Optional fields enrich longitudinal tracking.
               </p>
             </div>
 
             <div className="shrink-0 flex items-center gap-2">
               <span className={`text-xs font-bold px-2.5 py-1 rounded-lg border ${
-                completenessPercent === 100
+                isAssessmentReady
                   ? 'text-emerald-700 bg-emerald-50 border-emerald-200'
                   : 'text-[#8C4E2D] bg-[#F5ECE2] border-[#E9DDD0]/80'
               }`}>
-                {completenessPercent === 100 ? '✓ 100% Ready for Assessment' : `${completenessPercent}% Complete`}
+                {isAssessmentReady ? '✓ Ready for Assessment' : `${completedRequiredCount} of ${totalRequiredCount} Required Fields`}
               </span>
             </div>
           </div>
 
-          {/* Profile Completeness Progress Bar */}
+          {/* Assessment Readiness Progress Bar */}
           <div className="space-y-1 pt-1">
             <div className="flex items-center justify-between text-[11px] text-[#7A7067]">
-              <span>Profile Completeness (100% required to take assessment)</span>
-              <span>{completedCount} of {totalCount} fields completed</span>
+              <span>Assessment Readiness ({isAssessmentReady ? 'Complete' : `${totalRequiredCount - completedRequiredCount} required field(s) remaining`})</span>
+              <span>{completedRequiredCount} of {totalRequiredCount} required fields</span>
             </div>
             <div className="h-2 w-full bg-[#F5ECE2] rounded-full overflow-hidden border border-[#E9DDD0]/70">
               <div
                 className={`h-full rounded-full transition-all duration-500 ease-out shadow-xs ${
-                  completenessPercent === 100
+                  isAssessmentReady
                     ? 'bg-emerald-600'
                     : 'bg-gradient-to-r from-[#A36B40] to-[#8C4E2D]'
                 }`}
-                style={{ width: `${completenessPercent}%` }}
+                style={{ width: `${Math.round((completedRequiredCount / totalRequiredCount) * 100)}%` }}
               />
             </div>
           </div>
