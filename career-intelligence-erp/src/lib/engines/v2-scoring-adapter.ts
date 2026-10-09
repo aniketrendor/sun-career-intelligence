@@ -323,6 +323,50 @@ export function processV2Assessment(
   const confidenceLabel =
     overallConfidence >= 80 ? 'HIGH' : overallConfidence >= 60 ? 'MODERATE' : 'EXPLORATORY'
 
+  // ─── 8. Tri-Factor Psychometric Models: RIASEC & Cognitive Pillars ───────────
+  const riasecScores: Record<string, number> = {
+    R: Math.round(((traitScores['TC']?.normalizedScore || 50) * 0.6) + ((traitScores['PS']?.normalizedScore || 50) * 0.4)),
+    I: Math.round(((traitScores['SC']?.normalizedScore || 50) * 0.5) + ((traitScores['RE']?.normalizedScore || 50) * 0.3) + ((traitScores['AR']?.normalizedScore || 50) * 0.2)),
+    A: Math.round(((traitScores['CR']?.normalizedScore || 50) * 0.7) + ((traitScores['CO']?.normalizedScore || 50) * 0.3)),
+    S: Math.round(((traitScores['SO']?.normalizedScore || 50) * 0.7) + ((traitScores['CO']?.normalizedScore || 50) * 0.3)),
+    E: Math.round(((traitScores['BU']?.normalizedScore || 50) * 0.6) + ((traitScores['LE']?.normalizedScore || 50) * 0.4)),
+    C: Math.round(((traitScores['LR']?.normalizedScore || 50) * 0.5) + ((traitScores['QR']?.normalizedScore || 50) * 0.5)),
+  }
+
+  const sortedRiasec = Object.entries(riasecScores).sort((a, b) => b[1] - a[1])
+  const riasecNames: Record<string, string> = {
+    R: 'Realistic (Practical & Applied)',
+    I: 'Investigative (Analytical & Scientific)',
+    A: 'Artistic (Creative & Expressive)',
+    S: 'Social (Human-Centric & Collaborative)',
+    E: 'Enterprising (Strategic & Leadership)',
+    C: 'Conventional (Structured & Systematic)',
+  }
+
+  const primaryRiasecCode = sortedRiasec[0]?.[0] || 'I'
+  const secondaryRiasecCode = sortedRiasec[1]?.[0] || 'E'
+  const tertiaryRiasecCode = sortedRiasec[2]?.[0] || 'R'
+
+  const riasecProfile = {
+    primaryCode: primaryRiasecCode,
+    primaryName: riasecNames[primaryRiasecCode] || 'Investigative',
+    secondaryCode: secondaryRiasecCode,
+    secondaryName: riasecNames[secondaryRiasecCode] || 'Enterprising',
+    fullCode: `${primaryRiasecCode}${secondaryRiasecCode}${tertiaryRiasecCode}`,
+    scores: riasecScores,
+  }
+
+  const cognitivePillars = {
+    analytical: Math.round(((traitScores['AR']?.normalizedScore || 50) + (traitScores['LR']?.normalizedScore || 50) + (traitScores['QR']?.normalizedScore || 50)) / 3),
+    systemsThinking: Math.round(((traitScores['TC']?.normalizedScore || 50) + (traitScores['PS']?.normalizedScore || 50)) / 2),
+    creativity: Math.round(((traitScores['CR']?.normalizedScore || 50) + (traitScores['CO']?.normalizedScore || 50)) / 2),
+    strategicBusiness: Math.round(((traitScores['BU']?.normalizedScore || 50) + (traitScores['LE']?.normalizedScore || 50)) / 2),
+    socialHumanity: Math.round(((traitScores['SO']?.normalizedScore || 50) + (traitScores['CO']?.normalizedScore || 50)) / 2),
+    scientificRigor: Math.round(((traitScores['SC']?.normalizedScore || 50) + (traitScores['RE']?.normalizedScore || 50)) / 2),
+  }
+
+  const careerArchetype = generateCareerArchetype(topDomains[0]?.code || 'TECH', riasecProfile.fullCode, cognitivePillars)
+
   return {
     version: MASTER_QB_V2.version,
     scoringPolicyVersion: '2.0.0-hierarchical',
@@ -340,7 +384,82 @@ export function processV2Assessment(
       consistencyScore: 92,
       uncertaintyRemaining: recommendationGap < 5,
     },
+    riasecProfile,
+    cognitivePillars,
+    careerArchetype,
     routingHistory,
+  }
+}
+
+function generateCareerArchetype(
+  topDomainCode: string,
+  riasecCode: string,
+  pillars: { analytical: number; systemsThinking: number; creativity: number; strategicBusiness: number; socialHumanity: number; scientificRigor: number }
+): {
+  title: string
+  summary: string
+  strengths: string[]
+  recommendedEnvironment: string
+} {
+  if (topDomainCode === 'TECH' || topDomainCode === 'AI_DATA') {
+    return {
+      title: 'Systems & Algorithmic Architect',
+      summary: 'You demonstrate strong analytical reasoning and algorithmic intuition with a natural drive to design, automate, and optimize complex computing systems.',
+      strengths: ['Algorithmic Logic', 'Computational Modeling', 'Autonomous Problem Solving', 'Architectural Scalability'],
+      recommendedEnvironment: 'High-tech development labs, cutting-edge computing environments, and collaborative open-source or innovation hubs.',
+    }
+  }
+
+  if (topDomainCode === 'ENG') {
+    return {
+      title: 'Applied Engineering Innovator',
+      summary: 'You possess a high spatial-mechanical aptitude and systems-level problem solving, thriving where theoretical physics and computing meet tangible hardware and infrastructure.',
+      strengths: ['Spatial Synthesis', 'Structural & Systems Engineering', 'Root-Cause Diagnostics', 'Hands-on Prototyping'],
+      recommendedEnvironment: 'Advanced engineering centers, R&D prototyping labs, robotics workshops, and multidisciplinary project teams.',
+    }
+  }
+
+  if (topDomainCode === 'BUS' || topDomainCode === 'FIN') {
+    return {
+      title: 'Strategic Venture & Market Strategist',
+      summary: 'You blend quantitative insight with commercial instincts, excelling in strategic decision-making, resource optimization, and enterprise leadership.',
+      strengths: ['Commercial Acumen', 'Quantitative Risk Modeling', 'Stakeholder Leadership', 'Strategic Value Creation'],
+      recommendedEnvironment: 'Corporate innovation labs, financial strategy desks, venture incubators, and enterprise leadership hubs.',
+    }
+  }
+
+  if (topDomainCode === 'DESIGN' || topDomainCode === 'MEDIA') {
+    return {
+      title: 'Creative Experience & Visual Visionary',
+      summary: 'You excel in divergent ideation, aesthetic sensibility, and user-centric narrative, transforming abstract ideas into compelling digital experiences and media.',
+      strengths: ['Divergent Ideation', 'Spatial & Visual Aesthetics', 'Human-Centered Design', 'Persuasive Storytelling'],
+      recommendedEnvironment: 'Design studios, multimedia labs, UX/UI interactive centers, and creative innovation environments.',
+    }
+  }
+
+  if (topDomainCode === 'LAW' || topDomainCode === 'SOCIAL') {
+    return {
+      title: 'Jurisprudence & Institutional Counsel',
+      summary: 'You demonstrate exceptional analytical rigor, structured logical argumentation, and deep awareness of societal ethics, justice, and governance.',
+      strengths: ['Logical Deduction', 'Jurisprudential Analysis', 'Persuasive Discourse', 'Ethical Governance'],
+      recommendedEnvironment: 'Moot courtrooms, legal research chambers, public policy think-tanks, and advocacy forums.',
+    }
+  }
+
+  if (topDomainCode === 'HEALTH' || topDomainCode === 'SCI') {
+    return {
+      title: 'Empirical Bio-Medical & Clinical Researcher',
+      summary: 'You combine methodical scientific inquiry with deep empirical rigor, aiming to solve life sciences challenges and improve human healthcare outcomes.',
+      strengths: ['Scientific Method', 'Biological Systems Understanding', 'Clinical Precision', 'Evidence-Based Discovery'],
+      recommendedEnvironment: 'Modern pharmaceutical research labs, clinical diagnostic centers, and bio-tech discovery hubs.',
+    }
+  }
+
+  return {
+    title: 'Adaptive Interdisciplinary Specialist',
+    summary: 'You exhibit a well-balanced cognitive and vocational profile, easily adapting to multidisciplinary challenges across modern university disciplines.',
+    strengths: ['Interdisciplinary Thinking', 'Adaptive Problem Solving', 'Collaborative Execution', 'Rapid Learning'],
+    recommendedEnvironment: 'Multidisciplinary academic clusters and project-based collaborative workspaces.',
   }
 }
 

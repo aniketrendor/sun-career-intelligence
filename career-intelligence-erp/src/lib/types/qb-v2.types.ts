@@ -154,6 +154,28 @@ export interface V2AssessmentResult {
     consistencyScore: number
     uncertaintyRemaining: boolean
   }
+  riasecProfile?: {
+    primaryCode: string
+    primaryName: string
+    secondaryCode: string
+    secondaryName: string
+    fullCode: string
+    scores: Record<string, number>
+  }
+  cognitivePillars?: {
+    analytical: number
+    systemsThinking: number
+    creativity: number
+    strategicBusiness: number
+    socialHumanity: number
+    scientificRigor: number
+  }
+  careerArchetype?: {
+    title: string
+    summary: string
+    strengths: string[]
+    recommendedEnvironment: string
+  }
   routingHistory: {
     level: AssessmentLevelV2
     questionId: string

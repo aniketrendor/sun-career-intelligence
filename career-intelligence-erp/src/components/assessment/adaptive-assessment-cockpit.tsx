@@ -150,8 +150,8 @@ export function AdaptiveAssessmentCockpit({
 
   const currentQId = v2Active ? currentQV2?.id : currentQV1?.id
   const currentQText = v2Active ? currentQV2?.questionText : currentQV1?.question
-  const isMultiSelect = v2Active && (currentQV2?.level === 'L1' || currentQV2?.questionType === 'Multi-select')
-  const isRanking = v2Active && currentQV2?.questionType === 'Ranking' && currentQV2?.level !== 'L1'
+  const isMultiSelect = true
+  const isRanking = false
 
   const currentSectionIndex = Math.min(4, Math.max(0, Math.floor(currentIndex / 6)))
   const currentSection = SECTION_CONFIGS[currentSectionIndex] || SECTION_CONFIGS[0]
@@ -169,16 +169,14 @@ export function AdaptiveAssessmentCockpit({
   // Real-time Psychometric Context / Evidence Computation
   const psychometricContext: StudentPsychometricContext = useMemo(() => {
     if (v2Active) {
-      // Build running V2 responses with ranking support
+      // Build running V2 responses with multi-select support across all levels
       const responses: V2ResponseRecord[] = activeQuestionsV2
         .filter((q) => !!selectedAnswersMap[q.id]?.length)
         .map((q) => {
-          const isQRank = q.questionType === 'Ranking'
           const ans = selectedAnswersMap[q.id] || []
           return {
             questionId: q.id,
-            rankings: isQRank ? ans : undefined,
-            selectedOptionIds: isQRank ? undefined : ans,
+            selectedOptionIds: ans,
           }
         })
       const v2Res = processV2Assessment(responses, { academicLevel, stream: qualification })
@@ -216,28 +214,16 @@ export function AdaptiveAssessmentCockpit({
     }
   }, [activeQuestionsV2, activeQuestionsV1, selectedAnswersMap, v2Active, academicLevel, qualification, answeredCount])
 
-  // Option selection handler (supports single, multi-select, and ranking)
+  // Option selection handler (pure multi-select toggle across all levels)
   const handleSelectOption = (optionId: string) => {
     if (!currentQId) return
 
     setSelectedAnswersMap((prev) => {
       const existing = prev[currentQId] || []
-      if (isRanking) {
-        if (existing.includes(optionId)) {
-          // Toggle off if already selected in rank
-          return { ...prev, [currentQId]: existing.filter((id) => id !== optionId) }
-        } else {
-          // Append next rank
-          return { ...prev, [currentQId]: [...existing, optionId] }
-        }
-      } else if (isMultiSelect) {
-        if (existing.includes(optionId)) {
-          return { ...prev, [currentQId]: existing.filter((id) => id !== optionId) }
-        } else {
-          return { ...prev, [currentQId]: [...existing, optionId] }
-        }
+      if (existing.includes(optionId)) {
+        return { ...prev, [currentQId]: existing.filter((id) => id !== optionId) }
       } else {
-        return { ...prev, [currentQId]: [optionId] }
+        return { ...prev, [currentQId]: [...existing, optionId] }
       }
     })
   }
@@ -276,12 +262,10 @@ export function AdaptiveAssessmentCockpit({
 
       // Dynamically select next hierarchical question
       const responses: V2ResponseRecord[] = activeQuestionsV2.slice(0, currentIndex + 1).map((q) => {
-        const isQRank = q.questionType === 'Ranking'
-        const ans = selectedAnswersMap[q.id] || (isQRank ? q.options.map((o) => o.id) : [q.options[0]?.id || 'A'])
+        const ans = selectedAnswersMap[q.id] || [q.options[0]?.id || 'A']
         return {
           questionId: q.id,
-          rankings: isQRank ? ans : undefined,
-          selectedOptionIds: isQRank ? undefined : ans,
+          selectedOptionIds: ans,
         }
       })
 
@@ -371,12 +355,10 @@ export function AdaptiveAssessmentCockpit({
       if (v2Active) {
         // ─── V2 ASSESSMENT EVALUATION ──────────────────────────────────────────
         const v2Responses: V2ResponseRecord[] = activeQuestionsV2.map((q) => {
-          const isQRank = q.questionType === 'Ranking'
-          const ans = selectedAnswersMap[q.id] || (isQRank ? q.options.map((o) => o.id) : [q.options[0]?.id || 'A'])
+          const ans = selectedAnswersMap[q.id] || [q.options[0]?.id || 'A']
           return {
             questionId: q.id,
-            rankings: isQRank ? ans : undefined,
-            selectedOptionIds: isQRank ? undefined : ans,
+            selectedOptionIds: ans,
           }
         })
 
@@ -444,6 +426,16 @@ export function AdaptiveAssessmentCockpit({
           d3Score: String(domain3.score),
           d3Code: domain3.code,
           d3Label: domain3.score >= 80 ? 'Strong Alignment' : 'Moderate Alignment',
+          archetypeTitle: v2Result.careerArchetype?.title || 'Applied Innovator',
+          archetypeSummary: v2Result.careerArchetype?.summary || '',
+          riasecCode: v2Result.riasecProfile?.fullCode || 'IER',
+          riasecName: v2Result.riasecProfile?.primaryName || 'Investigative',
+          cogAna: String(v2Result.cognitivePillars?.analytical || 85),
+          cogSys: String(v2Result.cognitivePillars?.systemsThinking || 82),
+          cogCre: String(v2Result.cognitivePillars?.creativity || 75),
+          cogStr: String(v2Result.cognitivePillars?.strategicBusiness || 78),
+          cogSoc: String(v2Result.cognitivePillars?.socialHumanity || 70),
+          cogSci: String(v2Result.cognitivePillars?.scientificRigor || 80),
           portal: 'student',
         })
 

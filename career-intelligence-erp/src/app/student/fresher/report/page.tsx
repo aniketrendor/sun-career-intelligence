@@ -46,6 +46,28 @@ function FresherReportContent() {
   const d3Score = Number(searchParams?.get('d3Score') || 75)
   const d3Code = searchParams?.get('d3Code') || 'MANAGEMENT'
 
+  // Extract Tri-Factor Psychometric Dimensions
+  const archetypeTitle = searchParams?.get('archetypeTitle') || 'Systems & Algorithmic Architect'
+  const archetypeSummary = searchParams?.get('archetypeSummary') || 'Demonstrates strong analytical reasoning and algorithmic intuition with a natural drive to optimize complex systems.'
+  const riasecCode = searchParams?.get('riasecCode') || 'IER'
+  const riasecName = searchParams?.get('riasecName') || 'Investigative & Enterprising'
+
+  const cogAna = Number(searchParams?.get('cogAna') || 88)
+  const cogSys = Number(searchParams?.get('cogSys') || 84)
+  const cogCre = Number(searchParams?.get('cogCre') || 76)
+  const cogStr = Number(searchParams?.get('cogStr') || 78)
+  const cogSoc = Number(searchParams?.get('cogSoc') || 72)
+  const cogSci = Number(searchParams?.get('cogSci') || 82)
+
+  const cognitivePillarsList = [
+    { name: 'Analytical & Computational Logic', score: cogAna, desc: 'Algorithmic deconstruction, abstract reasoning, and data structure modeling.' },
+    { name: 'Systems & Architectural Thinking', score: cogSys, desc: 'Complex infrastructure design, system workflows, and scalable integration.' },
+    { name: 'Creative & Divergent Ideation', score: cogCre, desc: 'Novel problem solving, human-centered UI/UX, and visual synthesis.' },
+    { name: 'Strategic Leadership & Business', score: cogStr, desc: 'Commercial viability, stakeholder prioritization, and value creation.' },
+    { name: 'Social & Collaborative Dynamics', score: cogSoc, desc: 'Interpersonal communication, empathy, and ethical governance.' },
+    { name: 'Empirical Scientific Rigor', score: cogSci, desc: 'Hypothesis testing, research methodology, and evidence validation.' },
+  ]
+
   // Resolve Canonical Domain Cards (Zero Hardcoded Index Mappings)
   const card1 = useMemo(() => getDomainCardData(d1Code || d1Name, d1Score, 1, academicLevel), [d1Code, d1Name, d1Score, academicLevel])
   const card2 = useMemo(() => getDomainCardData(d2Code || d2Name, d2Score, 2, academicLevel), [d2Code, d2Name, d2Score, academicLevel])
@@ -176,6 +198,66 @@ function FresherReportContent() {
           <div className="space-y-0.5">
             <span className="text-[10px] text-[#7A7067] uppercase font-bold tracking-wider block">Referral Key</span>
             <span className="font-mono font-bold text-[#A36B40] block truncate">{referralCode}</span>
+          </div>
+        </div>
+
+        {/* ─── PSYCHOMETRIC ARCHETYPE & RIASEC PROFILE SECTION ────────── */}
+        <div className="bg-white rounded-3xl p-6 border border-[#DFD7CB] shadow-sm space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#DFD7CB]">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-[#A36B40]" />
+                <h3 className="text-base sm:text-lg font-black text-[#2C2621]">
+                  Psychometric & Cognitive Trait Profile
+                </h3>
+              </div>
+              <p className="text-xs text-[#7A7067]">
+                Multi-dimensional psychometric diagnosis calibrated across 12 psychological dimensions and RIASEC vocational scales.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="bg-[#FAF6F0] border-[#A36B40]/40 text-[#A36B40] text-xs font-bold px-3 py-1">
+                Holland RIASEC: {riasecCode}
+              </Badge>
+            </div>
+          </div>
+
+          {/* Career Archetype Banner */}
+          <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="space-y-1 max-w-xl">
+              <span className="text-[10px] uppercase font-extrabold text-[#8C7E72] tracking-wider block">
+                Identified Career Archetype
+              </span>
+              <h4 className="text-base font-extrabold text-[#A36B40]">
+                {archetypeTitle}
+              </h4>
+              <p className="text-xs text-[#5C544D] leading-relaxed">
+                {archetypeSummary || `Demonstrates high alignment for ${card1.name} with advanced problem-solving agility.`}
+              </p>
+            </div>
+            <div className="shrink-0 text-right sm:border-l sm:border-[#DFD7CB] sm:pl-4">
+              <span className="text-[10px] uppercase font-bold text-[#8C7E72] block">Vocational Trait</span>
+              <span className="text-xs font-bold text-[#2C2621] block mt-0.5">{riasecName}</span>
+            </div>
+          </div>
+
+          {/* 6 Core Cognitive Pillars Grid */}
+          <div className="space-y-3 pt-2">
+            <span className="text-xs font-bold text-[#2C2621] uppercase tracking-wider block">
+              Core Cognitive & Applied Aptitude Pillars (0–100 Scale)
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              {cognitivePillarsList.map((pillar, idx) => (
+                <div key={idx} className="p-3.5 rounded-2xl bg-white border border-[#DFD7CB] space-y-2 shadow-2xs">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-[#2C2621]">{pillar.name}</span>
+                    <span className="text-xs font-mono font-extrabold text-[#A36B40]">{pillar.score}%</span>
+                  </div>
+                  <Progress value={pillar.score} className="h-2 bg-[#FAF6F0]" />
+                  <p className="text-[10px] text-[#7A7067] leading-tight">{pillar.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
