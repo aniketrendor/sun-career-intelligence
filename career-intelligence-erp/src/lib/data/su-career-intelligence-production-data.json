@@ -275,7 +275,6 @@
       "notes": "",
       "primary_stream": "Engineering / Relevant UG",
       "domain_ids": [
-        "BUSINESS",
         "ENGINEERING",
         "BUILT_ENV"
       ],
@@ -390,9 +389,9 @@
       "notes": "",
       "primary_stream": "Relevant engineering/science",
       "domain_ids": [
-        "BUSINESS",
         "ENGINEERING",
-        "SCIENCE"
+        "SCIENCE",
+        "BUILT_ENV"
       ],
       "active_status": "REVIEW_REQUIRED",
       "eligibility_status": "UNVERIFIED",
@@ -1108,7 +1107,8 @@
       "notes": "",
       "primary_stream": "Any UG degree",
       "domain_ids": [
-        "BUSINESS"
+        "BUSINESS",
+        "ANALYTICS"
       ],
       "active_status": "REVIEW_REQUIRED",
       "eligibility_status": "UNVERIFIED",
@@ -1126,9 +1126,9 @@
       "notes": "",
       "primary_stream": "Any UG degree",
       "domain_ids": [
-        "ANALYTICS",
         "BUSINESS",
-        "PEOPLE"
+        "PEOPLE",
+        "COMMUNICATION"
       ],
       "active_status": "REVIEW_REQUIRED",
       "eligibility_status": "UNVERIFIED",
@@ -1147,8 +1147,7 @@
       "primary_stream": "Any UG degree",
       "domain_ids": [
         "BUSINESS",
-        "ENGINEERING",
-        "BUILT_ENV"
+        "ANALYTICS"
       ],
       "active_status": "REVIEW_REQUIRED",
       "eligibility_status": "UNVERIFIED",

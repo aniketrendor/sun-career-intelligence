@@ -55,35 +55,90 @@ function FresherReportContent() {
   const d3Score = Number(searchParams?.get('d3Score') || 78)
   const d3Code = searchParams?.get('d3Code') || 'BUSINESS'
 
-  // Look up matched course from catalog
   const allCourses = useMemo(() => getAllCourses(), [])
+
+  // Score all candidate level courses dynamically against top 3 dimensions
+  const rankedCourses = useMemo(() => {
+    const levelCourses = allCourses.filter((c: UniversityCourse) => c.level === academicLevel)
+    const dimScoreMap = new Map<string, number>([
+      [d1Code, d1Score],
+      [d2Code, d2Score],
+      [d3Code, d3Score],
+    ])
+
+    const scored = levelCourses.map((course: UniversityCourse) => {
+      const courseDims = course.domain_ids || []
+      const activeScores = courseDims.map((dimId: string) => dimScoreMap.get(dimId) || 0).filter((s: number) => s > 0)
+      
+      let calculatedScore = 35
+      if (activeScores.length > 0) {
+        const maxScore = Math.max(...activeScores)
+        const avgScore = activeScores.reduce((sum: number, s: number) => sum + s, 0) / activeScores.length
+        let baseMatch = (maxScore * 0.70) + (avgScore * 0.30)
+        
+        if (d1Code && courseDims.includes(d1Code)) baseMatch += 4
+        if (d1Code && d2Code && courseDims.includes(d1Code) && courseDims.includes(d2Code)) baseMatch += 6
+        if (d3Code && courseDims.includes(d3Code)) baseMatch += 2
+        
+        calculatedScore = Math.min(98, Math.max(35, Math.round(baseMatch)))
+      }
+
+      // Check eligibility / prerequisite for PG
+      let isEligible = true
+      if (academicLevel === 'PG') {
+        const courseDegree = (course.course || '').toUpperCase()
+        if ((courseDegree.includes('M.TECH') || courseDegree.includes('ENGINEERING')) && 
+            !qualification.toLowerCase().includes('b.tech') && 
+            !qualification.toLowerCase().includes('engineering')) {
+          isEligible = false // Needs B.Tech/Engineering graduation
+        }
+      }
+
+      return {
+        course,
+        match_score: calculatedScore,
+        isEligible,
+      }
+    })
+
+    // Sort eligible first, then highest match score
+    scored.sort((a, b) => {
+      if (a.isEligible && !b.isEligible) return -1
+      if (!a.isEligible && b.isEligible) return 1
+      return b.match_score - a.match_score
+    })
+
+    return scored
+  }, [allCourses, academicLevel, d1Code, d1Score, d2Code, d2Score, d3Code, d3Score, qualification])
+
+  // Look up matched primary course from catalog
   const matchedCourse: UniversityCourse = useMemo(() => {
     if (progId) {
       const found = getCourseById(progId)
-      if (found) return found
-    }
-    const levelCourses = allCourses.filter((c) => c.level === academicLevel)
-    return levelCourses.find((c) => c.specialization.toLowerCase().includes(recommendedSpec.toLowerCase())) ||
-      levelCourses[0] || {
-        program_id: 'SUN-001',
-        school: 'Engineering & Technology',
-        level: academicLevel,
-        course: 'B.Tech',
-        specialization: recommendedSpec,
-        suitable_12th_stream: 'PCM',
-        career_domains: 'Software engineering, artificial intelligence, cloud architecture',
-        domain_ids: ['TECHNOLOGY', 'ENGINEERING'],
-        active_status: 'ACTIVE',
+      if (found) {
+        // If passed progId is valid and relevant, use it
+        return found
       }
-  }, [progId, recommendedSpec, academicLevel, allCourses])
+    }
+    return rankedCourses[0]?.course || allCourses[0]
+  }, [progId, rankedCourses, allCourses])
 
-  // Alternative recommendations from catalog matching top domains
+  // Dynamic calculated fit score
+  const computedFitScore = useMemo(() => {
+    const found = rankedCourses.find((r) => r.course.program_id === matchedCourse.program_id)
+    return found ? found.match_score : (fitScore || 92)
+  }, [rankedCourses, matchedCourse.program_id, fitScore])
+
+  // Alternative recommendations from catalog matching top ranked pathways
   const alternativeCourses = useMemo(() => {
-    return allCourses
-      .filter((c) => c.level === academicLevel && c.program_id !== matchedCourse.program_id)
-      .filter((c) => c.domain_ids.includes(d1Code) || c.domain_ids.includes(d2Code))
+    return rankedCourses
+      .filter((r) => r.course.program_id !== matchedCourse.program_id && r.isEligible)
       .slice(0, 3)
-  }, [allCourses, academicLevel, matchedCourse.program_id, d1Code, d2Code])
+      .map((r) => ({
+        ...r.course,
+        match_score: r.match_score,
+      }))
+  }, [rankedCourses, matchedCourse.program_id])
 
   const top3Domains = [
     { name: d1Name, score: d1Score, code: d1Code, rank: 1, label: 'Primary Alignment', badgeBg: 'bg-emerald-100 text-emerald-800' },
@@ -227,10 +282,10 @@ function FresherReportContent() {
                   <span className="text-[10px] text-[#DFD7CB] uppercase tracking-wider block font-bold">
                     Suitability Fit
                   </span>
-                  <span className="text-2xl font-black text-white">{fitScore}%</span>
+                  <span className="text-2xl font-black text-white">{computedFitScore}%</span>
                 </div>
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#A36B40] to-[#8E5B34] border border-amber-300/30 flex items-center justify-center font-black text-lg text-white shadow-md">
-                  {fitScore >= 85 ? 'A+' : fitScore >= 70 ? 'A' : 'B+'}
+                  {computedFitScore >= 85 ? 'A+' : computedFitScore >= 70 ? 'A' : 'B+'}
                 </div>
               </div>
             </div>
@@ -354,11 +409,16 @@ function FresherReportContent() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {alternativeCourses.map((alt) => (
-                <Card key={alt.program_id} className="p-5 rounded-3xl bg-white border border-[#DFD7CB] space-y-3 shadow-xs">
+                <Card key={alt.program_id} className="p-5 rounded-3xl bg-white border border-[#DFD7CB] space-y-3 shadow-xs hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between">
-                    <Badge variant="outline" className="text-[10px] text-[#A36B40] bg-[#FAF6F0] border-[#DFD7CB]">
-                      {alt.level} Degree
-                    </Badge>
+                    <div className="flex items-center gap-1.5">
+                      <Badge variant="outline" className="text-[10px] text-[#A36B40] bg-[#FAF6F0] border-[#DFD7CB]">
+                        {alt.level} Degree
+                      </Badge>
+                      <span className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-1.5 py-0.2 rounded">
+                        {alt.match_score}% Match
+                      </span>
+                    </div>
                     <span className="text-[10px] text-[#7A7067] font-mono">{alt.program_id}</span>
                   </div>
                   <div>
@@ -368,7 +428,7 @@ function FresherReportContent() {
                     <p className="text-[11px] text-[#7A7067] mt-1">{alt.school}</p>
                   </div>
                   <div className="pt-2 border-t border-[#FAF6F0] text-[11px] text-[#5C544D]">
-                    Prerequisite: <strong>{alt.suitable_12th_stream || 'Any'}</strong>
+                    Prerequisite: <strong>{alt.suitable_12th_stream || 'Any graduation'}</strong>
                   </div>
                 </Card>
               ))}

@@ -139,26 +139,64 @@ export function processAssessmentResponses(
   const candidateCourses = allCourses.filter((c) => c.level === targetLevel)
 
   const recommendedCourses: CourseRecommendation[] = maxRaw === 0 ? [] : candidateCourses.map((course) => {
-    // A. Compute Domain Match Score
+    // A. Compute Precision Domain Match Score
     const courseDims = course.domain_ids || []
-    let totalDimScore = 0
-    let matchedDimsCount = 0
     const matchedDimensions: { dimension_id: string; name: string; score: number }[] = []
+    const activeScores: number[] = []
 
     courseDims.forEach((dimId) => {
-      const dimScore = topDimensionScoreMap.get(dimId) || 50
+      const dimScore = topDimensionScoreMap.get(dimId) || 0
       const dimDef = allDimensions.find((d) => d.dimension_id === dimId)
-      totalDimScore += dimScore
-      matchedDimsCount += 1
       matchedDimensions.push({
         dimension_id: dimId,
         name: dimDef?.name || dimId,
         score: dimScore,
       })
+      if (dimScore > 0) {
+        activeScores.push(dimScore)
+      }
     })
 
-    const averageDimScore = matchedDimsCount > 0 ? totalDimScore / matchedDimsCount : 50
-    const finalMatchScore = Math.min(98, Math.max(35, Math.round(averageDimScore)))
+    let calculatedScore = 35 // baseline
+    if (activeScores.length > 0) {
+      const maxScore = Math.max(...activeScores)
+      const avgScore = activeScores.reduce((sum, s) => sum + s, 0) / activeScores.length
+      
+      // Primary weight on student's strongest matching dimension (70%) + average of active matching dimensions (30%)
+      let baseMatch = (maxScore * 0.70) + (avgScore * 0.30)
+      
+      const top1Id = topDimensions[0]?.dimension_id
+      const top2Id = topDimensions[1]?.dimension_id
+      const top3Id = topDimensions[2]?.dimension_id
+
+      // 1. Primary Alignment Boost: Course matches candidate's #1 top domain
+      if (top1Id && courseDims.includes(top1Id)) {
+        baseMatch += 4
+      }
+      
+      // 2. High Synergy Boost: Course matches both #1 and #2 top domains
+      if (top1Id && top2Id && courseDims.includes(top1Id) && courseDims.includes(top2Id)) {
+        baseMatch += 6
+      }
+
+      // 3. Complementary Boost: Course matches #1, #2 or #3
+      if (top3Id && courseDims.includes(top3Id)) {
+        baseMatch += 2
+      }
+
+      // 4. Specialization preference alignment (from Level 4/3 choices)
+      const specLower = (course.specialization + ' ' + course.course).toLowerCase()
+      const hasSpecMatch = specializationPreferences.some(pref => 
+        pref.toLowerCase().split(/\s+/).some(w => w.length > 3 && specLower.includes(w))
+      )
+      if (hasSpecMatch) {
+        baseMatch += 3
+      }
+
+      calculatedScore = Math.min(98, Math.max(35, Math.round(baseMatch)))
+    }
+
+    const finalMatchScore = calculatedScore
 
     // B. Match Tier
     let matchTier: 'EXCELLENT_FIT' | 'STRONG_FIT' | 'MODERATE_FIT' | 'EXPLORATORY' = 'MODERATE_FIT'
