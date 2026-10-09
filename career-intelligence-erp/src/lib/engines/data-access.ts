@@ -81,7 +81,7 @@ const dataset = rawData as unknown as RawDataset
 
 // Normalize questions with attached answer options & standard question_type
 const parsedQuestions: AssessmentQuestion[] = dataset.questions.map((q) => {
-  const options: AnswerOption[] = dataset.answer_options
+  let options: AnswerOption[] = dataset.answer_options
     .filter((opt) => opt.question_id === q.question_id)
     .map((opt) => ({
       option_id: opt.option_id,
@@ -92,6 +92,111 @@ const parsedQuestions: AssessmentQuestion[] = dataset.questions.map((q) => {
       mapping_or_feedback: opt.mapping_or_feedback,
       is_mutually_exclusive: opt.is_mutually_exclusive ?? (opt.option_label.toLowerCase().includes('none of') || opt.option_label.toLowerCase().includes('not sure')),
     }))
+
+  // Populate dynamic options for catalog questions if only placeholder exists
+  if (q.question_id === 'L3-006' && (options.length <= 1 || options.some(o => o.option_label.includes('populated from')))) {
+    options = [
+      {
+        option_id: 'L3-006-A',
+        question_id: 'L3-006',
+        option_label: 'B.Tech in Computer Science & Engineering (AI, Cloud & Security)',
+        dimension_id: 'TECHNOLOGY',
+        score_value: 5,
+        mapping_or_feedback: 'Technology & Computing pathway',
+      },
+      {
+        option_id: 'L3-006-B',
+        question_id: 'L3-006',
+        option_label: 'BBA in Financial Management & Business Analytics',
+        dimension_id: 'BUSINESS',
+        score_value: 5,
+        mapping_or_feedback: 'Business & Management pathway',
+      },
+      {
+        option_id: 'L3-006-C',
+        question_id: 'L3-006',
+        option_label: 'B.Pharm in Pharmaceutical Sciences & Drug Formulation',
+        dimension_id: 'HEALTH_PHARMA',
+        score_value: 5,
+        mapping_or_feedback: 'Health & Pharmacy pathway',
+      },
+      {
+        option_id: 'L3-006-D',
+        question_id: 'L3-006',
+        option_label: 'B.Des in User Experience (UX) & Product Design',
+        dimension_id: 'DESIGN',
+        score_value: 5,
+        mapping_or_feedback: 'Design & Creativity pathway',
+      },
+      {
+        option_id: 'L3-006-E',
+        question_id: 'L3-006',
+        option_label: 'B.A. LL.B (Hons) in Cyber & Corporate Law',
+        dimension_id: 'LAW',
+        score_value: 5,
+        mapping_or_feedback: 'Law & Legal Systems pathway',
+      },
+      {
+        option_id: 'L3-006-F',
+        question_id: 'L3-006',
+        option_label: 'B.Sc in Applied Data Science & Statistical Analytics',
+        dimension_id: 'ANALYTICS',
+        score_value: 5,
+        mapping_or_feedback: 'Analytics & Data pathway',
+      },
+    ]
+  } else if (q.question_id === 'L4-008' && (options.length <= 1 || options.some(o => o.option_label.includes('populated from')))) {
+    options = [
+      {
+        option_id: 'L4-008-A',
+        question_id: 'L4-008',
+        option_label: 'Artificial Intelligence & ML vs Cloud Architecture',
+        dimension_id: 'TECHNOLOGY',
+        score_value: 5,
+        mapping_or_feedback: 'Specialization comparison',
+      },
+      {
+        option_id: 'L4-008-B',
+        question_id: 'L4-008',
+        option_label: 'Financial Technology (FinTech) vs Marketing Analytics',
+        dimension_id: 'BUSINESS',
+        score_value: 5,
+        mapping_or_feedback: 'Specialization comparison',
+      },
+      {
+        option_id: 'L4-008-C',
+        question_id: 'L4-008',
+        option_label: 'Clinical Research vs Drug Formulation & Quality Control',
+        dimension_id: 'HEALTH_PHARMA',
+        score_value: 5,
+        mapping_or_feedback: 'Specialization comparison',
+      },
+      {
+        option_id: 'L4-008-D',
+        question_id: 'L4-008',
+        option_label: 'UI/UX Interactive Systems vs Spatial/Interior Design',
+        dimension_id: 'DESIGN',
+        score_value: 5,
+        mapping_or_feedback: 'Specialization comparison',
+      },
+      {
+        option_id: 'L4-008-E',
+        question_id: 'L4-008',
+        option_label: 'Corporate Compliance vs Cyber Law & Digital Forensics',
+        dimension_id: 'LAW',
+        score_value: 5,
+        mapping_or_feedback: 'Specialization comparison',
+      },
+      {
+        option_id: 'L4-008-F',
+        question_id: 'L4-008',
+        option_label: 'Business Intelligence vs Predictive Modelling & Big Data',
+        dimension_id: 'ANALYTICS',
+        score_value: 5,
+        mapping_or_feedback: 'Specialization comparison',
+      },
+    ]
+  }
 
   // Map raw type to standard 3 question types
   let resolvedType: QuestionType = 'single_select'
@@ -106,6 +211,13 @@ const parsedQuestions: AssessmentQuestion[] = dataset.questions.map((q) => {
     }
   }
 
+  let displayNote = q.note
+  if (q.question_id === 'L3-006') {
+    displayNote = 'Select the academic pathways and course streams that interest you most.'
+  } else if (q.question_id === 'L4-008') {
+    displayNote = 'Select the specialization comparison you would like to discuss with an academic advisor.'
+  }
+
   return {
     question_id: q.question_id,
     level: q.level as AssessmentLevel,
@@ -117,7 +229,7 @@ const parsedQuestions: AssessmentQuestion[] = dataset.questions.map((q) => {
     routing_rule: q.routing_rule,
     required: q.required ?? true,
     status: q.status,
-    note: q.note,
+    note: displayNote,
     min_selections: q.min_selections ?? (resolvedType === 'multi_select' ? 1 : undefined),
     max_selections: q.max_selections ?? (resolvedType === 'multi_select' ? 4 : undefined),
     options,
