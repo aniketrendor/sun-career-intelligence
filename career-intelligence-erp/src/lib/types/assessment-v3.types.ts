@@ -16,9 +16,11 @@ export type EligibilityStatus =
   | 'UNVERIFIED_DATA'
 
 export interface AssessmentDimension {
+  domain_id?: string
   dimension_id: string
   name: string
   definition: string
+  areas_covered?: string
   status: 'approved' | 'proposed_review_required' | 'draft' | string
 }
 

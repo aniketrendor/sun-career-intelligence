@@ -40,7 +40,7 @@ const mockAnswers: StudentAnswer[] = []
 
 questions.forEach((q) => {
   if (q.question_type === 'rating_scale') {
-    if (['TECHNOLOGY', 'ENGINEERING', 'ANALYTICS'].includes(q.dimension_id || '')) {
+    if (['DOM-06', 'DOM-07', 'DOM-08', 'DOM-09', 'TECHNOLOGY', 'ENGINEERING', 'ANALYTICS'].includes(q.dimension_id || '')) {
       mockAnswers.push({ question_id: q.question_id, rating_value: 5 })
     } else {
       mockAnswers.push({ question_id: q.question_id, rating_value: 3 })
@@ -73,7 +73,7 @@ const pgAnswers: StudentAnswer[] = []
 
 questions.forEach((q) => {
   if (q.question_type === 'rating_scale') {
-    if (['BUSINESS', 'ANALYTICS', 'COMMUNICATION'].includes(q.dimension_id || '')) {
+    if (['DOM-01', 'DOM-02', 'DOM-03', 'DOM-04', 'DOM-05', 'BUSINESS', 'ANALYTICS', 'COMMUNICATION'].includes(q.dimension_id || '')) {
       pgAnswers.push({ question_id: q.question_id, rating_value: 5 })
     } else {
       pgAnswers.push({ question_id: q.question_id, rating_value: 3 })
@@ -107,7 +107,7 @@ const pgTechAnswers: StudentAnswer[] = []
 
 questions.forEach((q) => {
   if (q.question_type === 'rating_scale') {
-    if (['TECHNOLOGY', 'ENGINEERING'].includes(q.dimension_id || '')) {
+    if (['DOM-06', 'DOM-07', 'DOM-08', 'DOM-09', 'DOM-10', 'TECHNOLOGY', 'ENGINEERING'].includes(q.dimension_id || '')) {
       pgTechAnswers.push({ question_id: q.question_id, rating_value: 5 })
     } else {
       pgTechAnswers.push({ question_id: q.question_id, rating_value: 2 })

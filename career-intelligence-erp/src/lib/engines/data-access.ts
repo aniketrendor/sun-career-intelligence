@@ -518,8 +518,23 @@ parsedQuestions.forEach((q) => questionMap.set(q.question_id, q))
 const courseMap = new Map<string, UniversityCourse>()
 parsedCourses.forEach((c) => courseMap.set(c.program_id, c))
 
+const parsedDimensions: AssessmentDimension[] = dataset.dimensions.map((d: any) => {
+  const id = d.domain_id || d.dimension_id
+  return {
+    domain_id: id,
+    dimension_id: id,
+    name: d.name,
+    definition: d.definition,
+    areas_covered: d.areas_covered,
+    status: d.status,
+  }
+})
+
 const dimensionMap = new Map<string, AssessmentDimension>()
-dataset.dimensions.forEach((d) => dimensionMap.set(d.dimension_id, d))
+parsedDimensions.forEach((d) => {
+  dimensionMap.set(d.dimension_id, d)
+  if (d.domain_id) dimensionMap.set(d.domain_id, d)
+})
 
 /**
  * Accessor Functions
@@ -534,7 +549,7 @@ export function getAssessmentMetadata() {
 }
 
 export function getAllDimensions(): AssessmentDimension[] {
-  return dataset.dimensions
+  return parsedDimensions
 }
 
 export function getDimensionById(dimensionId: string): AssessmentDimension | undefined {
@@ -609,7 +624,7 @@ export function getMappingReviewAuditReport(): MappingAuditReport {
   const pdm = getProgramDomainMappings()
   const specs = getAllSpecializations()
   const psm = getProgramSpecializationMappings()
-  const dimensions = dataset.dimensions
+  const dimensions = parsedDimensions
   const validDimIds = new Set(dimensions.map((d) => d.dimension_id))
   const validProgramIds = new Set(courses.map((c) => c.program_id))
 
