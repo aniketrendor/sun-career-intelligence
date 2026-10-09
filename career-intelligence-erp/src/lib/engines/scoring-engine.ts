@@ -252,11 +252,15 @@ export function processAssessmentResponses(
     }
   })
 
-  // Sort: Verified Eligible first, then by match score
+  // Sort: Verified Eligible first, then by match score descending, then modern specialized programs over generic 'General'
   recommendedCourses.sort((a, b) => {
     if (a.eligibility.status === 'VERIFIED_ELIGIBLE' && b.eligibility.status !== 'VERIFIED_ELIGIBLE') return -1
     if (b.eligibility.status === 'VERIFIED_ELIGIBLE' && a.eligibility.status !== 'VERIFIED_ELIGIBLE') return 1
-    return b.match_score - a.match_score
+    if (b.match_score !== a.match_score) return b.match_score - a.match_score
+
+    const aIsGeneral = (a.specialization || '').toLowerCase() === 'general' || (a.specialization || '').toLowerCase() === (a.course || '').toLowerCase() ? 1 : 0
+    const bIsGeneral = (b.specialization || '').toLowerCase() === 'general' || (b.specialization || '').toLowerCase() === (b.course || '').toLowerCase() ? 1 : 0
+    return aIsGeneral - bIsGeneral
   })
 
   const primaryCourse = recommendedCourses[0] || null
@@ -323,5 +327,21 @@ export function generateCareerIntelligenceReport(
     domainScores: recommendationOutput?.domainScores || [],
     topCareers: recommendationOutput?.topCareers || [],
   }
+}
+
+export function formatProgramTitle(course?: string, specialization?: string): string {
+  const c = (course || '').trim()
+  const s = (specialization || '').trim()
+  if (!s || s.toLowerCase() === 'general' || s.toLowerCase() === c.toLowerCase() || s.toLowerCase() === 'none') {
+    if (c.toUpperCase() === 'MCA') return 'Master of Computer Applications (MCA)'
+    if (c.toUpperCase() === 'MBA') return 'Master of Business Administration (MBA)'
+    if (c.toUpperCase() === 'BCA') return 'Bachelor of Computer Applications (BCA)'
+    if (c.toUpperCase() === 'BBA') return 'Bachelor of Business Administration (BBA)'
+    if (c.toUpperCase() === 'B.PHARM') return 'Bachelor of Pharmacy (B.Pharm)'
+    if (c.toUpperCase() === 'D.PHARM') return 'Diploma in Pharmacy (D.Pharm)'
+    if (c.toUpperCase() === 'LL.B.' || c.toUpperCase() === 'LLB') return 'Bachelor of Laws (LL.B.)'
+    return c
+  }
+  return `${c} in ${s}`
 }
 

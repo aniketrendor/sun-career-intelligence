@@ -218,6 +218,18 @@ export default async function AssessmentPage(props: {
     const title = `${trackLabel} Career Diagnostic`
     const counselorName = (counselorAssignment as any)?.counselor?.full_name
 
+    const rawSpec = lead.recommended_spec || lead.highest_qualification || studentProfile?.current_program || 'General Track'
+    const domainLower = (lead.top_domain || '').toLowerCase()
+    const specLower = (lead.recommended_spec || '').toLowerCase()
+    
+    // Reconcile if older database log contained obsolete cross-mapping
+    let displaySpec = rawSpec
+    if (domainLower.includes('analytics') && (specLower.includes('human resource') || !lead.recommended_spec)) {
+      displaySpec = lead.target_level === 'PG' ? 'Business Analytics' : 'Data Analytics'
+    } else if (domainLower.includes('technology') && (specLower.includes('human resource') || specLower.includes('general'))) {
+      displaySpec = lead.target_level === 'PG' ? 'Computer Science & Engineering (AI & ML)' : 'Computer Science & Engineering'
+    }
+
     const params = new URLSearchParams({
       code: lead.referral_code || 'SUN-FRESHERS-2026',
       name: lead.candidate_name || activeProfile.full_name || 'Student',
@@ -227,7 +239,7 @@ export default async function AssessmentPage(props: {
       qualification: lead.highest_qualification || studentProfile?.current_program || '',
       college: lead.last_attempted_college || studentProfile?.institution || 'Sandip University',
       topDomain: lead.top_domain || 'Career Alignment',
-      recommendedSpec: lead.recommended_spec || '',
+      recommendedSpec: displaySpec,
       fitScore: String(fitScore),
       portal: 'student',
     })
@@ -241,7 +253,7 @@ export default async function AssessmentPage(props: {
       date: leadDate,
       score: fitScore,
       topDomain: lead.top_domain || 'Career Alignment',
-      specialization: lead.recommended_spec || lead.highest_qualification || studentProfile?.current_program || 'General Track',
+      specialization: displaySpec,
       counselorAdvisory: counselorName ? `Assigned to ${counselorName}` : 'Automated Diagnostic Verified',
       reportUrl: `/student/fresher/report?${params.toString()}`,
       source: 'diagnostic' as const,

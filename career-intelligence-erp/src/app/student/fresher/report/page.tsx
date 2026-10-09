@@ -19,6 +19,7 @@ import {
   getAllCourses,
   getAllDimensions,
   getCourseById,
+  formatProgramTitle,
 } from '@/lib/engines/index'
 import type {
   UniversityCourse,
@@ -39,7 +40,7 @@ function FresherReportContent() {
   const mentorName = searchParams?.get('mentor') || 'Admissions & Advisory Council'
   const qualification = searchParams?.get('qualification') || ''
   const progId = searchParams?.get('progId') || ''
-  const recommendedSpec = searchParams?.get('recommendedSpec') || 'Computer Science & Engineering'
+  const recommendedSpec = searchParams?.get('recommendedSpec') || ''
   const fitScore = Number(searchParams?.get('fitScore') || 92)
 
   // Extract Top 3 Dimensions and Scores
@@ -87,10 +88,11 @@ function FresherReportContent() {
       let isEligible = true
       if (academicLevel === 'PG') {
         const courseDegree = (course.course || '').toUpperCase()
+        const qualLower = (qualification || '').toLowerCase().trim()
         if ((courseDegree.includes('M.TECH') || courseDegree.includes('ENGINEERING')) && 
-            !qualification.toLowerCase().includes('b.tech') && 
-            !qualification.toLowerCase().includes('engineering')) {
-          isEligible = false // Needs B.Tech/Engineering graduation
+            qualLower && 
+            (qualLower.includes('bba') || qualLower.includes('b.com') || qualLower.includes('arts') || qualLower.includes('commerce') || qualLower.includes('llb') || qualLower.includes('b.pharm'))) {
+          isEligible = false // Incompatible graduation
         }
       }
 
@@ -101,11 +103,15 @@ function FresherReportContent() {
       }
     })
 
-    // Sort eligible first, then highest match score
+    // Sort: eligible first, then match score descending, then modern specialized programs over generic 'General'
     scored.sort((a, b) => {
       if (a.isEligible && !b.isEligible) return -1
       if (!a.isEligible && b.isEligible) return 1
-      return b.match_score - a.match_score
+      if (b.match_score !== a.match_score) return b.match_score - a.match_score
+
+      const aIsGeneral = (a.course.specialization || '').toLowerCase() === 'general' || (a.course.specialization || '').toLowerCase() === (a.course.course || '').toLowerCase() ? 1 : 0
+      const bIsGeneral = (b.course.specialization || '').toLowerCase() === 'general' || (b.course.specialization || '').toLowerCase() === (b.course.course || '').toLowerCase() ? 1 : 0
+      return aIsGeneral - bIsGeneral
     })
 
     return scored
@@ -116,12 +122,15 @@ function FresherReportContent() {
     if (progId) {
       const found = getCourseById(progId)
       if (found) {
-        // If passed progId is valid and relevant, use it
         return found
       }
     }
+    if (recommendedSpec) {
+      const found = rankedCourses.find(r => r.course.specialization.toLowerCase().includes(recommendedSpec.toLowerCase()))
+      if (found) return found.course
+    }
     return rankedCourses[0]?.course || allCourses[0]
-  }, [progId, rankedCourses, allCourses])
+  }, [progId, recommendedSpec, rankedCourses, allCourses])
 
   // Dynamic calculated fit score
   const computedFitScore = useMemo(() => {
@@ -270,7 +279,7 @@ function FresherReportContent() {
                   Optimal {academicLevel} Degree Recommendation
                 </Badge>
                 <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight pt-1">
-                  {matchedCourse.course} in {matchedCourse.specialization}
+                  {formatProgramTitle(matchedCourse.course, matchedCourse.specialization)}
                 </h2>
                 <p className="text-xs sm:text-sm text-[#DFD7CB] font-medium">
                   {matchedCourse.school} · <span className="text-[#C6A18D]">Program Code: {matchedCourse.program_id}</span>
@@ -423,7 +432,7 @@ function FresherReportContent() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-[#2C2621] leading-tight">
-                      {alt.course} in {alt.specialization}
+                      {formatProgramTitle(alt.course, alt.specialization)}
                     </h4>
                     <p className="text-[11px] text-[#7A7067] mt-1">{alt.school}</p>
                   </div>
@@ -449,7 +458,7 @@ function FresherReportContent() {
               </div>
             </div>
             <p className="text-xs text-[#5C544D] leading-relaxed">
-              Based on the diagnostic assessment, candidate <strong className="text-[#2C2621]">{candidateName}</strong> is recommended for <strong className="text-[#A36B40]">{matchedCourse.course} in {matchedCourse.specialization}</strong> at Sandip University.
+              Based on the diagnostic assessment, candidate <strong className="text-[#2C2621]">{candidateName}</strong> is recommended for <strong className="text-[#A36B40]">{formatProgramTitle(matchedCourse.course, matchedCourse.specialization)}</strong> at Sandip University.
             </p>
           </div>
 

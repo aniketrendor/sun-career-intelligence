@@ -22,6 +22,7 @@ import {
   ASSESSMENT_LEVEL_CONFIGS,
   processAssessmentResponses,
   validateAnswerForQuestion,
+  formatProgramTitle,
 } from '@/lib/engines/index'
 import type {
   AssessmentQuestion,
@@ -466,7 +467,7 @@ export function AdaptiveAssessmentCockpit({
                   {['L3', 'L4', 'L5'].includes(currentQuestion.level) && (liveResult.primary_course || liveResult.top_dimensions[0]) && (
                     <Badge variant="outline" className="bg-[#FAF6F0] border-[#A36B40]/30 text-[#A36B40] text-[10px] px-2 py-0.5 h-5 font-semibold flex items-center gap-1">
                       <Sparkles className="w-3 h-3 text-[#A36B40]" />
-                      <span>Focus: {liveResult.primary_course ? `${liveResult.primary_course.course} in ${liveResult.primary_course.specialization}` : liveResult.top_dimensions[0]?.name}</span>
+                      <span>Focus: {liveResult.primary_course ? formatProgramTitle(liveResult.primary_course.course, liveResult.primary_course.specialization) : liveResult.top_dimensions[0]?.name}</span>
                     </Badge>
                   )}
                 </div>
@@ -720,7 +721,7 @@ export function AdaptiveAssessmentCockpit({
                               {idx + 1}
                             </span>
                             <span className="truncate">
-                              {course.course}{course.specialization ? ` in ${course.specialization}` : ''}
+                              {formatProgramTitle(course.course, course.specialization)}
                             </span>
                           </div>
                           <span className="flex-shrink-0 text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-1.5 py-0.2 rounded">
