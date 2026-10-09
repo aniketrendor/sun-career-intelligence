@@ -108,9 +108,9 @@ export function processAssessmentResponses(
 
   const dimensionScores: DimensionScore[] = allDimensions.map((d) => {
     const data = rawDimensionMap[d.dimension_id] || { raw: 0, count: 0 }
-    let normalized = 45 // baseline exploratory
-    if (maxRaw > 0) {
-      normalized = Math.min(98, Math.max(30, Math.round((data.raw / maxRaw) * 100)))
+    let normalized = 0
+    if (maxRaw > 0 && data.raw > 0) {
+      normalized = Math.min(98, Math.max(25, Math.round((data.raw / maxRaw) * 100)))
     }
 
     const confidence: 'HIGH' | 'MODERATE' | 'EXPLORATORY' = 
@@ -129,7 +129,7 @@ export function processAssessmentResponses(
 
   // Sort dimensions by score
   dimensionScores.sort((a, b) => b.normalized_score - a.normalized_score)
-  const topDimensions = dimensionScores.slice(0, 4)
+  const topDimensions = maxRaw > 0 ? dimensionScores.filter(d => d.signals_count > 0).slice(0, 4) : []
 
   const topDimensionScoreMap = new Map<string, number>()
   dimensionScores.forEach((d) => topDimensionScoreMap.set(d.dimension_id, d.normalized_score))
@@ -138,7 +138,7 @@ export function processAssessmentResponses(
   const targetLevel = profile.academicLevel || 'UG'
   const candidateCourses = allCourses.filter((c) => c.level === targetLevel)
 
-  const recommendedCourses: CourseRecommendation[] = candidateCourses.map((course) => {
+  const recommendedCourses: CourseRecommendation[] = maxRaw === 0 ? [] : candidateCourses.map((course) => {
     // A. Compute Domain Match Score
     const courseDims = course.domain_ids || []
     let totalDimScore = 0

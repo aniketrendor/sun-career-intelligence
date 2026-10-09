@@ -639,11 +639,18 @@ export function AdaptiveAssessmentCockpit({
                   Primary Emerging Domain
                 </div>
                 <div className="text-sm sm:text-base font-bold text-[#A36B40] truncate">
-                  {liveResult.top_dimensions[0]?.name || 'Analyzing interests...'}
+                  {answeredCount === 0
+                    ? 'Awaiting First Response'
+                    : liveResult.top_dimensions[0]?.name || 'Analyzing signals...'}
                 </div>
+                {answeredCount === 0 && (
+                  <p className="text-[11px] text-[#8C7E72]">
+                    Select an answer to begin real-time psychometric mapping.
+                  </p>
+                )}
               </div>
 
-              {/* Top 3 Emerging Dimensions */}
+              {/* Top Emerging Dimensions */}
               <div className="space-y-2 pt-1 border-t border-[#DFD7CB]">
                 <div className="text-xs font-semibold text-[#2C2621] flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
@@ -653,23 +660,30 @@ export function AdaptiveAssessmentCockpit({
                   <span className="text-[10px] text-[#8C7E72]">Live %</span>
                 </div>
 
-                <div className="space-y-2">
-                  {liveResult.top_dimensions.slice(0, 3).map((dom, i) => (
-                    <div key={dom.dimension_id} className="space-y-1">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-[#6A5E54] truncate max-w-[180px]">
-                          {i + 1}. {dom.name}
-                        </span>
-                        <span className="font-mono font-bold text-[#A36B40]">{dom.normalized_score}%</span>
+                {answeredCount === 0 || liveResult.top_dimensions.length === 0 ? (
+                  <div className="p-3 bg-[#FAF6F0]/50 rounded-xl border border-dashed border-[#DFD7CB] text-center space-y-1">
+                    <p className="text-xs text-[#8C7E72]">No responses recorded yet</p>
+                    <p className="text-[10px] text-[#A89D91]">Telemetry calibrates live across 12 university domains as you progress.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {liveResult.top_dimensions.slice(0, 3).map((dom, i) => (
+                      <div key={dom.dimension_id} className="space-y-1">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-[#6A5E54] truncate max-w-[180px]">
+                            {i + 1}. {dom.name}
+                          </span>
+                          <span className="font-mono font-bold text-[#A36B40]">{dom.normalized_score}%</span>
+                        </div>
+                        <Progress value={dom.normalized_score} className="h-1.5 bg-[#FAF6F0]" />
                       </div>
-                      <Progress value={dom.normalized_score} className="h-1.5 bg-[#FAF6F0]" />
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Emerging Primary Course Match */}
-              {liveResult.primary_course && (
+              {answeredCount > 0 && liveResult.primary_course && (
                 <div className="pt-2 border-t border-[#DFD7CB] space-y-1.5">
                   <div className="text-[10px] text-[#8C7E72] uppercase font-bold tracking-wider flex items-center gap-1.5">
                     <Award className="w-3.5 h-3.5 text-[#77734B]" />
