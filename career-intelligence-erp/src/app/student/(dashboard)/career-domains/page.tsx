@@ -52,11 +52,14 @@ export default async function CareerDomainsPage() {
   if (latestAttempt) {
     const { data: dScores } = await supabase
       .from('domain_scores')
-      .select('domain_id, score, rank')
+      .select('domain_id, normalized_score, raw_score, rank')
       .eq('attempt_id', latestAttempt.id)
 
-    dScores?.forEach((s) => {
-      studentScoresMap[s.domain_id] = { score: Math.round(s.score), rank: s.rank }
+    dScores?.forEach((s: any) => {
+      studentScoresMap[s.domain_id] = {
+        score: Math.round(Number(s.normalized_score ?? s.raw_score ?? 0)),
+        rank: s.rank
+      }
     })
   }
 

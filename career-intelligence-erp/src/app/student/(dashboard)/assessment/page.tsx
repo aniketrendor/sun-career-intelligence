@@ -199,18 +199,30 @@ export default async function AssessmentPage(props: {
 
   const adminClient = await createAdminClient()
 
-  // Concurrently fetch assessment attempts, career profiles, domain scores, and counselor assignment
+  // Concurrently fetch assessment attempts, fresher diagnostic tests, career profiles, domain scores, and counselor assignment
   const [
     { data: adminAttempts },
+    { data: fresherLeads },
     { data: careerProfile },
     { data: domainScores },
     { data: counselorAssignment }
   ] = await Promise.all([
     adminClient
       .from('assessment_attempts')
-      .select('id, started_at, completed_at, status, time_spent_seconds, track')
+      .select(`
+        id, started_at, completed_at, status, time_spent_seconds,
+        version:assessment_versions(
+          id, version_number,
+          template:assessment_templates(id, name, assessment_type)
+        )
+      `)
       .eq('student_id', profile.id)
       .order('started_at', { ascending: false }),
+    adminClient
+      .from('fresher_leads')
+      .select('*')
+      .ilike('candidate_email', profile.email)
+      .order('created_at', { ascending: false }),
     adminClient
       .from('career_profiles')
       .select('*, primary_domain:career_domains!primary_domain_id(name), secondary_domain:career_domains!secondary_domain_id(name)')
@@ -229,9 +241,84 @@ export default async function AssessmentPage(props: {
       .maybeSingle(),
   ])
 
-  const attempts = adminAttempts || []
-  const completedAttempts = (attempts || []).filter(a => a.status === 'COMPLETED')
-  const inProgressAttempt = (attempts || []).find(a => a.status === 'IN_PROGRESS')
+  // 1. Normalize official attempts
+  const officialTests = (adminAttempts || []).map((item: any) => {
+    const isCompleted = item.status === 'COMPLETED'
+    const firstDomain = (domainScores as any)?.[0]?.domain
+    const topScoreDomainName = Array.isArray(firstDomain) ? firstDomain[0]?.name : firstDomain?.name
+    const primaryDomainName = (careerProfile as any)?.primary_domain?.name || topScoreDomainName || 'Data Analytics'
+    const overallScore = domainScores?.[0]?.normalized_score
+      ? Math.round(Number(domainScores[0].normalized_score))
+      : 75
+    const counselorName = (counselorAssignment as any)?.counselor?.full_name
+    const title = (item.version as any)?.template?.name ||
+                  (item.version as any)?.template?.title ||
+                  (defaultTrack === 'PG' ? 'Postgraduate (PG) Career Diagnostic' : 'Undergraduate (UG) Career Diagnostic')
+    const completedDate = item.completed_at || item.started_at
+
+    return {
+      id: item.id,
+      title,
+      badgeText: 'Official Assessment',
+      status: item.status || 'COMPLETED',
+      isCompleted,
+      date: completedDate,
+      score: overallScore,
+      topDomain: primaryDomainName,
+      specialization: studentProfile?.current_program || enrollment?.program?.name || 'Business Analytics',
+      counselorAdvisory: counselorName ? `Assigned to ${counselorName}` : 'Automated Diagnostic Verified',
+      reportUrl: '/student/career-profile',
+      source: 'official' as const,
+    }
+  })
+
+  // 2. Normalize adaptive/diagnostic tests taken via cockpit / free test
+  const diagnosticTests = (fresherLeads || []).map((lead: any) => {
+    const isCompleted = lead.status === 'TEST_COMPLETED' || lead.status === 'COMPLETED' || !!lead.test_score || !!lead.fit_score
+    const fitScore = Math.round(Number(lead.fit_score || lead.test_score || 70))
+    const leadDate = lead.created_at
+    const trackLabel = lead.target_level === 'PG' ? 'Postgraduate (PG)' : 'Undergraduate (UG)'
+    const title = `${trackLabel} Career Diagnostic`
+    const counselorName = (counselorAssignment as any)?.counselor?.full_name
+
+    const params = new URLSearchParams({
+      code: lead.referral_code || 'SUN-FRESHERS-2026',
+      name: lead.candidate_name || profile.full_name || 'Student',
+      email: lead.candidate_email || profile.email || '',
+      phone: lead.candidate_phone || profile.phone || '',
+      level: lead.target_level || defaultTrack,
+      qualification: lead.highest_qualification || studentProfile?.current_program || '',
+      college: lead.last_attempted_college || studentProfile?.institution || 'Sandip University',
+      topDomain: lead.top_domain || 'Career Alignment',
+      recommendedSpec: lead.recommended_spec || '',
+      fitScore: String(fitScore),
+      portal: 'student',
+    })
+
+    return {
+      id: lead.id,
+      title,
+      badgeText: `${lead.target_level || 'UG'} Diagnostic`,
+      status: isCompleted ? 'COMPLETED' : lead.status,
+      isCompleted,
+      date: leadDate,
+      score: fitScore,
+      topDomain: lead.top_domain || 'Career Alignment',
+      specialization: lead.recommended_spec || lead.highest_qualification || studentProfile?.current_program || 'General Track',
+      counselorAdvisory: counselorName ? `Assigned to ${counselorName}` : 'Automated Diagnostic Verified',
+      reportUrl: `/student/fresher/report?${params.toString()}`,
+      source: 'diagnostic' as const,
+    }
+  })
+
+  // 3. Unify and sort chronologically (most recent first)
+  const allTests = [...officialTests, ...diagnosticTests].sort((a, b) => {
+    const timeA = a.date ? new Date(a.date).getTime() : 0
+    const timeB = b.date ? new Date(b.date).getTime() : 0
+    return timeB - timeA
+  })
+
+  const completedTests = allTests.filter(t => t.isCompleted)
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto font-sans">
@@ -282,13 +369,13 @@ export default async function AssessmentPage(props: {
           <div>
             <span className="text-[#C6A18D] block text-[10px] uppercase font-bold tracking-wider">Total Tests Taken</span>
             <span className="font-bold text-[#A36B40] text-sm mt-0.5 block">
-              {completedAttempts.length} Completed
+              {completedTests.length} Completed
             </span>
           </div>
         </div>
       </div>
 
-      {/* Test History List (No Mock Data) */}
+      {/* Test History List */}
       <Card className="border-[#DFD7CB] bg-white shadow-xs rounded-3xl">
           <CardHeader className="pb-3 border-b border-[#DFD7CB]">
             <div className="flex items-center justify-between">
@@ -299,19 +386,14 @@ export default async function AssessmentPage(props: {
                 </CardDescription>
               </div>
               <Badge variant="outline" className="text-xs font-semibold bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] rounded-full px-3 py-1">
-                {(attempts || []).length} Evaluations
+                {allTests.length} Evaluations
               </Badge>
             </div>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
-            {attempts && attempts.length > 0 ? (
-              attempts.map((item: any, idx: number) => {
-                const isCompleted = item.status === 'COMPLETED'
-                const firstDomain = (domainScores as any)?.[0]?.domain
-                const topScoreDomainName = Array.isArray(firstDomain) ? firstDomain[0]?.name : firstDomain?.name
-                const primaryDomainName = (careerProfile as any)?.primary_domain?.name || topScoreDomainName || (isCompleted ? 'Evaluated Domain' : 'In Progress')
-                const overallScore = domainScores?.[0]?.normalized_score ? Math.round(domainScores[0].normalized_score) : 85
-                const counselorName = (counselorAssignment as any)?.counselor?.full_name
+            {allTests && allTests.length > 0 ? (
+              allTests.map((item: any, idx: number) => {
+                const isCompleted = item.isCompleted
 
                 return (
                   <div
@@ -325,18 +407,21 @@ export default async function AssessmentPage(props: {
                             #{idx + 1}
                           </span>
                           <h3 className="font-bold text-sm text-[#2C2621]">
-                            {(item.version as any)?.template?.title || (item.track === 'PG' ? 'Postgraduate (PG) Career Diagnostic' : 'Undergraduate (UG) Career Diagnostic')}
+                            {item.title}
                           </h3>
                           <Badge className={isCompleted ? "bg-[#77734B]/15 text-[#77734B] border-0 text-[10px] font-bold rounded-full px-2 py-0.5" : "bg-[#C6A18D]/20 text-[#A36B40] border-0 text-[10px] font-bold rounded-full px-2 py-0.5"}>
                             {item.status}
+                          </Badge>
+                          <Badge variant="outline" className="text-[10px] font-semibold bg-white text-[#7A7067] border-[#DFD7CB] rounded-full px-2 py-0.5">
+                            {item.badgeText}
                           </Badge>
                         </div>
                         <p className="text-xs text-[#7A7067] flex items-center gap-3 pl-8 flex-wrap">
                           <span className="flex items-center gap-1">
                             <Clock className="w-3.5 h-3.5 text-[#7A7067]" />
-                            {isCompleted && item.completed_at
-                              ? `Completed on ${new Date(item.completed_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`
-                              : `Started on ${new Date(item.started_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`
+                            {item.date
+                              ? `Completed on ${new Date(item.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`
+                              : 'Evaluation Finished'
                             }
                           </span>
                           <span>·</span>
@@ -348,11 +433,11 @@ export default async function AssessmentPage(props: {
                         {isCompleted && (
                           <div className="text-right">
                             <span className="text-[10px] text-[#7A7067] block font-bold uppercase">Overall Fit</span>
-                            <span className="text-lg font-extrabold text-[#A36B40]">{overallScore}%</span>
+                            <span className="text-lg font-extrabold text-[#A36B40]">{item.score}%</span>
                           </div>
                         )}
                         {isCompleted ? (
-                          <Link href="/student/career-profile">
+                          <Link href={item.reportUrl}>
                             <Button size="sm" variant="outline" className="text-xs gap-1 border-[#DFD7CB] bg-white text-[#2C2621] hover:bg-[#A36B40] hover:text-white rounded-xl cursor-pointer">
                               <span>View Report</span>
                               <ArrowRight className="w-3.5 h-3.5" />
@@ -374,13 +459,14 @@ export default async function AssessmentPage(props: {
                         <span className="text-[#7A7067] block text-[10px] uppercase font-bold">Top Matched Domain</span>
                         <span className="font-bold text-[#2C2621] flex items-center gap-1.5 mt-0.5">
                           <Target className="w-3.5 h-3.5 text-[#A36B40]" />
-                          {primaryDomainName}
+                          {item.topDomain}
                         </span>
                       </div>
                       <div>
-                        <span className="text-[#7A7067] block text-[10px] uppercase font-bold">Mentor Advisory Status</span>
-                        <span className="text-[#2C2621] mt-0.5 block">
-                          {counselorName ? `Assigned to ${counselorName}` : 'Automated Diagnostic Verified'}
+                        <span className="text-[#7A7067] block text-[10px] uppercase font-bold">Recommended Specialization / Track</span>
+                        <span className="text-[#2C2621] font-semibold flex items-center gap-1.5 mt-0.5 truncate">
+                          <GraduationCap className="w-3.5 h-3.5 text-[#77734B]" />
+                          {item.specialization}
                         </span>
                       </div>
                     </div>

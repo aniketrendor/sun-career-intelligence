@@ -57,7 +57,8 @@ export default async function StudentDashboardPage() {
     { data: attempt },
     { data: careerProfile },
     { data: dScores },
-    { data: counselorAssignment }
+    { data: counselorAssignment },
+    { data: fresherLead }
   ] = await Promise.all([
     supabase
       .from('student_profiles')
@@ -84,7 +85,7 @@ export default async function StudentDashboardPage() {
       .maybeSingle(),
     supabase
       .from('domain_scores')
-      .select('score, rank, domain:career_domains(id, name, code, description)')
+      .select('normalized_score, raw_score, rank, domain:career_domains(id, name, code, description)')
       .eq('student_id', profile.id)
       .order('rank', { ascending: true })
       .limit(3),
@@ -94,19 +95,28 @@ export default async function StudentDashboardPage() {
       .eq('student_id', profile.id)
       .eq('status', 'ACTIVE')
       .maybeSingle(),
+    supabase
+      .from('fresher_leads')
+      .select('*')
+      .ilike('candidate_email', profile.email)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
   ])
 
   let domainScores: Array<{ domain: { id: string; name: string; code?: string; description?: string }; score: number; rank: number }> = []
   if (dScores && dScores.length > 0) {
     domainScores = dScores.map((d: any) => ({
       domain: d.domain,
-      score: d.score,
+      score: Math.round(Number(d.normalized_score ?? d.raw_score ?? 0)),
       rank: d.rank,
     }))
   }
 
-  const hasCompletedAssessment = attempt?.status === 'COMPLETED' || !!careerProfile
+  const latestFresherLead = fresherLead
+  const hasCompletedAssessment = attempt?.status === 'COMPLETED' || !!careerProfile || !!latestFresherLead
   const hasStartedAssessment = !!attempt && attempt.status !== 'COMPLETED'
+  const topScore = domainScores[0]?.score || (latestFresherLead ? Math.round(Number(latestFresherLead.fit_score || latestFresherLead.test_score || 0)) : 75)
 
   // Real academic profile fields
   const displayPrn = studentProfile?.prn || null
@@ -220,7 +230,7 @@ export default async function StudentDashboardPage() {
           <div className="min-w-0">
             <p className="text-[11px] text-[#7A7067] font-bold uppercase tracking-wider">Assessment Status</p>
             <p className="text-sm font-extrabold text-[#2C2621] truncate">
-              {hasCompletedAssessment ? `${attempt?.normalized_score || attempt?.score || 0}% Score` : hasStartedAssessment ? 'In Progress' : '30-MCQ Diagnostic Ready'}
+              {hasCompletedAssessment ? `${topScore}% Score` : hasStartedAssessment ? 'In Progress' : '30-MCQ Diagnostic Ready'}
             </p>
           </div>
         </div>
@@ -273,18 +283,16 @@ export default async function StudentDashboardPage() {
               <div className="p-4 sm:p-5 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] space-y-2">
                 <div className="flex items-center justify-between">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-[#A36B40]">Primary Recommended Track</p>
-                  {(attempt?.normalized_score || attempt?.score) && (
-                    <span className="text-xs font-bold text-[#77734B] bg-[#F1F1EB] px-2.5 py-0.5 rounded-full border border-[#77734B]/30">
-                      Score: {attempt.normalized_score || attempt.score}%
-                    </span>
-                  )}
+                  <span className="text-xs font-bold text-[#77734B] bg-[#F1F1EB] px-2.5 py-0.5 rounded-full border border-[#77734B]/30">
+                    Score: {topScore}%
+                  </span>
                 </div>
                 <p className="text-lg font-bold text-[#2C2621]">
-                  {careerProfile?.primary_domain?.name || domainScores[0]?.domain?.name || 'Evaluation Complete'}
+                  {careerProfile?.primary_domain?.name || domainScores[0]?.domain?.name || latestFresherLead?.top_domain || 'Evaluation Complete'}
                 </p>
-                {attempt?.completed_at && (
+                {(attempt?.completed_at || latestFresherLead?.created_at) && (
                   <p className="text-xs text-[#7A7067]">
-                    Evaluated on {formatDate(attempt.completed_at)}
+                    Evaluated on {formatDate(attempt?.completed_at || latestFresherLead?.created_at)}
                   </p>
                 )}
               </div>
