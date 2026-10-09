@@ -76,7 +76,7 @@ export default async function AssessmentPage(props: {
       (selectedTrack === 'UG' ? 'Undergraduate Program' : 'Postgraduate Program')
 
     return (
-      <div className="-m-4 md:-m-8 lg:-m-10 h-[calc(100vh-4rem)] p-3 sm:p-4 md:p-5 lg:p-6 bg-[#14110E] overflow-hidden flex flex-col justify-between">
+      <div className="-m-4 md:-m-8 lg:-m-10 h-[calc(100vh-4rem)] p-3 sm:p-4 md:p-5 lg:p-6 bg-[#FAF6F0] overflow-hidden flex flex-col justify-between">
         <AdaptiveAssessmentCockpit
           candidateName={activeProfile.full_name || 'Student'}
           candidateEmail={activeProfile.email || ''}
