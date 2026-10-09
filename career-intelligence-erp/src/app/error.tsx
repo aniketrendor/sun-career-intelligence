@@ -11,25 +11,25 @@ export default function GlobalErrorBoundary({
   reset: () => void
 }) {
   useEffect(() => {
-    // If it's an internal Next.js redirect or not-found, handle gracefully
     if (
       error.message === 'NEXT_REDIRECT' ||
       error.digest?.includes('NEXT_REDIRECT') ||
-      error.message?.includes('NEXT_REDIRECT')
+      error.message?.includes('NEXT_REDIRECT') ||
+      error.message === 'NEXT_NOT_FOUND' ||
+      error.digest?.includes('NEXT_NOT_FOUND')
     ) {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/student/profile?gate=assessment'
-      }
       return
     }
     console.error('Global Application Error:', error)
   }, [error])
 
-  // Don't show error modal if it's a redirect
+  // Don't show error modal if it's an internal Next.js navigation signal
   if (
     error.message === 'NEXT_REDIRECT' ||
     error.digest?.includes('NEXT_REDIRECT') ||
-    error.message?.includes('NEXT_REDIRECT')
+    error.message?.includes('NEXT_REDIRECT') ||
+    error.message === 'NEXT_NOT_FOUND' ||
+    error.digest?.includes('NEXT_NOT_FOUND')
   ) {
     return null
   }
