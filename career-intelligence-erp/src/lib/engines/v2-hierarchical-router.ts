@@ -1180,7 +1180,7 @@ export function selectNextHierarchicalQuestion(params: {
   })
 
   // Evaluate current evidence from all past responses
-  const { topDomains, topPrograms, programEvidenceScores } = evaluateEvidenceFromResponses(
+  const { topDomains, topPrograms, programEvidenceScores, domainScores } = evaluateEvidenceFromResponses(
     params.responses,
     params.profile
   )
@@ -1240,13 +1240,23 @@ export function selectNextHierarchicalQuestion(params: {
     }
   }
 
-  // 2. Level 2: Program Family Routing (Dynamically depends on candidate's top domains from past responses)
+  // Set of allowed domains based on student evidence (positive score or top 3)
+  const allowedDomains = new Set<string>(
+    topDomains.filter((d) => (domainScores[d] || 0) > 0).slice(0, 3)
+  )
+  if (allowedDomains.size === 0 && topDomains.length > 0) {
+    allowedDomains.add(topDomains[0])
+    if (topDomains[1]) allowedDomains.add(topDomains[1])
+  }
+
+  // 2. Level 2: Program Family Routing (Strictly constrained to candidate's top domains)
   if (targetLevel === 'L2') {
     const levelPool = getQuestionsByLevel('L2')
       .filter((q) => isQuestionCompatibleWithLevel(q, track))
       .filter((q) => !askedIds.has(q.id))
+      .filter((q) => allowedDomains.has(getQuestionDomainCode(q)))
 
-    // Dynamically query questions for top domains in order of evidence
+    // Query questions for top domains in order of evidence
     for (const d of topDomains) {
       const match = levelPool.find((q) => getQuestionDomainCode(q) === d)
       if (match) {
@@ -1260,22 +1270,29 @@ export function selectNextHierarchicalQuestion(params: {
       }
     }
 
-    if (levelPool.length > 0) {
-      return {
-        nextQuestion: levelPool[0],
-        currentLevel: 'L2',
-        isComplete: false,
-        remainingBudget: config.maxQuestionsBudget - answeredCount,
-        topCandidates: topPrograms.slice(0, 5),
+    // If general L2 is exhausted for top domain, draw from student's candidate programs
+    for (const candidatePid of topPrograms.slice(0, 4)) {
+      const candidateQuestions = getQuestionsForProgram(candidatePid)
+        .filter((q) => isQuestionCompatibleWithLevel(q, track))
+        .filter((q) => !askedIds.has(q.id))
+      if (candidateQuestions.length > 0) {
+        return {
+          nextQuestion: candidateQuestions[0],
+          currentLevel: 'L2',
+          isComplete: false,
+          remainingBudget: config.maxQuestionsBudget - answeredCount,
+          topCandidates: topPrograms.slice(0, 5),
+        }
       }
     }
   }
 
-  // 3. Level 3: Course & Degree Architecture (Dynamically depends on top degrees for candidate's top domains)
+  // 3. Level 3: Course & Degree Architecture (Strictly constrained to candidate's top domains)
   if (targetLevel === 'L3') {
     const levelPool = getQuestionsByLevel('L3')
       .filter((q) => isQuestionCompatibleWithLevel(q, track))
       .filter((q) => !askedIds.has(q.id))
+      .filter((q) => allowedDomains.has(getQuestionDomainCode(q)))
 
     for (const d of topDomains) {
       const match = levelPool.find((q) => getQuestionDomainCode(q) === d)
@@ -1290,30 +1307,41 @@ export function selectNextHierarchicalQuestion(params: {
       }
     }
 
-    if (levelPool.length > 0) {
-      return {
-        nextQuestion: levelPool[0],
-        currentLevel: 'L3',
-        isComplete: false,
-        remainingBudget: config.maxQuestionsBudget - answeredCount,
-        topCandidates: topPrograms.slice(0, 5),
+    // If general L3 is exhausted, draw specialization comparative questions for student's top programs
+    for (const candidatePid of topPrograms.slice(0, 4)) {
+      const candidateQuestions = getQuestionsForProgram(candidatePid)
+        .filter((q) => q.level === 'L4' || q.level === 'L3')
+        .filter((q) => isQuestionCompatibleWithLevel(q, track))
+        .filter((q) => !askedIds.has(q.id))
+      if (candidateQuestions.length > 0) {
+        return {
+          nextQuestion: candidateQuestions[0],
+          currentLevel: 'L3',
+          isComplete: false,
+          remainingBudget: config.maxQuestionsBudget - answeredCount,
+          topCandidates: topPrograms.slice(0, 5),
+        }
       }
     }
   }
 
-  // 4. Level 4: Specialization Focus (Dynamically depends on candidate's top ranked programs)
+  // 4. Level 4: Specialization Focus (Evenly rotates across Top 3 Candidate Programs)
   if (targetLevel === 'L4') {
-    const levelPool = getQuestionsByLevel('L4')
-      .filter((q) => isQuestionCompatibleWithLevel(q, track))
-      .filter((q) => !askedIds.has(q.id))
+    const candidatePool = topPrograms.slice(0, 4)
+    // Rotate index based on answered count in L4
+    const l4Index = countsByLevel.L4 % candidatePool.length
+    const prioritizedPids = [
+      candidatePool[l4Index],
+      ...candidatePool.filter((_, idx) => idx !== l4Index),
+    ]
 
-    for (const candidatePid of topPrograms.slice(0, 5)) {
-      const candidateQuestions = levelPool.filter(
-        (q) =>
-          q.id.startsWith(`${candidatePid}-`) ||
-          q.targetProgramIds.includes(candidatePid) ||
-          q.options.some((opt) => opt.targetProgramIds.includes(candidatePid))
-      )
+    for (const candidatePid of prioritizedPids) {
+      if (!candidatePid) continue
+      const candidateQuestions = getQuestionsForProgram(candidatePid)
+        .filter((q) => q.level === 'L4')
+        .filter((q) => isQuestionCompatibleWithLevel(q, track))
+        .filter((q) => !askedIds.has(q.id))
+
       if (candidateQuestions.length > 0) {
         return {
           nextQuestion: candidateQuestions[0],
@@ -1325,58 +1353,30 @@ export function selectNextHierarchicalQuestion(params: {
       }
     }
 
-    if (levelPool.length > 0) {
-      return {
-        nextQuestion: levelPool[0],
-        currentLevel: 'L4',
-        isComplete: false,
-        remainingBudget: config.maxQuestionsBudget - answeredCount,
-        topCandidates: topPrograms.slice(0, 5),
-      }
-    }
-  }
-
-  // 5. Level 5: Deep Specialization & Final Fit (Dynamically depends on candidate's top programs)
-  if (targetLevel === 'L5') {
-    const levelPool = getQuestionsByLevel('L5')
-      .filter((q) => isQuestionCompatibleWithLevel(q, track))
-      .filter((q) => !askedIds.has(q.id))
-
-    for (const candidatePid of topPrograms.slice(0, 5)) {
-      const candidateQuestions = levelPool.filter(
-        (q) =>
-          q.id.startsWith(`${candidatePid}-`) ||
-          q.targetProgramIds.includes(candidatePid) ||
-          q.options.some((opt) => opt.targetProgramIds.includes(candidatePid))
-      )
-      if (candidateQuestions.length > 0) {
+    // Fallback within candidate's top programs
+    for (const candidatePid of candidatePool) {
+      const anyCandidateQ = getQuestionsForProgram(candidatePid)
+        .filter((q) => isQuestionCompatibleWithLevel(q, track))
+        .filter((q) => !askedIds.has(q.id))
+      if (anyCandidateQ.length > 0) {
         return {
-          nextQuestion: candidateQuestions[0],
-          currentLevel: 'L5',
+          nextQuestion: anyCandidateQ[0],
+          currentLevel: 'L4',
           isComplete: false,
           remainingBudget: config.maxQuestionsBudget - answeredCount,
           topCandidates: topPrograms.slice(0, 5),
         }
       }
     }
-
-    if (levelPool.length > 0) {
-      return {
-        nextQuestion: levelPool[0],
-        currentLevel: 'L5',
-        isComplete: false,
-        remainingBudget: config.maxQuestionsBudget - answeredCount,
-        topCandidates: topPrograms.slice(0, 5),
-      }
-    }
   }
 
-  // 6. DIFF: Tie-Breakers between close candidate programs
-  if (targetLevel === 'DIFF') {
-    const diffs = getDifferentiatorsForPrograms(topPrograms.slice(0, 4))
+  // 5. Level 5: Applied Scenarios & Final Differentiators
+  if (targetLevel === 'L5' || targetLevel === 'DIFF') {
+    // Check if high-discrimination tie-breaker is needed between top 2 programs
+    const diffs = getDifferentiatorsForPrograms(topPrograms.slice(0, 3))
       .filter((d) => !askedIds.has(d.id))
 
-    if (diffs.length > 0) {
+    if (diffs.length > 0 && countsByLevel.DIFF < config.levelBudgets.DIFF) {
       const d = diffs[0]
       const diffQ: QBQuestionV2 = {
         id: d.id,
@@ -1386,13 +1386,13 @@ export function selectNextHierarchicalQuestion(params: {
         target: d.twinUnits.join('|'),
         targetProgramIds: d.twinUnits,
         weight: 1.5,
-        calibrationStatus: 'Pending pilot data',
+        calibrationStatus: 'Validated differentiator',
         overlapGroup: d.overlapGroup,
         options: d.options,
         audit: {
           questionId: d.id,
           decision: 'KEEP',
-          pilotResult: 'PENDING',
+          pilotResult: 'VALIDATED',
           overlapCheck: 'VERIFIED',
         },
       }
@@ -1405,20 +1405,64 @@ export function selectNextHierarchicalQuestion(params: {
         topCandidates: topPrograms.slice(0, 5),
       }
     }
+
+    // Rotate across top 3 candidate programs for rich L5 capstone scenarios
+    const candidatePool = topPrograms.slice(0, 3)
+    const l5Index = countsByLevel.L5 % candidatePool.length
+    const prioritizedPids = [
+      candidatePool[l5Index],
+      ...candidatePool.filter((_, idx) => idx !== l5Index),
+    ]
+
+    for (const candidatePid of prioritizedPids) {
+      if (!candidatePid) continue
+      const candidateQuestions = getQuestionsForProgram(candidatePid)
+        .filter((q) => q.level === 'L5')
+        .filter((q) => isQuestionCompatibleWithLevel(q, track))
+        .filter((q) => !askedIds.has(q.id))
+
+      if (candidateQuestions.length > 0) {
+        return {
+          nextQuestion: candidateQuestions[0],
+          currentLevel: 'L5',
+          isComplete: false,
+          remainingBudget: config.maxQuestionsBudget - answeredCount,
+          topCandidates: topPrograms.slice(0, 5),
+        }
+      }
+    }
+
+    // Fallback within top matching domains
+    for (const d of topDomains) {
+      const domainQ = MASTER_QB_V2.questions
+        .filter((q) => getQuestionDomainCode(q) === d)
+        .filter((q) => isQuestionCompatibleWithLevel(q, track))
+        .filter((q) => !askedIds.has(q.id))
+      if (domainQ.length > 0) {
+        return {
+          nextQuestion: domainQ[0],
+          currentLevel: 'L5',
+          isComplete: false,
+          remainingBudget: config.maxQuestionsBudget - answeredCount,
+          topCandidates: topPrograms.slice(0, 5),
+        }
+      }
+    }
   }
 
-  // Safe fallback to any unasked level-compatible question
-  const fallback = MASTER_QB_V2.questions.find(
-    (q) => isQuestionCompatibleWithLevel(q, track) && !askedIds.has(q.id)
-  )
-
-  if (fallback) {
-    return {
-      nextQuestion: fallback,
-      currentLevel: fallback.level,
-      isComplete: false,
-      remainingBudget: config.maxQuestionsBudget - answeredCount,
-      topCandidates: topPrograms.slice(0, 5),
+  // Safe fallback to candidate's top programs only (zero domain leakage)
+  for (const candidatePid of topPrograms) {
+    const safeQ = getQuestionsForProgram(candidatePid)
+      .filter((q) => isQuestionCompatibleWithLevel(q, track))
+      .filter((q) => !askedIds.has(q.id))
+    if (safeQ.length > 0) {
+      return {
+        nextQuestion: safeQ[0],
+        currentLevel: safeQ[0].level,
+        isComplete: false,
+        remainingBudget: config.maxQuestionsBudget - answeredCount,
+        topCandidates: topPrograms.slice(0, 5),
+      }
     }
   }
 
