@@ -16,6 +16,8 @@ import {
   type StudentAnswer,
   type StudentProfileContext,
   type AcademicDegreeLevel,
+  type CourseRecommendation,
+  type DimensionScore,
 } from '@/lib/engines'
 
 export const dynamic = 'force-dynamic'
@@ -224,7 +226,7 @@ export default async function StudentCareerProfilePage() {
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Key Evidence Rationale
                 </h4>
                 <div className="space-y-1.5 text-xs text-[#2C2621]">
-                  {primaryCourse.reasons_for_match.map((r, i) => (
+                  {primaryCourse.reasons_for_match.map((r: string, i: number) => (
                     <div key={i} className="flex items-start gap-2 bg-[#FAF6F0] p-2.5 rounded-xl border border-[#DFD7CB]">
                       <span className="text-[#A36B40] font-bold">•</span>
                       <span>{r}</span>
@@ -248,7 +250,7 @@ export default async function StudentCareerProfilePage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 pt-0">
-            {result.alternative_courses.slice(0, 3).map((alt, idx) => (
+            {result.alternative_courses.slice(0, 3).map((alt: CourseRecommendation, idx: number) => (
               <div key={idx} className="p-3.5 rounded-2xl border border-[#DFD7CB] bg-[#FAF6F0]/50 space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-bold text-[#2C2621]">{alt.course} in {alt.specialization}</span>
@@ -285,7 +287,7 @@ export default async function StudentCareerProfilePage() {
           </div>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {result.dimension_scores.map((dim) => (
+          {result.dimension_scores.map((dim: DimensionScore) => (
             <div key={dim.dimension_id} className="p-3.5 rounded-2xl border border-[#DFD7CB] bg-[#FAF6F0]/30 space-y-2">
               <div className="flex items-center justify-between text-xs sm:text-sm">
                 <span className="font-bold text-[#2C2621]">{dim.name}</span>

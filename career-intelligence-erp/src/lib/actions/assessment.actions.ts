@@ -11,6 +11,7 @@ import {
   CAREER_DIMENSIONS,
   type StudentAnswer,
   type StudentProfileContext,
+  type DimensionScore,
 } from '@/lib/engines'
 
 export type ActionResult<T = unknown> = {
@@ -290,7 +291,7 @@ export async function submitAndScoreAssessment(
     dbTraits.forEach((trait) => {
       // Find matching score from processed assessment
       const matched = processedAssessment.dimension_scores.find(
-        (s) => s.name.toLowerCase().includes(trait.name.toLowerCase()) || trait.name.toLowerCase().includes(s.name.toLowerCase())
+        (s: DimensionScore) => s.name.toLowerCase().includes(trait.name.toLowerCase()) || trait.name.toLowerCase().includes(s.name.toLowerCase())
       ) || processedAssessment.dimension_scores[0]
 
       const scoreVal = matched ? matched.normalized_score : 65
@@ -317,7 +318,7 @@ export async function submitAndScoreAssessment(
   if (dbDomains && dbDomains.length > 0) {
     const domainScoresToInsert: DomainScore[] = dbDomains.map((dbD, idx) => {
       const matchedDomain = processedAssessment.dimension_scores.find(
-        (d) => d.name.toLowerCase().includes(dbD.name.toLowerCase()) || dbD.name.toLowerCase().includes(d.name.toLowerCase())
+        (d: DimensionScore) => d.name.toLowerCase().includes(dbD.name.toLowerCase()) || dbD.name.toLowerCase().includes(d.name.toLowerCase())
       )
       const score = matchedDomain ? matchedDomain.normalized_score : (75 - idx * 5)
       const label =
@@ -362,7 +363,7 @@ export async function submitAndScoreAssessment(
     profile_description: primaryCourse?.reasons_for_match?.[0] || 'Career match evaluated across 12 university dimensions.',
     primary_domain_id: primaryDbDomain,
     secondary_domain_id: secondaryDbDomain,
-    top_traits: processedAssessment.top_dimensions.map(t => t.name),
+    top_traits: processedAssessment.top_dimensions.map((t: DimensionScore) => t.name),
     generated_at: new Date().toISOString(),
   }, { onConflict: 'student_id' })
 
