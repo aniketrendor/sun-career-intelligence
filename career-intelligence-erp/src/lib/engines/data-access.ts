@@ -198,6 +198,169 @@ const parsedQuestions: AssessmentQuestion[] = dataset.questions.map((q) => {
     ]
   }
 
+const QUESTION_ENHANCEMENTS: Record<string, { text?: string; note?: string }> = {
+  'L1-001': {
+    text: 'I enjoy finding patterns in data, analyzing statistics, and solving quantitative problems.',
+    note: 'Rate how naturally this aligns with your intellectual curiosity.'
+  },
+  'L1-002': {
+    text: 'I am interested in how companies operate, market trends, entrepreneurship, and financial growth.',
+    note: 'Consider your interest in business leadership and commercial ventures.'
+  },
+  'L1-003': {
+    text: 'I enjoy programming, developing digital apps, and exploring cutting-edge computing systems.',
+    note: 'Reflect on your enthusiasm for coding, digital tools, and tech solutions.'
+  },
+  'L1-004': {
+    text: 'I enjoy discovering how natural sciences work through experiments, biology, chemistry, and research.',
+    note: 'Consider your curiosity for laboratory research and scientific inquiry.'
+  },
+  'L1-005': {
+    text: 'I am drawn to healthcare, pharmaceutical sciences, drug research, and clinical advancements.',
+    note: 'Reflect on your interest in improving human health and therapeutic sciences.'
+  },
+  'L1-006': {
+    text: 'I am passionate about visual arts, user interface design, media creation, and aesthetic innovation.',
+    note: 'Consider your drive to create engaging visual and physical designs.'
+  },
+  'L1-007': {
+    text: 'I enjoy interpreting rules, constitutional rights, legal reasoning, and public policy debates.',
+    note: 'Reflect on your interest in legal systems, advocacy, and justice.'
+  },
+  'L1-008': {
+    text: 'I enjoy building, testing, and optimizing mechanical, electrical, or structural engineering systems.',
+    note: 'Consider your passion for hands-on engineering and physical innovation.'
+  },
+  'L1-009': {
+    text: 'I enjoy expressing ideas, journalism, digital storytelling, and media communication.',
+    note: 'Reflect on your interest in content creation, media, and public influence.'
+  },
+  'L1-010': {
+    text: 'I am interested in modern architecture, city planning, sustainable buildings, and physical infrastructure.',
+    note: 'Consider your interest in spatial design and urban development.'
+  },
+  'L2-001': {
+    text: 'Which hands-on project format would you most enthusiastically lead?',
+    note: 'Choose the project domains that best match your preferred problem-solving style.'
+  },
+  'L2-002': {
+    text: 'I learn best through practical industry projects, real-world case studies, and live experiments.',
+    note: 'Reflect on your preferred hands-on learning methodology.'
+  },
+  'L2-003': {
+    text: 'I enjoy utilizing evidence, statistical metrics, and analytics to solve complex, ambiguous challenges.',
+    note: 'Consider your comfort with analytical and empirical problem solving.'
+  },
+  'L2-004': {
+    text: 'I enjoy designing, prototyping, and iterating on functional products, hardware, or technical architectures.',
+    note: 'Reflect on your drive to build tangible, functional solutions.'
+  },
+  'L2-005': {
+    text: 'I am energized by understanding human psychology, team dynamics, communication, and organizational culture.',
+    note: 'Consider your focus on interpersonal dynamics and social impact.'
+  },
+  'L2-006': {
+    text: 'I enjoy studying market strategies, organizational finance, management consulting, and business scaling.',
+    note: 'Reflect on your ambition for business management and market strategy.'
+  },
+  'L2-007': {
+    text: 'I enjoy dissecting legal statutes, regulatory compliance, corporate governance, and formal argumentation.',
+    note: 'Consider your analytical interest in legal and regulatory frameworks.'
+  },
+  'L2-008': {
+    text: 'I want to explore interdisciplinary degrees that integrate technology, business, and creative design.',
+    note: 'Reflect on your interest in cross-disciplinary and hybrid career paths.'
+  },
+  'L3-001': {
+    text: 'Which academic discipline would you most like to study deeply throughout your degree?',
+    note: 'Select the core subject areas you are most passionate about exploring.'
+  },
+  'L3-002': {
+    text: 'I find the core academic curriculum and syllabus subjects in my leading study track exciting and intellectually stimulating.',
+    note: 'Consider the theoretical and applied topics you will be studying daily.'
+  },
+  'L3-003': {
+    text: 'I look forward to completing capstone projects, lab practicals, and industry-aligned assignments in this program.',
+    note: 'Reflect on your excitement for practical course assignments.'
+  },
+  'L3-004': {
+    text: 'I am fully committed to consistent daily practice, coursework, and skill-building in this academic track.',
+    note: 'Consider your dedication to mastering demanding professional competencies.'
+  },
+  'L3-005': {
+    text: 'What information is most important to you when deciding between two degree programs?',
+    note: 'Select the factors that matter most for your university selection.'
+  },
+  'L3-006': {
+    text: 'Which Sandip University course pathway are you most interested in exploring in depth?',
+    note: 'Select the accredited degree pathways that best fit your career vision.'
+  },
+  'L3-007': {
+    text: 'I have a clear and confident understanding of the academic coursework, subjects, and study demands of this program.',
+    note: 'Rate your clarity regarding the curriculum and academic workload.'
+  },
+  'L3-008': {
+    text: 'Which statement best captures where you currently stand in choosing your degree course?',
+    note: 'Indicate your current decision-making stage.'
+  },
+  'L4-001': {
+    text: 'Which specialized professional responsibilities would you most look forward to performing?',
+    note: 'Choose the specific industry tasks that match your career goals.'
+  },
+  'L4-002': {
+    text: 'I would enjoy studying the advanced specialist electives and cutting-edge curriculum in this domain.',
+    note: 'Reflect on your appetite for specialized, advanced coursework.'
+  },
+  'L4-003': {
+    text: 'I would enjoy executing hands-on industry projects, specialized simulations, and portfolio building in this specialization.',
+    note: 'Consider your interest in building specialized portfolio artifacts.'
+  },
+  'L4-004': {
+    text: 'Which advanced technological or computational focus area would you like to master?',
+    note: 'Select the high-growth technical domains that interest you.'
+  },
+  'L4-005': {
+    text: 'Which creative or structural design outcome would you be most proud to bring to life?',
+    note: 'Select the tangible creative outputs that inspire you.'
+  },
+  'L4-006': {
+    text: 'I understand how specialized concentrations (e.g. core technical vs. applied management tracks) shape distinct career pathways.',
+    note: 'Rate your understanding of specialization differentiation.'
+  },
+  'L4-007': {
+    text: 'What factor carries the highest weight when choosing your university specialization?',
+    note: 'Select the key priorities guiding your specialization choice.'
+  },
+  'L4-008': {
+    text: 'Which specialization tracks would you like to evaluate and compare during your mentor counseling session?',
+    note: 'Select the specialization pairs you want to explore with academic advisors.'
+  },
+  'L5-001': {
+    text: 'What is your current decision readiness regarding your top-recommended university course?',
+    note: 'Select your readiness level for enrollment and counseling.'
+  },
+  'L5-002': {
+    text: 'Have you reviewed the standard eligibility prerequisites and stream requirements for your leading course?',
+    note: 'Verify your academic prerequisites (e.g. 12th stream / graduation requirements).'
+  },
+  'L5-003': {
+    text: 'The industry career pathways, corporate job profiles, and long-term opportunities in this program strongly align with my goals.',
+    note: 'Rate your alignment with the program\'s post-graduation career trajectories.'
+  },
+  'L5-004': {
+    text: 'I feel well-informed regarding the degree timeline, curriculum rigour, and professional outcomes of this program.',
+    note: 'Rate your overall confidence in this academic choice.'
+  },
+  'L5-005': {
+    text: 'The diagnostic recommendations and dimension scores accurately reflect my genuine interests and strengths.',
+    note: 'Provide your feedback on the diagnostic accuracy of this assessment.'
+  },
+  'L5-006': {
+    text: 'What would you like your immediate next step to be with Sandip University Career Intelligence?',
+    note: 'Select the follow-up action that best supports your admission journey.'
+  }
+}
+
   // Map raw type to standard 3 question types
   let resolvedType: QuestionType = 'single_select'
   if (q.question_type === 'LIKERT') {
@@ -211,12 +374,9 @@ const parsedQuestions: AssessmentQuestion[] = dataset.questions.map((q) => {
     }
   }
 
-  let displayNote = q.note
-  if (q.question_id === 'L3-006') {
-    displayNote = 'Select the academic pathways and course streams that interest you most.'
-  } else if (q.question_id === 'L4-008') {
-    displayNote = 'Select the specialization comparison you would like to discuss with an academic advisor.'
-  }
+  const enhancement = QUESTION_ENHANCEMENTS[q.question_id]
+  const resolvedText = enhancement?.text || q.question_text
+  const resolvedNote = enhancement?.note || q.note
 
   return {
     question_id: q.question_id,
@@ -224,12 +384,12 @@ const parsedQuestions: AssessmentQuestion[] = dataset.questions.map((q) => {
     question_type: resolvedType,
     raw_type: q.question_type,
     construct: q.construct,
-    question_text: q.question_text,
+    question_text: resolvedText,
     dimension_id: q.dimension_id || undefined,
     routing_rule: q.routing_rule,
     required: q.required ?? true,
     status: q.status,
-    note: displayNote,
+    note: resolvedNote,
     min_selections: q.min_selections ?? (resolvedType === 'multi_select' ? 1 : undefined),
     max_selections: q.max_selections ?? (resolvedType === 'multi_select' ? 4 : undefined),
     options,

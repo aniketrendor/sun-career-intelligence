@@ -447,7 +447,7 @@ export function AdaptiveAssessmentCockpit({
 
             <div className="p-4 sm:p-5 pb-3 border-b border-[#DFD7CB] space-y-2">
               <div className="flex items-center justify-between flex-wrap gap-2">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <Badge variant="outline" className="bg-[#FAF6F0] border-[#DFD7CB] text-[#2C2621] text-[10px] px-2 py-0.5 h-5 font-semibold">
                     Question {currentIndex + 1} of {totalQuestions}
                   </Badge>
@@ -457,6 +457,12 @@ export function AdaptiveAssessmentCockpit({
                   <Badge variant="outline" className="bg-[#FAF6F0] border-[#DFD7CB] text-[#77734B] text-[10px] px-2 py-0.5 h-5 font-semibold">
                     {currentQuestion.question_type === 'rating_scale' ? 'Rating Scale (1–5)' : currentQuestion.question_type === 'multi_select' ? 'Multi-Select (Choose 1 or more)' : 'Single-Select'}
                   </Badge>
+                  {['L3', 'L4', 'L5'].includes(currentQuestion.level) && (liveResult.primary_course || liveResult.top_dimensions[0]) && (
+                    <Badge variant="outline" className="bg-[#FAF6F0] border-[#A36B40]/30 text-[#A36B40] text-[10px] px-2 py-0.5 h-5 font-semibold flex items-center gap-1">
+                      <Sparkles className="w-3 h-3 text-[#A36B40]" />
+                      <span>Focus: {liveResult.primary_course ? `${liveResult.primary_course.course} in ${liveResult.primary_course.specialization}` : liveResult.top_dimensions[0]?.name}</span>
+                    </Badge>
+                  )}
                 </div>
                 <span className="text-[10px] text-[#8C7E72] flex items-center gap-1">
                   <Keyboard className="w-3 h-3" /> Keys {currentQuestion.question_type === 'rating_scale' ? '1–5' : 'A–D'} or Enter
