@@ -29,6 +29,8 @@ import {
   computeDimensionProfile,
   scoreAllDomains,
   chooseCandidates,
+  isDomainEligible,
+  getProgramEligibility,
   buildStage2Items,
   computeFinalDomainScores,
   getProgramMatches,
@@ -272,7 +274,7 @@ export function TwoStageAssessmentView({
 
     const dims = computeDimensionProfile(s1Answers)
     const scoredDoms = scoreAllDomains(dims.scores)
-    const initialCandidates = chooseCandidates(scoredDoms)
+    const initialCandidates = chooseCandidates(scoredDoms, studentProfile)
 
     setS1Dimensions(dims)
     setS1Domains(scoredDoms)
@@ -1236,25 +1238,39 @@ export function TwoStageAssessmentView({
                 </div>
 
                 <div className="space-y-2.5">
-                  {(s1Domains || []).slice(0, 8).map((dom, didx) => (
-                    <div
-                      key={dom.id}
-                      className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FAF6F0]/70 border border-[#DFD7CB]/80"
-                    >
-                      <div className="flex items-center gap-3 min-w-0">
-                        <span className="w-7 h-7 rounded-xl bg-[#F1F1EB] text-[#77734B] text-xs font-black flex items-center justify-center shrink-0">
-                          {didx + 1}
-                        </span>
-                        <div className="min-w-0">
-                          <p className="text-xs font-bold text-[#2C2621] truncate">{dom.name}</p>
-                          <p className="text-[10px] text-[#7A7067] truncate">{dom.sector}</p>
+                  {(s1Domains || []).slice(0, 8).map((dom, didx) => {
+                    const eligible = isDomainEligible(dom, studentProfile)
+                    return (
+                      <div
+                        key={dom.id}
+                        className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FAF6F0]/70 border border-[#DFD7CB]/80"
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <span className="w-7 h-7 rounded-xl bg-[#F1F1EB] text-[#77734B] text-xs font-black flex items-center justify-center shrink-0">
+                            {didx + 1}
+                          </span>
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-[#2C2621] truncate">{dom.name}</p>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <p className="text-[10px] text-[#7A7067] truncate">{dom.sector}</p>
+                              {eligible ? (
+                                <span className="text-[9px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                                  Stream Eligible
+                                </span>
+                              ) : (
+                                <span className="text-[9px] font-bold text-amber-800 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">
+                                  Specific Prerequisite
+                                </span>
+                              )}
+                            </div>
+                          </div>
                         </div>
+                        <span className="text-xs font-extrabold text-[#77734B] bg-[#F1F1EB] px-3 py-1 rounded-full shrink-0 border border-[#77734B]/30">
+                          {dom.stage1Fit}% match
+                        </span>
                       </div>
-                      <span className="text-xs font-extrabold text-[#77734B] bg-[#F1F1EB] px-3 py-1 rounded-full shrink-0 border border-[#77734B]/30">
-                        {dom.stage1Fit}% match
-                      </span>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               </div>
 
@@ -1282,6 +1298,7 @@ export function TwoStageAssessmentView({
               {candidateIds.map((cid, cidx) => {
                 const dom = (s1Domains || []).find((d) => d.id === cid) || DOMAINS.find((d) => d.id === cid)
                 if (!dom) return null
+                const eligible = isDomainEligible(dom, studentProfile)
 
                 return (
                   <div
@@ -1289,7 +1306,18 @@ export function TwoStageAssessmentView({
                     className="p-4 rounded-2xl bg-[#FAF6F0]/60 border border-[#DFD7CB] flex items-center justify-between gap-3"
                   >
                     <div className="min-w-0">
-                      <span className="text-[10px] font-black text-[#A36B40] uppercase">{dom.id}</span>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] font-black text-[#A36B40] uppercase">{dom.id}</span>
+                        {eligible ? (
+                          <span className="text-[9px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                            Eligible
+                          </span>
+                        ) : (
+                          <span className="text-[9px] font-bold text-amber-800 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">
+                            Prerequisite Needed
+                          </span>
+                        )}
+                      </div>
                       <p className="text-xs font-bold text-[#2C2621] truncate">{dom.name}</p>
                       <p className="text-[10px] text-[#7A7067] truncate">{dom.sector}</p>
                     </div>
@@ -1902,6 +1930,7 @@ export function TwoStageAssessmentView({
             {filteredDomains.map((dom) => {
               const inCandidate = candidateIds.includes(dom.id)
               const score = dom.scored?.finalScore ?? dom.scored?.stage1Fit
+              const eligible = isDomainEligible(dom, studentProfile)
 
               return (
                 <Card key={dom.id} className="p-5 border-[#DFD7CB] bg-white rounded-3xl shadow-sm space-y-3 flex flex-col justify-between">
@@ -1923,6 +1952,15 @@ export function TwoStageAssessmentView({
                       {score !== undefined && (
                         <span className="text-[10px] font-extrabold bg-[#F7EFEA] text-[#A36B40] px-2.5 py-0.5 rounded-full border border-[#A36B40]/20">
                           Index: {score}%
+                        </span>
+                      )}
+                      {eligible ? (
+                        <span className="text-[10px] font-bold bg-emerald-50 text-emerald-800 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                          Stream Eligible
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-200">
+                          Prerequisites Apply
                         </span>
                       )}
                       {inCandidate && (
@@ -2047,15 +2085,31 @@ export function TwoStageAssessmentView({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredPrograms.map((p) => {
               const domains = (p.domainIds || []).map((id) => DOMAINS.find((d) => d.id === id)).filter(Boolean) as CareerDomain[]
+              const elig = getProgramEligibility(p.id, studentProfile)
 
               return (
                 <Card key={p.id} className="p-5 border-[#DFD7CB] bg-white rounded-3xl shadow-sm space-y-3 flex flex-col justify-between">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] font-black text-[#A36B40]">{p.id}</span>
-                      <Badge variant="outline" className="text-[10px] font-bold text-[#77734B] bg-[#F1F1EB] border-[#77734B]/30">
-                        {p.level}
-                      </Badge>
+                      <div className="flex items-center gap-1.5">
+                        <Badge variant="outline" className="text-[10px] font-bold text-[#77734B] bg-[#F1F1EB] border-[#77734B]/30">
+                          {p.level}
+                        </Badge>
+                        <span
+                          className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${
+                            elig.code === 'match'
+                              ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                              : elig.code === 'review'
+                              ? 'bg-amber-50 text-amber-800 border-amber-200'
+                              : elig.code === 'future'
+                              ? 'bg-blue-50 text-blue-800 border-blue-200'
+                              : 'bg-rose-50 text-rose-800 border-rose-200'
+                          }`}
+                        >
+                          {elig.label}
+                        </span>
+                      </div>
                     </div>
 
                     <h4 className="text-xs font-bold text-[#2C2621] leading-snug">{p.name}</h4>
@@ -2065,8 +2119,8 @@ export function TwoStageAssessmentView({
                       <p className="text-[11px] text-[#2C2621]">
                         <strong>Prerequisite:</strong> {p.streamSource}
                       </p>
-                      <p className="text-[11px] text-[#7A7067]">
-                        <strong>Careers:</strong> {p.careerSource}
+                      <p className="text-[10px] text-[#7A7067] leading-relaxed">
+                        {elig.reason}
                       </p>
                     </div>
 

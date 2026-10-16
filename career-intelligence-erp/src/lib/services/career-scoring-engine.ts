@@ -169,9 +169,38 @@ export function scoreAllDomains(dimScores: Record<string, number>): ScoredDomain
 }
 
 /**
- * Selects initial balanced 12 candidates for Stage 2 (max 3 per sector, min 1 per sector)
+ * Evaluates whether a domain contains at least one program that is eligible or under review
+ * for the given student profile according to the Mermaid eligibility matrix.
  */
-export function chooseCandidates(ranked: ScoredDomain[]): string[] {
+export function isDomainEligible(
+  d: CareerDomain,
+  profile: StudentContextProfile
+): boolean {
+  if (!d.programIds || d.programIds.length === 0) return true
+  const programs = d.programIds
+    .map((pid) => PROGRAMS.find((p) => p.id === pid))
+    .filter(Boolean) as SandipMasterProgram[]
+
+  const allowedLevelPrograms = programs.filter((p) =>
+    programmeLevelAllowed(p, profile.pathway, profile.highestQualification)
+  )
+
+  if (allowedLevelPrograms.length === 0) return false
+
+  return allowedLevelPrograms.some((p) => {
+    const res = getProgramEligibility(p, profile)
+    return res.code === 'match' || res.code === 'review'
+  })
+}
+
+/**
+ * Selects initial balanced 12 candidates for Stage 2 (max 3 per sector, min 1 per sector).
+ * When student profile is provided, prioritizes domains whose attached programs match the student's eligibility.
+ */
+export function chooseCandidates(
+  ranked: ScoredDomain[],
+  profile?: StudentContextProfile
+): string[] {
   const out: string[] = []
   const counts: Record<string, number> = {}
 
@@ -183,26 +212,43 @@ export function chooseCandidates(ranked: ScoredDomain[]): string[] {
     counts[d.sector] = c + 1
   }
 
-  // 1. Pick top overall up to 8
-  for (const d of ranked) {
+  // Filter into eligible vs non-eligible domains based on the master Mermaid eligibility rules
+  const eligible = profile ? ranked.filter((d) => isDomainEligible(d, profile)) : ranked
+  const restricted = profile ? ranked.filter((d) => !isDomainEligible(d, profile)) : []
+
+  // 1. Pick top overall eligible domains up to 8
+  for (const d of eligible) {
     if (out.length >= 8) break
     add(d)
   }
 
-  // 2. Guarantee representation across all 6 sectors
+  // 2. Guarantee representation across all 6 sectors (preferring eligible within that sector)
   for (const sector of SECTORS) {
     if (!out.some((id) => DOMAINS.find((d) => d.id === id)?.sector === sector)) {
-      add(ranked.find((d) => d.sector === sector))
+      const bestEligible = eligible.find((d) => d.sector === sector)
+      if (bestEligible) {
+        add(bestEligible)
+      } else {
+        add(ranked.find((d) => d.sector === sector))
+      }
     }
   }
 
-  // 3. Fill up to 12
-  for (const d of ranked) {
+  // 3. Fill up to 12 from eligible domains
+  for (const d of eligible) {
     if (out.length >= 12) break
     add(d)
   }
 
-  // Fallback if needed
+  // 4. If fewer than 12 eligible domains exist, fill remaining with top restricted domains
+  if (out.length < 12) {
+    for (const d of restricted) {
+      if (out.length >= 12) break
+      add(d)
+    }
+  }
+
+  // 5. Fallback safety
   if (out.length < 12) {
     for (const d of ranked) {
       if (out.length >= 12) break
@@ -429,276 +475,544 @@ export function computeFinalDomainScores(
     )
 }
 
+// =========================================================================
+// SANDIP UNIVERSITY 114 PROGRAMS ELIGIBILITY MATRIX (Source: Master Mermaid)
+// =========================================================================
+
+export type UGEligibilityCategory = 
+  | 'PCM'
+  | 'PCB_PCM'
+  | 'SCIENCE'
+  | 'SCIENCE_MATH'
+  | 'SCIENCE_CHEM'
+  | 'SCIENCE_PHY'
+  | 'ANY'
+
+export type PGEligibilityCategory =
+  | 'RELEVANT_ENG'
+  | 'RELEVANT_ENG_SCI'
+  | 'CIVIL_ARCH'
+  | 'RELEVANT_DEGREE'
+  | 'ANY_GRAD_MATH'
+  | 'ANY_GRAD'
+  | 'B_PHARM'
+  | 'LAW_DEGREE'
+  | 'RELEVANT_SCI'
+  | 'GRADUATION'
+
+export type PhDEligibilityCategory =
+  | 'RELEVANT_MASTER'
+
+export interface ProgramEligibilityRule {
+  programId: string
+  level: 'UG' | 'PG' | 'PhD' | 'Diploma'
+  category: UGEligibilityCategory | PGEligibilityCategory | PhDEligibilityCategory
+  ruleLabel: string
+  ruleDesc: string
+}
+
+export const PROGRAM_ELIGIBILITY_RULES: Record<string, ProgramEligibilityRule> = {
+  // --- UG: PCM ---
+  'SUN-001': { programId: 'SUN-001', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-002': { programId: 'SUN-002', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-003': { programId: 'SUN-003', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-004': { programId: 'SUN-004', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-005': { programId: 'SUN-005', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-006': { programId: 'SUN-006', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-009': { programId: 'SUN-009', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-020': { programId: 'SUN-020', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-021': { programId: 'SUN-021', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-022': { programId: 'SUN-022', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-023': { programId: 'SUN-023', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-024': { programId: 'SUN-024', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-025': { programId: 'SUN-025', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-026': { programId: 'SUN-026', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-027': { programId: 'SUN-027', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-028': { programId: 'SUN-028', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+  'SUN-029': { programId: 'SUN-029', level: 'UG', category: 'PCM', ruleLabel: 'PCM', ruleDesc: '12th Science with Physics, Chemistry & Mathematics' },
+
+  // --- UG: PCB / PCM ---
+  'SUN-007': { programId: 'SUN-007', level: 'UG', category: 'PCB_PCM', ruleLabel: 'PCB / PCM', ruleDesc: '12th Science with PCB or PCM' },
+  'SUN-008': { programId: 'SUN-008', level: 'UG', category: 'PCB_PCM', ruleLabel: 'PCB / PCM', ruleDesc: '12th Science with PCB or PCM' },
+  'SUN-065': { programId: 'SUN-065', level: 'Diploma', category: 'PCB_PCM', ruleLabel: 'PCB / PCM', ruleDesc: '12th Science with PCB or PCM' },
+  'SUN-066': { programId: 'SUN-066', level: 'UG', category: 'PCB_PCM', ruleLabel: 'PCB / PCM', ruleDesc: '12th Science with PCB or PCM' },
+
+  // --- UG: Science ---
+  'SUN-078': { programId: 'SUN-078', level: 'UG', category: 'SCIENCE', ruleLabel: 'Science', ruleDesc: '12th Science (any Science stream)' },
+  'SUN-079': { programId: 'SUN-079', level: 'UG', category: 'SCIENCE', ruleLabel: 'Science', ruleDesc: '12th Science (any Science stream)' },
+  'SUN-080': { programId: 'SUN-080', level: 'UG', category: 'SCIENCE', ruleLabel: 'Science', ruleDesc: '12th Science (any Science stream)' },
+  'SUN-081': { programId: 'SUN-081', level: 'UG', category: 'SCIENCE', ruleLabel: 'Science', ruleDesc: '12th Science (any Science stream)' },
+  'SUN-085': { programId: 'SUN-085', level: 'UG', category: 'SCIENCE', ruleLabel: 'Science', ruleDesc: '12th Science (any Science stream)' },
+
+  // --- UG: Science + Mathematics ---
+  'SUN-030': { programId: 'SUN-030', level: 'UG', category: 'SCIENCE_MATH', ruleLabel: 'Science + Mathematics', ruleDesc: '12th Science with Mathematics' },
+  'SUN-082': { programId: 'SUN-082', level: 'UG', category: 'SCIENCE_MATH', ruleLabel: 'Science + Mathematics', ruleDesc: '12th Science with Mathematics' },
+
+  // --- UG: Science + Chemistry ---
+  'SUN-083': { programId: 'SUN-083', level: 'UG', category: 'SCIENCE_CHEM', ruleLabel: 'Science + Chemistry', ruleDesc: '12th Science with Chemistry' },
+
+  // --- UG: Science + Physics & Mathematics ---
+  'SUN-084': { programId: 'SUN-084', level: 'UG', category: 'SCIENCE_PHY', ruleLabel: 'Science + Physics & Mathematics', ruleDesc: '12th Science with Physics & Mathematics' },
+
+  // --- UG: Any 12th Stream ---
+  'SUN-031': { programId: 'SUN-031', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-036': { programId: 'SUN-036', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-037': { programId: 'SUN-037', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-038': { programId: 'SUN-038', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-039': { programId: 'SUN-039', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-040': { programId: 'SUN-040', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-041': { programId: 'SUN-041', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-042': { programId: 'SUN-042', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-043': { programId: 'SUN-043', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-044': { programId: 'SUN-044', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-045': { programId: 'SUN-045', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-046': { programId: 'SUN-046', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-047': { programId: 'SUN-047', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-048': { programId: 'SUN-048', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-049': { programId: 'SUN-049', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-050': { programId: 'SUN-050', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-051': { programId: 'SUN-051', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-071': { programId: 'SUN-071', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-072': { programId: 'SUN-072', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-073': { programId: 'SUN-073', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-092': { programId: 'SUN-092', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-093': { programId: 'SUN-093', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-094': { programId: 'SUN-094', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-095': { programId: 'SUN-095', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-096': { programId: 'SUN-096', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-097': { programId: 'SUN-097', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-098': { programId: 'SUN-098', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-099': { programId: 'SUN-099', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+  'SUN-100': { programId: 'SUN-100', level: 'UG', category: 'ANY', ruleLabel: 'Any 12th Stream', ruleDesc: 'Any recognized 12th / HSC stream' },
+
+  // --- PG: Relevant Engineering ---
+  'SUN-010': { programId: 'SUN-010', level: 'PG', category: 'RELEVANT_ENG', ruleLabel: 'Relevant Engineering', ruleDesc: 'B.E. / B.Tech in relevant Engineering branch' },
+  'SUN-011': { programId: 'SUN-011', level: 'PG', category: 'RELEVANT_ENG', ruleLabel: 'Relevant Engineering', ruleDesc: 'B.E. / B.Tech in relevant Engineering branch' },
+  'SUN-012': { programId: 'SUN-012', level: 'PG', category: 'RELEVANT_ENG', ruleLabel: 'Relevant Engineering', ruleDesc: 'B.E. / B.Tech in relevant Engineering branch' },
+  'SUN-013': { programId: 'SUN-013', level: 'PG', category: 'RELEVANT_ENG', ruleLabel: 'Relevant Engineering', ruleDesc: 'B.E. / B.Tech in relevant Engineering branch' },
+  'SUN-014': { programId: 'SUN-014', level: 'PG', category: 'RELEVANT_ENG', ruleLabel: 'Relevant Engineering', ruleDesc: 'B.E. / B.Tech in relevant Engineering branch' },
+  'SUN-015': { programId: 'SUN-015', level: 'PG', category: 'RELEVANT_ENG', ruleLabel: 'Relevant Engineering', ruleDesc: 'B.E. / B.Tech in relevant Engineering branch' },
+  'SUN-018': { programId: 'SUN-018', level: 'PG', category: 'RELEVANT_ENG', ruleLabel: 'Relevant Engineering', ruleDesc: 'B.E. / B.Tech in relevant Engineering branch' },
+
+  // --- PG: Relevant Engineering / Science ---
+  'SUN-016': { programId: 'SUN-016', level: 'PG', category: 'RELEVANT_ENG_SCI', ruleLabel: 'Relevant Engineering / Science', ruleDesc: 'B.Tech or B.Sc in Environmental / Allied Science' },
+
+  // --- PG: Civil / Architecture ---
+  'SUN-017': { programId: 'SUN-017', level: 'PG', category: 'CIVIL_ARCH', ruleLabel: 'Civil / Architecture', ruleDesc: 'B.E. / B.Tech in Civil Engineering or B.Arch' },
+
+  // --- PG: Relevant Degree ---
+  'SUN-019': { programId: 'SUN-019', level: 'PG', category: 'RELEVANT_DEGREE', ruleLabel: 'Relevant Degree', ruleDesc: 'Bachelor degree in Planning, Architecture, or Civil' },
+  'SUN-032': { programId: 'SUN-032', level: 'PG', category: 'RELEVANT_DEGREE', ruleLabel: 'Relevant Degree', ruleDesc: 'B.E. / B.Tech in CSE / IT / MCA / M.Sc CS' },
+  'SUN-033': { programId: 'SUN-033', level: 'PG', category: 'RELEVANT_DEGREE', ruleLabel: 'Relevant Degree', ruleDesc: 'B.E. / B.Tech in CSE / IT / MCA / M.Sc CS' },
+  'SUN-034': { programId: 'SUN-034', level: 'PG', category: 'RELEVANT_DEGREE', ruleLabel: 'Relevant Degree', ruleDesc: 'B.E. / B.Tech in CSE / IT / MCA / M.Sc CS' },
+
+  // --- PG: Any Graduation, preferably Mathematics ---
+  'SUN-035': { programId: 'SUN-035', level: 'PG', category: 'ANY_GRAD_MATH', ruleLabel: 'Any Graduation, preferably Mathematics', ruleDesc: 'Any graduation with Mathematics / Statistics / CS' },
+
+  // --- PG: Any Graduation ---
+  'SUN-052': { programId: 'SUN-052', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-053': { programId: 'SUN-053', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-054': { programId: 'SUN-054', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-055': { programId: 'SUN-055', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-056': { programId: 'SUN-056', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-057': { programId: 'SUN-057', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-058': { programId: 'SUN-058', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-059': { programId: 'SUN-059', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-060': { programId: 'SUN-060', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-061': { programId: 'SUN-061', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-062': { programId: 'SUN-062', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-063': { programId: 'SUN-063', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-064': { programId: 'SUN-064', level: 'PG', category: 'ANY_GRAD', ruleLabel: 'Any Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+
+  // --- PG: B.Pharm ---
+  'SUN-067': { programId: 'SUN-067', level: 'PG', category: 'B_PHARM', ruleLabel: 'B.Pharm', ruleDesc: 'Bachelor of Pharmacy (B.Pharm) from PCI recognized institute' },
+  'SUN-068': { programId: 'SUN-068', level: 'PG', category: 'B_PHARM', ruleLabel: 'B.Pharm', ruleDesc: 'Bachelor of Pharmacy (B.Pharm) from PCI recognized institute' },
+  'SUN-069': { programId: 'SUN-069', level: 'PG', category: 'B_PHARM', ruleLabel: 'B.Pharm', ruleDesc: 'Bachelor of Pharmacy (B.Pharm) from PCI recognized institute' },
+  'SUN-070': { programId: 'SUN-070', level: 'PG', category: 'B_PHARM', ruleLabel: 'B.Pharm', ruleDesc: 'Bachelor of Pharmacy (B.Pharm) from PCI recognized institute' },
+
+  // --- PG: Law Degree ---
+  'SUN-074': { programId: 'SUN-074', level: 'PG', category: 'LAW_DEGREE', ruleLabel: 'Law Degree', ruleDesc: 'LL.B. (3 years or 5 years integrated) from BCI recognized institute' },
+  'SUN-075': { programId: 'SUN-075', level: 'PG', category: 'LAW_DEGREE', ruleLabel: 'Law Degree', ruleDesc: 'LL.B. (3 years or 5 years integrated) from BCI recognized institute' },
+  'SUN-076': { programId: 'SUN-076', level: 'PG', category: 'LAW_DEGREE', ruleLabel: 'Law Degree', ruleDesc: 'LL.B. (3 years or 5 years integrated) from BCI recognized institute' },
+  'SUN-077': { programId: 'SUN-077', level: 'PG', category: 'LAW_DEGREE', ruleLabel: 'Law Degree', ruleDesc: 'LL.B. (3 years or 5 years integrated) from BCI recognized institute' },
+
+  // --- PG: Relevant Science Degree ---
+  'SUN-086': { programId: 'SUN-086', level: 'PG', category: 'RELEVANT_SCI', ruleLabel: 'Relevant Science Degree', ruleDesc: 'B.Sc with Chemistry' },
+  'SUN-087': { programId: 'SUN-087', level: 'PG', category: 'RELEVANT_SCI', ruleLabel: 'Relevant Science Degree', ruleDesc: 'B.Sc with Physics' },
+  'SUN-088': { programId: 'SUN-088', level: 'PG', category: 'RELEVANT_SCI', ruleLabel: 'Relevant Science Degree', ruleDesc: 'B.Sc with Microbiology / Life Science' },
+  'SUN-089': { programId: 'SUN-089', level: 'PG', category: 'RELEVANT_SCI', ruleLabel: 'Relevant Science Degree', ruleDesc: 'B.Sc in Life Science / Biological Sciences' },
+  'SUN-090': { programId: 'SUN-090', level: 'PG', category: 'RELEVANT_SCI', ruleLabel: 'Relevant Science Degree', ruleDesc: 'B.Sc with Mathematics' },
+  'SUN-091': { programId: 'SUN-091', level: 'PG', category: 'RELEVANT_SCI', ruleLabel: 'Relevant Science Degree', ruleDesc: 'B.Sc in Forensic Science / Physical / Biological Sciences' },
+
+  // --- PG: Graduation ---
+  'SUN-101': { programId: 'SUN-101', level: 'PG', category: 'GRADUATION', ruleLabel: 'Graduation', ruleDesc: 'Any recognized Bachelor degree in Design, Science, or Arts' },
+  'SUN-102': { programId: 'SUN-102', level: 'PG', category: 'GRADUATION', ruleLabel: 'Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-103': { programId: 'SUN-103', level: 'PG', category: 'GRADUATION', ruleLabel: 'Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-104': { programId: 'SUN-104', level: 'PG', category: 'GRADUATION', ruleLabel: 'Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+  'SUN-105': { programId: 'SUN-105', level: 'PG', category: 'GRADUATION', ruleLabel: 'Graduation', ruleDesc: 'Any recognized Bachelor degree' },
+
+  // --- Doctoral: Relevant Master's Degree ---
+  'SUN-106': { programId: 'SUN-106', level: 'PhD', category: 'RELEVANT_MASTER', ruleLabel: "Relevant Master's Degree", ruleDesc: 'M.E. / M.Tech / MCA in relevant discipline' },
+  'SUN-107': { programId: 'SUN-107', level: 'PhD', category: 'RELEVANT_MASTER', ruleLabel: "Relevant Master's Degree", ruleDesc: 'M.Pharm in relevant specialization' },
+  'SUN-108': { programId: 'SUN-108', level: 'PhD', category: 'RELEVANT_MASTER', ruleLabel: "Relevant Master's Degree", ruleDesc: 'MBA / PGDM in Management' },
+  'SUN-109': { programId: 'SUN-109', level: 'PhD', category: 'RELEVANT_MASTER', ruleLabel: "Relevant Master's Degree", ruleDesc: 'M.Com or Master degree in Finance / Commerce' },
+  'SUN-110': { programId: 'SUN-110', level: 'PhD', category: 'RELEVANT_MASTER', ruleLabel: "Relevant Master's Degree", ruleDesc: 'LL.M. in Law' },
+  'SUN-111': { programId: 'SUN-111', level: 'PhD', category: 'RELEVANT_MASTER', ruleLabel: "Relevant Master's Degree", ruleDesc: 'M.Sc in relevant scientific discipline' },
+  'SUN-112': { programId: 'SUN-112', level: 'PhD', category: 'RELEVANT_MASTER', ruleLabel: "Relevant Master's Degree", ruleDesc: 'M.A. in English / Linguistics' },
+  'SUN-113': { programId: 'SUN-113', level: 'PhD', category: 'RELEVANT_MASTER', ruleLabel: "Relevant Master's Degree", ruleDesc: 'M.Sc / M.Des / Master in Fashion Design' },
+  'SUN-114': { programId: 'SUN-114', level: 'PhD', category: 'RELEVANT_MASTER', ruleLabel: "Relevant Master's Degree", ruleDesc: 'M.Sc / Master in Cosmetology or related field' },
+}
+
 /**
- * Verifies student eligibility against Sandip University source notes
+ * Deterministically checks program eligibility according to the master Sandip University Mermaid flow.
  */
 export function getProgramEligibility(
-  p: SandipMasterProgram,
+  progOrId: SandipMasterProgram | string,
   profile: StudentContextProfile
 ): ProgramEligibilityResult {
-  const req = (p.streamSource || '').toLowerCase().trim()
+  const p = typeof progOrId === 'string' ? PROGRAMS.find((x) => x.id === progOrId) : progOrId
+  if (!p) {
+    return { code: 'review', label: 'Under Review', reason: 'Programme details not found in catalogue.' }
+  }
+  const rule = PROGRAM_ELIGIBILITY_RULES[p.id]
+  const field = (profile.previousField || profile.priorProgramme || 'Other').toLowerCase()
 
+  // 1. Doctoral Check
   if (p.level === 'PhD') {
     if (profile.highestQualification !== "Master's degree") {
       return {
         code: 'future',
         label: 'Future pathway',
-        reason:
-          'This is a doctoral programme; the supplied list says a relevant master’s degree is needed.'
+        reason: 'This is a doctoral programme requiring a relevant Master’s degree.'
       }
     }
-    if (req.includes('relevant master')) {
+    const cat = rule?.category
+    if (cat === 'RELEVANT_MASTER') {
+      const progName = p.name.toLowerCase()
+      if (progName.includes('engineering') && (field.includes('eng') || field.includes('tech') || field.includes('comp'))) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Master’s degree appears aligned with Doctoral Engineering.' }
+      }
+      if (progName.includes('pharmacy') && field.includes('pharm')) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Master’s degree appears aligned with Doctoral Pharmacy.' }
+      }
+      if (progName.includes('management') && (field.includes('manag') || field.includes('mba') || field.includes('business'))) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Master’s degree appears aligned with Doctoral Management.' }
+      }
+      if (progName.includes('commerce') && (field.includes('com') || field.includes('fin') || field.includes('account'))) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Master’s degree appears aligned with Doctoral Commerce.' }
+      }
+      if (progName.includes('law') && (field.includes('law') || field.includes('llm'))) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Master’s degree appears aligned with Doctoral Law.' }
+      }
+      if (progName.includes('science') && field.includes('sci')) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Master’s degree appears aligned with Doctoral Sciences.' }
+      }
+      if (progName.includes('english') && (field.includes('eng') || field.includes('art') || field.includes('human'))) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Master’s degree appears aligned with Doctoral English.' }
+      }
+      if (progName.includes('fashion') && (field.includes('fash') || field.includes('design') || field.includes('art'))) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Master’s degree appears aligned with Doctoral Fashion.' }
+      }
+      if (progName.includes('beauty') && (field.includes('beauty') || field.includes('cosmet') || field.includes('sci'))) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Master’s degree appears aligned with Doctoral Cosmetology.' }
+      }
       return {
         code: 'review',
-        label: 'Check subject fit',
-        reason:
-          'A relevant master’s degree is indicated in the source; the exact subject fit needs review.'
+        label: 'Subject Review Needed',
+        reason: 'Master’s degree subject match needs confirmation by research admissions committee.'
       }
-    }
-    return {
-      code: 'review',
-      label: 'Review entry note',
-      reason: 'Check the programme-specific doctoral requirement.'
     }
   }
 
+  // 2. Undergraduate / Diploma Entry
   if (profile.pathway === 'UG') {
-    const st = profile.stream || 'ALL'
-    if (req === 'any stream') {
+    const stream = (profile.stream || 'ALL').toUpperCase()
+    const cat = (rule?.category as UGEligibilityCategory) || 'ANY'
+
+    // "ANY" Stream Programs (BBA, B.Com, BCA, Law, Design)
+    if (cat === 'ANY') {
       return {
         code: 'match',
-        label: 'Stream appears aligned',
-        reason: 'The source says “Any stream”. Open to all academic backgrounds.'
+        label: 'Open to All 12th Streams',
+        reason: 'Admissions open to all recognized 12th streams (Commerce, Arts, Science, etc.).'
       }
     }
-    if (st === 'ALL' || st === 'OTHER') {
-      if (req === 'pcm') {
+
+    // Student has unspecified or general stream
+    if (stream === 'ALL' || stream === 'OTHER') {
+      if (cat === 'PCM') {
         return {
           code: 'review',
-          label: 'Requires PCM background',
-          reason: 'Source notes PCM requirement. Verify 12th subjects (Physics, Chemistry, Maths).'
+          label: 'Requires PCM Stream',
+          reason: 'Program requires 12th Physics, Chemistry & Mathematics. Confirm 12th subjects.'
         }
       }
-      if (req === 'pcb/pcm' || req === 'science') {
+      if (cat === 'PCB_PCM' || cat === 'SCIENCE' || cat === 'SCIENCE_CHEM') {
         return {
           code: 'review',
-          label: 'Requires Science background',
-          reason: 'Source notes Science background (PCB/PCM). Check eligibility.'
+          label: 'Requires Science Stream',
+          reason: 'Program requires 12th Science (PCB/PCM). Confirm 12th subjects.'
+        }
+      }
+      if (cat === 'SCIENCE_MATH' || cat === 'SCIENCE_PHY') {
+        return {
+          code: 'review',
+          label: 'Requires Science + Maths',
+          reason: 'Program requires 12th Science with Mathematics. Confirm 12th subjects.'
         }
       }
     }
-    if (req === 'pcm') {
-      return ['PCM', 'PCMB'].includes(st)
-        ? {
-            code: 'match',
-            label: 'Stream appears aligned',
-            reason: 'The source says PCM; check required subjects and marks.'
-          }
-        : {
-            code: 'mismatch',
-            label: 'Stream differs from source note',
-            reason:
-              'The source notes PCM. This is not an official rejection; confirm alternate routes with admissions.'
-          }
-    }
-    if (req === 'pcb/pcm') {
-      return ['PCM', 'PCB', 'PCMB'].includes(st)
-        ? {
-            code: 'match',
-            label: 'Stream appears aligned',
-            reason: 'The source notes PCB/PCM; confirm precise subject and marks criteria.'
-          }
-        : {
-            code: 'mismatch',
-            label: 'Stream differs from source note',
-            reason: 'The source notes PCB/PCM. Ask admissions if other routes apply.'
-          }
-    }
-    if (req === 'science') {
-      return ['PCM', 'PCB', 'PCMB'].includes(st)
-        ? {
-            code: 'match',
-            label: 'Science stream noted',
-            reason: 'The source says Science; required subjects and marks still need confirmation.'
-          }
-        : {
-            code: 'mismatch',
-            label: 'Stream differs from source note',
-            reason: 'The source says Science. Ask admissions whether another route applies.'
-          }
-    }
-    if (req.includes('science + mathematics') || req.includes('science + physics')) {
-      return ['PCM', 'PCMB'].includes(st)
-        ? {
-            code: 'review',
-            label: 'Subject check needed',
-            reason: `The source notes “${p.streamSource}”; the exact subjects must be checked.`
-          }
-        : {
-            code: 'mismatch',
-            label: 'Subject combination may differ',
-            reason: `The source notes “${p.streamSource}”. Confirm the required subject combination.`
-          }
-    }
-    if (req.includes('science + chemistry')) {
-      return ['PCM', 'PCB', 'PCMB'].includes(st)
-        ? {
-            code: 'review',
-            label: 'Subject check needed',
-            reason: 'The source notes Science + Chemistry. Confirm the exact subject requirements.'
-          }
-        : {
-            code: 'mismatch',
-            label: 'Subject combination may differ',
-            reason: 'The source notes Science + Chemistry; ask admissions about alternatives.'
-          }
-    }
-    if (
-      req.includes('graduation') ||
-      req.includes('relevant engineering') ||
-      req.includes('relevant degree') ||
-      req.includes('b.pharm') ||
-      req.includes('law degree') ||
-      req.includes('master')
-    ) {
+
+    // PCM Requirements
+    if (cat === 'PCM') {
+      if (['PCM', 'PCMB'].includes(stream)) {
+        return {
+          code: 'match',
+          label: 'Stream Aligned (PCM)',
+          reason: 'Eligible with 12th Physics, Chemistry & Mathematics.'
+        }
+      }
       return {
-        code: 'future',
-        label: 'Not a direct UG route',
-        reason: `The source entry note is “${p.streamSource}”. This is not a typical Class 12 entry note; confirm the intended study level.`
+        code: 'mismatch',
+        label: 'Stream Incompatible',
+        reason: 'Requires 12th PCM background (Physics, Chemistry & Mathematics).'
       }
     }
-    return {
-      code: 'review',
-      label: 'Confirm entry route',
-      reason: `The source entry note is “${p.streamSource || 'not specified'}”; check the exact subject combination and criteria.`
+
+    // PCB / PCM Requirements (Biotech, Biomedical, D.Pharm, B.Pharm)
+    if (cat === 'PCB_PCM') {
+      if (['PCM', 'PCB', 'PCMB'].includes(stream)) {
+        return {
+          code: 'match',
+          label: 'Stream Aligned (PCB/PCM)',
+          reason: 'Eligible with 12th Science (PCB or PCM).'
+        }
+      }
+      return {
+        code: 'mismatch',
+        label: 'Requires Science (PCB/PCM)',
+        reason: 'Requires 12th Science background with Physics, Chemistry and Biology/Maths.'
+      }
+    }
+
+    // Science General Requirements (Wine Tech, Nanoscience, Microbiology, Forensics)
+    if (cat === 'SCIENCE') {
+      if (['PCM', 'PCB', 'PCMB'].includes(stream)) {
+        return {
+          code: 'match',
+          label: 'Stream Aligned (Science)',
+          reason: 'Eligible with 12th Science background.'
+        }
+      }
+      return {
+        code: 'mismatch',
+        label: 'Requires 12th Science',
+        reason: 'Requires 12th Science stream background.'
+      }
+    }
+
+    // Science + Mathematics (B.Sc CS, B.Sc Computational Math & Data Science)
+    if (cat === 'SCIENCE_MATH') {
+      if (['PCM', 'PCMB'].includes(stream)) {
+        return {
+          code: 'match',
+          label: 'Stream Aligned (Science + Math)',
+          reason: 'Eligible with 12th Science including Mathematics.'
+        }
+      }
+      return {
+        code: 'mismatch',
+        label: 'Requires Science + Mathematics',
+        reason: 'Requires 12th Science with Mathematics as a compulsory subject.'
+      }
+    }
+
+    // Science + Chemistry (B.Sc Chemistry)
+    if (cat === 'SCIENCE_CHEM') {
+      if (['PCM', 'PCB', 'PCMB'].includes(stream)) {
+        return {
+          code: 'match',
+          label: 'Stream Aligned (Science + Chemistry)',
+          reason: 'Eligible with 12th Science including Chemistry.'
+        }
+      }
+      return {
+        code: 'mismatch',
+        label: 'Requires Science + Chemistry',
+        reason: 'Requires 12th Science with Chemistry.'
+      }
+    }
+
+    // Science + Physics & Mathematics (B.Sc Physics)
+    if (cat === 'SCIENCE_PHY') {
+      if (['PCM', 'PCMB'].includes(stream)) {
+        return {
+          code: 'match',
+          label: 'Stream Aligned (Physics & Math)',
+          reason: 'Eligible with 12th Science including Physics & Mathematics.'
+        }
+      }
+      return {
+        code: 'mismatch',
+        label: 'Requires Physics & Mathematics',
+        reason: 'Requires 12th Science with Physics and Mathematics.'
+      }
     }
   }
 
-  // PG Pathway
-  const field = (profile.previousField || 'Other').toLowerCase()
-  if (req === 'any graduation' || req === 'graduation') {
+  // 3. Postgraduate Entry (PG)
+  const cat = (rule?.category as PGEligibilityCategory) || 'ANY_GRAD'
+
+  // Any Graduation (All New Age & MBA 4.0 programs)
+  if (cat === 'ANY_GRAD') {
     return {
       code: 'match',
-      label: 'Degree level appears aligned',
-      reason: 'The source says graduation/any graduation. Confirm programme-specific subject and marks criteria.'
+      label: 'Open to Any Graduation',
+      reason: 'Open to all recognized Bachelor degrees (B.Tech, BBA, B.Com, B.Sc, B.A, etc.).'
     }
   }
-  if (req.includes('preferably mathematics')) {
-    return field.includes('science') || field.includes('computer') || field.includes('commerce')
-      ? {
-          code: 'review',
-          label: 'Check subject fit',
-          reason: 'The source prefers Mathematics; the exact prior subjects need confirmation.'
-        }
-      : {
-          code: 'review',
-          label: 'Check subject fit',
-          reason: 'The source prefers Mathematics; check your transcript and ask admissions.'
-        }
+
+  // Graduation (Design PG: M.Sc Fashion, M.Sc Beauty, M.Des UX, Visual Comm, Game Design)
+  if (cat === 'GRADUATION') {
+    return {
+      code: 'match',
+      label: 'Eligible Degree',
+      reason: 'Open to graduates from recognized universities with an aptitude for design & creative practice.'
+    }
   }
-  if (req.includes('relevant engineering/science')) {
-    return field.includes('engineering') || field.includes('science') || field.includes('computer')
-      ? {
-          code: 'match',
-          label: 'Degree area appears aligned',
-          reason: 'The broad degree area appears to match the source note; confirm detailed criteria.'
-        }
-      : {
-          code: 'mismatch',
-          label: 'Degree area differs from note',
-          reason: 'The source notes relevant engineering/science; ask admissions whether your degree qualifies.'
-        }
-  }
-  if (req.includes('relevant engineering')) {
-    return field.includes('engineering') || field.includes('computer')
-      ? {
-          code: 'match',
-          label: 'Degree area appears aligned',
-          reason: 'The broad degree area appears related; confirm the exact approved degree list.'
-        }
-      : {
-          code: 'mismatch',
-          label: 'Degree area differs from note',
-          reason: 'The source notes relevant engineering. Confirm any alternate route with admissions.'
-        }
-  }
-  if (req.includes('relevant science')) {
-    return field.includes('science') || field.includes('pharmacy') || field.includes('health')
-      ? {
-          code: 'match',
-          label: 'Degree area appears aligned',
-          reason: 'The broad degree area appears related; confirm the exact approved degree list.'
-        }
-      : {
-          code: 'mismatch',
-          label: 'Degree area differs from note',
-          reason: 'The source notes a relevant science degree. Confirm your degree directly with admissions.'
-        }
-  }
-  if (req === 'civil/architecture') {
-    return field.includes('engineering')
-      ? {
-          code: 'review',
-          label: 'Check degree fit',
-          reason: 'The source notes Civil/Architecture; confirm your degree title and subjects.'
-        }
-      : {
-          code: 'mismatch',
-          label: 'Degree area differs from note',
-          reason: 'The source notes Civil/Architecture; confirm alternate routes.'
-        }
-  }
-  if (req === 'b.pharm') {
-    return field.includes('pharmacy')
-      ? {
-          code: 'match',
-          label: 'Degree area appears aligned',
-          reason: 'The source notes B.Pharm; confirm the programme’s detailed entry criteria.'
-        }
-      : {
-          code: 'mismatch',
-          label: 'Degree area differs from note',
-          reason: 'The source notes B.Pharm; ask admissions if a different prior degree is accepted.'
-        }
-  }
-  if (req === 'law degree') {
-    return field.includes('law')
-      ? {
-          code: 'match',
-          label: 'Degree area appears aligned',
-          reason: 'The source notes a Law degree; confirm detailed eligibility.'
-        }
-      : {
-          code: 'mismatch',
-          label: 'Degree area differs from note',
-          reason: 'The source notes a Law degree; ask admissions about your route.'
-        }
-  }
-  if (req === 'relevant degree') {
+
+  // Any Graduation, preferably Mathematics (MCA)
+  if (cat === 'ANY_GRAD_MATH') {
+    if (field.includes('computer') || field.includes('it') || field.includes('science') || field.includes('math') || field.includes('eng') || field.includes('bca')) {
+      return {
+        code: 'match',
+        label: 'Degree Aligned (MCA)',
+        reason: 'Prior degree in Computer Science, IT, Engineering, or Science with Mathematics.'
+      }
+    }
     return {
       code: 'review',
-      label: 'Manual eligibility review',
-      reason: 'The source says relevant degree; relevance needs to be confirmed against programme rules.'
+      label: 'Verify Mathematics Prerequisite',
+      reason: 'MCA requires Mathematics / Statistics / Computer Science at 10+2 or Bachelor level.'
     }
   }
-  if (req.includes('relevant master')) {
-    return profile.highestQualification === "Master's degree"
-      ? {
-          code: 'review',
-          label: 'Doctoral entry review',
-          reason: 'The source requires a relevant master’s degree. Admissions must confirm the subject match.'
-        }
-      : {
-          code: 'future',
-          label: 'Future pathway',
-          reason: 'The source notes a relevant master’s degree; this is not a direct bachelor-to-master’s route.'
-        }
+
+  // Relevant Engineering (M.Tech programs)
+  if (cat === 'RELEVANT_ENG') {
+    if (field.includes('engineering') || field.includes('tech') || field.includes('b.tech') || field.includes('computer')) {
+      return {
+        code: 'match',
+        label: 'Engineering Degree Aligned',
+        reason: 'Prior degree in B.E. / B.Tech engineering matches entry requirements.'
+      }
+    }
+    return {
+      code: 'mismatch',
+      label: 'Requires Engineering Degree',
+      reason: 'Requires relevant B.E. / B.Tech degree in the engineering branch.'
+    }
+  }
+
+  // Relevant Engineering / Science (M.Tech Environmental)
+  if (cat === 'RELEVANT_ENG_SCI') {
+    if (field.includes('engineering') || field.includes('science') || field.includes('env') || field.includes('tech')) {
+      return {
+        code: 'match',
+        label: 'Degree Aligned',
+        reason: 'B.Tech or B.Sc in Environmental / Allied Science is recognized.'
+      }
+    }
+    return {
+      code: 'mismatch',
+      label: 'Requires Engineering or Science',
+      reason: 'Requires B.E. / B.Tech or B.Sc in Environmental / Allied Science.'
+    }
+  }
+
+  // Civil / Architecture (M.Tech Valuation)
+  if (cat === 'CIVIL_ARCH') {
+    if (field.includes('civil') || field.includes('arch') || field.includes('construction') || field.includes('building')) {
+      return {
+        code: 'match',
+        label: 'Degree Aligned (Civil / Architecture)',
+        reason: 'B.E. / B.Tech in Civil Engineering or B.Arch matches requirement.'
+      }
+    }
+    return {
+      code: 'mismatch',
+      label: 'Requires Civil or Architecture',
+      reason: 'Requires B.E./B.Tech in Civil Engineering or B.Arch.'
+    }
+  }
+
+  // Relevant Degree (M.Planning, M.Tech CSE Cloud / AIML / RPA)
+  if (cat === 'RELEVANT_DEGREE') {
+    const progName = p.name.toLowerCase()
+    if (progName.includes('planning')) {
+      if (field.includes('planning') || field.includes('arch') || field.includes('civil') || field.includes('geog')) {
+        return { code: 'match', label: 'Degree Aligned', reason: 'Bachelor degree in Planning, Architecture, or Civil.' }
+      }
+      return { code: 'review', label: 'Check Degree Match', reason: 'Requires relevant degree in Planning, Architecture, or Civil Engineering.' }
+    }
+    // M.Tech CSE
+    if (field.includes('computer') || field.includes('cse') || field.includes('it') || field.includes('mca') || field.includes('engineering')) {
+      return { code: 'match', label: 'Degree Aligned (CSE / IT)', reason: 'B.E./B.Tech in CSE/IT or MCA/M.Sc CS matches criteria.' }
+    }
+    return { code: 'mismatch', label: 'Requires Computer / IT Degree', reason: 'Requires B.E./B.Tech in CSE/IT or equivalent degree.' }
+  }
+
+  // B.Pharm (M.Pharm)
+  if (cat === 'B_PHARM') {
+    if (field.includes('pharm')) {
+      return {
+        code: 'match',
+        label: 'Degree Aligned (B.Pharm)',
+        reason: 'Bachelor of Pharmacy (B.Pharm) satisfies PCI eligibility.'
+      }
+    }
+    return {
+      code: 'mismatch',
+      label: 'Requires B.Pharm',
+      reason: 'Admission requires a Bachelor of Pharmacy (B.Pharm) degree.'
+    }
+  }
+
+  // Law Degree (LL.M.)
+  if (cat === 'LAW_DEGREE') {
+    if (field.includes('law') || field.includes('llb')) {
+      return {
+        code: 'match',
+        label: 'Degree Aligned (Law)',
+        reason: 'LL.B. degree satisfies Bar Council of India entry criteria.'
+      }
+    }
+    return {
+      code: 'mismatch',
+      label: 'Requires Law Degree',
+      reason: 'Admission requires an LL.B. or 5-year Integrated Law degree.'
+    }
+  }
+
+  // Relevant Science Degree (M.Sc)
+  if (cat === 'RELEVANT_SCI') {
+    if (field.includes('science') || field.includes('bsc') || field.includes('chem') || field.includes('phy') || field.includes('bio') || field.includes('math') || field.includes('forensic')) {
+      return {
+        code: 'match',
+        label: 'Science Degree Aligned',
+        reason: 'Bachelor of Science (B.Sc) in corresponding discipline matches criteria.'
+      }
+    }
+    return {
+      code: 'mismatch',
+      label: 'Requires Relevant B.Sc',
+      reason: 'Admission requires a Bachelor of Science (B.Sc) in the relevant subject.'
+    }
   }
 
   return {
     code: 'review',
-    label: 'Review entry note',
-    reason: `The supplied entry note is “${p.streamSource || 'not specified'}”. Confirm the exact prior-degree requirement.`
+    label: 'Admissions Review',
+    reason: `Confirm program entry note: ${p.streamSource || 'Specific degree requirements'}`
   }
 }
 
