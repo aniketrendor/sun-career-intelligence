@@ -290,15 +290,6 @@ export default async function StudentCareerProfilePage() {
               Explore aligned academic programs, faculty mentor counseling sessions, and curated career roles.
             </p>
             <div className="space-y-2 pt-1">
-              <Link href="/student/domain-suggestions" className="block">
-                <Button variant="outline" className="w-full justify-between h-11 border-[#DFD7CB] hover:bg-[#FAF6F0] text-[#2C2621] font-semibold text-xs rounded-xl">
-                  <span className="flex items-center gap-2">
-                    <Compass className="w-4 h-4 text-[#A36B40]" />
-                    Curriculum Programs
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-[#7A7067]" />
-                </Button>
-              </Link>
               <Link href="/student/roles" className="block">
                 <Button variant="outline" className="w-full justify-between h-11 border-[#DFD7CB] hover:bg-[#FAF6F0] text-[#2C2621] font-semibold text-xs rounded-xl">
                   <span className="flex items-center gap-2">

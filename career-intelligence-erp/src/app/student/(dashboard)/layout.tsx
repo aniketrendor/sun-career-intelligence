@@ -7,7 +7,6 @@ const navItems = [
   { label: 'Career Assessment', href: '/student/assessment' },
   { label: 'Career Profile', href: '/student/career-profile' },
   { label: 'Program Syllabus', href: '/student/syllabus' },
-  { label: 'Domain Suggestions', href: '/student/domain-suggestions' },
   { label: 'Mentor Guidance', href: '/student/counselor' },
   { label: 'My Profile', href: '/student/profile' },
 ]

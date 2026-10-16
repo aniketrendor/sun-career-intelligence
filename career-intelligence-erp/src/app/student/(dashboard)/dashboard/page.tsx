@@ -466,9 +466,9 @@ export default async function StudentDashboardPage() {
                     Explore degree pathways and consult your assigned faculty counselor.
                   </p>
                 </div>
-                <Link href="/student/domain-suggestions" className="inline-block pt-1">
+                <Link href="/student/career-profile" className="inline-block pt-1">
                   <Button size="sm" className="h-8 text-xs bg-[#A36B40] hover:bg-[#8E5B33] text-white rounded-xl">
-                    View Degree Programs
+                    View Career Profile
                   </Button>
                 </Link>
               </div>
