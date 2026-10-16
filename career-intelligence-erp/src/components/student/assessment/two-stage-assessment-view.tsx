@@ -682,8 +682,8 @@ export function TwoStageAssessmentView({
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-white border border-[#DFD7CB] flex items-center justify-center text-2xl shadow-xs group-hover:scale-105 transition-transform">
-                      🎓
+                    <div className="w-12 h-12 rounded-2xl bg-white border border-[#DFD7CB] flex items-center justify-center text-[#A36B40] shadow-xs group-hover:scale-105 transition-transform">
+                      <GraduationCap className="w-6 h-6" />
                     </div>
                     {pathway === 'UG' ? (
                       <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A36B40] bg-[#F7EFEA] px-3 py-1 rounded-full border border-[#A36B40]/30">
@@ -727,8 +727,8 @@ export function TwoStageAssessmentView({
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-white border border-[#DFD7CB] flex items-center justify-center text-2xl shadow-xs group-hover:scale-105 transition-transform">
-                      📘
+                    <div className="w-12 h-12 rounded-2xl bg-white border border-[#DFD7CB] flex items-center justify-center text-[#A36B40] shadow-xs group-hover:scale-105 transition-transform">
+                      <BookOpen className="w-6 h-6" />
                     </div>
                     {pathway === 'PG' ? (
                       <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A36B40] bg-[#F7EFEA] px-3 py-1 rounded-full border border-[#A36B40]/30">
@@ -770,11 +770,11 @@ export function TwoStageAssessmentView({
 
               <div className="flex items-center gap-2 flex-wrap">
                 {[
-                  { id: 'ALL', label: '✨ All Disciplines (Multi-Faculty Balanced)' },
-                  { id: 'COM', label: '📊 Commerce & Management' },
-                  { id: 'ARTS', label: '🎨 Design, Media & Law' },
-                  { id: 'PCB', label: '🧬 Health & Life Sciences' },
-                  { id: 'PCM', label: '⚙️ Technology & Engineering' },
+                  { id: 'ALL', label: 'All Disciplines (Multi-Faculty Balanced)' },
+                  { id: 'COM', label: 'Commerce & Management' },
+                  { id: 'ARTS', label: 'Design, Media & Law' },
+                  { id: 'PCB', label: 'Health & Life Sciences' },
+                  { id: 'PCM', label: 'Technology & Engineering' },
                 ].map((s) => (
                   <button
                     key={s.id}
@@ -1009,7 +1009,7 @@ export function TwoStageAssessmentView({
               </div>
 
               <div className="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] text-[11px] text-[#7A7067] leading-relaxed">
-                💡 <strong>Tip:</strong> Choose what you would genuinely like to do, not what sounds most impressive.
+                <strong>Tip:</strong> Choose what you would genuinely like to do, not what sounds most impressive.
               </div>
             </Card>
 
@@ -1275,7 +1275,7 @@ export function TwoStageAssessmentView({
               </div>
 
               <div className="p-4 rounded-2xl bg-[#F7EFEA] border border-[#A36B40]/30 text-xs text-[#8E5B33]">
-                💡 <strong>Note:</strong> You can add or swap any career domain below before launching Stage 2.
+                <strong>Note:</strong> You can add or swap any career domain below before launching Stage 2.
               </div>
             </Card>
           </div>
@@ -1428,7 +1428,7 @@ export function TwoStageAssessmentView({
               </div>
 
               <div className="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] text-[11px] text-[#7A7067] leading-relaxed">
-                💡 <strong>Note:</strong> Domain names are deliberately hidden so your choices reflect true work interest rather than preconceptions.
+                <strong>Note:</strong> Domain names are deliberately hidden so your choices reflect true work interest rather than preconceptions.
               </div>
             </Card>
 
@@ -1755,14 +1755,14 @@ export function TwoStageAssessmentView({
               {/* Faculty Filter Pills */}
               <div className="flex items-center gap-1.5 flex-wrap">
                 {[
-                  { id: 'ALL', label: '✨ All Faculties (Balanced Top 6)' },
-                  { id: 'Commerce & Management Studies', label: '💼 Commerce & Management' },
-                  { id: 'Design', label: '🎨 Design & Media' },
-                  { id: 'Law', label: '⚖️ Law & Justice' },
-                  { id: 'Computer Science & Engineering', label: '💻 Computer Science & AI' },
-                  { id: 'Science', label: '🔬 Science & Forensics' },
-                  { id: 'Pharmaceutical Sciences', label: '💊 Pharmacy & Health' },
-                  { id: 'Engineering & Technology', label: '⚙️ Core Engineering' },
+                  { id: 'ALL', label: 'All Faculties (Balanced Top 6)' },
+                  { id: 'Commerce & Management Studies', label: 'Commerce & Management' },
+                  { id: 'Design', label: 'Design & Media' },
+                  { id: 'Law', label: 'Law & Justice' },
+                  { id: 'Computer Science & Engineering', label: 'Computer Science & AI' },
+                  { id: 'Science', label: 'Science & Forensics' },
+                  { id: 'Pharmaceutical Sciences', label: 'Pharmacy & Health' },
+                  { id: 'Engineering & Technology', label: 'Core Engineering' },
                 ].map((tab) => {
                   const count = tab.id === 'ALL' ? matchedPrograms.length : schoolBreakdown[tab.id] || 0
                   return (

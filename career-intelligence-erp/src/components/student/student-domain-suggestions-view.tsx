@@ -320,7 +320,7 @@ export function StudentDomainSuggestionsView({
 
                   {prog.notes && (
                     <div className="text-[11px] text-[#7A7067] italic bg-[#FAF8F5] p-2 rounded-xl border border-[#DFD7CB]/60">
-                      💡 {prog.notes}
+                      {prog.notes}
                     </div>
                   )}
                 </CardContent>
