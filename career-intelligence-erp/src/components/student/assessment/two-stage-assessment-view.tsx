@@ -1061,28 +1061,34 @@ export function TwoStageAssessmentView({
                       </div>
                     </div>
 
-                    {/* Redesigned Question Prompt & Instructions */}
-                    <div className="pt-1 space-y-2">
-                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-                        <div className="space-y-1">
-                          <h3 className="text-lg sm:text-xl font-bold text-[#2C2621] tracking-tight leading-snug">
-                            {currentQ.prompt}
-                          </h3>
-                          <p className="text-xs text-[#7A7067] leading-relaxed">
-                            Select up to 3 options you would genuinely choose in this situation. Choose “None of these” if no option applies.
-                          </p>
-                        </div>
-                        <div className="shrink-0 self-start sm:self-auto">
-                          <span
-                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold border transition-all ${
-                              selectedIds.length > 0
-                                ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-xs'
-                                : 'bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB]'
-                            }`}
-                          >
-                            {selectedIds.length === 0 ? 'Up to 3 picks' : `${selectedIds.length} of 3 selected`}
+                    {/* Redesigned Question Prompt Box (matching Case Scenario) */}
+                    <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-[#FAF6F0] via-[#FAF8F5] to-[#FAF6F0] border border-[#DFD7CB] shadow-2xs space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-md bg-[#A36B40]/10 text-[#A36B40] flex items-center justify-center">
+                            <Target className="w-3 h-3" />
+                          </span>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-[#A36B40]">
+                            Question Prompt
                           </span>
                         </div>
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold border transition-all ${
+                            selectedIds.length > 0
+                              ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-xs'
+                              : 'bg-white text-[#7A7067] border-[#DFD7CB]'
+                          }`}
+                        >
+                          {selectedIds.length === 0 ? 'Up to 3 picks' : `${selectedIds.length} of 3 selected`}
+                        </span>
+                      </div>
+                      <div className="border-l-2 border-[#A36B40] pl-3.5 sm:pl-4 py-0.5 space-y-1">
+                        <h3 className="text-base sm:text-lg font-bold text-[#2C2621] leading-snug">
+                          {currentQ.prompt}
+                        </h3>
+                        <p className="text-xs text-[#7A7067] leading-relaxed">
+                          Select up to 3 options you would genuinely choose in this situation. Choose “None of these” if no option applies.
+                        </p>
                       </div>
                     </div>
 
@@ -1511,28 +1517,34 @@ export function TwoStageAssessmentView({
                       </div>
                     </div>
 
-                    {/* Redesigned Question Prompt & Instructions */}
-                    <div className="pt-1 space-y-2">
-                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-                        <div className="space-y-1">
-                          <h3 className="text-lg sm:text-xl font-bold text-[#2C2621] tracking-tight leading-snug">
-                            {currentQ.prompt}
-                          </h3>
-                          <p className="text-xs text-[#7A7067] leading-relaxed">
-                            Select up to 3 activities you would genuinely like to try in this setting. Choose “None of these” if none fit.
-                          </p>
-                        </div>
-                        <div className="shrink-0 self-start sm:self-auto">
-                          <span
-                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold border transition-all ${
-                              selectedIds.length > 0
-                                ? 'bg-[#77734B] text-white border-[#77734B] shadow-xs'
-                                : 'bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB]'
-                            }`}
-                          >
-                            {selectedIds.length === 0 ? 'Up to 3 picks' : `${selectedIds.length} of 3 selected`}
+                    {/* Redesigned Question Prompt Box (matching Case Scenario) */}
+                    <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-[#FAF6F0] via-[#FAF8F5] to-[#FAF6F0] border border-[#DFD7CB] shadow-2xs space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-md bg-[#77734B]/10 text-[#77734B] flex items-center justify-center">
+                            <Target className="w-3 h-3" />
+                          </span>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-[#77734B]">
+                            Activity Preference
                           </span>
                         </div>
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold border transition-all ${
+                            selectedIds.length > 0
+                              ? 'bg-[#77734B] text-white border-[#77734B] shadow-xs'
+                              : 'bg-white text-[#7A7067] border-[#DFD7CB]'
+                          }`}
+                        >
+                          {selectedIds.length === 0 ? 'Up to 3 picks' : `${selectedIds.length} of 3 selected`}
+                        </span>
+                      </div>
+                      <div className="border-l-2 border-[#77734B] pl-3.5 sm:pl-4 py-0.5 space-y-1">
+                        <h3 className="text-base sm:text-lg font-bold text-[#2C2621] leading-snug">
+                          {currentQ.prompt}
+                        </h3>
+                        <p className="text-xs text-[#7A7067] leading-relaxed">
+                          Select up to 3 activities you would genuinely like to try in this setting. Choose “None of these” if none fit.
+                        </p>
                       </div>
                     </div>
 
