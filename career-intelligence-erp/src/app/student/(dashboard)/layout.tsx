@@ -4,6 +4,7 @@ import { AppShell } from '@/components/layout/app-shell'
 
 const navItems = [
   { label: 'Dashboard', href: '/student/dashboard' },
+  { label: 'Career Assessment', href: '/student/assessment' },
   { label: 'Career Profile', href: '/student/career-profile' },
   { label: 'Domain Suggestions', href: '/student/domain-suggestions' },
   { label: 'Mentor Guidance', href: '/student/counselor' },
