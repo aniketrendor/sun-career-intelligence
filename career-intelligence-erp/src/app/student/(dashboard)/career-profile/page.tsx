@@ -317,11 +317,11 @@ export default async function StudentCareerProfilePage() {
                   <ChevronRight className="w-4 h-4 text-[#7A7067]" />
                 </Button>
               </Link>
-              <Link href="/student/roadmap" className="block">
+              <Link href="/student/syllabus" className="block">
                 <Button variant="outline" className="w-full justify-between h-11 border-[#DFD7CB] hover:bg-[#FAF6F0] text-[#2C2621] font-semibold text-xs rounded-xl">
                   <span className="flex items-center gap-2">
-                    <Award className="w-4 h-4 text-[#A36B40]" />
-                    Skills Roadmap
+                    <BookOpen className="w-4 h-4 text-[#A36B40]" />
+                    Program Syllabus
                   </span>
                   <ChevronRight className="w-4 h-4 text-[#7A7067]" />
                 </Button>

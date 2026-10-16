@@ -78,6 +78,11 @@ export default async function StudentRoadmapPage() {
         </div>
 
         <div className="flex items-center gap-3">
+          <Link href="/student/syllabus">
+            <Button size="sm" className="bg-[#A36B40] hover:bg-[#8E5B33] text-white gap-2">
+              <BookOpen className="w-4 h-4" /> Program Syllabus
+            </Button>
+          </Link>
           <Link href="/student/skill-gap">
             <Button variant="outline" size="sm" className="gap-2">
               <Target className="w-4 h-4" /> Skill Gap Matrix

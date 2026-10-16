@@ -32,6 +32,7 @@ const iconMap: Record<string, any> = {
   '/student/assessment': BookOpen,
   '/student/domain-suggestions': Compass,
   '/student/career-profile': Target,
+  '/student/syllabus': BookOpen,
   '/student/test-history': ClipboardList,
   '/student/skill-gap': BarChart2,
   '/student/roadmap': Map,
