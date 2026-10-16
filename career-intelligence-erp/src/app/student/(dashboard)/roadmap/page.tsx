@@ -47,7 +47,7 @@ export default async function StudentRoadmapPage() {
     `)
     .eq('student_id', profile.id)
     .eq('is_active', true)
-    .single()
+    .maybeSingle()
 
   // Default sample roadmap items if database generated roadmap items are empty
   const rawItems = roadmap?.items || []

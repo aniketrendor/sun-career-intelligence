@@ -61,7 +61,7 @@ export default async function Student360Page({
     supabase.from('assessment_attempts').select('*').eq('student_id', studentId).order('started_at', { ascending: false }),
     supabase.from('trait_scores').select('*, trait:traits(name, category)').eq('student_id', studentId).order('normalized_score', { ascending: false }),
     supabase.from('domain_scores').select('*, domain:career_domains(name, description)').eq('student_id', studentId).order('rank', { ascending: true }),
-    supabase.from('career_profiles').select('*, primary_domain:career_domains!primary_domain_id(name), secondary_domain:career_domains!secondary_domain_id(name)').eq('student_id', studentId).single(),
+    supabase.from('career_profiles').select('*, primary_domain:career_domains!primary_domain_id(name), secondary_domain:career_domains!secondary_domain_id(name)').eq('student_id', studentId).maybeSingle(),
     supabase.from('counseling_sessions').select('*, counselor:users!counselor_id(full_name)').eq('student_id', studentId).order('session_date', { ascending: false }),
   ])
 
@@ -162,7 +162,7 @@ export default async function Student360Page({
               <p className="text-xs text-slate-500 text-center py-6">Assessment not completed yet.</p>
             ) : (
               domainScores.slice(0, 5).map((d: any) => {
-                const score = Math.min(100, Math.round(d.score))
+                const score = Math.min(100, Math.round(Number(d.normalized_score ?? d.raw_score ?? 0)))
                 return (
                   <div key={d.id} className="space-y-1.5">
                     <div className="flex items-center justify-between text-xs">

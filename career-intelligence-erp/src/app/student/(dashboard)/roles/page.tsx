@@ -24,7 +24,7 @@ export default async function CareerRolesPage({
   // Fetch all career domains
   const { data: domains } = await supabase
     .from('career_domains')
-    .select('id, name, code')
+    .select('id, name')
     .order('name', { ascending: true })
 
   // Query career roles
@@ -37,8 +37,8 @@ export default async function CareerRolesPage({
       domain_id,
       domain:career_domains(id, name),
       role_skills(
-        required_proficiency,
-        importance,
+        required_level,
+        is_mandatory,
         skill:skills(name, category)
       )
     `)

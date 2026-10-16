@@ -382,7 +382,7 @@ export function TwoStageAssessmentView({
           stream,
           previousField,
           s1Dimensions: s1Dimensions.scores,
-          topDomains: finalized.slice(0, 5).map((d) => ({ id: d.id, name: d.name, score: d.finalScore })),
+          topDomains: finalized.slice(0, 10).map((d) => ({ id: d.id, name: d.name, score: d.finalScore })),
           s1Answers,
           s2Answers,
           completedAt: new Date().toISOString()

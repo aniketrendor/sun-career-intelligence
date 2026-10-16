@@ -79,12 +79,12 @@ export default async function StudentDashboardPage() {
       .maybeSingle(),
     supabase
       .from('career_profiles')
-      .select('*, primary_domain:career_domains!primary_domain_id(id, name, description, code), secondary_domain:career_domains!secondary_domain_id(id, name, description, code)')
+      .select('*, primary_domain:career_domains!primary_domain_id(id, name, description), secondary_domain:career_domains!secondary_domain_id(id, name, description)')
       .eq('student_id', profile.id)
       .maybeSingle(),
     supabase
       .from('domain_scores')
-      .select('normalized_score, raw_score, rank, domain:career_domains(id, name, code, description)')
+      .select('normalized_score, raw_score, rank, domain:career_domains(id, name, description)')
       .eq('student_id', profile.id)
       .order('rank', { ascending: true })
       .limit(3),
