@@ -84,13 +84,7 @@ export default async function CareerDomainsPage() {
           </p>
         </div>
 
-        {!latestAttempt && (
-          <Link href="/student/assessment">
-            <Button size="sm" className="gap-2 bg-[#A36B40] hover:bg-[#8E5B34] text-white rounded-2xl h-10 px-5 shadow-md shadow-[#A36B40]/25 cursor-pointer font-bold">
-              <Sparkles className="w-4 h-4" /> Calculate My Alignment
-            </Button>
-          </Link>
-        )}
+
       </div>
 
       {/* Domain Grid */}

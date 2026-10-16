@@ -93,12 +93,12 @@ export default async function CounselorDashboardPage() {
       href: '/mentor/students'
     },
     {
-      label: 'Total Tests Taken',
+      label: 'Advisee Records',
       value: totalCompletedAssessments || 0,
       subtext: 'Diagnostic & benchmark evaluations',
       icon: BookOpen,
       iconBg: 'bg-[#F1F1EB] text-[#77734B] border-[#77734B]/30',
-      href: '/mentor/assessments'
+      href: '/mentor/students'
     },
     {
       label: 'Average Specialization Fit',

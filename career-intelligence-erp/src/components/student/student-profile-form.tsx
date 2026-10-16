@@ -189,39 +189,21 @@ export function StudentProfileForm({
           </div>
 
           <div className="flex items-center gap-3 self-start sm:self-auto">
-            {isAssessmentReady ? (
-              <Link href="/student/assessment?start=true&track=UG">
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="h-10 px-4 rounded-xl border-[#8C4E2D] bg-[#F5ECE2] hover:bg-[#8C4E2D] hover:text-white text-[#8C4E2D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all cursor-pointer whitespace-nowrap"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-[#8C4E2D]" />
-                  <span>Start Free Assessment</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Button>
-              </Link>
-            ) : (
+            <Link href="/student/career-profile">
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => {
-                  const missingRequired = requiredFields.filter(r => !r.valid).map(r => r.label).join(', ')
-                  toast.error(`Please fill all required fields (${missingRequired}) and save your profile to start assessment.`)
-                }}
-                className="h-10 px-4 rounded-xl border-[#DFD7CB] bg-white text-[#7A7067] hover:text-[#8C4E2D] hover:border-[#8C4E2D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all cursor-pointer whitespace-nowrap opacity-85"
+                className="h-10 px-4 rounded-xl border-[#8C4E2D] bg-[#F5ECE2] hover:bg-[#8C4E2D] hover:text-white text-[#8C4E2D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all cursor-pointer whitespace-nowrap"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#A36B40]" />
-                <span>Start Free Assessment</span>
-                <span className="text-[10px] bg-[#FAF6F0] text-[#8C4E2D] px-1.5 py-0.5 rounded border border-[#DFD7CB]">
-                  {completedRequiredCount}/{totalRequiredCount} Required
-                </span>
+                <Sparkles className="w-3.5 h-3.5 text-[#8C4E2D]" />
+                <span>View Career Profile</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Button>
-            )}
+            </Link>
           </div>
         </div>
 
-        {/* Universal Student Profile Pill Banner & Assessment Readiness Status */}
+        {/* Universal Student Profile Pill Banner */}
         <div className="py-4 border-b border-[#F0EAE1] space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -230,7 +212,7 @@ export function StudentProfileForm({
                 <span>Universal student profile</span>
               </div>
               <p className="text-xs text-[#64748B] leading-relaxed">
-                Fill the required fields (marked with *) to unlock the career diagnostic assessment. Optional fields enrich longitudinal tracking.
+                Fill the required fields (marked with *) to complete your university profile and unlock mentor advisory.
               </p>
             </div>
 

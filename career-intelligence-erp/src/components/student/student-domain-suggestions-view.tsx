@@ -86,14 +86,7 @@ export function StudentDomainSuggestionsView({
           </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
-          <Link href="/student/assessment?start=true">
-            <Button className="h-11 px-6 rounded-2xl bg-[#A36B40] hover:bg-[#8E5B33] text-white font-bold text-xs shadow-md shadow-[#A36B40]/25 flex items-center gap-2 cursor-pointer transition-all">
-              <Sparkles className="w-4 h-4 text-amber-200" />
-              <span>{hasCompletedTest ? 'Retake Diagnostic Test' : 'Take Diagnostic Test'}</span>
-            </Button>
-          </Link>
-        </div>
+
       </div>
 
       {/* Top AI Matched Programs Section */}

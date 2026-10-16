@@ -324,6 +324,6 @@ export async function updateStudentProfile(
 
   revalidatePath('/student')
   revalidatePath('/student/profile')
-  revalidatePath('/student/assessment')
+  revalidatePath('/student/career-profile')
   return { success: true }
 }

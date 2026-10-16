@@ -12,7 +12,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { formatDate } from '@/lib/utils'
-import { TakeFreeTestModal } from '@/components/assessment/take-free-test-modal'
 
 export const dynamic = 'force-dynamic'
 
@@ -170,18 +169,15 @@ export default async function StudentDashboardPage() {
           </div>
         </div>
 
-        {/* Right Action: Start Free Assessment (Opens academic level selector modal & stays inside dashboard) */}
+        {/* Right Action: View Career Profile */}
         <div className="relative z-10 flex items-center gap-3 shrink-0">
-          <TakeFreeTestModal
-            candidateName={profile.full_name || 'Student'}
-            candidateEmail={profile.email || ''}
-            candidatePhone={studentProfile?.phone || profile.phone || ''}
-            candidateCollege={studentProfile?.institution || 'Sandip University'}
-            candidateQualification={studentProfile?.current_program || ''}
-            defaultTrack={defaultTrack}
-            buttonText="Start Free Assessment"
-            buttonClassName="h-12 px-6 bg-gradient-to-r from-[#A36B40] via-[#B87B4E] to-[#8E5B33] hover:from-[#8E5B33] hover:to-[#784A28] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md shadow-[#A36B40]/25 hover:shadow-lg hover:shadow-[#A36B40]/35 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-2.5 border border-white/20 group"
-          />
+          <Link href="/student/career-profile">
+            <Button className="h-12 px-6 bg-gradient-to-r from-[#A36B40] via-[#B87B4E] to-[#8E5B33] hover:from-[#8E5B33] hover:to-[#784A28] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md shadow-[#A36B40]/25 hover:shadow-lg hover:shadow-[#A36B40]/35 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-2.5 border border-white/20 group">
+              <Sparkles className="w-4 h-4 text-amber-200" />
+              <span>View Career Profile</span>
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -331,17 +327,20 @@ export default async function StudentDashboardPage() {
             )}
           </div>
 
-          <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-0 flex items-center">
-            <TakeFreeTestModal
-              candidateName={profile.full_name || 'Student'}
-              candidateEmail={profile.email || ''}
-              candidatePhone={studentProfile?.phone || profile.phone || ''}
-              candidateCollege={studentProfile?.institution || 'Sandip University'}
-              candidateQualification={studentProfile?.current_program || ''}
-              defaultTrack={defaultTrack}
-              buttonText={hasCompletedAssessment ? 'Retake Free Assessment' : 'Start Free Assessment'}
-              buttonClassName="h-11 px-6 bg-[#A36B40] hover:bg-[#8E5B33] text-white font-semibold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer flex items-center gap-2"
-            />
+          <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-0 flex items-center gap-3 flex-wrap">
+            <Link href="/student/assessment">
+              <Button className="h-11 px-6 bg-[#2858D8] hover:bg-[#1F45AD] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#2858D8]/25 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-200" />
+                <span>{hasCompletedAssessment ? 'Retake / Review Assessment' : 'Take Diagnostic Assessment'}</span>
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+            <Link href="/student/career-profile">
+              <Button variant="outline" className="h-11 px-5 border-[#DFD7CB] text-[#2C2621] hover:bg-[#FAF6F0] font-semibold text-xs rounded-2xl flex items-center gap-2">
+                <Compass className="w-4 h-4 text-[#A36B40]" />
+                <span>Explore Career Alignment</span>
+              </Button>
+            </Link>
           </div>
         </Card>
 
@@ -462,14 +461,14 @@ export default async function StudentDashboardPage() {
                   <TrendingUp className="w-5 h-5" />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-xs font-bold text-[#2C2621]">No Assessment Scores Yet</p>
+                  <p className="text-xs font-bold text-[#2C2621]">Domain Guidance Available</p>
                   <p className="text-[11px] text-[#7A7067] max-w-[280px] mx-auto">
-                    Take the 30-question diagnostic test to generate your personalized domain rankings.
+                    Explore degree pathways and consult your assigned faculty counselor.
                   </p>
                 </div>
-                <Link href="/student/assessment" className="inline-block pt-1">
+                <Link href="/student/domain-suggestions" className="inline-block pt-1">
                   <Button size="sm" className="h-8 text-xs bg-[#A36B40] hover:bg-[#8E5B33] text-white rounded-xl">
-                    Take Diagnostic Test
+                    View Degree Programs
                   </Button>
                 </Link>
               </div>

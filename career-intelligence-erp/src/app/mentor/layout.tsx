@@ -6,7 +6,6 @@ const navItems = [
   { label: 'Mentor Dashboard', href: '/mentor/dashboard' },
   { label: 'Referral Codes & Freshers', href: '/mentor/referral-codes' },
   { label: 'Advisee Profiles', href: '/mentor/students' },
-  { label: 'Assessments & Reports', href: '/mentor/assessments' },
   { label: 'Degree Programs', href: '/mentor/programs' },
   { label: 'Department Analytics', href: '/mentor/analytics' },
 ]
