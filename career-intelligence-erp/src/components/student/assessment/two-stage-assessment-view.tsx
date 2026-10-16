@@ -633,70 +633,155 @@ export function TwoStageAssessmentView({
             </Card>
           )}
 
-          {/* Assessment Setup Form */}
-          <Card className="border-[#DFD7CB] bg-white rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-            <div>
-              <h3 className="text-lg font-bold text-[#2C2621]">Start your assessment</h3>
-              <p className="text-xs text-[#7A7067]">Choose the study pathway that matches your next academic goal.</p>
+          {/* Redesigned Launch Studio Card */}
+          <Card className="border-[#DFD7CB] bg-white rounded-3xl p-6 sm:p-9 shadow-sm space-y-8 overflow-hidden">
+            {/* Header with Pill Badge */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DFD7CB]/60 pb-6">
+              <div className="space-y-1.5">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-[#F7EFEA] text-[#A36B40] border border-[#A36B40]/25">
+                  <Sparkles className="w-3.5 h-3.5" /> Sandip University Career Discovery
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-[#2C2621] tracking-tight">
+                  Launch Your Career Exploration
+                </h3>
+                <p className="text-xs sm:text-sm text-[#7A7067] max-w-2xl leading-relaxed">
+                  Select your academic study level and optional focus area to calibrate problem scenarios and university degree recommendations.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+                <Badge className="bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] px-3 py-1.5 text-xs font-semibold rounded-xl">
+                  <Clock className="w-3.5 h-3.5 mr-1.5 text-[#A36B40]" /> ~15-18 mins
+                </Badge>
+                <Badge className="bg-[#F1F1EB] text-[#77734B] border-[#77734B]/30 px-3 py-1.5 text-xs font-semibold rounded-xl">
+                  <ShieldCheck className="w-3.5 h-3.5 mr-1.5 text-[#77734B]" /> Objective & Private
+                </Badge>
+              </div>
             </div>
 
-            {/* Pathway Buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button
-                type="button"
-                onClick={() => handleSelectPathway('UG')}
-                className={`p-5 rounded-3xl border text-left transition-all cursor-pointer ${
-                  pathway === 'UG'
-                    ? 'border-[#A36B40] bg-[#FAF6F0] ring-2 ring-[#A36B40]/20'
-                    : 'border-[#DFD7CB] bg-white hover:bg-[#FAF6F0]/40'
-                }`}
-              >
-                <span className="text-2xl block mb-2">🎓</span>
-                <strong className="text-sm block font-bold text-[#2C2621]">Undergraduate (UG)</strong>
-                <small className="text-xs text-[#7A7067] block mt-1">
-                  For students who have completed or are completing Class 12.
-                </small>
-              </button>
+            {/* Pathway Selection - Executive Luxury Interactive Cards */}
+            <div className="space-y-3">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#7A7067] flex items-center justify-between">
+                <span>1. Select Academic Goal</span>
+                <span className="text-[11px] font-semibold text-[#A36B40] lowercase">calibrates case complexity</span>
+              </label>
 
-              <button
-                type="button"
-                onClick={() => handleSelectPathway('PG')}
-                className={`p-5 rounded-3xl border text-left transition-all cursor-pointer ${
-                  pathway === 'PG'
-                    ? 'border-[#A36B40] bg-[#FAF6F0] ring-2 ring-[#A36B40]/20'
-                    : 'border-[#DFD7CB] bg-white hover:bg-[#FAF6F0]/40'
-                }`}
-              >
-                <span className="text-2xl block mb-2">📘</span>
-                <strong className="text-sm block font-bold text-[#2C2621]">Postgraduate (PG)</strong>
-                <small className="text-xs text-[#7A7067] block mt-1">
-                  For students who have completed or are completing a bachelor’s degree.
-                </small>
-              </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* UG Card */}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleSelectPathway('UG')}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelectPathway('UG') }}
+                  className={`p-6 rounded-3xl border-2 text-left transition-all cursor-pointer relative overflow-hidden group ${
+                    pathway === 'UG'
+                      ? 'border-[#A36B40] bg-[#FAF6F0] shadow-md shadow-[#A36B40]/10 ring-1 ring-[#A36B40]'
+                      : 'border-[#DFD7CB] bg-white hover:border-[#A36B40]/40 hover:bg-[#FAF6F0]/40'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-white border border-[#DFD7CB] flex items-center justify-center text-2xl shadow-xs group-hover:scale-105 transition-transform">
+                      🎓
+                    </div>
+                    {pathway === 'UG' ? (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A36B40] bg-[#F7EFEA] px-3 py-1 rounded-full border border-[#A36B40]/30">
+                        <Check className="w-3.5 h-3.5" /> Selected
+                      </span>
+                    ) : (
+                      <span className="text-xs text-[#7A7067] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                        Click to select
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mt-4 space-y-1.5">
+                    <h4 className="text-base font-extrabold text-[#2C2621] group-hover:text-[#A36B40] transition-colors">
+                      Undergraduate (UG) Pathway
+                    </h4>
+                    <p className="text-xs text-[#7A7067] leading-relaxed">
+                      For students currently in or completing Class 12 / Higher Secondary.
+                    </p>
+                    <div className="pt-2 flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-white border border-[#DFD7CB] text-[#2C2621]">
+                        B.Tech · BBA · B.Des
+                      </span>
+                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-white border border-[#DFD7CB] text-[#2C2621]">
+                        B.A. LL.B. · B.Pharm · B.Sc
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* PG Card */}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleSelectPathway('PG')}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelectPathway('PG') }}
+                  className={`p-6 rounded-3xl border-2 text-left transition-all cursor-pointer relative overflow-hidden group ${
+                    pathway === 'PG'
+                      ? 'border-[#A36B40] bg-[#FAF6F0] shadow-md shadow-[#A36B40]/10 ring-1 ring-[#A36B40]'
+                      : 'border-[#DFD7CB] bg-white hover:border-[#A36B40]/40 hover:bg-[#FAF6F0]/40'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-white border border-[#DFD7CB] flex items-center justify-center text-2xl shadow-xs group-hover:scale-105 transition-transform">
+                      📘
+                    </div>
+                    {pathway === 'PG' ? (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A36B40] bg-[#F7EFEA] px-3 py-1 rounded-full border border-[#A36B40]/30">
+                        <Check className="w-3.5 h-3.5" /> Selected
+                      </span>
+                    ) : (
+                      <span className="text-xs text-[#7A7067] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                        Click to select
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mt-4 space-y-1.5">
+                    <h4 className="text-base font-extrabold text-[#2C2621] group-hover:text-[#A36B40] transition-colors">
+                      Postgraduate (PG) Pathway
+                    </h4>
+                    <p className="text-xs text-[#7A7067] leading-relaxed">
+                      For students who have completed or are completing a bachelor's degree.
+                    </p>
+                    <div className="pt-2 flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-white border border-[#DFD7CB] text-[#2C2621]">
+                        MBA · M.Tech · M.Pharm
+                      </span>
+                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-white border border-[#DFD7CB] text-[#2C2621]">
+                        LL.M. · M.Sc · Ph.D.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Stream Exploration Track */}
-            <div className="space-y-2 pt-1">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-[#2C2621]">Academic Track / Stream Focus:</span>
-                <span className="text-[11px] text-[#A36B40] font-semibold">tap to explore specific faculty</span>
-              </div>
+            <div className="space-y-3 pt-1">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#7A7067] flex items-center justify-between">
+                <span>2. Exploration Focus & Academic Track</span>
+                <span className="text-[11px] font-semibold text-[#A36B40] lowercase">explore all or focus on a faculty</span>
+              </label>
+
               <div className="flex items-center gap-2 flex-wrap">
                 {[
-                  { id: 'ALL', label: '✨ All Disciplines (Multi-Faculty)' },
+                  { id: 'ALL', label: '✨ All Disciplines (Multi-Faculty Balanced)' },
                   { id: 'COM', label: '📊 Commerce & Management' },
                   { id: 'ARTS', label: '🎨 Design, Media & Law' },
-                  { id: 'PCB', label: '🧬 Biology / Health Sciences' },
+                  { id: 'PCB', label: '🧬 Health & Life Sciences' },
                   { id: 'PCM', label: '⚙️ Technology & Engineering' },
                 ].map((s) => (
                   <button
                     key={s.id}
                     type="button"
                     onClick={() => setStream(s.id)}
-                    className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
+                    className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
                       stream === s.id
                         ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-sm'
-                        : 'bg-[#FAF6F0]/60 text-[#7A7067] hover:text-[#2C2621] hover:bg-[#FAF6F0] border-[#DFD7CB]'
+                        : 'bg-[#FAF6F0]/80 text-[#7A7067] hover:text-[#2C2621] hover:bg-[#FAF6F0] border-[#DFD7CB]'
                     }`}
                   >
                     {s.label}
@@ -705,72 +790,131 @@ export function TwoStageAssessmentView({
               </div>
             </div>
 
-            {/* Start Button */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <Button
-                className="h-12 px-7 rounded-2xl bg-[#A36B40] hover:bg-[#8E5B33] text-white font-extrabold text-xs shadow-md shadow-[#A36B40]/25 transition-all cursor-pointer flex items-center gap-2"
-                onClick={() => {
-                  setView('stage1')
-                  setS1Index(0)
-                }}
-              >
-                <span>Begin Stage 1 · 30 Cases</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="outline"
-                className="h-12 px-5 rounded-2xl text-xs font-bold border-[#DFD7CB] text-[#2C2621] hover:bg-[#FAF6F0]"
-                onClick={() => setView('domains')}
-              >
-                Explore 79 Domains
-              </Button>
-              <Button
-                variant="outline"
-                className="h-12 px-5 rounded-2xl text-xs font-bold border-[#DFD7CB] text-[#2C2621] hover:bg-[#FAF6F0]"
-                onClick={() => setView('programs')}
-              >
-                Browse Programmes
-              </Button>
-            </div>
+            {/* Primary Action Hero Banner */}
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-[#FAF6F0] via-[#F7EFEA] to-[#FAF6F0] border border-[#DFD7CB] flex flex-col md:flex-row md:items-center justify-between gap-5">
+              <div className="space-y-1">
+                <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#A36B40] block">
+                  Ready to discover your best-fit fields?
+                </span>
+                <h4 className="text-base font-black text-[#2C2621]">
+                  Stage 1: 30 Interactive Dual-Narrative Cases
+                </h4>
+                <p className="text-xs text-[#7A7067]">
+                  No preparation required. Pick up to 3 options per case that reflect your natural problem-solving tendencies.
+                </p>
+              </div>
 
-            {/* Notice Banner in Warm Luxury Style */}
-            <div className="p-4 rounded-2xl bg-[#F7EFEA] border border-[#A36B40]/30 text-[#8E5B33] text-xs leading-relaxed space-y-1">
-              <strong>How it works:</strong> Stage 1 evaluates your problem-solving patterns across 20 foundational dimensions.
-              Stage 2 presents personalized work cases from your highest-fit sectors. University programme matches are then computed with eligibility criteria.
+              <div className="flex items-center gap-3 flex-wrap shrink-0">
+                <Button
+                  className="h-12 px-7 rounded-2xl bg-[#A36B40] hover:bg-[#8E5B33] text-white font-extrabold text-xs shadow-md shadow-[#A36B40]/25 transition-all cursor-pointer flex items-center gap-2"
+                  onClick={() => {
+                    setView('stage1')
+                    setS1Index(0)
+                  }}
+                >
+                  <span>Begin Stage 1 Exploration</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-12 px-5 rounded-2xl text-xs font-bold border-[#DFD7CB] text-[#2C2621] hover:bg-white"
+                  onClick={() => setView('domains')}
+                >
+                  Explore 79 Domains
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-12 px-5 rounded-2xl text-xs font-bold border-[#DFD7CB] text-[#2C2621] hover:bg-white"
+                  onClick={() => setView('programs')}
+                >
+                  Programme Finder
+                </Button>
+              </div>
             </div>
           </Card>
 
-          {/* 3 Step Explanation Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="p-5 border-[#DFD7CB] bg-white rounded-3xl space-y-2">
-              <span className="text-xs font-bold text-[#A36B40] bg-[#F7EFEA] px-2.5 py-0.5 rounded-full border border-[#A36B40]/30">
-                1 · Broad Exploration
-              </span>
-              <h4 className="text-sm font-bold text-[#2C2621]">30 Varied-Format Cases</h4>
-              <p className="text-xs text-[#7A7067] leading-relaxed">
-                Problem scenarios, role picks, clue hunts, and mini-projects. Choose up to 3 options that genuinely appeal to you.
-              </p>
-            </Card>
+          {/* Three-Stage Visual Pipeline Stepper */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between px-1">
+              <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#7A7067]">
+                The Sandip University Assessment Pipeline
+              </h4>
+              <span className="text-xs font-bold text-[#A36B40]">3 Progressive Milestones</span>
+            </div>
 
-            <Card className="p-5 border-[#DFD7CB] bg-white rounded-3xl space-y-2">
-              <span className="text-xs font-bold text-[#77734B] bg-[#F1F1EB] px-2.5 py-0.5 rounded-full border border-[#77734B]/30">
-                2 · Domain Exploration
-              </span>
-              <h4 className="text-sm font-bold text-[#2C2621]">20 Personalized Work Cases</h4>
-              <p className="text-xs text-[#7A7067] leading-relaxed">
-                Tailored task descriptions comparing day-to-day activities across specific career fields without revealing domain titles.
-              </p>
-            </Card>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Step 1 */}
+              <Card className="p-6 border-[#DFD7CB] bg-white rounded-3xl space-y-3 hover:shadow-md transition-shadow relative overflow-hidden group">
+                <div className="flex items-center justify-between">
+                  <span className="w-8 h-8 rounded-xl bg-[#F7EFEA] text-[#A36B40] text-xs font-black flex items-center justify-center border border-[#A36B40]/30">
+                    01
+                  </span>
+                  <Badge className="bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] text-[10px] font-bold">
+                    ~10 mins
+                  </Badge>
+                </div>
+                <div>
+                  <h5 className="text-sm font-extrabold text-[#2C2621] group-hover:text-[#A36B40] transition-colors">
+                    Stage 1: Broad Profile Discovery
+                  </h5>
+                  <p className="text-xs text-[#7A7067] mt-1 leading-relaxed">
+                    30 varied-format problem scenarios, role choices, and project sampler stations evaluating 20 foundational dimensions.
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-[#DFD7CB]/60 flex items-center justify-between text-[11px] font-semibold text-[#A36B40]">
+                  <span>20 Cognitive Traits</span>
+                  <span>Max 3 picks / case</span>
+                </div>
+              </Card>
 
-            <Card className="p-5 border-[#DFD7CB] bg-white rounded-3xl space-y-2">
-              <span className="text-xs font-bold text-[#C6A18D] bg-[#F9F4F0] px-2.5 py-0.5 rounded-full border border-[#C6A18D]/40">
-                3 · Programme Guidance
-              </span>
-              <h4 className="text-sm font-bold text-[#2C2621]">Sandip University Courses</h4>
-              <p className="text-xs text-[#7A7067] leading-relaxed">
-                Matched against 114 university courses with detailed entry notes and prerequisites evaluated automatically.
-              </p>
-            </Card>
+              {/* Step 2 */}
+              <Card className="p-6 border-[#DFD7CB] bg-white rounded-3xl space-y-3 hover:shadow-md transition-shadow relative overflow-hidden group">
+                <div className="flex items-center justify-between">
+                  <span className="w-8 h-8 rounded-xl bg-[#F1F1EB] text-[#77734B] text-xs font-black flex items-center justify-center border border-[#77734B]/30">
+                    02
+                  </span>
+                  <Badge className="bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] text-[10px] font-bold">
+                    ~6-8 mins
+                  </Badge>
+                </div>
+                <div>
+                  <h5 className="text-sm font-extrabold text-[#2C2621] group-hover:text-[#77734B] transition-colors">
+                    Stage 2: Targeted Work Simulations
+                  </h5>
+                  <p className="text-xs text-[#7A7067] mt-1 leading-relaxed">
+                    20 personalized work cases comparing authentic day-to-day tasks across your candidate career fields without title bias.
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-[#DFD7CB]/60 flex items-center justify-between text-[11px] font-semibold text-[#77734B]">
+                  <span>79 Domain Catalog</span>
+                  <span>Bayesian smoothed fit</span>
+                </div>
+              </Card>
+
+              {/* Step 3 */}
+              <Card className="p-6 border-[#DFD7CB] bg-white rounded-3xl space-y-3 hover:shadow-md transition-shadow relative overflow-hidden group">
+                <div className="flex items-center justify-between">
+                  <span className="w-8 h-8 rounded-xl bg-[#F9F4F0] text-[#C6A18D] text-xs font-black flex items-center justify-center border border-[#C6A18D]/40">
+                    03
+                  </span>
+                  <Badge className="bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] text-[10px] font-bold">
+                    Immediate
+                  </Badge>
+                </div>
+                <div>
+                  <h5 className="text-sm font-extrabold text-[#2C2621] group-hover:text-[#A36B40] transition-colors">
+                    Stage 3: Multi-Faculty Degree Guidance
+                  </h5>
+                  <p className="text-xs text-[#7A7067] mt-1 leading-relaxed">
+                    Full psychometric dossier matching 114 university courses across Management, Design, Law, Sciences, Pharmacy, and Engineering.
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-[#DFD7CB]/60 flex items-center justify-between text-[11px] font-semibold text-[#C6A18D]">
+                  <span>114 SUN Programmes</span>
+                  <span>Stream eligibility check</span>
+                </div>
+              </Card>
+            </div>
           </div>
         </div>
       )}
