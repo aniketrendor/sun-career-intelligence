@@ -1039,17 +1039,51 @@ export function TwoStageAssessmentView({
                       </Badge>
                     </div>
 
-                    {/* Case Scenario Box */}
-                    <div className="p-5 rounded-3xl bg-[#FAF6F0] border border-[#DFD7CB] text-sm sm:text-base leading-relaxed text-[#2C2621] font-medium">
-                      {caseNarrative}
+                    {/* Redesigned Case Scenario Box */}
+                    <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-[#FAF6F0] via-[#FAF8F5] to-[#FAF6F0] border border-[#DFD7CB] shadow-2xs space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-md bg-[#A36B40]/10 text-[#A36B40] flex items-center justify-center">
+                            <Sparkles className="w-3 h-3" />
+                          </span>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-[#A36B40]">
+                            Case Scenario
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-bold text-[#7A7067] bg-white px-2.5 py-0.5 rounded-full border border-[#DFD7CB]">
+                          Interactive Challenge
+                        </span>
+                      </div>
+                      <div className="border-l-2 border-[#A36B40] pl-3.5 sm:pl-4 py-0.5">
+                        <p className="text-sm sm:text-base leading-relaxed text-[#2C2621] font-medium">
+                          {caseNarrative}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Prompt */}
-                    <div>
-                      <h3 className="text-xl font-bold text-[#2C2621] tracking-tight">{currentQ.prompt}</h3>
-                      <p className="text-xs text-[#7A7067] mt-1">
-                        {currentQ.instructions || `Select up to 3 responses that genuinely fit your approach.`} Choose “None of these” if no option applies.
-                      </p>
+                    {/* Redesigned Question Prompt & Instructions */}
+                    <div className="pt-1 space-y-2">
+                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                        <div className="space-y-1">
+                          <h3 className="text-lg sm:text-xl font-bold text-[#2C2621] tracking-tight leading-snug">
+                            {currentQ.prompt}
+                          </h3>
+                          <p className="text-xs text-[#7A7067] leading-relaxed">
+                            Select up to 3 options you would genuinely choose in this situation. Choose “None of these” if no option applies.
+                          </p>
+                        </div>
+                        <div className="shrink-0 self-start sm:self-auto">
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold border transition-all ${
+                              selectedIds.length > 0
+                                ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-xs'
+                                : 'bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB]'
+                            }`}
+                          >
+                            {selectedIds.length === 0 ? 'Up to 3 picks' : `${selectedIds.length} of 3 selected`}
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
                     {/* Options List */}
@@ -1455,17 +1489,51 @@ export function TwoStageAssessmentView({
                       </Badge>
                     </div>
 
-                    {/* Scenario */}
-                    <div className="p-5 rounded-3xl bg-[#FAF6F0] border border-[#DFD7CB] text-sm sm:text-base leading-relaxed text-[#2C2621] font-medium">
-                      {caseNarrative}
+                    {/* Redesigned Case Scenario Box */}
+                    <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-[#FAF6F0] via-[#FAF8F5] to-[#FAF6F0] border border-[#DFD7CB] shadow-2xs space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-md bg-[#77734B]/10 text-[#77734B] flex items-center justify-center">
+                            <Sparkles className="w-3 h-3" />
+                          </span>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-[#77734B]">
+                            Workplace Simulation Scenario
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-bold text-[#7A7067] bg-white px-2.5 py-0.5 rounded-full border border-[#DFD7CB]">
+                          Task-Based Case
+                        </span>
+                      </div>
+                      <div className="border-l-2 border-[#77734B] pl-3.5 sm:pl-4 py-0.5">
+                        <p className="text-sm sm:text-base leading-relaxed text-[#2C2621] font-medium">
+                          {caseNarrative}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Prompt */}
-                    <div>
-                      <h3 className="text-xl font-bold text-[#2C2621] tracking-tight">{currentQ.prompt}</h3>
-                      <p className="text-xs text-[#7A7067] mt-1">
-                        Select up to 3 activities you would genuinely like to try in this setting. Choose “None of these” if none fit.
-                      </p>
+                    {/* Redesigned Question Prompt & Instructions */}
+                    <div className="pt-1 space-y-2">
+                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                        <div className="space-y-1">
+                          <h3 className="text-lg sm:text-xl font-bold text-[#2C2621] tracking-tight leading-snug">
+                            {currentQ.prompt}
+                          </h3>
+                          <p className="text-xs text-[#7A7067] leading-relaxed">
+                            Select up to 3 activities you would genuinely like to try in this setting. Choose “None of these” if none fit.
+                          </p>
+                        </div>
+                        <div className="shrink-0 self-start sm:self-auto">
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold border transition-all ${
+                              selectedIds.length > 0
+                                ? 'bg-[#77734B] text-white border-[#77734B] shadow-xs'
+                                : 'bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB]'
+                            }`}
+                          >
+                            {selectedIds.length === 0 ? 'Up to 3 picks' : `${selectedIds.length} of 3 selected`}
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
                     {/* Activity Option Cards */}
