@@ -108,5 +108,30 @@ export function getRecommendedSandipCourses(topDomains: string[], level: 'UG' | 
     })
 
   scored.sort((a, b) => b.matchScore - a.matchScore)
-  return scored.slice(0, limit)
+
+  // Apply diversity capping: max 2 courses per school in top recommendations
+  const diverse: typeof scored = []
+  const schoolCounts: Record<string, number> = {}
+
+  for (const item of scored) {
+    if (diverse.length >= limit) break
+    const s = item.program.school
+    const c = schoolCounts[s] || 0
+    if (c < 2) {
+      diverse.push(item)
+      schoolCounts[s] = c + 1
+    }
+  }
+
+  // Fill remaining if needed
+  if (diverse.length < limit) {
+    for (const item of scored) {
+      if (diverse.length >= limit) break
+      if (!diverse.some((d) => d.program.program_id === item.program.program_id)) {
+        diverse.push(item)
+      }
+    }
+  }
+
+  return diverse
 }

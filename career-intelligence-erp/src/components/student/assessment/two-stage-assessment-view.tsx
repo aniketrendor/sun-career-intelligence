@@ -37,7 +37,8 @@ import {
   ScoredDomain,
   Stage2Question,
   MatchedProgram,
-  countSubstantive
+  countSubstantive,
+  selectDiverseRecommendedPrograms
 } from '@/lib/services/career-scoring-engine'
 
 const STORAGE_KEY = 'su_career_intelligence_erp_v1'
@@ -72,12 +73,13 @@ export function TwoStageAssessmentView({
   const [situation, setSituation] = useState(
     initialSituation || (initialPathway === 'UG' ? 'Class 12 completed' : "Bachelor's completed")
   )
-  const [stream, setStream] = useState(initialStream || 'PCM')
-  const [previousField, setPreviousField] = useState(initialPreviousField || 'Engineering & Technology')
+  const [stream, setStream] = useState(initialStream || 'ALL')
+  const [previousField, setPreviousField] = useState(initialPreviousField || 'General / Multi-Disciplinary')
   const [priorProgramme, setPriorProgramme] = useState(initialProgram || '')
   const [highestQualification, setHighestQualification] = useState(
     initialHighestQualification || (initialPathway === 'UG' ? "Class 12" : "Bachelor's degree")
   )
+  const [reportSchoolFilter, setReportSchoolFilter] = useState<string>('ALL')
 
   const handleSelectPathway = (p: 'UG' | 'PG') => {
     setPathway(p)
@@ -397,6 +399,25 @@ export function TwoStageAssessmentView({
     return getProgramMatches(finalDomains, s1Dimensions, studentProfile)
   }, [s1Dimensions, finalDomains, studentProfile])
 
+  // Diverse & School-Filtered Recommended Programs
+  const recommendedPrograms = useMemo(() => {
+    if (reportSchoolFilter === 'ALL') {
+      return selectDiverseRecommendedPrograms(matchedPrograms, 2, 6)
+    }
+    return matchedPrograms
+      .filter((p) => p.school.toLowerCase().includes(reportSchoolFilter.toLowerCase()))
+      .slice(0, 6)
+  }, [matchedPrograms, reportSchoolFilter])
+
+  // School Breakdown Counts
+  const schoolBreakdown = useMemo(() => {
+    const counts: Record<string, number> = {}
+    matchedPrograms.forEach((p) => {
+      counts[p.school] = (counts[p.school] || 0) + 1
+    })
+    return counts
+  }, [matchedPrograms])
+
   // Filtered Programs for Program Finder
   const filteredPrograms = useMemo(() => {
     const q = programSearch.toLowerCase().trim()
@@ -652,6 +673,36 @@ export function TwoStageAssessmentView({
                   For students who have completed or are completing a bachelor’s degree.
                 </small>
               </button>
+            </div>
+
+            {/* Stream Exploration Track */}
+            <div className="space-y-2 pt-1">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-[#2C2621]">Academic Track / Stream Focus:</span>
+                <span className="text-[11px] text-[#A36B40] font-semibold">tap to explore specific faculty</span>
+              </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                {[
+                  { id: 'ALL', label: '✨ All Disciplines (Multi-Faculty)' },
+                  { id: 'COM', label: '📊 Commerce & Management' },
+                  { id: 'ARTS', label: '🎨 Design, Media & Law' },
+                  { id: 'PCB', label: '🧬 Biology / Health Sciences' },
+                  { id: 'PCM', label: '⚙️ Technology & Engineering' },
+                ].map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setStream(s.id)}
+                    className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
+                      stream === s.id
+                        ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-sm'
+                        : 'bg-[#FAF6F0]/60 text-[#7A7067] hover:text-[#2C2621] hover:bg-[#FAF6F0] border-[#DFD7CB]'
+                    }`}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Start Button */}
@@ -1518,63 +1569,105 @@ export function TwoStageAssessmentView({
               </p>
             </div>
 
-            {/* Matched / Aligned Programmes */}
-            <div className="space-y-3">
-              <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#77734B] flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-[#77734B]" /> Aligned Pathway Programmes
-              </h4>
+            {/* Matched / Aligned Programmes with Multi-Faculty Tabs */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#77734B] flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#77734B]" /> Recommended Degree Pathways
+                </h4>
+                <div className="text-[11px] text-[#7A7067] font-medium">
+                  {matchedPrograms.length} programmes evaluated across Sandip University
+                </div>
+              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {matchedPrograms
-                  .filter((p) => p.eligibility.code === 'match')
-                  .slice(0, 6)
-                  .map((p) => (
-                    <div
-                      key={p.id}
-                      className="p-5 rounded-3xl bg-[#FAF6F0]/60 border border-[#DFD7CB] space-y-3 flex flex-col justify-between"
+              {/* Faculty Filter Pills */}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {[
+                  { id: 'ALL', label: '✨ All Faculties (Balanced Top 6)' },
+                  { id: 'Commerce & Management Studies', label: '💼 Commerce & Management' },
+                  { id: 'Design', label: '🎨 Design & Media' },
+                  { id: 'Law', label: '⚖️ Law & Justice' },
+                  { id: 'Computer Science & Engineering', label: '💻 Computer Science & AI' },
+                  { id: 'Science', label: '🔬 Science & Forensics' },
+                  { id: 'Pharmaceutical Sciences', label: '💊 Pharmacy & Health' },
+                  { id: 'Engineering & Technology', label: '⚙️ Core Engineering' },
+                ].map((tab) => {
+                  const count = tab.id === 'ALL' ? matchedPrograms.length : schoolBreakdown[tab.id] || 0
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setReportSchoolFilter(tab.id)}
+                      className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all cursor-pointer border ${
+                        reportSchoolFilter === tab.id
+                          ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-sm'
+                          : 'bg-[#FAF6F0] text-[#7A7067] hover:text-[#2C2621] border-[#DFD7CB]'
+                      }`}
                     >
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-black text-[#A36B40]">{p.id}</span>
+                      {tab.label} {count > 0 && `(${count})`}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Recommended Program Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
+                {recommendedPrograms.map((p) => (
+                  <div
+                    key={p.id}
+                    className="p-5 rounded-3xl bg-[#FAF6F0]/60 border border-[#DFD7CB] space-y-3 flex flex-col justify-between hover:shadow-md transition-shadow"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-black text-[#A36B40]">{p.id}</span>
+                        <div className="flex items-center gap-1">
+                          <Badge className="bg-[#FAF6F0] text-[#2C2621] border-[#DFD7CB] text-[10px] font-bold">
+                            {p.course}
+                          </Badge>
                           <Badge className="bg-[#F1F1EB] text-[#77734B] border-[#77734B]/30 text-[10px] font-bold">
                             {p.level}
                           </Badge>
                         </div>
-                        <h5 className="text-xs font-bold text-[#2C2621] leading-snug">{p.name}</h5>
-                        <p className="text-[11px] text-[#7A7067]">{p.school}</p>
-                        <div className="flex items-center justify-between pt-1">
-                          <span className="text-[11px] text-[#7A7067] font-semibold">Programme Fit Index:</span>
-                          <span className="text-xs font-black text-[#A36B40]">{p.fit}/100</span>
-                        </div>
                       </div>
-
-                      <div className="space-y-2 pt-2 border-t border-[#DFD7CB]">
-                        <p className="text-[10px] text-[#77734B] font-semibold bg-[#F1F1EB] p-2.5 rounded-2xl border border-[#77734B]/20">
-                          ✓ {p.eligibility.reason}
-                        </p>
-                        <div className="flex items-center gap-1 flex-wrap">
-                          {p.domains.slice(0, 2).map((dname) => (
-                            <span key={dname} className="text-[9px] font-bold bg-[#F7EFEA] text-[#A36B40] px-2 py-0.5 rounded-md border border-[#A36B40]/20">
-                              {dname}
-                            </span>
-                          ))}
-                        </div>
+                      <h5 className="text-xs font-bold text-[#2C2621] leading-snug">{p.name}</h5>
+                      <p className="text-[11px] text-[#A36B40] font-semibold">{p.school}</p>
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="text-[11px] text-[#7A7067] font-semibold">Programme Fit Index:</span>
+                        <span className="text-xs font-black text-[#A36B40]">{p.fit}/100</span>
                       </div>
                     </div>
-                  ))}
+
+                    <div className="space-y-2 pt-2 border-t border-[#DFD7CB]">
+                      <p className={`text-[10px] font-semibold p-2.5 rounded-2xl border ${
+                        p.eligibility.code === 'match'
+                          ? 'bg-[#F1F1EB] text-[#77734B] border-[#77734B]/20'
+                          : 'bg-[#F9F4F0] text-[#C6A18D] border-[#C6A18D]/40'
+                      }`}>
+                        {p.eligibility.code === 'match' ? '✓' : 'ℹ'} {p.eligibility.reason}
+                      </p>
+                      <div className="flex items-center gap-1 flex-wrap">
+                        {p.domains.slice(0, 3).map((dname) => (
+                          <span key={dname} className="text-[9px] font-bold bg-[#F7EFEA] text-[#A36B40] px-2 py-0.5 rounded-md border border-[#A36B40]/20">
+                            {dname}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* Review / Subject Check Programmes */}
-            {matchedPrograms.some((p) => p.eligibility.code === 'review') && (
+            {reportSchoolFilter === 'ALL' && matchedPrograms.some((p) => p.eligibility.code === 'review') && (
               <div className="space-y-3 pt-4 border-t border-[#DFD7CB]">
                 <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#C6A18D] flex items-center gap-1.5">
-                  <AlertCircle className="w-4 h-4 text-[#C6A18D]" /> Related Programmes for Subject Review
+                  <AlertCircle className="w-4 h-4 text-[#C6A18D]" /> Other Specializations for Subject Verification
                 </h4>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {matchedPrograms
-                    .filter((p) => p.eligibility.code === 'review')
+                    .filter((p) => p.eligibility.code === 'review' && !recommendedPrograms.some((r) => r.id === p.id))
                     .slice(0, 3)
                     .map((p) => (
                       <div

@@ -463,12 +463,28 @@ export function getProgramEligibility(
   }
 
   if (profile.pathway === 'UG') {
-    const st = profile.stream || 'OTHER'
+    const st = profile.stream || 'ALL'
     if (req === 'any stream') {
       return {
         code: 'match',
         label: 'Stream appears aligned',
-        reason: 'The source says “Any stream”. This is only a preliminary route indicator.'
+        reason: 'The source says “Any stream”. Open to all academic backgrounds.'
+      }
+    }
+    if (st === 'ALL' || st === 'OTHER') {
+      if (req === 'pcm') {
+        return {
+          code: 'review',
+          label: 'Requires PCM background',
+          reason: 'Source notes PCM requirement. Verify 12th subjects (Physics, Chemistry, Maths).'
+        }
+      }
+      if (req === 'pcb/pcm' || req === 'science') {
+        return {
+          code: 'review',
+          label: 'Requires Science background',
+          reason: 'Source notes Science background (PCB/PCM). Check eligibility.'
+        }
       }
     }
     if (req === 'pcm') {
@@ -718,8 +734,10 @@ export function programmeFit(
     .map((d) => d.finalScore ?? d.stage1Fit ?? 0)
     .sort((a, b) => b - a)
 
+  // Primary domain fit is weighted 75%, secondary domain weighted 25%
+  // This ensures single-domain programs (like B.Des, BBA, Law, Pharmacy) aren't mathematically penalized
   const domFit = scored.length
-    ? 0.65 * scored[0] + 0.35 * (scored.slice(0, 3).reduce((a, b) => a + b, 0) / Math.min(3, scored.length))
+    ? 0.75 * scored[0] + 0.25 * (scored.length > 1 ? scored[1] : scored[0])
     : 0
 
   const dim = s1Dimensions?.scores
@@ -762,4 +780,42 @@ export function getProgramMatches(
         .filter(Boolean) as string[]
     }))
     .sort((a, b) => b.fit - a.fit || a.name.localeCompare(b.name))
+}
+
+/**
+ * Selects balanced, diverse recommended programmes preventing any single school from crowding out others
+ */
+export function selectDiverseRecommendedPrograms(
+  matches: MatchedProgram[],
+  maxPerSchool = 2,
+  totalLimit = 6
+): MatchedProgram[] {
+  // First consider 'match' programs
+  const eligible = matches.filter((m) => m.eligibility.code === 'match')
+  const review = matches.filter((m) => m.eligibility.code === 'review')
+  const pool = [...eligible, ...review]
+
+  const selected: MatchedProgram[] = []
+  const schoolCounts: Record<string, number> = {}
+
+  for (const p of pool) {
+    if (selected.length >= totalLimit) break
+    const c = schoolCounts[p.school] || 0
+    if (c < maxPerSchool) {
+      selected.push(p)
+      schoolCounts[p.school] = c + 1
+    }
+  }
+
+  // If slots remain, fill with next best from pool
+  if (selected.length < totalLimit) {
+    for (const p of pool) {
+      if (selected.length >= totalLimit) break
+      if (!selected.some((s) => s.id === p.id)) {
+        selected.push(p)
+      }
+    }
+  }
+
+  return selected
 }
