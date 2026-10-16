@@ -20,7 +20,7 @@ export default async function StudentAssessmentPage() {
 
   const { data: studentProfile } = await supabase
     .from('student_profiles')
-    .select('current_program, institution, school, academic_year')
+    .select('current_program, institution, school, academic_year, education_level, status')
     .eq('user_id', profile.id)
     .maybeSingle()
 
@@ -32,9 +32,13 @@ export default async function StudentAssessmentPage() {
     .maybeSingle()
 
   const currentProg = studentProfile?.current_program || (enrollment?.program as any)?.name || ''
-  const isPG = currentProg.toUpperCase().includes('M.') ||
+  const isPG = (studentProfile?.education_level || '').toLowerCase().includes('postgraduate') ||
+               currentProg.toUpperCase().includes('M.') ||
                currentProg.toUpperCase().includes('MBA') ||
                currentProg.toUpperCase().includes('MASTER')
+
+  const initialPreviousField = studentProfile?.school || ''
+  const initialHighestQual = isPG ? "Bachelor's degree" : "Class 12"
 
   async function saveAttemptAction(attemptData: any) {
     'use server'
@@ -68,6 +72,8 @@ export default async function StudentAssessmentPage() {
       initialStudentName={profile.full_name || ''}
       initialPathway={isPG ? 'PG' : 'UG'}
       initialProgram={currentProg}
+      initialPreviousField={initialPreviousField}
+      initialHighestQualification={initialHighestQual}
       onSaveAttempt={saveAttemptAction}
     />
   )

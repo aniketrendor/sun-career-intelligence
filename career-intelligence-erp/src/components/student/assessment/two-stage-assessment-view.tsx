@@ -47,6 +47,9 @@ interface TwoStageAssessmentViewProps {
   initialPathway?: 'UG' | 'PG'
   initialStream?: string
   initialProgram?: string
+  initialSituation?: string
+  initialPreviousField?: string
+  initialHighestQualification?: string
   onSaveAttempt?: (attemptData: any) => Promise<void>
 }
 
@@ -55,19 +58,37 @@ export function TwoStageAssessmentView({
   initialPathway = 'UG',
   initialStream = '',
   initialProgram = '',
+  initialSituation = '',
+  initialPreviousField = '',
+  initialHighestQualification = '',
   onSaveAttempt
 }: TwoStageAssessmentViewProps) {
   // Navigation / View State
   const [view, setView] = useState<'home' | 'stage1' | 'stage1Results' | 'stage2' | 'results' | 'domains' | 'programs'>('home')
 
-  // Applicant Profile
+  // Applicant Profile (loaded from profile/student session)
   const [pathway, setPathway] = useState<'UG' | 'PG'>(initialPathway)
   const [applicantName, setApplicantName] = useState(initialStudentName)
-  const [situation, setSituation] = useState(initialPathway === 'UG' ? 'Class 12 completed' : "Bachelor's completed")
+  const [situation, setSituation] = useState(
+    initialSituation || (initialPathway === 'UG' ? 'Class 12 completed' : "Bachelor's completed")
+  )
   const [stream, setStream] = useState(initialStream || 'PCM')
-  const [previousField, setPreviousField] = useState('Engineering & Technology')
-  const [priorProgramme, setPriorProgramme] = useState('')
-  const [highestQualification, setHighestQualification] = useState(initialPathway === 'UG' ? "Class 12" : "Bachelor's degree")
+  const [previousField, setPreviousField] = useState(initialPreviousField || 'Engineering & Technology')
+  const [priorProgramme, setPriorProgramme] = useState(initialProgram || '')
+  const [highestQualification, setHighestQualification] = useState(
+    initialHighestQualification || (initialPathway === 'UG' ? "Class 12" : "Bachelor's degree")
+  )
+
+  const handleSelectPathway = (p: 'UG' | 'PG') => {
+    setPathway(p)
+    if (p === 'UG') {
+      if (!initialSituation) setSituation('Class 12 completed')
+      if (!initialHighestQualification) setHighestQualification('Class 12')
+    } else {
+      if (!initialSituation) setSituation("Bachelor's completed")
+      if (!initialHighestQualification) setHighestQualification("Bachelor's degree")
+    }
+  }
 
   // Stage 1 State
   const [s1Index, setS1Index] = useState(0)
@@ -602,7 +623,7 @@ export function TwoStageAssessmentView({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <button
                 type="button"
-                onClick={() => setPathway('UG')}
+                onClick={() => handleSelectPathway('UG')}
                 className={`p-5 rounded-3xl border text-left transition-all cursor-pointer ${
                   pathway === 'UG'
                     ? 'border-[#A36B40] bg-[#FAF6F0] ring-2 ring-[#A36B40]/20'
@@ -618,7 +639,7 @@ export function TwoStageAssessmentView({
 
               <button
                 type="button"
-                onClick={() => setPathway('PG')}
+                onClick={() => handleSelectPathway('PG')}
                 className={`p-5 rounded-3xl border text-left transition-all cursor-pointer ${
                   pathway === 'PG'
                     ? 'border-[#A36B40] bg-[#FAF6F0] ring-2 ring-[#A36B40]/20'
@@ -631,85 +652,6 @@ export function TwoStageAssessmentView({
                   For students who have completed or are completing a bachelor’s degree.
                 </small>
               </button>
-            </div>
-
-            {/* Form Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#40516A]">Your Name (Optional)</label>
-                <Input
-                  value={applicantName}
-                  onChange={(e) => setApplicantName(e.target.value)}
-                  placeholder="Enter your name"
-                  className="h-11 rounded-2xl border-[#DFD7CB] bg-[#FAF6F0]/40 text-[#2C2621]"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#40516A]">Current Status</label>
-                <select
-                  value={situation}
-                  onChange={(e) => setSituation(e.target.value)}
-                  className="w-full h-11 px-3 rounded-2xl border border-[#DFD7CB] bg-[#FAF6F0]/40 text-xs font-medium text-[#2C2621] focus:outline-none focus:ring-2 focus:ring-[#A36B40]"
-                >
-                  <option value="Class 12 completed">I have completed Class 12</option>
-                  <option value="Class 12 completing">I am completing Class 12</option>
-                  <option value="Bachelor's completed">I have completed my bachelor's degree</option>
-                  <option value="Bachelor's completing">I am completing my bachelor's degree</option>
-                  <option value="Master's completed">I have completed a master's degree and may consider a PhD</option>
-                </select>
-              </div>
-
-              {pathway === 'UG' ? (
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#40516A]">Class 12 Academic Stream</label>
-                  <select
-                    value={stream}
-                    onChange={(e) => setStream(e.target.value)}
-                    className="w-full h-11 px-3 rounded-2xl border border-[#DFD7CB] bg-[#FAF6F0]/40 text-xs font-medium text-[#2C2621] focus:outline-none focus:ring-2 focus:ring-[#A36B40]"
-                  >
-                    <option value="PCM">Science: Physics, Chemistry, Mathematics (PCM)</option>
-                    <option value="PCB">Science: Physics, Chemistry, Biology (PCB)</option>
-                    <option value="PCMB">Science: PCM and Biology (PCMB)</option>
-                    <option value="COM">Commerce</option>
-                    <option value="ARTS">Arts / Humanities</option>
-                    <option value="OTHER">Other / equivalent</option>
-                  </select>
-                </div>
-              ) : (
-                <>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#40516A]">Area of Previous Degree</label>
-                    <select
-                      value={previousField}
-                      onChange={(e) => setPreviousField(e.target.value)}
-                      className="w-full h-11 px-3 rounded-2xl border border-[#DFD7CB] bg-[#FAF6F0]/40 text-xs font-medium text-[#2C2621] focus:outline-none focus:ring-2 focus:ring-[#A36B40]"
-                    >
-                      <option value="Engineering & Technology">Engineering & Technology</option>
-                      <option value="Computer Science & IT">Computer Science & IT</option>
-                      <option value="Science">Science / Mathematics</option>
-                      <option value="Business / Management">Business / Management</option>
-                      <option value="Commerce / Finance">Commerce / Finance</option>
-                      <option value="Law">Law</option>
-                      <option value="Pharmacy / Health">Pharmacy / Health</option>
-                      <option value="Design / Media">Design / Media</option>
-                      <option value="Other">Other / not listed</option>
-                    </select>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#40516A]">Highest Qualification</label>
-                    <select
-                      value={highestQualification}
-                      onChange={(e) => setHighestQualification(e.target.value)}
-                      className="w-full h-11 px-3 rounded-2xl border border-[#DFD7CB] bg-[#FAF6F0]/40 text-xs font-medium text-[#2C2621] focus:outline-none focus:ring-2 focus:ring-[#A36B40]"
-                    >
-                      <option value="Bachelor's degree">Bachelor's degree (exploring master's programmes)</option>
-                      <option value="Master's degree">Master's degree (exploring doctoral programmes)</option>
-                    </select>
-                  </div>
-                </>
-              )}
             </div>
 
             {/* Start Button */}
