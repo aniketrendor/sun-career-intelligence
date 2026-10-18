@@ -10,9 +10,13 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Career Intelligence ERP – Institutional Career Development",
-  description: "Next-generation institutional career intelligence, psychometric profiling, and student development ERP platform.",
-  keywords: ["career intelligence", "psychometrics", "skill gaps", "learning roadmap", "higher education ERP"],
+  title: "SUN Career Intelligence ERP – Sandip University",
+  description: "Next-generation institutional career intelligence, psychometric profiling, and student development ERP platform at Sandip University.",
+  keywords: ["career intelligence", "sandip university", "psychometrics", "skill gaps", "learning roadmap", "higher education ERP"],
+  icons: {
+    icon: "/sun-career-intelligence-logo.png",
+    apple: "/sun-career-intelligence-logo.png",
+  }
 };
 
 export default function RootLayout({

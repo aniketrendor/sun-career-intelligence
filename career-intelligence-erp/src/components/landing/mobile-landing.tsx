@@ -190,14 +190,22 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
       {/* ─── ULTRA CLEAN GLASS TOP BAR ─────────────────────────────── */}
       <header className="sticky top-0 z-40 bg-[#FAF7F2]/90 backdrop-blur-xl border-b border-[#EAE2D7]/80 px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <div className="relative h-8 w-32 shrink-0">
+          <div className="relative h-8 w-8 rounded-full overflow-hidden shrink-0 shadow-xs ring-1 ring-[#DFD7CB] bg-white">
             <Image
-              src="/sandip-university-logo.png"
-              alt="Sandip University"
+              src="/sun-career-intelligence-logo.png"
+              alt="SUN Career Intelligence"
               fill
-              className="object-contain"
+              className="object-contain p-0.5"
               priority
             />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-xs font-black tracking-tight text-[#1E1915] leading-none">
+              SUN Career Intelligence
+            </span>
+            <span className="text-[9px] text-[#A36B40] font-semibold mt-0.5">
+              Sandip University
+            </span>
           </div>
         </Link>
         
@@ -603,15 +611,16 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
       {/* ─── STREAMLINED FOOTER ────────────────────────────────────── */}
       <footer className="bg-[#211D19] text-[#FAF7F2] px-4 pt-6 pb-6 border-t border-[#332D27] space-y-4 text-xs">
         <div className="flex items-center justify-between border-b border-[#332D27] pb-3.5">
-          <div className="bg-white px-2.5 py-1 rounded-xl">
-            <div className="relative h-6 w-24">
+          <div className="flex items-center gap-2">
+            <div className="relative h-7 w-7 rounded-full overflow-hidden shrink-0 shadow-xs bg-white ring-1 ring-white/10">
               <Image
-                src="/sandip-university-logo.png"
-                alt="Sandip University"
+                src="/sun-career-intelligence-logo.png"
+                alt="SUN Career Intelligence"
                 fill
-                className="object-contain"
+                className="object-contain p-0.5"
               />
             </div>
+            <span className="font-bold text-white text-xs">SUN Career Intelligence</span>
           </div>
           <div className="text-[10px] font-bold text-[#C6A18D]">
             NAAC 'A' Grade · Nashik

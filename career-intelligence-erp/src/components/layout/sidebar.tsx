@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
@@ -142,17 +143,21 @@ export function Sidebar({ navItems, userRole, userName, userEmail, isOpen, onClo
         {/* Top Logo / Brand Header */}
         <div className="px-5 py-4 border-b border-[#332D27] flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-[#A36B40] via-[#C6A18D] to-[#77734B] p-[1.5px] shadow-lg shadow-[#A36B40]/20">
-              <div className="w-full h-full bg-[#211D19] rounded-[14px] flex items-center justify-center group-hover:bg-transparent transition-all">
-                <GraduationCap className="w-4.5 h-4.5 text-white" />
-              </div>
+            <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 shadow-md ring-1 ring-white/10 group-hover:scale-105 transition-transform bg-white">
+              <Image
+                src="/sun-career-intelligence-logo.png"
+                alt="SUN Career Intelligence Logo"
+                fill
+                className="object-contain p-0.5"
+                priority
+              />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <p className="text-sm font-bold text-white tracking-tight">Career Intelligence</p>
+                <p className="text-sm font-bold text-white tracking-tight leading-tight">Career Intelligence</p>
               </div>
-              <p className="text-[10px] font-semibold text-[#8C8276] tracking-wider uppercase">
-                ERP System
+              <p className="text-[10px] font-semibold text-[#C6A18D] tracking-wider uppercase">
+                Sandip University
               </p>
             </div>
           </Link>

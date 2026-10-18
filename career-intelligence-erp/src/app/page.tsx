@@ -180,20 +180,23 @@ export default async function LandingPage() {
       {/* ─── NAVBAR ──────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 bg-[#FAF6F0]/95 backdrop-blur-md border-b border-[#DFD7CB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 group">
-            <div className="relative h-8 sm:h-10 w-28 sm:w-40 shrink-0">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative h-10 sm:h-11 w-10 sm:w-11 rounded-full overflow-hidden shrink-0 shadow-xs ring-1 ring-[#DFD7CB] bg-white group-hover:scale-105 transition-transform">
               <Image
-                src="/sandip-university-logo.png"
-                alt="Sandip University Logo"
+                src="/sun-career-intelligence-logo.png"
+                alt="SUN Career Intelligence Logo"
                 fill
-                className="object-contain"
+                className="object-contain p-0.5"
                 priority
               />
             </div>
-            <div className="hidden xl:block h-7 w-[1px] bg-[#DFD7CB]" />
-            <div className="hidden xl:flex flex-col">
-              <span className="text-xs font-extrabold text-[#2C2621] uppercase tracking-wider">Career Intelligence</span>
-              <span className="text-[10px] text-[#7A7067] font-semibold">Institutional Assessment & Advisory System</span>
+            <div className="flex flex-col">
+              <span className="text-xs sm:text-sm font-extrabold text-[#2C2621] uppercase tracking-wider leading-tight">
+                SUN Career Intelligence
+              </span>
+              <span className="text-[10px] text-[#A36B40] font-semibold">
+                Sandip University · Institutional System
+              </span>
             </div>
           </Link>
 
@@ -491,19 +494,6 @@ export default async function LandingPage() {
                 Unlike generic online tests, Sandip University pairs your psychometric diagnostic results with seasoned industry and domain experts. Review your strengths, explore elective specializations, and resolve curriculum doubts in personalized 1-on-1 sessions.
               </p>
 
-              <div className="space-y-2.5 sm:space-y-3 pt-1">
-                {[
-                  'Personalized analysis of your cognitive aptitude & domain compatibility',
-                  'In-depth breakdown of high-growth specializations and elective tracks',
-                  'Prerequisite roadmap and readiness planning for competitive campus placements',
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-2 text-xs text-[#EFE2D0]">
-                    <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#77734B] shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-
               <div className="pt-2 sm:pt-4">
                 <Link href="/login" className="block sm:inline-block">
                   <Button className="w-full sm:w-auto h-11 sm:h-12 px-6 sm:px-7 bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all gap-2 cursor-pointer">
@@ -514,39 +504,45 @@ export default async function LandingPage() {
               </div>
             </div>
 
-            {/* Mentor Feature Cards */}
-            <div className="lg:col-span-5 space-y-3.5 sm:space-y-4">
-              
-              <div className="bg-[#2C2621] p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#3D352E] space-y-2.5 sm:space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-[#A36B40] text-white font-bold text-xs sm:text-sm flex items-center justify-center">
-                    AK
+            {/* Guided Highlights Cards (Image-2 Content in Card Format) */}
+            <div className="lg:col-span-5 space-y-3 sm:space-y-3.5">
+              {[
+                {
+                  text: 'Personalized analysis of your cognitive aptitude & domain compatibility',
+                  tag: 'Cognitive Aptitude',
+                  icon: Brain,
+                  borderHover: 'hover:border-[#A36B40]/60'
+                },
+                {
+                  text: 'In-depth breakdown of high-growth specializations and elective tracks',
+                  tag: 'Specialization Tracks',
+                  icon: Compass,
+                  borderHover: 'hover:border-[#C87D55]/60'
+                },
+                {
+                  text: 'Prerequisite roadmap and readiness planning for competitive campus placements',
+                  tag: 'Placement Readiness',
+                  icon: Target,
+                  borderHover: 'hover:border-[#77734B]/60'
+                }
+              ].map((item, idx) => (
+                <div
+                  key={idx}
+                  className={`bg-[#2C2621] p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#3D352E] ${item.borderHover} transition-all space-y-2.5 group shadow-xs`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-xl bg-[#211D19] border border-[#3D352E] flex items-center justify-center text-emerald-400 shadow-xs">
+                      <CheckCircle2 className="w-4.5 h-4.5" />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#C6A18D] bg-[#211D19] px-2.5 py-0.5 rounded-full border border-[#3D352E]">
+                      {item.tag}
+                    </span>
                   </div>
-                  <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-[#EFE2D0]">Prof. Ananya Kulkarni</h4>
-                    <p className="text-[10px] sm:text-[11px] text-[#C6A18D]">Senior Subject Expert & Engineering Advisory</p>
-                  </div>
+                  <p className="text-xs sm:text-sm font-semibold text-[#EFE2D0] leading-relaxed">
+                    {item.text}
+                  </p>
                 </div>
-                <p className="text-[11px] sm:text-xs text-[#C6A18D]/80 italic">
-                  "The diagnostic assessment bridges student passion with industry reality, helping candidates pick future-proof degrees."
-                </p>
-              </div>
-
-              <div className="bg-[#2C2621] p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#3D352E] space-y-2.5 sm:space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-[#77734B] text-white font-bold text-xs sm:text-sm flex items-center justify-center">
-                    RD
-                  </div>
-                  <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-[#EFE2D0]">Dr. Rajesh Deshmukh</h4>
-                    <p className="text-[10px] sm:text-[11px] text-[#C6A18D]">Industry Expert & Corporate Career Advisor</p>
-                  </div>
-                </div>
-                <p className="text-[11px] sm:text-xs text-[#C6A18D]/80 italic">
-                  "Every student has a unique aptitude fingerprint. Our subject and industry experts help transform that into executive leadership."
-                </p>
-              </div>
-
+              ))}
             </div>
 
           </div>
@@ -834,14 +830,18 @@ export default async function LandingPage() {
             
             {/* Column 1: Brand & Campus Info */}
             <div className="lg:col-span-4 space-y-3 sm:space-y-4">
-              <div className="bg-white px-3 sm:px-3.5 py-1.5 rounded-xl sm:rounded-2xl inline-block shadow-xs">
-                <div className="relative h-8 sm:h-9 w-32 sm:w-36">
+              <div className="flex items-center gap-3">
+                <div className="relative h-11 w-11 rounded-full overflow-hidden shrink-0 shadow-xs bg-white ring-1 ring-white/10">
                   <Image
-                    src="/sandip-university-logo.png"
-                    alt="Sandip University"
+                    src="/sun-career-intelligence-logo.png"
+                    alt="SUN Career Intelligence"
                     fill
-                    className="object-contain"
+                    className="object-contain p-0.5"
                   />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-white tracking-tight leading-tight">SUN Career Intelligence</h4>
+                  <p className="text-[11px] text-[#C6A18D] font-semibold">Sandip University</p>
                 </div>
               </div>
 

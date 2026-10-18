@@ -57,15 +57,24 @@ export function AppShell({
             </button>
 
             <div className="flex items-center gap-3">
-              <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
-                <Image
-                  src="/sandip-university-logo.png"
-                  alt="Sandip University - NAAC Grade A"
-                  width={220}
-                  height={48}
-                  className="h-8 sm:h-9.5 w-auto object-contain"
-                  priority
-                />
+              <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+                <div className="relative w-8 h-8 sm:w-9.5 sm:h-9.5 rounded-full overflow-hidden shrink-0 shadow-xs ring-1 ring-[#DFD7CB] bg-white">
+                  <Image
+                    src="/sun-career-intelligence-logo.png"
+                    alt="SUN Career Intelligence"
+                    fill
+                    className="object-contain p-0.5"
+                    priority
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs sm:text-sm font-bold text-[#2C2621] tracking-tight leading-none">
+                    Career Intelligence
+                  </span>
+                  <span className="text-[9px] text-[#A36B40] font-semibold mt-0.5">
+                    Sandip University
+                  </span>
+                </div>
               </Link>
 
               {breadcrumbs && breadcrumbs.length > 0 && (
