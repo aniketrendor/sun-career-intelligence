@@ -7,7 +7,8 @@ import {
   LayoutDashboard, BookOpen, BarChart2, Target, Map,
   MessageSquare, User, Users, ClipboardList, Building2,
   QrCode, GraduationCap, X, Sparkles, ShieldCheck,
-  ChevronRight, Compass, UserCheck, KeyRound, Award
+  ChevronRight, Compass, UserCheck, KeyRound, Award,
+  ClipboardCheck, Layers
 } from 'lucide-react'
 
 export interface NavItem {
@@ -50,6 +51,8 @@ const iconMap: Record<string, any> = {
 
   // Admin
   '/admin/dashboard': LayoutDashboard,
+  '/admin/assessments': ClipboardCheck,
+  '/admin/questions': Layers,
   '/admin/users': Users,
   '/admin/mentors': Award,
   '/admin/assignments': UserCheck,
