@@ -9,7 +9,7 @@ import {
   MessageSquare, User, Users, ClipboardList, Building2,
   QrCode, GraduationCap, X, Sparkles, ShieldCheck,
   ChevronRight, Compass, UserCheck, KeyRound, Award,
-  ClipboardCheck, Layers, FileText, Calendar
+  ClipboardCheck, Layers, FileText, Calendar, ExternalLink
 } from 'lucide-react'
 
 export interface NavItem {
@@ -227,12 +227,18 @@ export function Sidebar({ navItems, userRole, userName, userEmail, isOpen, onClo
 
         {/* Sidebar Footer */}
         <div className="p-3 border-t border-[#332D27] bg-[#1A1613]">
-          <div className="flex items-center justify-between px-2 text-[11px] text-[#8C8276]">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#77734B] animate-pulse" />
-              Institutional System v2.4
-            </span>
-            <ShieldCheck className="w-3.5 h-3.5 text-[#8C8276]" />
+          <div className="flex items-center justify-between px-2 text-[11px] text-[#C6A18D]">
+            <div className="flex items-center gap-1.5">
+              <span>Powered by</span>
+              <a
+                href="https://mindsaar.onrender.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-white hover:text-[#C6A18D] underline underline-offset-2 inline-flex items-center gap-1 transition-colors"
+              >
+                MindSaar <ExternalLink className="w-2.5 h-2.5 text-[#C6A18D]" />
+              </a>
+            </div>
           </div>
         </div>
       </aside>
