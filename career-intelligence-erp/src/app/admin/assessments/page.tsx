@@ -65,38 +65,6 @@ const BASE_ASSESSMENTS: AssessmentItem[] = [
     totalResponses: 0,
     completionRate: 0,
     lastUpdated: 'Live Active'
-  },
-  {
-    id: 'sun-engineering-readiness',
-    name: 'Engineering & Technology Specialized Assessment',
-    slug: 'sun-engineering-readiness',
-    purpose: 'Deep evaluation of mathematical, algorithmic, systems thinking, and robotics competencies.',
-    targetGroup: 'STEM Prospects',
-    version: 'V1.2 Draft',
-    status: 'DRAFT',
-    totalQuestions: 30,
-    stages: 'Single Stage Specialized',
-    timeLimitMinutes: 30,
-    attemptLimit: 2,
-    totalResponses: 0,
-    completionRate: 0,
-    lastUpdated: 'In Draft'
-  },
-  {
-    id: 'sun-mgmt-commerce',
-    name: 'Management, Commerce & Entrepreneurship Discovery',
-    slug: 'sun-mgmt-commerce',
-    purpose: 'Evaluates commercial acumen, negotiation, organizational psychology, and financial orientation.',
-    targetGroup: 'Commerce & BBA/MBA',
-    version: 'V1.0 Draft',
-    status: 'DRAFT',
-    totalQuestions: 25,
-    stages: 'Single Stage',
-    timeLimitMinutes: 25,
-    attemptLimit: 1,
-    totalResponses: 0,
-    completionRate: 0,
-    lastUpdated: 'In Draft'
   }
 ]
 
