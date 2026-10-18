@@ -902,24 +902,29 @@ export default async function LandingPage() {
 
           {/* Bottom Bar */}
           <div className="pt-6 sm:pt-8 border-t border-[#332D27] flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] sm:text-[11px] text-[#A89D8F] text-center sm:text-left">
-            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-              <p>© {new Date().getFullYear()} Sandip University Career Intelligence Platform. All rights reserved.</p>
-              <div className="flex items-center gap-2.5 text-[#C6A18D]">
-                <Link href="/privacy" className="hover:text-white transition-colors underline-offset-2 hover:underline">Privacy Policy</Link>
-                <span>·</span>
-                <Link href="/terms" className="hover:text-white transition-colors underline-offset-2 hover:underline">Terms & Conditions</Link>
+            <p>© {new Date().getFullYear()} Sandip University Career Intelligence Platform. All rights reserved.</p>
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 text-[#C6A18D]">
+              <Link href="/privacy" className="hover:text-white transition-colors underline underline-offset-2">
+                Privacy Policy
+              </Link>
+              <span className="text-[#554C42]">|</span>
+              <Link href="/terms" className="hover:text-white transition-colors underline underline-offset-2">
+                Terms & Conditions
+              </Link>
+              <span className="text-[#554C42]">|</span>
+              <span className="text-[#A89D8F] font-semibold">V2.01</span>
+              <span className="text-[#554C42]">|</span>
+              <div className="flex items-center gap-1 text-[#C6A18D]">
+                <span>Powered by</span>
+                <a
+                  href="https://mindsaar.onrender.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-white hover:text-[#A36B40] underline underline-offset-4 inline-flex items-center gap-1 transition-colors"
+                >
+                  MindSaar <ExternalLink className="w-3 h-3 text-[#C6A18D]" />
+                </a>
               </div>
-            </div>
-            <div className="flex items-center justify-center gap-1.5 text-[#C6A18D]">
-              <span>Powered by</span>
-              <a
-                href="https://mindsaar.onrender.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold text-white hover:text-[#A36B40] underline underline-offset-4 inline-flex items-center gap-1 transition-colors"
-              >
-                MindSaar <ExternalLink className="w-3 h-3 text-[#C6A18D]" />
-              </a>
             </div>
           </div>
 

@@ -643,21 +643,24 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
 
         <div className="pt-2 border-t border-[#332D27] text-[10px] text-[#A89D8F] text-center flex flex-col items-center gap-1.5">
           <p>© {new Date().getFullYear()} Sandip University Career Intelligence Platform.</p>
-          <div className="flex items-center justify-center gap-2 text-[#C6A18D] text-[10px]">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 text-[#C6A18D] text-[10px]">
             <Link href="/privacy" className="hover:text-white underline underline-offset-2">Privacy Policy</Link>
-            <span>·</span>
+            <span className="text-[#554C42]">|</span>
             <Link href="/terms" className="hover:text-white underline underline-offset-2">Terms & Conditions</Link>
-          </div>
-          <div className="flex items-center justify-center gap-1 text-[#C6A18D] text-[10px]">
-            <span>Powered by</span>
-            <a
-              href="https://mindsaar.onrender.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold text-white hover:text-[#A36B40] underline underline-offset-2 inline-flex items-center gap-0.5"
-            >
-              MindSaar <ExternalLink className="w-2.5 h-2.5 text-[#C6A18D]" />
-            </a>
+            <span className="text-[#554C42]">|</span>
+            <span className="text-[#A89D8F] font-semibold">V2.01</span>
+            <span className="text-[#554C42]">|</span>
+            <div className="flex items-center gap-0.5">
+              <span>Powered by</span>
+              <a
+                href="https://mindsaar.onrender.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-white hover:text-[#A36B40] underline underline-offset-2 inline-flex items-center gap-0.5"
+              >
+                MindSaar <ExternalLink className="w-2.5 h-2.5 text-[#C6A18D]" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
