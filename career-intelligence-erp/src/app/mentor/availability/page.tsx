@@ -32,7 +32,19 @@ export default async function MentorAvailabilityPage() {
     cabin: '',
     expertise: [] as string[],
     consultation_hours: '',
-    bio: ''
+    bio: '',
+    google_meet_link: '',
+    available_days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'] as string[],
+    custom_slots: [
+      '09:30 AM - 10:00 AM',
+      '10:00 AM - 10:30 AM',
+      '10:30 AM - 11:00 AM',
+      '11:15 AM - 11:45 AM',
+      '02:00 PM - 02:30 PM',
+      '02:30 PM - 03:00 PM',
+      '03:15 PM - 03:45 PM',
+      '04:00 PM - 04:30 PM'
+    ] as string[]
   }
 
   if (cp?.designation) {
@@ -44,7 +56,10 @@ export default async function MentorAvailabilityPage() {
           cabin: parsed.cabin || mentorMetadata.cabin,
           expertise: Array.isArray(parsed.expertise) ? parsed.expertise : mentorMetadata.expertise,
           consultation_hours: parsed.consultation_hours || mentorMetadata.consultation_hours,
-          bio: parsed.bio || mentorMetadata.bio
+          bio: parsed.bio || mentorMetadata.bio,
+          google_meet_link: parsed.google_meet_link || '',
+          available_days: Array.isArray(parsed.available_days) && parsed.available_days.length > 0 ? parsed.available_days : mentorMetadata.available_days,
+          custom_slots: Array.isArray(parsed.custom_slots) && parsed.custom_slots.length > 0 ? parsed.custom_slots : mentorMetadata.custom_slots
         }
       } else {
         mentorMetadata.title = cp.designation

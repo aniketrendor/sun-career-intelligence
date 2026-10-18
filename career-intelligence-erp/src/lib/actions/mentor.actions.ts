@@ -110,6 +110,101 @@ export async function updateMentorProfile(
   return { success: true }
 }
 
+// ─── 1B. DYNAMIC SLOTS & GOOGLE MEET CONFIG ────────────────────────────────
+
+export interface DynamicSlotsConfig {
+  available_days: string[]
+  custom_slots: string[]
+  google_meet_link: string
+  cabin?: string
+  consultation_hours?: string
+}
+
+export async function updateMentorSlotsConfig(
+  config: DynamicSlotsConfig
+): Promise<ActionResult> {
+  const supabase = await createClient()
+  const adminClient = await createAdminClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Not authenticated.' }
+
+  const { data: profile } = await supabase
+    .from('users')
+    .select('id, role')
+    .eq('auth_user_id', user.id)
+    .single()
+
+  if (!profile || !['MENTOR', 'COUNSELOR', 'ADMIN', 'DEAN_HOD'].includes(profile.role)) {
+    return { success: false, error: 'Unauthorized to configure advisory slots.' }
+  }
+
+  // Fetch existing counselor_profile
+  const { data: existingCp } = await adminClient
+    .from('counselor_profiles')
+    .select('id, designation')
+    .eq('user_id', profile.id)
+    .maybeSingle()
+
+  let currentMeta: Record<string, any> = {
+    title: 'Career & Faculty Mentor',
+    cabin: config.cabin || '',
+    expertise: [],
+    consultation_hours: config.consultation_hours || '',
+    bio: ''
+  }
+
+  if (existingCp?.designation) {
+    try {
+      if (existingCp.designation.startsWith('{')) {
+        currentMeta = JSON.parse(existingCp.designation)
+      } else {
+        currentMeta.title = existingCp.designation
+      }
+    } catch {}
+  }
+
+  // Merge updated dynamic slots & Google Meet link
+  const updatedMeta = {
+    ...currentMeta,
+    cabin: config.cabin !== undefined ? config.cabin : (currentMeta.cabin || ''),
+    consultation_hours: config.consultation_hours || (config.available_days.length > 0 ? `${config.available_days.join(', ')} (${config.custom_slots.length} daily slots)` : ''),
+    google_meet_link: config.google_meet_link || '',
+    available_days: config.available_days || [],
+    custom_slots: config.custom_slots || []
+  }
+
+  const designationPayload = JSON.stringify(updatedMeta)
+
+  if (existingCp) {
+    const { error: cpError } = await adminClient
+      .from('counselor_profiles')
+      .update({
+        designation: designationPayload,
+        updated_at: new Date().toISOString()
+      })
+      .eq('user_id', profile.id)
+
+    if (cpError) return { success: false, error: cpError.message || 'Failed to update slots config.' }
+  } else {
+    const { error: cpError } = await adminClient
+      .from('counselor_profiles')
+      .insert({
+        user_id: profile.id,
+        designation: designationPayload,
+        can_manage_assessments: true
+      })
+
+    if (cpError) return { success: false, error: cpError.message || 'Failed to initialize counselor profile.' }
+  }
+
+  revalidatePath('/mentor/availability')
+  revalidatePath('/mentor/profile')
+  revalidatePath('/student/counselor')
+
+  return { success: true }
+}
+
 // ─── 2. CREATE / UPDATE COUNSELING SESSION ─────────────────────────────────
 
 export interface CounselingSessionInput {

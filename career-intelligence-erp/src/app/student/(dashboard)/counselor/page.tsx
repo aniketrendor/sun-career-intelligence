@@ -91,6 +91,9 @@ export default async function StudentCounselorPage() {
     let consultation_hours = ''
     let expertise: string[] = []
     let bio = ''
+    let google_meet_link = ''
+    let available_days: string[] = []
+    let custom_slots: string[] = []
 
     if (designation) {
       try {
@@ -101,6 +104,9 @@ export default async function StudentCounselorPage() {
           consultation_hours = parsed.consultation_hours || ''
           expertise = Array.isArray(parsed.expertise) ? parsed.expertise : []
           bio = parsed.bio || ''
+          google_meet_link = parsed.google_meet_link || ''
+          available_days = Array.isArray(parsed.available_days) ? parsed.available_days : []
+          custom_slots = Array.isArray(parsed.custom_slots) ? parsed.custom_slots : []
         } else {
           title = designation
         }
@@ -109,7 +115,7 @@ export default async function StudentCounselorPage() {
       }
     }
 
-    return { title, cabin, consultation_hours, expertise, bio }
+    return { title, cabin, consultation_hours, expertise, bio, google_meet_link, available_days, custom_slots }
   }
 
   // Format available counselors list
@@ -125,7 +131,10 @@ export default async function StudentCounselorPage() {
       cabin: meta.cabin,
       consultation_hours: meta.consultation_hours,
       expertise: meta.expertise,
-      bio: meta.bio
+      bio: meta.bio,
+      google_meet_link: meta.google_meet_link,
+      available_days: meta.available_days,
+      custom_slots: meta.custom_slots
     }
   })
 
@@ -156,7 +165,10 @@ export default async function StudentCounselorPage() {
         cabin: meta.cabin,
         consultation_hours: meta.consultation_hours,
         expertise: meta.expertise,
-        bio: meta.bio
+        bio: meta.bio,
+        google_meet_link: meta.google_meet_link,
+        available_days: meta.available_days,
+        custom_slots: meta.custom_slots
       }
     }
   }

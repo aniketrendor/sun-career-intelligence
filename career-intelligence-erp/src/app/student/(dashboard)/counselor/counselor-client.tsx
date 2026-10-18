@@ -4,7 +4,8 @@ import { useState, useTransition, useEffect } from 'react'
 import {
   Calendar, Clock, User, Video, MapPin, Plus, CheckCircle2,
   Mail, Phone, BookOpen, ShieldCheck, ArrowRight, X, AlertCircle,
-  Sparkles, CheckSquare, ChevronRight, MessageSquare, RefreshCw
+  Sparkles, CheckSquare, ChevronRight, MessageSquare, RefreshCw,
+  ExternalLink
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -32,6 +33,9 @@ export interface CounselorItem {
   consultation_hours: string
   expertise: string[]
   bio: string
+  google_meet_link?: string
+  available_days?: string[]
+  custom_slots?: string[]
 }
 
 export interface SessionItem {
@@ -149,15 +153,20 @@ export function CounselorClient({
     )
   }
 
+  const chosenMentor = availableCounselors.find(c => c.id === selectedCounselorId) || assignedCounselor
+  const mentorSlots = chosenMentor?.custom_slots && chosenMentor.custom_slots.length > 0
+    ? chosenMentor.custom_slots
+    : STANDARD_TIME_SLOTS
+
   // When selected date or counselor changes, ensure selected slot is not already booked
   useEffect(() => {
     if (isSlotBooked(selectedTimeSlot, selectedCounselorId, selectedDate)) {
-      const firstAvailable = STANDARD_TIME_SLOTS.find(slot => !isSlotBooked(slot, selectedCounselorId, selectedDate))
+      const firstAvailable = mentorSlots.find(slot => !isSlotBooked(slot, selectedCounselorId, selectedDate))
       if (firstAvailable) {
         setSelectedTimeSlot(firstAvailable)
       }
     }
-  }, [selectedDate, selectedCounselorId])
+  }, [selectedDate, selectedCounselorId, mentorSlots])
 
   // Parsing helper for session summaries that have [Slot: ...] header
   function parseSummary(summary: string | null) {
@@ -182,8 +191,13 @@ export function CounselorClient({
     const initialDate = upcomingDatePresets[0]?.dateStr || new Date().toISOString().split('T')[0]
     setSelectedDate(initialDate)
 
-    const firstAvailable = STANDARD_TIME_SLOTS.find(slot => !isSlotBooked(slot, targetCounselorId, initialDate))
-    setSelectedTimeSlot(firstAvailable || STANDARD_TIME_SLOTS[0])
+    const targetMentor = availableCounselors.find(c => c.id === targetCounselorId) || assignedCounselor
+    const targetSlots = targetMentor?.custom_slots && targetMentor.custom_slots.length > 0
+      ? targetMentor.custom_slots
+      : STANDARD_TIME_SLOTS
+
+    const firstAvailable = targetSlots.find(slot => !isSlotBooked(slot, targetCounselorId, initialDate))
+    setSelectedTimeSlot(firstAvailable || targetSlots[0] || '10:00 AM - 10:30 AM')
 
     setMeetingMode('IN_PERSON')
     setTopic(ADVISORY_TOPICS[0])
@@ -256,9 +270,8 @@ export function CounselorClient({
     })
   }
 
-  const chosenMentor = availableCounselors.find(c => c.id === selectedCounselorId) || assignedCounselor
-  const bookedSlotsCountForSelected = STANDARD_TIME_SLOTS.filter(s => isSlotBooked(s)).length
-  const allSlotsBooked = bookedSlotsCountForSelected === STANDARD_TIME_SLOTS.length
+  const bookedSlotsCountForSelected = mentorSlots.filter(s => isSlotBooked(s)).length
+  const allSlotsBooked = mentorSlots.length > 0 && bookedSlotsCountForSelected === mentorSlots.length
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto font-sans pb-12">
@@ -606,17 +619,30 @@ export function CounselorClient({
                         </div>
                       </div>
 
-                      {isOpen && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleCancelSession(session.id)}
-                          disabled={isPending}
-                          className="text-xs text-red-600 hover:bg-red-50 rounded-xl h-8 self-end sm:self-center cursor-pointer"
-                        >
-                          Cancel Appointment
-                        </Button>
-                      )}
+                      <div className="flex items-center gap-2 self-end sm:self-center">
+                        {isOpen && parsed.mode === 'GOOGLE_MEET' && parsed.venue?.startsWith('http') && (
+                          <a
+                            href={parsed.venue}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors"
+                          >
+                            <Video className="w-3.5 h-3.5" /> Join Meet
+                            <ExternalLink className="w-3 h-3 opacity-80" />
+                          </a>
+                        )}
+                        {isOpen && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleCancelSession(session.id)}
+                            disabled={isPending}
+                            className="text-xs text-red-600 hover:bg-red-50 rounded-xl h-8 cursor-pointer"
+                          >
+                            Cancel Appointment
+                          </Button>
+                        )}
+                      </div>
                     </div>
 
                     {/* Topic badge & notes */}
@@ -766,6 +792,18 @@ export function CounselorClient({
                   )}
                 </div>
 
+                {/* Mentor's Preferred Days Tag */}
+                {chosenMentor?.available_days && chosenMentor.available_days.length > 0 && (
+                  <div className="flex items-center gap-1.5 flex-wrap text-[11px] text-[#7A7067] bg-[#FAF6F0] p-2 rounded-xl border border-[#DFD7CB]">
+                    <span className="font-semibold text-[#2C2621]">Mentor's Preferred Days:</span>
+                    {chosenMentor.available_days.map(d => (
+                      <span key={d} className="px-1.5 py-0.5 rounded bg-white text-[#A36B40] font-bold text-[10px] border border-[#DFD7CB]">
+                        {d}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
                 {allSlotsBooked ? (
                   <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
@@ -773,7 +811,7 @@ export function CounselorClient({
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 gap-2">
-                    {STANDARD_TIME_SLOTS.map(slot => {
+                    {mentorSlots.map(slot => {
                       const booked = isSlotBooked(slot)
                       const isSelected = selectedTimeSlot === slot
 
@@ -819,7 +857,7 @@ export function CounselorClient({
               </div>
 
               {/* Mode: In-Person / Virtual */}
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <Label className="text-xs font-semibold text-[#2C2621]">Consultation Mode *</Label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
@@ -845,6 +883,37 @@ export function CounselorClient({
                     <Video className="w-3.5 h-3.5" /> Google Meet (Virtual)
                   </button>
                 </div>
+
+                {/* Google Meet Info Box */}
+                {meetingMode === 'GOOGLE_MEET' && (
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs space-y-1.5 text-emerald-950">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="font-bold text-emerald-900">Google Meet Instant Room</span>
+                      </div>
+                      {chosenMentor?.google_meet_link && (
+                        <a
+                          href={chosenMentor.google_meet_link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] font-bold text-emerald-700 underline flex items-center gap-1 hover:text-emerald-900"
+                        >
+                          Test Room <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
+                    {chosenMentor?.google_meet_link ? (
+                      <p className="text-[11px] font-mono bg-white p-1.5 rounded border border-emerald-200 text-emerald-800 break-all select-all">
+                        {chosenMentor.google_meet_link}
+                      </p>
+                    ) : (
+                      <p className="text-[11px] text-emerald-800">
+                        Mentor has configured direct virtual consultations. The Google Meet link will be automatically attached upon booking.
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Topic Preset Chips */}

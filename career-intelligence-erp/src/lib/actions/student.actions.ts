@@ -376,20 +376,19 @@ export async function bookCounselingSlot(input: BookCounselingSlotInput): Promis
     .eq('user_id', counselor.id)
     .maybeSingle()
 
-  let venue = ''
-  if (input.mode === 'IN_PERSON') {
-    if (cp?.designation?.startsWith('{')) {
-      try {
-        const parsed = JSON.parse(cp.designation)
-        venue = parsed.cabin || 'Faculty Cabin, Academic Block'
-      } catch {
-        venue = 'Faculty Cabin, Academic Block'
-      }
-    } else {
-      venue = 'Faculty Cabin, Academic Block'
-    }
-  } else {
-    venue = 'Google Meet (Link will be provided before session)'
+  let venue = 'Faculty Cabin, Academic Block'
+  let mentorMeetLink = ''
+
+  if (cp?.designation?.startsWith('{')) {
+    try {
+      const parsed = JSON.parse(cp.designation)
+      if (parsed.cabin) venue = parsed.cabin
+      if (parsed.google_meet_link) mentorMeetLink = parsed.google_meet_link
+    } catch {}
+  }
+
+  if (input.mode === 'GOOGLE_MEET') {
+    venue = mentorMeetLink || 'https://meet.google.com (Advisory Link)'
   }
 
   // 3. Collision check: Is this slot already booked for this counselor on this date?
