@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Menu, Bell, LogOut, Search, Sparkles, ChevronRight, User } from 'lucide-react'
 import { signOut } from '@/lib/actions/auth.actions'
@@ -56,47 +55,22 @@ export function AppShell({
               <Menu className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-3">
-              <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
-                <div className="relative w-8 h-8 sm:w-9.5 sm:h-9.5 rounded-full overflow-hidden shrink-0 shadow-xs ring-1 ring-[#DFD7CB] bg-white">
-                  <Image
-                    src="/sun-career-intelligence-logo.png"
-                    alt="SUN Career Intelligence"
-                    fill
-                    className="object-contain p-0.5"
-                    priority
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xs sm:text-sm font-bold text-[#2C2621] tracking-tight leading-none">
-                    Career Intelligence
+            {breadcrumbs && breadcrumbs.length > 0 && (
+              <nav className="flex items-center gap-2 text-xs font-medium text-[#7A7067]">
+                {breadcrumbs.map((crumb, index) => (
+                  <span key={index} className="flex items-center gap-2">
+                    {index > 0 && <ChevronRight className="w-3 h-3 text-[#7A7067]" />}
+                    {crumb.href ? (
+                      <Link href={crumb.href} className="hover:text-[#A36B40] transition-colors">
+                        {crumb.label}
+                      </Link>
+                    ) : (
+                      <span className="text-[#2C2621] font-semibold">{crumb.label}</span>
+                    )}
                   </span>
-                  <span className="text-[9px] text-[#A36B40] font-semibold mt-0.5">
-                    Sandip University
-                  </span>
-                </div>
-              </Link>
-
-              {breadcrumbs && breadcrumbs.length > 0 && (
-                <>
-                  <span className="text-xs text-[#DFD7CB] hidden sm:inline">/</span>
-                  <nav className="hidden sm:flex items-center gap-2 text-xs font-medium text-[#7A7067]">
-                    {breadcrumbs.map((crumb, index) => (
-                      <span key={index} className="flex items-center gap-2">
-                        {index > 0 && <ChevronRight className="w-3 h-3 text-[#7A7067]" />}
-                        {crumb.href ? (
-                          <Link href={crumb.href} className="hover:text-[#A36B40] transition-colors">
-                            {crumb.label}
-                          </Link>
-                        ) : (
-                          <span className="text-[#2C2621] font-semibold">{crumb.label}</span>
-                        )}
-                      </span>
-                    ))}
-                  </nav>
-                </>
-              )}
-            </div>
+                ))}
+              </nav>
+            )}
           </div>
 
           <div className="flex items-center gap-3">
