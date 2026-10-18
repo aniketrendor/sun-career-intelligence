@@ -22,11 +22,10 @@ export default async function AdminStudentsPage() {
 
   if (!profile || !['ADMIN', 'DEAN_HOD'].includes(profile.role)) redirect('/login')
 
-  // Parallel fetch: students, mentors, programs
+  // Parallel fetch: students, mentors
   const [
     { data: rawStudents },
     { data: mentors },
-    { data: programs },
   ] = await Promise.all([
     supabase
       .from('users')
@@ -40,7 +39,8 @@ export default async function AdminStudentsPage() {
         student_profiles(
           prn,
           current_program,
-          current_semester
+          current_semester,
+          institution
         ),
         enrollments(
           id,
@@ -77,16 +77,10 @@ export default async function AdminStudentsPage() {
       .in('role', ['MENTOR', 'COUNSELOR'])
       .eq('status', 'ACTIVE')
       .order('full_name', { ascending: true }),
-
-    supabase
-      .from('programs')
-      .select('id, name, code')
-      .order('name', { ascending: true }),
   ])
 
   const students = (rawStudents as any[]) || []
   const mentorList = (mentors as any[]) || []
-  const programList = programs || []
 
   // Metrics
   const totalStudents = students.length
@@ -189,7 +183,6 @@ export default async function AdminStudentsPage() {
       <StudentsMentorshipTable
         students={students}
         mentors={mentorList}
-        programs={programList}
       />
     </div>
   )

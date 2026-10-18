@@ -55,7 +55,6 @@ const iconMap: Record<string, any> = {
   '/admin/questions': Layers,
   '/admin/users': Users,
   '/admin/mentors': Award,
-  '/admin/assignments': UserCheck,
   '/admin/programs': Building2,
   '/admin/classes': ClipboardList,
   '/admin/referral-codes': KeyRound,
