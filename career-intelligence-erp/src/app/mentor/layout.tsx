@@ -6,7 +6,6 @@ const navItems = [
   { label: 'Mentor Dashboard', href: '/mentor/dashboard' },
   { label: 'Advisee Profiles', href: '/mentor/students' },
   { label: 'Program Directory & Syllabus', href: '/mentor/programs' },
-  { label: 'Department Analytics', href: '/mentor/analytics' },
 ]
 
 export default async function CounselorLayout({ children }: { children: React.ReactNode }) {
