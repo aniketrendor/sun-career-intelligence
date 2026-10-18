@@ -167,7 +167,12 @@ export default async function CounselorStudentsPage({
                       </div>
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
-                          <h4 className="font-bold text-[#2C2621] text-sm">{student.full_name}</h4>
+                          <h4 className="font-bold text-[#2C2621] text-sm">
+                            {(student.full_name || 'Advisee')
+                              .split(' ')
+                              .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+                              .join(' ')}
+                          </h4>
                           <span className="text-xs text-[#7A7067] font-mono">
                             ({student.student_profile?.prn || 'No PRN'})
                           </span>

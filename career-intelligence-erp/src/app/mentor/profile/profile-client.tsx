@@ -61,8 +61,8 @@ export function ProfileClient({
   const [phone, setPhone] = useState(user.phone || '')
   const [title, setTitle] = useState(counselorProfile.title || 'Career & Faculty Mentor')
   const [employeeId, setEmployeeId] = useState(counselorProfile.employee_id || '')
-  const [cabin, setCabin] = useState(counselorProfile.cabin || 'Cabin 304, Academic Block, Sandip University')
-  const [consultationHours, setConsultationHours] = useState(counselorProfile.consultation_hours || 'Mon & Wed: 02:00 PM - 04:30 PM')
+  const [cabin, setCabin] = useState(counselorProfile.cabin || '')
+  const [consultationHours, setConsultationHours] = useState(counselorProfile.consultation_hours || '')
   const [bio, setBio] = useState(counselorProfile.bio || '')
   const [expertise, setExpertise] = useState<string[]>(counselorProfile.expertise || [])
   const [newTagInput, setNewTagInput] = useState('')
@@ -362,11 +362,7 @@ export function ProfileClient({
                 <div className="p-3.5 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] text-xs text-[#7A7067] italic leading-relaxed">
                   &quot;{bio}&quot;
                 </div>
-              ) : (
-                <div className="p-3.5 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] text-xs text-[#7A7067] italic">
-                  &quot;Dedicated faculty mentor guiding undergraduate students through academic milestones and career specializations.&quot;
-                </div>
-              )}
+              ) : null}
 
               {/* Contact & Location Details */}
               <div className="space-y-2.5 pt-1 text-xs">
@@ -382,11 +378,11 @@ export function ProfileClient({
                 )}
                 <div className="flex items-center gap-2 text-[#2C2621]">
                   <MapPin className="w-4 h-4 text-[#77734B] shrink-0" />
-                  <span className="truncate">{cabin || 'Academic Block, Faculty Cabin'}</span>
+                  <span className="truncate">{cabin || 'Location not configured'}</span>
                 </div>
                 <div className="flex items-center gap-2 text-[#2C2621]">
                   <Clock className="w-4 h-4 text-[#77734B] shrink-0" />
-                  <span className="truncate">{consultationHours || 'Weekly Consultation Hours'}</span>
+                  <span className="truncate">{consultationHours || 'Advisory hours not configured'}</span>
                 </div>
               </div>
 

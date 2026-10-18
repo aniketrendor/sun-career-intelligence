@@ -29,10 +29,10 @@ export default async function MentorProfilePage() {
   // Parse JSON from designation if present
   let mentorMetadata = {
     title: 'Career & Faculty Mentor',
-    cabin: 'Cabin 304, Academic Block, Sandip University',
-    expertise: ['Artificial Intelligence & ML', 'Cloud Systems', 'Career Diagnostic Guidance'],
-    consultation_hours: 'Mon & Wed: 02:00 PM - 04:30 PM',
-    bio: 'Guiding engineering and management undergraduates toward high-impact technology and leadership careers.'
+    cabin: '',
+    expertise: [] as string[],
+    consultation_hours: '',
+    bio: ''
   }
 
   if (cp?.designation) {
@@ -41,10 +41,10 @@ export default async function MentorProfilePage() {
         const parsed = JSON.parse(cp.designation)
         mentorMetadata = {
           title: parsed.title || mentorMetadata.title,
-          cabin: parsed.cabin || mentorMetadata.cabin,
-          expertise: Array.isArray(parsed.expertise) ? parsed.expertise : mentorMetadata.expertise,
-          consultation_hours: parsed.consultation_hours || mentorMetadata.consultation_hours,
-          bio: parsed.bio || mentorMetadata.bio
+          cabin: parsed.cabin || '',
+          expertise: Array.isArray(parsed.expertise) ? parsed.expertise : [],
+          consultation_hours: parsed.consultation_hours || '',
+          bio: parsed.bio || ''
         }
       } else {
         mentorMetadata.title = cp.designation

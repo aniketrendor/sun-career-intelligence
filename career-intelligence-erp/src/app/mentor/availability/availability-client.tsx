@@ -33,7 +33,7 @@ interface SessionRecord {
   identified_concerns: string | null
   recommended_actions: string | null
   follow_up_date: string | null
-  status: 'OPEN' | 'IN_PROGRESS' | 'CLOSED' | 'CANCELLED'
+  status: 'OPEN' | 'FOLLOW_UP' | 'RESOLVED' | string
   student: {
     id: string
     full_name: string
@@ -82,7 +82,7 @@ export function AvailabilityClient({
   const [sessionDate, setSessionDate] = useState<string>(new Date().toISOString().split('T')[0])
   const [timeSlot, setTimeSlot] = useState<string>(TIME_SLOTS[1])
   const [meetingMode, setMeetingMode] = useState<'IN_PERSON' | 'GOOGLE_MEET'>('IN_PERSON')
-  const [locationOrLink, setLocationOrLink] = useState<string>(mentorProfile.cabin || 'Cabin 304, Academic Block')
+  const [locationOrLink, setLocationOrLink] = useState<string>(mentorProfile.cabin || '')
   const [topic, setTopic] = useState<string>('Career Diagnostic & Semester Academic Roadmap')
   const [initialNotes, setInitialNotes] = useState<string>('')
 
@@ -103,8 +103,8 @@ export function AvailabilityClient({
   }
 
   const todayStr = new Date().toISOString().split('T')[0]
-  const upcomingSessions = sessions.filter(s => s.status === 'OPEN' || s.status === 'IN_PROGRESS' || s.session_date >= todayStr)
-  const pastSessions = sessions.filter(s => s.status === 'CLOSED' || (s.session_date < todayStr && s.status !== 'OPEN'))
+  const upcomingSessions = sessions.filter(s => s.status === 'OPEN' || s.status === 'FOLLOW_UP' || (s.status as string) === 'IN_PROGRESS' || (s.status !== 'RESOLVED' && (s.status as string) !== 'CLOSED' && s.session_date >= todayStr))
+  const pastSessions = sessions.filter(s => s.status === 'RESOLVED' || (s.status as string) === 'CLOSED' || (s.session_date < todayStr && s.status !== 'OPEN' && s.status !== 'FOLLOW_UP'))
 
   const filteredUpcoming = upcomingSessions.filter(s => {
     if (filterMode === 'ALL') return true
@@ -118,7 +118,7 @@ export function AvailabilityClient({
     setSessionDate(new Date().toISOString().split('T')[0])
     setTimeSlot(TIME_SLOTS[1])
     setMeetingMode('IN_PERSON')
-    setLocationOrLink(mentorProfile.cabin || 'Cabin 304, Academic Block')
+    setLocationOrLink(mentorProfile.cabin || '')
     setTopic('Career Diagnostic & Semester Academic Roadmap')
     setInitialNotes('')
     setIsModalOpen(true)
@@ -177,7 +177,7 @@ export function AvailabilityClient({
         discussion_summary: session.discussion_summary || '',
         identified_concerns: session.identified_concerns || undefined,
         recommended_actions: session.recommended_actions || undefined,
-        status: 'CLOSED'
+        status: 'RESOLVED'
       })
       if (res.success) {
         toast.success('Session marked as completed & archived to guidance logs')
@@ -241,7 +241,7 @@ export function AvailabilityClient({
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-xs font-semibold text-[#7A7067] uppercase tracking-wider">Consultation Venue</p>
-              <h3 className="text-sm font-bold text-[#2C2621] truncate max-w-[150px]">{mentorProfile.cabin || 'Cabin 304, Block B'}</h3>
+              <h3 className="text-sm font-bold text-[#2C2621] truncate max-w-[150px]">{mentorProfile.cabin || 'Not configured'}</h3>
               <p className="text-xs text-[#7A7067] font-medium">In-Person & Meet</p>
             </div>
             <div className="w-12 h-12 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] flex items-center justify-center text-[#77734B]">
@@ -254,7 +254,7 @@ export function AvailabilityClient({
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-xs font-semibold text-[#7A7067] uppercase tracking-wider">Consultation Window</p>
-              <h3 className="text-xs font-bold text-[#2C2621] truncate max-w-[150px]">{mentorProfile.consultation_hours}</h3>
+              <h3 className="text-xs font-bold text-[#2C2621] truncate max-w-[150px]">{mentorProfile.consultation_hours || 'Not configured'}</h3>
               <p className="text-xs text-[#77734B] font-medium">Weekly designated hours</p>
             </div>
             <div className="w-12 h-12 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] flex items-center justify-center text-[#A36B40]">
@@ -465,13 +465,13 @@ export function AvailabilityClient({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
               <div className="p-4 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] space-y-1">
                 <p className="text-xs font-semibold text-[#7A7067]">Physical Cabin Office</p>
-                <p className="text-sm font-bold text-[#2C2621]">{mentorProfile.cabin || 'Cabin 304, Academic Block'}</p>
+                <p className="text-sm font-bold text-[#2C2621]">{mentorProfile.cabin || 'Not configured'}</p>
                 <p className="text-xs text-[#77734B] mt-1">Open for drop-in and scheduled 1-on-1 consultations</p>
               </div>
 
               <div className="p-4 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] space-y-1">
                 <p className="text-xs font-semibold text-[#7A7067]">Weekly Consultation Hours</p>
-                <p className="text-sm font-bold text-[#2C2621]">{mentorProfile.consultation_hours || 'Mon & Wed: 02:00 PM - 04:30 PM'}</p>
+                <p className="text-sm font-bold text-[#2C2621]">{mentorProfile.consultation_hours || 'Not configured'}</p>
                 <p className="text-xs text-[#77734B] mt-1">Guaranteed student advisory slots</p>
               </div>
             </div>

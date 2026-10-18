@@ -116,13 +116,13 @@ export function EvaluationsClient({ evaluations }: EvaluationsClientProps) {
     setSelectedAdvisee(ev)
     const existing = parseEndorsement(ev.assignment.notes)
     if (existing) {
-      setRecommendedDomain(existing.track.split('(')[0]?.trim() || ev.careerProfile?.primary_domain?.name || 'Software Systems & AI')
-      setRecommendedTrack(existing.track.split('(')[1]?.replace(')', '').trim() || 'Honors Specialization Track')
+      setRecommendedDomain(existing.track.split('(')[0]?.trim() || ev.careerProfile?.primary_domain?.name || '')
+      setRecommendedTrack(existing.track.split('(')[1]?.replace(')', '').trim() || '')
       setEndorsementNotes(existing.note)
     } else {
-      setRecommendedDomain(ev.careerProfile?.primary_domain?.name || 'Computer Science & AI')
-      setRecommendedTrack('Institutional Honors & Applied Technology Track')
-      setEndorsementNotes(`Student demonstrates strong cognitive alignment in analytical reasoning and problem solving. Recommended for rigorous specialization coursework and faculty-mentored capstone projects.`)
+      setRecommendedDomain(ev.careerProfile?.primary_domain?.name || '')
+      setRecommendedTrack('')
+      setEndorsementNotes('')
     }
     setIsModalOpen(true)
   }

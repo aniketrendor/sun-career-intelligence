@@ -124,7 +124,7 @@ export interface CounselingSessionInput {
   identified_concerns?: string
   recommended_actions?: string
   follow_up_date?: string | null
-  status: 'OPEN' | 'IN_PROGRESS' | 'CLOSED' | 'CANCELLED'
+  status: 'OPEN' | 'FOLLOW_UP' | 'RESOLVED' | 'IN_PROGRESS' | 'CLOSED' | 'CANCELLED' | string
 }
 
 export async function saveCounselingSession(
@@ -154,6 +154,17 @@ export async function saveCounselingSession(
     structuredSummary = `${metaHeader}\n${structuredSummary}`.trim()
   }
 
+  // Normalize status to valid PostgreSQL counseling_status enum: 'OPEN', 'FOLLOW_UP', 'RESOLVED'
+  let dbStatus: 'OPEN' | 'FOLLOW_UP' | 'RESOLVED' = 'OPEN'
+  const rawStatus = String(input.status).toUpperCase()
+  if (rawStatus === 'RESOLVED' || rawStatus === 'CLOSED' || rawStatus === 'COMPLETED') {
+    dbStatus = 'RESOLVED'
+  } else if (rawStatus === 'FOLLOW_UP' || rawStatus === 'IN_PROGRESS') {
+    dbStatus = 'FOLLOW_UP'
+  } else {
+    dbStatus = 'OPEN'
+  }
+
   let sessionRecordId = input.sessionId
 
   if (input.sessionId) {
@@ -167,7 +178,7 @@ export async function saveCounselingSession(
         identified_concerns: input.identified_concerns || null,
         recommended_actions: input.recommended_actions || null,
         follow_up_date: input.follow_up_date || null,
-        status: input.status,
+        status: dbStatus,
         updated_at: new Date().toISOString()
       })
       .eq('id', input.sessionId)
@@ -186,7 +197,7 @@ export async function saveCounselingSession(
         identified_concerns: input.identified_concerns || null,
         recommended_actions: input.recommended_actions || null,
         follow_up_date: input.follow_up_date || null,
-        status: input.status
+        status: dbStatus
       })
       .select('id')
       .single()
@@ -199,7 +210,7 @@ export async function saveCounselingSession(
   await adminClient.from('notifications').insert({
     user_id: input.student_id,
     type: 'GENERAL',
-    title: input.status === 'CLOSED' ? 'Mentorship Session Logged' : 'Mentorship Session Scheduled',
+    title: dbStatus === 'RESOLVED' ? 'Mentorship Session Completed' : 'Mentorship Session Scheduled',
     message: `Faculty Mentor ${profile.full_name} has ${input.sessionId ? 'updated' : 'recorded'} advisory notes & action items for ${input.session_date}.`,
     metadata: { session_id: sessionRecordId, mentor_id: profile.id }
   })
@@ -210,7 +221,7 @@ export async function saveCounselingSession(
     action: input.sessionId ? 'COUNSELING_SESSION_UPDATED' : 'COUNSELING_SESSION_CREATED',
     entity_type: 'counseling_sessions',
     entity_id: sessionRecordId,
-    metadata: { student_id: input.student_id, status: input.status }
+    metadata: { student_id: input.student_id, status: dbStatus }
   })
 
   revalidatePath('/mentor/sessions')

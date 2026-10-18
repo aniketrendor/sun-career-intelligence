@@ -100,6 +100,11 @@ export default async function CounselorDashboardPage() {
     .order('session_date', { ascending: false })
     .limit(6)
 
+  // Real count of programs
+  const { count: programsCount } = await supabase
+    .from('programs')
+    .select('id', { count: 'exact', head: true })
+
   const stats = [
     {
       label: 'My Assigned Advisees',
@@ -127,7 +132,7 @@ export default async function CounselorDashboardPage() {
     },
     {
       label: 'Degree Programs Directory',
-      value: '114',
+      value: programsCount || 0,
       subtext: 'University curricula & syllabi',
       icon: Building2,
       iconBg: 'bg-[#FAF5EC] text-[#A36B40] border-[#A36B40]/30',
@@ -247,7 +252,10 @@ export default async function CounselorDashboardPage() {
                       <div>
                         <div className="flex flex-wrap items-center gap-2">
                           <h4 className="font-bold text-[#2C2621] text-sm">
-                            {student.full_name}
+                            {(student.full_name || 'Advisee')
+                              .split(' ')
+                              .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+                              .join(' ')}
                           </h4>
                           {student.student_profile?.prn && (
                             <span className="font-mono text-[10px] font-bold text-[#7A7067] bg-[#FAF5EC] px-2 py-0.5 rounded-lg border border-[#DFD7CB]">

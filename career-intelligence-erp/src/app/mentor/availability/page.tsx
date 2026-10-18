@@ -29,10 +29,10 @@ export default async function MentorAvailabilityPage() {
   // Parse JSON from designation if present
   let mentorMetadata = {
     title: 'Career & Faculty Mentor',
-    cabin: 'Cabin 304, Academic Block, Sandip University',
-    expertise: ['Career Guidance', 'Academic Roadmap', 'Specialization Selection'],
-    consultation_hours: 'Mon & Wed: 02:00 PM - 04:30 PM',
-    bio: 'Dedicated faculty mentor providing structured academic counseling and career diagnostic guidance.'
+    cabin: '',
+    expertise: [] as string[],
+    consultation_hours: '',
+    bio: ''
   }
 
   if (cp?.designation) {

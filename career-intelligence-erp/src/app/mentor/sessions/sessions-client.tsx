@@ -34,7 +34,7 @@ interface SessionRecord {
   identified_concerns: string | null
   recommended_actions: string | null
   follow_up_date: string | null
-  status: 'OPEN' | 'IN_PROGRESS' | 'CLOSED' | 'CANCELLED'
+  status: 'OPEN' | 'FOLLOW_UP' | 'RESOLVED' | string
   created_at: string
   student: {
     id: string
@@ -68,15 +68,16 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
   const [studentId, setStudentId] = useState<string>(advisees[0]?.id || '')
   const [sessionDate, setSessionDate] = useState<string>(new Date().toISOString().split('T')[0])
   const [followUpDate, setFollowUpDate] = useState<string>('')
-  const [status, setStatus] = useState<'OPEN' | 'IN_PROGRESS' | 'CLOSED'>('OPEN')
+  const [status, setStatus] = useState<'OPEN' | 'FOLLOW_UP' | 'RESOLVED'>('OPEN')
   const [discussionSummary, setDiscussionSummary] = useState('')
   const [identifiedConcerns, setIdentifiedConcerns] = useState('')
   const [recommendedActions, setRecommendedActions] = useState('')
 
   // Statistics
   const totalSessions = sessions.length
-  const openSessions = sessions.filter(s => s.status === 'OPEN' || s.status === 'IN_PROGRESS').length
-  const closedSessions = sessions.filter(s => s.status === 'CLOSED').length
+  const openSessions = sessions.filter(s => s.status === 'OPEN').length
+  const followUpSessions = sessions.filter(s => s.status === 'FOLLOW_UP' || s.status === 'IN_PROGRESS').length
+  const closedSessions = sessions.filter(s => s.status === 'RESOLVED' || s.status === 'CLOSED').length
   const todayStr = new Date().toISOString().split('T')[0]
   const pendingFollowups = sessions.filter(s => s.follow_up_date && s.follow_up_date >= todayStr).length
 
@@ -106,7 +107,12 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
     setStudentId(session.student?.id || '')
     setSessionDate(session.session_date)
     setFollowUpDate(session.follow_up_date || '')
-    setStatus(session.status === 'CANCELLED' ? 'OPEN' : session.status)
+    const mappedStatus = session.status === 'CLOSED' || session.status === 'RESOLVED'
+      ? 'RESOLVED'
+      : session.status === 'IN_PROGRESS' || session.status === 'FOLLOW_UP'
+      ? 'FOLLOW_UP'
+      : 'OPEN'
+    setStatus(mappedStatus)
     setDiscussionSummary(session.discussion_summary || '')
     setIdentifiedConcerns(session.identified_concerns || '')
     setRecommendedActions(session.recommended_actions || '')
@@ -144,8 +150,8 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
   }
 
   function handleToggleStatus(session: SessionRecord) {
-    const nextStatus: 'OPEN' | 'IN_PROGRESS' | 'CLOSED' =
-      session.status === 'OPEN' ? 'IN_PROGRESS' : session.status === 'IN_PROGRESS' ? 'CLOSED' : 'OPEN'
+    const nextStatus: 'OPEN' | 'FOLLOW_UP' | 'RESOLVED' =
+      session.status === 'OPEN' ? 'FOLLOW_UP' : session.status === 'FOLLOW_UP' ? 'RESOLVED' : 'OPEN'
 
     startTransition(async () => {
       const res = await saveCounselingSession({
@@ -159,7 +165,7 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
         status: nextStatus
       })
       if (res.success) {
-        toast.success(`Session status updated to ${nextStatus}`)
+        toast.success(`Session status updated to ${nextStatus === 'RESOLVED' ? 'Resolved' : nextStatus === 'FOLLOW_UP' ? 'Follow Up' : 'Open'}`)
         router.refresh()
       } else {
         toast.error(res.error || 'Failed to update status')
@@ -271,7 +277,7 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
         <div className="flex items-center gap-1.5">
           <span className="text-xs font-semibold text-[#7A7067] px-1">Status:</span>
           <div className="flex items-center gap-1 bg-[#FAF6F0] p-1 rounded-xl border border-[#DFD7CB]">
-            {(['ALL', 'OPEN', 'IN_PROGRESS', 'CLOSED'] as const).map(st => (
+            {(['ALL', 'OPEN', 'FOLLOW_UP', 'RESOLVED'] as const).map(st => (
               <Button
                 key={st}
                 variant="ghost"
@@ -279,7 +285,7 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
                 onClick={() => setStatusFilter(st)}
                 className={`text-xs h-7 px-2.5 rounded-lg cursor-pointer ${statusFilter === st ? 'bg-white font-bold text-[#2C2621] shadow-xs' : 'text-[#7A7067]'}`}
               >
-                {st === 'ALL' ? 'All' : st === 'IN_PROGRESS' ? 'In Progress' : st === 'OPEN' ? 'Open' : 'Closed'}
+                {st === 'ALL' ? 'All' : st === 'FOLLOW_UP' ? 'Follow Up' : st === 'OPEN' ? 'Open' : 'Resolved'}
               </Button>
             ))}
           </div>
@@ -309,8 +315,8 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
         <div className="space-y-4">
           {filteredSessions.map(session => {
             const isExpanded = expandedSessionId === session.id
-            const isClosed = session.status === 'CLOSED'
-            const isInProgress = session.status === 'IN_PROGRESS'
+            const isResolved = session.status === 'RESOLVED' || session.status === 'CLOSED'
+            const isFollowUp = session.status === 'FOLLOW_UP' || session.status === 'IN_PROGRESS'
 
             return (
               <Card
@@ -336,14 +342,14 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
                         )}
                         <Badge
                           className={`text-xs px-2.5 py-0.5 rounded-full font-bold border-0 ${
-                            isClosed
+                            isResolved
                               ? 'bg-[#77734B]/15 text-[#77734B]'
-                              : isInProgress
+                              : isFollowUp
                               ? 'bg-amber-100 text-amber-800'
                               : 'bg-[#A36B40]/15 text-[#A36B40]'
                           }`}
                         >
-                          {session.status}
+                          {isResolved ? 'Resolved' : isFollowUp ? 'Follow Up' : 'Open'}
                         </Badge>
                       </div>
                       <p className="text-xs text-[#7A7067] mt-0.5">
@@ -415,7 +421,7 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
                           disabled={isPending}
                           className="text-xs border-[#DFD7CB] rounded-lg h-8 font-semibold text-[#2C2621] hover:bg-white cursor-pointer"
                         >
-                          Mark as {session.status === 'OPEN' ? 'In Progress' : session.status === 'IN_PROGRESS' ? 'Closed' : 'Open'}
+                          Mark as {session.status === 'OPEN' ? 'Follow Up' : session.status === 'FOLLOW_UP' ? 'Resolved' : 'Open'}
                         </Button>
                         <Button
                           size="sm"
@@ -515,8 +521,8 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
                     required
                   >
                     <option value="OPEN">Open / Action Required</option>
-                    <option value="IN_PROGRESS">In Progress</option>
-                    <option value="CLOSED">Closed / Resolved</option>
+                    <option value="FOLLOW_UP">Follow Up Required</option>
+                    <option value="RESOLVED">Resolved / Completed</option>
                   </select>
                 </div>
               </div>
