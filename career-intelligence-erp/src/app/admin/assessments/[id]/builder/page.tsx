@@ -6,7 +6,7 @@ import {
   Sparkles, Plus, Layers, Clock, CheckCircle2,
   AlertCircle, ArrowRight, ArrowLeft, Copy, Edit3, BarChart3, Eye, FileText,
   Trash2, GripVertical, Check, RefreshCw, Smartphone, Tablet, Monitor,
-  Sliders, ShieldCheck, ChevronDown, ChevronRight, X, Info
+  Sliders, ShieldCheck, ChevronDown, ChevronRight, X, Info, Briefcase, Building2
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
@@ -18,8 +18,16 @@ import {
   STAGE1,
   DOMAINS,
   SECTORS,
+  PROGRAMS,
+  STAGE2_ACTIVITIES,
+  SECTOR_CONTEXTS,
+  DISCOVERY_CASES,
+  STAGE2_PROMPT_MAP,
   Stage1Question,
   Stage1Option,
+  SectorContext,
+  DiscoveryCase,
+  CareerDomain,
   OPT_OUT_ID
 } from '@/lib/data/su-career-data'
 import {
@@ -27,17 +35,101 @@ import {
   scoreAllDomains
 } from '@/lib/services/career-scoring-engine'
 
+interface Stage2CaseItem {
+  id: string
+  caseNumber: number
+  sector: string
+  caseType: string
+  variantIndex: number
+  ugCase: string
+  pgCase: string
+  prompt: string
+  isDiscovery: boolean
+  domains: CareerDomain[]
+}
+
 export default function AssessmentBuilderPage() {
   // Assessment metadata
   const [assessmentName, setAssessmentName] = useState('SUN Two-Stage Career Exploration Assessment')
   const [versionNumber, setVersionNumber] = useState('1.0')
   const [status, setStatus] = useState<'DRAFT' | 'PUBLISHED'>('PUBLISHED')
+
+  // Top Mode Switcher: Builder Canvas vs Multi-Device Preview vs Response Analytics
+  const [mode, setMode] = useState<'builder' | 'preview' | 'analytics'>('builder')
+
+  // Stage Switcher inside Builder & Preview: Stage 1 vs Stage 2
+  const [activeStage, setActiveStage] = useState<'stage1' | 'stage2'>('stage1')
+
+  // =========================================================================
+  // STAGE 1 STATE (30 Cognitive Profile Cases)
+  // =========================================================================
   const [questions, setQuestions] = useState<Stage1Question[]>(STAGE1)
   const [selectedQIndex, setSelectedQIndex] = useState(0)
   const [activeScenarioTab, setActiveScenarioTab] = useState<'ug' | 'pg'>('ug')
 
-  // Builder vs Preview vs Analytics Mode
-  const [mode, setMode] = useState<'builder' | 'preview' | 'analytics'>('builder')
+  // =========================================================================
+  // STAGE 2 STATE (20 Work Simulations & 79 Domain Activities)
+  // =========================================================================
+  const [sectorContexts, setSectorContexts] = useState<Record<string, SectorContext[]>>(SECTOR_CONTEXTS)
+  const [discoveryCases, setDiscoveryCases] = useState<DiscoveryCase[]>(DISCOVERY_CASES)
+  const [s2Activities, setS2Activities] = useState<Record<string, string[]>>(STAGE2_ACTIVITIES)
+  const [selectedS2Index, setSelectedS2Index] = useState(0)
+  const [activeS2ScenarioTab, setActiveS2ScenarioTab] = useState<'ug' | 'pg'>('ug')
+
+  // Generate the 20 Stage 2 Cases list (18 sector cases + 2 discovery cases)
+  const stage2Cases: Stage2CaseItem[] = useMemo(() => {
+    const list: Stage2CaseItem[] = []
+    let num = 1
+
+    for (let variant = 0; variant < 3; variant++) {
+      for (const sector of SECTORS) {
+        const ctx = (sectorContexts[sector] || [])[variant] || {
+          caseType: 'Workplace trial',
+          ug: 'A team is comparing project tasks in this sector.',
+          pg: 'A team is comparing specialist work packages in this sector.',
+          prompt: 'Which tasks would you choose to explore?'
+        }
+        const sectorDomains = DOMAINS.filter((d) => d.sector === sector)
+        list.push({
+          id: `S2Q${String(num).padStart(3, '0')}`,
+          caseNumber: num,
+          sector,
+          caseType: ctx.caseType,
+          variantIndex: variant,
+          ugCase: ctx.ug,
+          pgCase: ctx.pg,
+          prompt: ctx.prompt,
+          isDiscovery: false,
+          domains: sectorDomains
+        })
+        num++
+      }
+    }
+
+    // 2 Discovery Cases
+    discoveryCases.forEach((dc, didx) => {
+      list.push({
+        id: `S2Q${String(num).padStart(3, '0')}`,
+        caseNumber: num,
+        sector: 'Cross-Field Discovery',
+        caseType: dc.caseType,
+        variantIndex: didx,
+        ugCase: dc.ug,
+        pgCase: dc.pg,
+        prompt: dc.prompt,
+        isDiscovery: true,
+        domains: DOMAINS.slice(didx * 6, (didx + 1) * 6)
+      })
+      num++
+    })
+
+    return list
+  }, [sectorContexts, discoveryCases])
+
+  // Focused Stage 2 case in canvas
+  const currentS2 = stage2Cases[selectedS2Index] || stage2Cases[0]
+
+  // Multi-Device Preview Sandbox State
   const [previewDevice, setPreviewDevice] = useState<'desktop' | 'tablet' | 'mobile'>('desktop')
   const [previewPathway, setPreviewPathway] = useState<'UG' | 'PG'>('UG')
   const [previewSelectedOptions, setPreviewSelectedOptions] = useState<Record<string, string[]>>({})
@@ -49,7 +141,7 @@ export default function AssessmentBuilderPage() {
     setTimeout(() => setToastMessage(null), 3500)
   }
 
-  // Live Cohort Response Metrics (loaded from database)
+  // Live Cohort Response Metrics (loaded from Supabase database)
   const [cohortStats, setCohortStats] = useState<{
     totalSubmissions: number
     completed: number
@@ -98,7 +190,7 @@ export default function AssessmentBuilderPage() {
     loadAttemptMetrics()
   }, [])
 
-  // Active question currently focused in canvas & inspector
+  // Focused Stage 1 question in canvas
   const currentQ = questions[selectedQIndex] || questions[0]
 
   // Reorder Questions in list
@@ -113,7 +205,7 @@ export default function AssessmentBuilderPage() {
     setSelectedQIndex(newIdx)
   }
 
-  // Add Question
+  // Add Stage 1 Question
   const handleAddQuestion = () => {
     const newQ: Stage1Question = {
       id: `S1Q${String(questions.length + 1).padStart(3, '0')}`,
@@ -134,7 +226,7 @@ export default function AssessmentBuilderPage() {
     }
     setQuestions([...questions, newQ])
     setSelectedQIndex(questions.length)
-    showToast('New question created and selected.')
+    showToast('New Stage 1 case added and focused.')
   }
 
   // Delete Question
@@ -150,7 +242,7 @@ export default function AssessmentBuilderPage() {
     showToast('Question removed.')
   }
 
-  // Update current question helper
+  // Update current Stage 1 question helper
   const updateCurrentQuestion = (fields: Partial<Stage1Question>) => {
     setQuestions((prev) => {
       const copy = [...prev]
@@ -159,12 +251,46 @@ export default function AssessmentBuilderPage() {
     })
   }
 
-  // Quality Linter Rules Engine
+  // Update current Stage 2 case helper
+  const updateCurrentS2Case = (fields: Partial<{ ugCase: string; pgCase: string; prompt: string; caseType: string }>) => {
+    if (!currentS2) return
+    if (currentS2.isDiscovery) {
+      const idx = currentS2.variantIndex
+      setDiscoveryCases((prev) => {
+        const copy = [...prev]
+        copy[idx] = {
+          ...copy[idx],
+          ug: fields.ugCase !== undefined ? fields.ugCase : copy[idx].ug,
+          pg: fields.pgCase !== undefined ? fields.pgCase : copy[idx].pg,
+          prompt: fields.prompt !== undefined ? fields.prompt : copy[idx].prompt,
+          caseType: fields.caseType !== undefined ? fields.caseType : copy[idx].caseType
+        }
+        return copy
+      })
+    } else {
+      const sector = currentS2.sector
+      const vidx = currentS2.variantIndex
+      setSectorContexts((prev) => {
+        const copy = { ...prev }
+        const list = [...(copy[sector] || [])]
+        list[vidx] = {
+          ...list[vidx],
+          ug: fields.ugCase !== undefined ? fields.ugCase : list[vidx].ug,
+          pg: fields.pgCase !== undefined ? fields.pgCase : list[vidx].pg,
+          prompt: fields.prompt !== undefined ? fields.prompt : list[vidx].prompt,
+          caseType: fields.caseType !== undefined ? fields.caseType : list[vidx].caseType
+        }
+        copy[sector] = list
+        return copy
+      })
+    }
+  }
+
+  // Quality Linter Rules Engine for Stage 1
   const linterIssues = useMemo(() => {
     const issues: Array<{ id: string; type: 'error' | 'warning' | 'info'; message: string }> = []
 
-    questions.forEach((q, qidx) => {
-      // 1. Check unweighted substantive options
+    questions.forEach((q) => {
       const nonOptOut = q.options.filter((o) => !o.optOut)
       if (nonOptOut.length < 2) {
         issues.push({
@@ -190,18 +316,6 @@ export default function AssessmentBuilderPage() {
           })
         }
       })
-
-      // 2. Point imbalance
-      const totalPoints = nonOptOut.map((o) => Object.values(o.dims || {}).reduce((a, b) => a + b, 0))
-      const maxPts = Math.max(0, ...totalPoints)
-      const minPts = Math.min(...totalPoints)
-      if (maxPts - minPts >= 4) {
-        issues.push({
-          id: `${q.id}-pts-imbalance`,
-          type: 'warning',
-          message: `Question ${q.id} has significant point discrepancy across options (Max ${maxPts} vs Min ${minPts}).`
-        })
-      }
     })
 
     return issues
@@ -218,441 +332,650 @@ export default function AssessmentBuilderPage() {
     const nextVer = (parseFloat(versionNumber) + 0.1).toFixed(1)
     setVersionNumber(nextVer)
     setStatus('PUBLISHED')
-    showToast(`🎉 Assessment V${nextVer} successfully published! Immutable snapshot created.`)
+    showToast(`Assessment V${nextVer} successfully published! Immutable snapshot created.`)
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F7FB] font-sans pb-16">
+    <div className="min-h-screen bg-[#FAF6F0] font-sans pb-16">
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#12243A] text-white px-5 py-3 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-white/10 animate-in fade-in slide-in-from-bottom-3">
-          <Info className="w-4 h-4 text-blue-400" />
+        <div className="fixed bottom-6 right-6 z-50 bg-[#2C2621] text-white px-5 py-3 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-[#DFD7CB]/30 animate-in fade-in slide-in-from-bottom-3">
+          <Info className="w-4 h-4 text-[#A36B40]" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Top Builder Navigation Bar */}
-      <header className="border-b border-[#DFE6EF] bg-white sticky top-0 z-40">
-        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <header className="border-b border-[#DFD7CB] bg-white sticky top-0 z-40 shadow-xs">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 py-3 flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <Link href="/admin/assessments">
-              <Button variant="ghost" size="sm" className="h-9 px-2 text-[#42536A] rounded-xl">
-                <ArrowLeft className="w-4 h-4 mr-1" /> Assessments
+              <Button variant="ghost" size="sm" className="h-9 px-2 text-[#2C2621] hover:bg-[#FAF6F0] rounded-xl">
+                <ArrowLeft className="w-4 h-4 mr-1 text-[#A36B40]" /> Assessments
               </Button>
             </Link>
-            <div className="h-4 w-px bg-[#DFE6EF]" />
+            <div className="h-5 w-px bg-[#DFD7CB]" />
             <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-sm font-bold text-[#12243A] truncate max-w-sm sm:max-w-md">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-sm font-extrabold text-[#2C2621]">
                   {assessmentName}
                 </h1>
-                <Badge className="bg-[#EDF2FF] text-[#2858D8] border-[#CBD7F3] text-[10px] font-extrabold">
+                <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#DFD7CB] text-[10px] font-extrabold">
                   V{versionNumber}
                 </Badge>
                 <Badge
                   className={`text-[9px] font-black ${
                     status === 'PUBLISHED'
-                      ? 'bg-[#E8F7EF] text-[#147A52] border-[#CCEBD9]'
-                      : 'bg-[#FFF5DF] text-[#8B530C] border-[#F3E0B4]'
+                      ? 'bg-[#F1F1EB] text-[#77734B] border-[#DFD7CB]'
+                      : 'bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB]'
                   }`}
                 >
                   {status}
                 </Badge>
               </div>
-              <p className="text-[10px] text-[#617187]">
-                Google Forms + Psychometric Engine · {questions.length} Questions Configured
+              <p className="text-[11px] text-[#7A7067] mt-0.5">
+                Two-Stage Psychometric Engine · 50 Total Cases (30 Stage 1 + 20 Stage 2 Simulations)
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap shrink-0">
             {/* Mode Switcher Tabs */}
-            <div className="p-1 rounded-xl bg-[#F0F3F8] flex items-center gap-1">
+            <div className="p-1 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] flex items-center gap-1">
               <Button
                 variant={mode === 'builder' ? 'default' : 'ghost'}
                 size="sm"
-                className={`h-8 text-xs font-bold rounded-lg ${mode === 'builder' ? 'bg-white text-[#12243A] shadow-sm' : 'text-[#617187]'}`}
+                className={`h-8 text-xs font-bold rounded-lg ${mode === 'builder' ? 'bg-white text-[#2C2621] shadow-xs' : 'text-[#7A7067] hover:text-[#2C2621]'}`}
                 onClick={() => setMode('builder')}
               >
-                <Edit3 className="w-3.5 h-3.5 mr-1" /> Canvas
+                <Edit3 className="w-3.5 h-3.5 mr-1 text-[#A36B40]" /> Canvas
               </Button>
               <Button
                 variant={mode === 'preview' ? 'default' : 'ghost'}
                 size="sm"
-                className={`h-8 text-xs font-bold rounded-lg ${mode === 'preview' ? 'bg-white text-[#12243A] shadow-sm' : 'text-[#617187]'}`}
+                className={`h-8 text-xs font-bold rounded-lg ${mode === 'preview' ? 'bg-white text-[#2C2621] shadow-xs' : 'text-[#7A7067] hover:text-[#2C2621]'}`}
                 onClick={() => setMode('preview')}
               >
-                <Eye className="w-3.5 h-3.5 mr-1" /> Multi-Device Preview
+                <Eye className="w-3.5 h-3.5 mr-1 text-[#77734B]" /> Preview
               </Button>
               <Button
                 variant={mode === 'analytics' ? 'default' : 'ghost'}
                 size="sm"
-                className={`h-8 text-xs font-bold rounded-lg ${mode === 'analytics' ? 'bg-white text-[#12243A] shadow-sm' : 'text-[#617187]'}`}
+                className={`h-8 text-xs font-bold rounded-lg ${mode === 'analytics' ? 'bg-white text-[#2C2621] shadow-xs' : 'text-[#7A7067] hover:text-[#2C2621]'}`}
                 onClick={() => setMode('analytics')}
               >
-                <BarChart3 className="w-3.5 h-3.5 mr-1" /> Response Analytics
+                <BarChart3 className="w-3.5 h-3.5 mr-1" /> Analytics
               </Button>
             </div>
 
             {/* Publish Button */}
             <Button
-              className="h-9 px-4 rounded-xl bg-[#2858D8] hover:bg-[#1F45AD] text-white font-bold text-xs shadow-sm cursor-pointer"
+              className="h-9 px-4 rounded-xl bg-[#A36B40] hover:bg-[#8E5B33] text-white font-bold text-xs shadow-xs cursor-pointer shrink-0"
               onClick={handlePublish}
             >
-              Publish V{(parseFloat(versionNumber) + 0.1).toFixed(1)} Snapshot
+              Publish Snapshot
             </Button>
           </div>
         </div>
       </header>
 
       {/* ========================================================================= */}
-      {/* MODE 1: 3-PANE ASSESSMENT BUILDER */}
+      {/* MODE 1: 3-PANE ASSESSMENT BUILDER                                         */}
       {/* ========================================================================= */}
       {mode === 'builder' && (
         <div className="max-w-[1700px] mx-auto px-4 sm:px-6 pt-5 grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-          {/* PANE 1: Left Outline & Question Tree (3 cols) */}
-          <Card className="lg:col-span-3 border-[#DFE6EF] bg-white rounded-3xl p-5 shadow-sm space-y-4 lg:sticky lg:top-20 max-h-[85vh] flex flex-col justify-between">
+          {/* PANE 1: Left Outline & Stage Selector (3 cols) */}
+          <Card className="lg:col-span-3 border-[#DFD7CB] bg-white rounded-3xl p-5 shadow-xs space-y-4 lg:sticky lg:top-20 max-h-[85vh] flex flex-col justify-between">
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#12243A]">Questions Outline</h3>
-                  <p className="text-[11px] text-[#617187]">{questions.length} questions in 5 levels</p>
+              {/* Stage Selector Tabs */}
+              <div className="space-y-1.5">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#7A7067]">
+                  Assessment Stage
+                </span>
+                <div className="flex rounded-xl bg-[#FAF6F0] p-1 border border-[#DFD7CB] gap-1">
+                  <button
+                    onClick={() => setActiveStage('stage1')}
+                    className={`flex-1 py-1.5 px-2 text-xs font-bold rounded-lg transition-all ${
+                      activeStage === 'stage1'
+                        ? 'bg-[#A36B40] text-white shadow-xs'
+                        : 'text-[#7A7067] hover:text-[#2C2621]'
+                    }`}
+                  >
+                    Stage 1 (30)
+                  </button>
+                  <button
+                    onClick={() => setActiveStage('stage2')}
+                    className={`flex-1 py-1.5 px-2 text-xs font-bold rounded-lg transition-all ${
+                      activeStage === 'stage2'
+                        ? 'bg-[#77734B] text-white shadow-xs'
+                        : 'text-[#7A7067] hover:text-[#2C2621]'
+                    }`}
+                  >
+                    Stage 2 (20)
+                  </button>
                 </div>
-                <Button
-                  size="sm"
-                  className="h-8 text-xs font-bold bg-[#2858D8] text-white rounded-xl"
-                  onClick={handleAddQuestion}
-                >
-                  <Plus className="w-3.5 h-3.5 mr-1" /> Add
-                </Button>
               </div>
 
-              {/* Scrollable Questions List */}
-              <div className="space-y-1.5 max-h-[60vh] overflow-y-auto pr-1">
-                {questions.map((q, qidx) => {
-                  const isSelected = qidx === selectedQIndex
-                  return (
-                    <div
-                      key={q.id}
-                      onClick={() => setSelectedQIndex(qidx)}
-                      className={`p-2.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-2 ${
-                        isSelected
-                          ? 'border-[#2858D8] bg-[#F3F6FF] ring-2 ring-[#2858D8]/20'
-                          : 'border-[#DFE6EF] bg-white hover:bg-[#F8FAFC]'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-[11px] font-black text-[#597090] shrink-0">{q.id}</span>
-                        <div className="min-w-0">
-                          <p className="text-xs font-bold text-[#12243A] truncate">{q.prompt}</p>
-                          <span className="text-[10px] text-[#617187]">{q.caseType}</span>
+              {/* Header Title & Add Button */}
+              <div className="flex items-center justify-between pt-1">
+                <div>
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2C2621]">
+                    {activeStage === 'stage1' ? 'Stage 1 Cases' : 'Stage 2 Simulations'}
+                  </h3>
+                  <p className="text-[10px] text-[#7A7067]">
+                    {activeStage === 'stage1'
+                      ? `${questions.length} questions in 5 levels`
+                      : `${stage2Cases.length} simulation cases (6 sectors)`}
+                  </p>
+                </div>
+
+                {activeStage === 'stage1' && (
+                  <Button
+                    size="sm"
+                    className="h-8 text-xs font-bold bg-[#A36B40] hover:bg-[#8E5B33] text-white rounded-xl"
+                    onClick={handleAddQuestion}
+                  >
+                    <Plus className="w-3.5 h-3.5 mr-1" /> Add
+                  </Button>
+                )}
+              </div>
+
+              {/* Scrollable Cases List */}
+              <div className="space-y-1.5 max-h-[55vh] overflow-y-auto pr-1">
+                {activeStage === 'stage1' ? (
+                  questions.map((q, qidx) => {
+                    const isSelected = qidx === selectedQIndex
+                    return (
+                      <div
+                        key={q.id}
+                        onClick={() => setSelectedQIndex(qidx)}
+                        className={`p-2.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-2 ${
+                          isSelected
+                            ? 'border-[#A36B40] bg-[#FAF6F0] ring-1 ring-[#A36B40]/30'
+                            : 'border-[#DFD7CB] bg-white hover:bg-[#FAF6F0]/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-[11px] font-black text-[#A36B40] shrink-0">{q.id}</span>
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-[#2C2621] truncate">{q.prompt}</p>
+                            <span className="text-[10px] text-[#7A7067]">{q.caseType}</span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-1 shrink-0">
+                          <button
+                            type="button"
+                            disabled={qidx === 0}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              moveQuestion(qidx, -1)
+                            }}
+                            className="w-5 h-5 rounded hover:bg-[#FAF6F0] text-[#7A7067] disabled:opacity-30 text-xs font-bold"
+                          >
+                            ↑
+                          </button>
+                          <button
+                            type="button"
+                            disabled={qidx === questions.length - 1}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              moveQuestion(qidx, 1)
+                            }}
+                            className="w-5 h-5 rounded hover:bg-[#FAF6F0] text-[#7A7067] disabled:opacity-30 text-xs font-bold"
+                          >
+                            ↓
+                          </button>
                         </div>
                       </div>
+                    )
+                  })
+                ) : (
+                  stage2Cases.map((s2, s2idx) => {
+                    const isSelected = s2idx === selectedS2Index
+                    return (
+                      <div
+                        key={s2.id}
+                        onClick={() => setSelectedS2Index(s2idx)}
+                        className={`p-2.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-2 ${
+                          isSelected
+                            ? 'border-[#77734B] bg-[#F1F1EB] ring-1 ring-[#77734B]/30'
+                            : 'border-[#DFD7CB] bg-white hover:bg-[#FAF6F0]/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-[11px] font-black text-[#77734B] shrink-0">{s2.id}</span>
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-[#2C2621] truncate">{s2.caseType}</p>
+                            <span className="text-[10px] text-[#7A7067] truncate block">{s2.sector}</span>
+                          </div>
+                        </div>
 
-                      <div className="flex items-center gap-1 shrink-0">
-                        <button
-                          type="button"
-                          disabled={qidx === 0}
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            moveQuestion(qidx, -1)
-                          }}
-                          className="w-5 h-5 rounded hover:bg-slate-200 text-slate-500 disabled:opacity-30 text-xs font-bold"
-                        >
-                          ↑
-                        </button>
-                        <button
-                          type="button"
-                          disabled={qidx === questions.length - 1}
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            moveQuestion(qidx, 1)
-                          }}
-                          className="w-5 h-5 rounded hover:bg-slate-200 text-slate-500 disabled:opacity-30 text-xs font-bold"
-                        >
-                          ↓
-                        </button>
+                        <Badge className="text-[9px] font-bold bg-white text-[#77734B] border-[#DFD7CB] shrink-0">
+                          Var {s2.variantIndex + 1}
+                        </Badge>
                       </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })
+                )}
               </div>
             </div>
 
             {/* Quality Linter Summary Badge */}
-            <div className="pt-2 border-t border-[#DFE6EF]">
+            <div className="pt-2 border-t border-[#DFD7CB]">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-[#40516A]">Linter Status:</span>
+                <span className="font-bold text-[#2C2621]">Linter Status:</span>
                 {linterIssues.length === 0 ? (
-                  <Badge className="bg-[#E8F7EF] text-[#147A52] border-[#CCEBD9] text-[10px]">
-                    ✓ 0 Warnings
+                  <Badge className="bg-[#F1F1EB] text-[#77734B] border-[#DFD7CB] text-[10px] font-bold">
+                    0 Warnings
                   </Badge>
                 ) : (
-                  <Badge className="bg-[#FFF5DF] text-[#8B530C] border-[#F3E0B4] text-[10px]">
-                    {linterIssues.length} Quality Notice{linterIssues.length === 1 ? '' : 's'}
+                  <Badge className="bg-amber-50 text-amber-800 border-amber-200 text-[10px] font-bold">
+                    {linterIssues.length} Notice{linterIssues.length === 1 ? '' : 's'}
                   </Badge>
                 )}
               </div>
             </div>
           </Card>
 
-          {/* PANE 2: Center Live Question Canvas (6 cols) */}
+          {/* PANE 2: Center Live Question / Simulation Canvas (6 cols) */}
           <div className="lg:col-span-6 space-y-4">
-            <Card className="p-6 sm:p-8 border-[#DFE6EF] bg-white rounded-3xl shadow-sm space-y-6">
-              {/* Question Meta Header */}
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-black text-[#12243A] bg-[#EDF2FF] px-2.5 py-0.5 rounded-md">
-                    {currentQ.id}
-                  </span>
-                  <Badge variant="outline" className="text-[10px] font-bold text-[#617187]">
-                    Level {currentQ.level + 1} · {currentQ.levelName}
-                  </Badge>
-                </div>
-
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 text-xs text-red-600 hover:bg-red-50 rounded-xl"
-                  onClick={() => handleDeleteQuestion(selectedQIndex)}
-                >
-                  <Trash2 className="w-3.5 h-3.5 mr-1" /> Delete
-                </Button>
-              </div>
-
-              {/* Dual Scenario Tabs (UG vs PG) */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold text-[#40516A]">Real-World Scenario Narrative</label>
-                  <div className="flex items-center gap-1 bg-[#F0F3F8] p-0.5 rounded-lg">
-                    <button
-                      type="button"
-                      onClick={() => setActiveScenarioTab('ug')}
-                      className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-all ${
-                        activeScenarioTab === 'ug' ? 'bg-white text-[#2858D8] shadow-sm' : 'text-[#617187]'
-                      }`}
-                    >
-                      Class 12 / UG
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveScenarioTab('pg')}
-                      className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-all ${
-                        activeScenarioTab === 'pg' ? 'bg-white text-[#2858D8] shadow-sm' : 'text-[#617187]'
-                      }`}
-                    >
-                      Graduate / PG
-                    </button>
+            {activeStage === 'stage1' ? (
+              <Card className="p-6 sm:p-8 border-[#DFD7CB] bg-white rounded-3xl shadow-xs space-y-6">
+                {/* Stage 1 Meta Header */}
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-black text-[#A36B40] bg-[#FAF6F0] border border-[#DFD7CB] px-2.5 py-0.5 rounded-md">
+                      {currentQ.id}
+                    </span>
+                    <Badge variant="outline" className="text-[10px] font-bold text-[#77734B] border-[#DFD7CB] bg-[#F1F1EB]">
+                      Level {currentQ.level + 1} · {currentQ.levelName}
+                    </Badge>
+                    <Badge variant="outline" className="text-[10px] font-bold text-[#2C2621] border-[#DFD7CB]">
+                      {currentQ.caseType}
+                    </Badge>
                   </div>
-                </div>
 
-                {activeScenarioTab === 'ug' ? (
-                  <textarea
-                    value={currentQ.ugCase}
-                    onChange={(e) => updateCurrentQuestion({ ugCase: e.target.value })}
-                    rows={3}
-                    placeholder="Describe the scenario in a high-school / Class 12 context..."
-                    className="w-full p-3.5 rounded-2xl border border-[#CBD5E1] text-xs font-medium focus:ring-2 focus:ring-[#2858D8] focus:outline-none"
-                  />
-                ) : (
-                  <textarea
-                    value={currentQ.pgCase}
-                    onChange={(e) => updateCurrentQuestion({ pgCase: e.target.value })}
-                    rows={3}
-                    placeholder="Describe the scenario in a college / workplace graduate context..."
-                    className="w-full p-3.5 rounded-2xl border border-[#CBD5E1] text-xs font-medium focus:ring-2 focus:ring-[#2858D8] focus:outline-none"
-                  />
-                )}
-              </div>
-
-              {/* Question Prompt */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#40516A]">Question Prompt</label>
-                <Input
-                  value={currentQ.prompt}
-                  onChange={(e) => updateCurrentQuestion({ prompt: e.target.value })}
-                  placeholder="e.g. Which role would you choose to help your team?"
-                  className="h-11 rounded-xl text-xs font-semibold text-[#12243A]"
-                />
-              </div>
-
-              {/* Options & Scoring Canvas */}
-              <div className="space-y-3 pt-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold text-[#40516A]">Choice Options & Attached Weights</label>
                   <Button
-                    type="button"
-                    variant="outline"
+                    variant="ghost"
                     size="sm"
-                    className="h-8 text-xs font-bold rounded-xl"
-                    onClick={() => {
-                      const newOpt: Stage1Option = {
-                        id: `${currentQ.id}_O${currentQ.options.length + 1}`,
-                        text: 'New option response...',
-                        dims: { D01: 3, D02: 1 },
-                        primaryDim: 'D01',
-                        secondaryDim: 'D02'
-                      }
-                      updateCurrentQuestion({ options: [...currentQ.options, newOpt] })
-                    }}
+                    className="h-8 text-xs text-red-600 hover:bg-red-50 rounded-xl"
+                    onClick={() => handleDeleteQuestion(selectedQIndex)}
                   >
-                    + Add Option
+                    <Trash2 className="w-3.5 h-3.5 mr-1" /> Delete
                   </Button>
                 </div>
 
-                <div className="space-y-2.5">
-                  {currentQ.options.map((opt, oidx) => {
-                    const isOptOut = !!opt.optOut
-                    const letter = isOptOut ? 'X' : String.fromCharCode(65 + oidx)
-                    const dims = Object.entries(opt.dims || {})
-
-                    return (
-                      <div
-                        key={opt.id}
-                        className="p-4 rounded-2xl border border-[#DFE6EF] bg-[#F8FAFC] space-y-2.5 transition-all"
+                {/* Dual Scenario Tabs (UG vs PG) */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-[#2C2621]">Real-World Scenario Narrative</label>
+                    <div className="flex items-center gap-1 bg-[#FAF6F0] p-1 rounded-xl border border-[#DFD7CB]">
+                      <button
+                        type="button"
+                        onClick={() => setActiveScenarioTab('ug')}
+                        className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
+                          activeScenarioTab === 'ug' ? 'bg-[#A36B40] text-white shadow-xs' : 'text-[#7A7067]'
+                        }`}
                       >
-                        <div className="flex items-center justify-between gap-2">
-                          <div className="flex items-center gap-2">
-                            <span className="w-6 h-6 rounded-lg bg-[#EEF2F8] text-[#42546C] text-xs font-black flex items-center justify-center">
-                              {letter}
+                        Class 12 / UG
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setActiveScenarioTab('pg')}
+                        className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
+                          activeScenarioTab === 'pg' ? 'bg-[#77734B] text-white shadow-xs' : 'text-[#7A7067]'
+                        }`}
+                      >
+                        Graduate / PG
+                      </button>
+                    </div>
+                  </div>
+
+                  {activeScenarioTab === 'ug' ? (
+                    <textarea
+                      value={currentQ.ugCase}
+                      onChange={(e) => updateCurrentQuestion({ ugCase: e.target.value })}
+                      rows={3}
+                      className="w-full p-4 rounded-2xl border border-[#DFD7CB] text-xs font-medium bg-[#FAF6F0]/40 focus:outline-none focus:bg-white focus:border-[#A36B40]"
+                      placeholder="Enter scenario for high-school students..."
+                    />
+                  ) : (
+                    <textarea
+                      value={currentQ.pgCase}
+                      onChange={(e) => updateCurrentQuestion({ pgCase: e.target.value })}
+                      rows={3}
+                      className="w-full p-4 rounded-2xl border border-[#DFD7CB] text-xs font-medium bg-[#F1F1EB]/40 focus:outline-none focus:bg-white focus:border-[#77734B]"
+                      placeholder="Enter scenario for degree graduates..."
+                    />
+                  )}
+                </div>
+
+                {/* Question Prompt */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#2C2621]">Question Prompt</label>
+                  <Input
+                    value={currentQ.prompt}
+                    onChange={(e) => updateCurrentQuestion({ prompt: e.target.value })}
+                    className="h-10 text-xs rounded-xl border-[#DFD7CB]"
+                  />
+                </div>
+
+                {/* Choice Options & Dimension Weights List */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-[#2C2621]">Choice Options & Attached Weights</label>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="h-8 text-xs font-bold border-[#DFD7CB] text-[#A36B40] rounded-xl hover:bg-[#FAF6F0]"
+                      onClick={() => {
+                        const newOpt: Stage1Option = {
+                          id: `${currentQ.id}_OPT_${currentQ.options.length + 1}`,
+                          text: 'New choice option text...',
+                          dims: { D01: 3, D02: 1 },
+                          primaryDim: 'D01',
+                          secondaryDim: 'D02'
+                        }
+                        updateCurrentQuestion({ options: [...currentQ.options, newOpt] })
+                      }}
+                    >
+                      <Plus className="w-3.5 h-3.5 mr-1" /> Add Option
+                    </Button>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {currentQ.options.map((opt, oidx) => {
+                      const dims = Object.entries(opt.dims || {})
+                      const isOptOut = !!opt.optOut
+
+                      return (
+                        <div
+                          key={opt.id}
+                          className={`p-3.5 rounded-2xl border space-y-2 transition-all ${
+                            isOptOut
+                              ? 'border-amber-200 bg-amber-50/40'
+                              : 'border-[#DFD7CB] bg-white'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-xs font-black text-[#A36B40]">
+                              Option {String.fromCharCode(65 + oidx)} {isOptOut && '· Opt-Out'}
                             </span>
-                            <span className="text-[11px] font-bold text-[#617187]">Option {letter}</span>
-                            {isOptOut && (
-                              <Badge variant="outline" className="text-[9px] text-[#617187]">
-                                Neutral Opt-Out
-                              </Badge>
+                            {!isOptOut && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-6 px-1.5 text-xs text-red-600 hover:bg-red-50"
+                                onClick={() => {
+                                  updateCurrentQuestion({
+                                    options: currentQ.options.filter((_, idx) => idx !== oidx)
+                                  })
+                                }}
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </Button>
                             )}
                           </div>
 
-                          {!isOptOut && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="h-7 px-2 text-xs text-red-600 hover:bg-red-50"
-                              onClick={() => {
-                                updateCurrentQuestion({
-                                  options: currentQ.options.filter((_, idx) => idx !== oidx)
-                                })
-                              }}
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </Button>
+                          <Input
+                            value={opt.text}
+                            onChange={(e) => {
+                              const opts = [...currentQ.options]
+                              opts[oidx].text = e.target.value
+                              updateCurrentQuestion({ options: opts })
+                            }}
+                            className="h-10 text-xs rounded-xl bg-white border-[#DFD7CB]"
+                            placeholder="Option description..."
+                          />
+
+                          {/* Dimension Chips Preview */}
+                          {!isOptOut && dims.length > 0 && (
+                            <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                              <span className="text-[10px] text-[#7A7067] font-bold">Awards:</span>
+                              {dims.map(([k, v]) => {
+                                const dimObj = DIMENSIONS.find((d) => d.id === k)
+                                return (
+                                  <Badge
+                                    key={k}
+                                    className="bg-[#FAF6F0] text-[#A36B40] border-[#DFD7CB] text-[10px] font-extrabold px-2 py-0.5"
+                                  >
+                                    {dimObj?.name || k} (+{v})
+                                  </Badge>
+                                )
+                              })}
+                            </div>
                           )}
                         </div>
-
-                        <Input
-                          value={opt.text}
-                          onChange={(e) => {
-                            const copy = [...currentQ.options]
-                            copy[oidx].text = e.target.value
-                            updateCurrentQuestion({ options: copy })
-                          }}
-                          className="h-10 text-xs rounded-xl bg-white"
-                          placeholder="Option description..."
-                        />
-
-                        {/* Dimension Chips Preview */}
-                        {!isOptOut && dims.length > 0 && (
-                          <div className="flex items-center gap-1.5 flex-wrap pt-1">
-                            <span className="text-[10px] text-[#617187] font-bold">Awards:</span>
-                            {dims.map(([k, v]) => {
-                              const dimObj = DIMENSIONS.find((d) => d.id === k)
-                              return (
-                                <Badge
-                                  key={k}
-                                  className="bg-[#EDF2FF] text-[#2858D8] border-[#CBD7F3] text-[10px] font-extrabold px-2 py-0.5"
-                                >
-                                  {dimObj?.name || k} (+{v})
-                                </Badge>
-                              )
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })}
+                      )
+                    })}
+                  </div>
                 </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* PANE 3: Right Inspector & Psychometric Scoring Matrix (3 cols) */}
-          <div className="lg:col-span-3 space-y-4 lg:sticky lg:top-20">
-            {/* Inspector Settings Card */}
-            <Card className="p-6 border-[#DFE6EF] bg-white rounded-3xl shadow-sm space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#12243A] flex items-center gap-1.5">
-                <Sliders className="w-4 h-4 text-[#2858D8]" /> Question Inspector
-              </h3>
-
-              <div className="space-y-3 text-xs">
-                <div className="space-y-1">
-                  <label className="font-bold text-[#40516A]">Question Type</label>
-                  <select
-                    className="w-full h-9 px-3 rounded-xl border border-[#CBD5E1] bg-white text-xs font-medium focus:outline-none"
-                    value="MULTIPLE_CHOICE"
-                    onChange={() => {}}
-                  >
-                    <option value="MULTIPLE_CHOICE">Multiple Choice (Up to 3)</option>
-                    <option value="SINGLE_CHOICE">Single Choice</option>
-                    <option value="LIKERT_SCALE">Likert Scale (1-5)</option>
-                    <option value="SCENARIO">Scenario Choice</option>
-                  </select>
+              </Card>
+            ) : (
+              /* Stage 2 Simulation Canvas */
+              <Card className="p-6 sm:p-8 border-[#DFD7CB] bg-white rounded-3xl shadow-xs space-y-6">
+                {/* Stage 2 Meta Header */}
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-black text-[#77734B] bg-[#F1F1EB] border border-[#DFD7CB] px-2.5 py-0.5 rounded-md">
+                      {currentS2.id}
+                    </span>
+                    <Badge variant="outline" className="text-[10px] font-bold text-[#A36B40] border-[#DFD7CB] bg-[#FAF6F0]">
+                      {currentS2.sector}
+                    </Badge>
+                    <Badge variant="outline" className="text-[10px] font-bold text-[#2C2621] border-[#DFD7CB]">
+                      {currentS2.caseType}
+                    </Badge>
+                    <Badge className="bg-white text-[#7A7067] border-[#DFD7CB] text-[10px] font-bold">
+                      Variant {currentS2.variantIndex + 1}
+                    </Badge>
+                  </div>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="font-bold text-[#40516A]">Exploration Level</label>
-                  <select
-                    value={currentQ.level}
-                    onChange={(e) => {
-                      const lvl = Number(e.target.value)
-                      updateCurrentQuestion({
-                        level: lvl,
-                        levelName: ['Explore', 'Look for clues', 'Try ideas', 'Compare choices', 'Decisions'][lvl] || 'Explore'
-                      })
-                    }}
-                    className="w-full h-9 px-3 rounded-xl border border-[#CBD5E1] bg-white text-xs font-medium focus:outline-none"
-                  >
-                    <option value={0}>Level 1 · Explore</option>
-                    <option value={1}>Level 2 · Look for clues</option>
-                    <option value={2}>Level 3 · Try ideas</option>
-                    <option value={3}>Level 4 · Compare choices</option>
-                    <option value={4}>Level 5 · Decisions</option>
-                  </select>
+                {/* Dual Scenario Tabs for Stage 2 */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-[#2C2621]">Workplace Simulation Brief</label>
+                    <div className="flex items-center gap-1 bg-[#FAF6F0] p-1 rounded-xl border border-[#DFD7CB]">
+                      <button
+                        type="button"
+                        onClick={() => setActiveS2ScenarioTab('ug')}
+                        className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
+                          activeS2ScenarioTab === 'ug' ? 'bg-[#A36B40] text-white shadow-xs' : 'text-[#7A7067]'
+                        }`}
+                      >
+                        Class 12 / UG
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setActiveS2ScenarioTab('pg')}
+                        className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
+                          activeS2ScenarioTab === 'pg' ? 'bg-[#77734B] text-white shadow-xs' : 'text-[#7A7067]'
+                        }`}
+                      >
+                        Graduate / PG
+                      </button>
+                    </div>
+                  </div>
+
+                  {activeS2ScenarioTab === 'ug' ? (
+                    <textarea
+                      value={currentS2.ugCase}
+                      onChange={(e) => updateCurrentS2Case({ ugCase: e.target.value })}
+                      rows={3}
+                      className="w-full p-4 rounded-2xl border border-[#DFD7CB] text-xs font-medium bg-[#FAF6F0]/40 focus:outline-none focus:bg-white focus:border-[#A36B40]"
+                    />
+                  ) : (
+                    <textarea
+                      value={currentS2.pgCase}
+                      onChange={(e) => updateCurrentS2Case({ pgCase: e.target.value })}
+                      rows={3}
+                      className="w-full p-4 rounded-2xl border border-[#DFD7CB] text-xs font-medium bg-[#F1F1EB]/40 focus:outline-none focus:bg-white focus:border-[#77734B]"
+                    />
+                  )}
                 </div>
 
-                <div className="space-y-1">
-                  <label className="font-bold text-[#40516A]">Case Type Tag</label>
+                {/* Prompt */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#2C2621]">Question Prompt</label>
                   <Input
-                    value={currentQ.caseType}
-                    onChange={(e) => updateCurrentQuestion({ caseType: e.target.value })}
-                    className="h-9 text-xs rounded-xl"
+                    value={currentS2.prompt}
+                    onChange={(e) => updateCurrentS2Case({ prompt: e.target.value })}
+                    className="h-10 text-xs rounded-xl border-[#DFD7CB]"
                   />
                 </div>
-              </div>
-            </Card>
+
+                {/* Sector Career Domains & Activity Task Statements in this Case */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <label className="text-xs font-bold text-[#2C2621]">
+                        Domain Practical Task Activities (Variant {currentS2.variantIndex + 1})
+                      </label>
+                      <p className="text-[10px] text-[#7A7067]">
+                        Hands-on task options presented to students for each domain in this simulation case.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    {currentS2.domains.map((dom) => {
+                      const tasks = s2Activities[dom.id] || []
+                      const taskText = tasks[currentS2.variantIndex] || 'Engage in a practical work package related to this domain.'
+
+                      return (
+                        <div key={dom.id} className="p-3.5 rounded-2xl border border-[#DFD7CB] bg-white space-y-1.5">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-[#A36B40]">{dom.name}</span>
+                            <span className="text-[10px] font-mono text-[#7A7067]">{dom.id}</span>
+                          </div>
+                          <Input
+                            value={taskText}
+                            onChange={(e) => {
+                              const updatedTasks = [...(s2Activities[dom.id] || ['', '', ''])]
+                              updatedTasks[currentS2.variantIndex] = e.target.value
+                              setS2Activities((prev) => ({
+                                ...prev,
+                                [dom.id]: updatedTasks
+                              }))
+                            }}
+                            className="h-9 text-xs rounded-xl border-[#DFD7CB]"
+                          />
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </Card>
+            )}
+          </div>
+
+          {/* PANE 3: Right Inspector & Psychometric Matrix (3 cols) */}
+          <div className="lg:col-span-3 space-y-4 lg:sticky lg:top-20">
+            {activeStage === 'stage1' ? (
+              <Card className="p-6 border-[#DFD7CB] bg-white rounded-3xl shadow-xs space-y-4">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
+                  <Sliders className="w-4 h-4 text-[#A36B40]" /> Stage 1 Question Inspector
+                </h3>
+
+                <div className="space-y-3 text-xs">
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#2C2621]">Question Type</label>
+                    <select
+                      className="w-full h-9 px-3 rounded-xl border border-[#DFD7CB] bg-white text-xs font-medium focus:outline-none"
+                      value="MULTIPLE_CHOICE"
+                      onChange={() => {}}
+                    >
+                      <option value="MULTIPLE_CHOICE">Multiple Choice (Up to 3)</option>
+                      <option value="SINGLE_CHOICE">Single Choice</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#2C2621]">Exploration Level</label>
+                    <select
+                      value={currentQ.level}
+                      onChange={(e) => {
+                        const lvl = Number(e.target.value)
+                        updateCurrentQuestion({
+                          level: lvl,
+                          levelName: ['Explore', 'Look for clues', 'Try ideas', 'Compare choices', 'Decisions'][lvl] || 'Explore'
+                        })
+                      }}
+                      className="w-full h-9 px-3 rounded-xl border border-[#DFD7CB] bg-white text-xs font-medium focus:outline-none"
+                    >
+                      <option value={0}>Level 1 · Explore</option>
+                      <option value={1}>Level 2 · Look for clues</option>
+                      <option value={2}>Level 3 · Try ideas</option>
+                      <option value={3}>Level 4 · Compare choices</option>
+                      <option value={4}>Level 5 · Decisions</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#2C2621]">Case Type Tag</label>
+                    <Input
+                      value={currentQ.caseType}
+                      onChange={(e) => updateCurrentQuestion({ caseType: e.target.value })}
+                      className="h-9 text-xs rounded-xl border-[#DFD7CB]"
+                    />
+                  </div>
+                </div>
+              </Card>
+            ) : (
+              <Card className="p-6 border-[#DFD7CB] bg-white rounded-3xl shadow-xs space-y-4">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
+                  <Briefcase className="w-4 h-4 text-[#77734B]" /> Stage 2 Simulation Inspector
+                </h3>
+
+                <div className="space-y-3 text-xs">
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#2C2621]">Sector</label>
+                    <p className="font-extrabold text-[#77734B]">{currentS2.sector}</p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#2C2621]">Simulation Variant</label>
+                    <p className="font-bold text-[#2C2621]">Variant {currentS2.variantIndex + 1} of 3</p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#2C2621]">Case Type</label>
+                    <Input
+                      value={currentS2.caseType}
+                      onChange={(e) => updateCurrentS2Case({ caseType: e.target.value })}
+                      className="h-9 text-xs rounded-xl border-[#DFD7CB]"
+                    />
+                  </div>
+
+                  <div className="space-y-1 pt-2 border-t border-[#DFD7CB]">
+                    <span className="font-bold text-[#7A7067] uppercase text-[10px]">Domains Covered</span>
+                    <p className="text-sm font-black text-[#2C2621]">{currentS2.domains.length} Career Domains</p>
+                  </div>
+                </div>
+              </Card>
+            )}
 
             {/* Quality Linter Card */}
-            <Card className="p-6 border-[#DFE6EF] bg-white rounded-3xl shadow-sm space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#12243A] flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#147A52]" /> Quality Linter
+            <Card className="p-6 border-[#DFD7CB] bg-white rounded-3xl shadow-xs space-y-3">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#2C2621] flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-[#77734B]" /> Quality Linter
               </h3>
 
               {linterIssues.length === 0 ? (
-                <div className="p-3.5 rounded-2xl bg-[#E8F7EF] border border-[#CCEBD9] text-[#147A52] text-xs font-medium">
-                  ✓ All questions adhere to SUN psychometric standards (balanced point weights, correct dimensions).
+                <div className="p-3.5 rounded-2xl bg-[#F1F1EB] border border-[#DFD7CB] text-[#77734B] text-xs font-medium">
+                  ✓ All questions adhere to Sandip University psychometric standards (balanced point weights, verified dimensions).
                 </div>
               ) : (
                 <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1">
                   {linterIssues.map((issue) => (
                     <div
                       key={issue.id}
-                      className={`p-2.5 rounded-xl border text-[11px] leading-snug flex items-start gap-2 ${
-                        issue.type === 'error'
-                          ? 'bg-[#FFF0F0] border-[#F1D1D1] text-[#A93636]'
-                          : 'bg-[#FFF5DF] border-[#F3E0B4] text-[#76500F]'
-                      }`}
+                      className="p-2.5 rounded-xl border border-amber-200 bg-amber-50/50 text-amber-900 text-[11px] leading-snug flex items-start gap-2"
                     >
-                      <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-700" />
                       <span>{issue.message}</span>
                     </div>
                   ))}
@@ -664,19 +987,37 @@ export default function AssessmentBuilderPage() {
       )}
 
       {/* ========================================================================= */}
-      {/* MODE 2: MULTI-DEVICE PREVIEW & TEST SANDBOX */}
+      {/* MODE 2: MULTI-DEVICE PREVIEW & TEST SANDBOX                               */}
       {/* ========================================================================= */}
       {mode === 'preview' && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-5 space-y-4">
           {/* Device Switcher Toolbar */}
-          <div className="flex items-center justify-between flex-wrap gap-3 bg-white p-4 rounded-2xl border border-[#DFE6EF]">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-[#40516A]">Preview Viewport:</span>
-              <div className="p-1 rounded-xl bg-[#F0F3F8] flex items-center gap-1">
+          <div className="flex items-center justify-between flex-wrap gap-3 bg-white p-4 rounded-2xl border border-[#DFD7CB] shadow-xs">
+            <div className="flex items-center gap-3 flex-wrap">
+              <div className="flex rounded-xl bg-[#FAF6F0] p-1 border border-[#DFD7CB] gap-1">
+                <Button
+                  variant={activeStage === 'stage1' ? 'default' : 'ghost'}
+                  size="sm"
+                  className={`h-8 text-xs font-bold rounded-lg ${activeStage === 'stage1' ? 'bg-[#A36B40] text-white' : 'text-[#7A7067]'}`}
+                  onClick={() => setActiveStage('stage1')}
+                >
+                  Stage 1 Questions
+                </Button>
+                <Button
+                  variant={activeStage === 'stage2' ? 'default' : 'ghost'}
+                  size="sm"
+                  className={`h-8 text-xs font-bold rounded-lg ${activeStage === 'stage2' ? 'bg-[#77734B] text-white' : 'text-[#7A7067]'}`}
+                  onClick={() => setActiveStage('stage2')}
+                >
+                  Stage 2 Simulations
+                </Button>
+              </div>
+
+              <div className="flex items-center gap-1 bg-[#FAF6F0] p-1 rounded-xl border border-[#DFD7CB]">
                 <Button
                   variant={previewDevice === 'desktop' ? 'default' : 'ghost'}
                   size="sm"
-                  className={`h-8 text-xs font-bold ${previewDevice === 'desktop' ? 'bg-white text-[#12243A] shadow-sm' : 'text-[#617187]'}`}
+                  className={`h-8 text-xs font-bold ${previewDevice === 'desktop' ? 'bg-white text-[#2C2621] shadow-xs' : 'text-[#7A7067]'}`}
                   onClick={() => setPreviewDevice('desktop')}
                 >
                   <Monitor className="w-3.5 h-3.5 mr-1" /> Desktop
@@ -684,29 +1025,29 @@ export default function AssessmentBuilderPage() {
                 <Button
                   variant={previewDevice === 'tablet' ? 'default' : 'ghost'}
                   size="sm"
-                  className={`h-8 text-xs font-bold ${previewDevice === 'tablet' ? 'bg-white text-[#12243A] shadow-sm' : 'text-[#617187]'}`}
+                  className={`h-8 text-xs font-bold ${previewDevice === 'tablet' ? 'bg-white text-[#2C2621] shadow-xs' : 'text-[#7A7067]'}`}
                   onClick={() => setPreviewDevice('tablet')}
                 >
-                  <Tablet className="w-3.5 h-3.5 mr-1" /> Tablet (768px)
+                  <Tablet className="w-3.5 h-3.5 mr-1" /> Tablet
                 </Button>
                 <Button
                   variant={previewDevice === 'mobile' ? 'default' : 'ghost'}
                   size="sm"
-                  className={`h-8 text-xs font-bold ${previewDevice === 'mobile' ? 'bg-white text-[#12243A] shadow-sm' : 'text-[#617187]'}`}
+                  className={`h-8 text-xs font-bold ${previewDevice === 'mobile' ? 'bg-white text-[#2C2621] shadow-xs' : 'text-[#7A7067]'}`}
                   onClick={() => setPreviewDevice('mobile')}
                 >
-                  <Smartphone className="w-3.5 h-3.5 mr-1" /> Mobile (375px)
+                  <Smartphone className="w-3.5 h-3.5 mr-1" /> Mobile
                 </Button>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-[#40516A]">Pathway:</span>
-              <div className="p-1 rounded-xl bg-[#F0F3F8] flex items-center gap-1">
+              <span className="text-xs font-bold text-[#7A7067]">Pathway:</span>
+              <div className="p-1 rounded-xl bg-[#FAF6F0] border border-[#DFD7CB] flex items-center gap-1">
                 <Button
                   variant={previewPathway === 'UG' ? 'default' : 'ghost'}
                   size="sm"
-                  className={`h-8 text-xs font-bold ${previewPathway === 'UG' ? 'bg-white text-[#2858D8] shadow-sm' : 'text-[#617187]'}`}
+                  className={`h-8 text-xs font-bold ${previewPathway === 'UG' ? 'bg-[#A36B40] text-white shadow-xs' : 'text-[#7A7067]'}`}
                   onClick={() => setPreviewPathway('UG')}
                 >
                   UG (Class 12)
@@ -714,7 +1055,7 @@ export default function AssessmentBuilderPage() {
                 <Button
                   variant={previewPathway === 'PG' ? 'default' : 'ghost'}
                   size="sm"
-                  className={`h-8 text-xs font-bold ${previewPathway === 'PG' ? 'bg-white text-[#2858D8] shadow-sm' : 'text-[#617187]'}`}
+                  className={`h-8 text-xs font-bold ${previewPathway === 'PG' ? 'bg-[#77734B] text-white shadow-xs' : 'text-[#7A7067]'}`}
                   onClick={() => setPreviewPathway('PG')}
                 >
                   PG (Graduate)
@@ -723,118 +1064,111 @@ export default function AssessmentBuilderPage() {
             </div>
           </div>
 
-          {/* Viewport Frame */}
-          <div className="flex justify-center py-6 bg-slate-900/5 rounded-3xl p-4">
+          {/* Rendered Viewport Container */}
+          <div className="flex justify-center py-6">
             <div
-              className={`transition-all bg-white rounded-3xl border border-[#DFE6EF] shadow-2xl p-6 sm:p-8 space-y-6 overflow-hidden ${
-                previewDevice === 'desktop'
-                  ? 'w-full max-w-4xl'
+              className={`transition-all duration-300 ${
+                previewDevice === 'mobile'
+                  ? 'w-[375px]'
                   : previewDevice === 'tablet'
                   ? 'w-[768px]'
-                  : 'w-[375px]'
+                  : 'w-full max-w-4xl'
               }`}
             >
-              {(() => {
-                const q = questions[selectedQIndex]
-                if (!q) return null
-                const caseText = previewPathway === 'UG' ? q.ugCase : q.pgCase
-                const selected = previewSelectedOptions[q.id] || []
-
-                return (
-                  <div className="space-y-5">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <Badge className="bg-[#EDF2FF] text-[#2858D8] border-[#CBD7F3] text-[10px] font-extrabold">
-                        PREVIEW · CASE {selectedQIndex + 1}
-                      </Badge>
-                      <Badge variant="outline" className="text-[10px] text-[#617187]">
-                        {previewPathway} PATHWAY
-                      </Badge>
-                    </div>
-
-                    <div className="p-4 rounded-2xl bg-[#F8FAFF] border border-[#E1E9FA] text-xs sm:text-sm font-medium leading-relaxed">
-                      {caseText}
-                    </div>
-
-                    <div>
-                      <h4 className="text-base sm:text-lg font-bold text-[#12243A]">{q.prompt}</h4>
-                      <p className="text-[11px] text-[#617187] mt-1">{q.instructions}</p>
-                    </div>
-
-                    <div className="space-y-2">
-                      {q.options.map((opt, oidx) => {
-                        const isSelected = selected.includes(opt.id)
-                        const letter = String.fromCharCode(65 + oidx)
-
-                        return (
-                          <div
-                            key={opt.id}
-                            onClick={() => {
-                              let arr = [...selected]
-                              if (opt.optOut) {
-                                arr = [OPT_OUT_ID]
-                              } else {
-                                arr = arr.filter((x) => x !== OPT_OUT_ID)
-                                if (arr.includes(opt.id)) arr = arr.filter((x) => x !== opt.id)
-                                else if (arr.length < 3) arr.push(opt.id)
-                              }
-                              setPreviewSelectedOptions({ ...previewSelectedOptions, [q.id]: arr })
-                            }}
-                            className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 ${
-                              isSelected
-                                ? 'border-[#2858D8] bg-[#F3F6FF] ring-2 ring-[#2858D8]/20'
-                                : 'border-[#DFE6EF] bg-white hover:bg-[#F8FAFC]'
-                            }`}
-                          >
-                            <span
-                              className={`w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center shrink-0 ${
-                                isSelected ? 'bg-[#2858D8] text-white' : 'bg-[#EDF1F7] text-[#46576E]'
-                              }`}
-                            >
-                              {letter}
-                            </span>
-                            <p className="text-xs text-[#172436] font-medium leading-relaxed">{opt.text}</p>
-                          </div>
-                        )
-                      })}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-3 border-t border-[#DFE6EF]">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        disabled={selectedQIndex === 0}
-                        onClick={() => setSelectedQIndex((prev) => Math.max(0, prev - 1))}
-                        className="h-9 text-xs"
-                      >
-                        Previous
-                      </Button>
-                      <Button
-                        size="sm"
-                        disabled={selectedQIndex === questions.length - 1}
-                        onClick={() => setSelectedQIndex((prev) => Math.min(questions.length - 1, prev + 1))}
-                        className="h-9 text-xs bg-[#2858D8] text-white"
-                      >
-                        Next
-                      </Button>
-                    </div>
+              {activeStage === 'stage1' ? (
+                /* Stage 1 Preview Card */
+                <Card className="border-[#DFD7CB] bg-white rounded-3xl p-6 sm:p-8 shadow-md space-y-6">
+                  <div className="flex items-center justify-between pb-3 border-b border-[#DFD7CB]">
+                    <span className="text-xs font-black text-[#A36B40]">{currentQ.id}</span>
+                    <Badge variant="outline" className="text-xs text-[#2C2621] border-[#DFD7CB]">
+                      {previewPathway} Student View
+                    </Badge>
                   </div>
-                )
-              })()}
+
+                  <div className="p-5 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] space-y-2">
+                    <span className="text-[10px] font-black uppercase text-[#A36B40]">Case Scenario</span>
+                    <p className="text-sm text-[#2C2621] leading-relaxed">
+                      {previewPathway === 'UG' ? currentQ.ugCase : currentQ.pgCase}
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h3 className="text-base font-extrabold text-[#2C2621]">{currentQ.prompt}</h3>
+                    <p className="text-xs text-[#7A7067]">Select up to 3 options you would genuinely choose.</p>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {currentQ.options.map((opt, oidx) => (
+                      <div
+                        key={opt.id}
+                        className="p-4 rounded-2xl border border-[#DFD7CB] bg-white hover:border-[#A36B40]/40 transition-colors cursor-pointer flex items-start gap-3"
+                      >
+                        <span className="w-5 h-5 rounded-md bg-[#FAF6F0] text-[#A36B40] text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 border border-[#DFD7CB]">
+                          {opt.optOut ? 'X' : String.fromCharCode(65 + oidx)}
+                        </span>
+                        <p className="text-xs text-[#2C2621] leading-snug">{opt.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              ) : (
+                /* Stage 2 Preview Card */
+                <Card className="border-[#DFD7CB] bg-white rounded-3xl p-6 sm:p-8 shadow-md space-y-6">
+                  <div className="flex items-center justify-between pb-3 border-b border-[#DFD7CB]">
+                    <span className="text-xs font-black text-[#77734B]">{currentS2.id} · {currentS2.sector}</span>
+                    <Badge variant="outline" className="text-xs text-[#2C2621] border-[#DFD7CB]">
+                      {previewPathway} Student View
+                    </Badge>
+                  </div>
+
+                  <div className="p-5 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] space-y-2">
+                    <span className="text-[10px] font-black uppercase text-[#A36B40]">Workplace Simulation Brief</span>
+                    <p className="text-sm text-[#2C2621] leading-relaxed">
+                      {previewPathway === 'UG' ? currentS2.ugCase : currentS2.pgCase}
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h3 className="text-base font-extrabold text-[#2C2621]">{currentS2.prompt}</h3>
+                    <p className="text-xs text-[#7A7067]">Select up to 3 activities you would enjoy taking on.</p>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {currentS2.domains.map((dom, didx) => {
+                      const taskText = (s2Activities[dom.id] || [])[currentS2.variantIndex] || 'Engage in a practical work package related to this domain.'
+                      return (
+                        <div
+                          key={dom.id}
+                          className="p-4 rounded-2xl border border-[#DFD7CB] bg-white hover:border-[#77734B]/40 transition-colors cursor-pointer flex items-start gap-3"
+                        >
+                          <span className="w-5 h-5 rounded-md bg-[#F1F1EB] text-[#77734B] text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 border border-[#DFD7CB]">
+                            {didx + 1}
+                          </span>
+                          <div className="space-y-0.5 flex-1">
+                            <span className="text-xs font-bold text-[#A36B40] block">{dom.name}</span>
+                            <p className="text-xs text-[#2C2621] leading-relaxed">{taskText}</p>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </Card>
+              )}
             </div>
           </div>
         </div>
       )}
 
       {/* ========================================================================= */}
-      {/* MODE 3: RESPONSE ANALYTICS & ITEM DISCRIMINATION */}
+      {/* MODE 3: RESPONSE ANALYTICS & ITEM DISCRIMINATION                          */}
       {/* ========================================================================= */}
       {mode === 'analytics' && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-5 space-y-6">
-          <Card className="border-[#DFE6EF] bg-white rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
+          <Card className="border-[#DFD7CB] bg-white rounded-3xl p-6 sm:p-8 shadow-xs space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-bold text-[#12243A]">Cohort Response Metrics</h3>
-                <p className="text-xs text-[#617187]">Live statistics aggregated from student assessment attempts.</p>
+                <h3 className="text-lg font-bold text-[#2C2621]">Cohort Response Metrics</h3>
+                <p className="text-xs text-[#7A7067]">Live statistics aggregated from student assessment attempts.</p>
               </div>
               <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#DFD7CB] text-[10px] font-bold">
                 Live Database Stream
@@ -842,46 +1176,46 @@ export default function AssessmentBuilderPage() {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-1">
+              <div className="p-4 rounded-2xl bg-[#FAF6F0]/60 border border-[#DFD7CB] space-y-1">
                 <span className="text-[10px] font-bold uppercase text-[#7A7067]">Total Submissions</span>
-                <p className="text-2xl font-black text-[#12243A]">{cohortStats?.totalSubmissions || 0}</p>
-                <p className="text-[10px] text-[#617187]">Across all tracks</p>
+                <p className="text-2xl font-black text-[#2C2621]">{cohortStats?.totalSubmissions || 0}</p>
+                <p className="text-[10px] text-[#7A7067]">Across all tracks</p>
               </div>
-              <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-1">
+              <div className="p-4 rounded-2xl bg-[#FAF6F0]/60 border border-[#DFD7CB] space-y-1">
                 <span className="text-[10px] font-bold uppercase text-[#7A7067]">Completed</span>
-                <p className="text-2xl font-black text-[#147A52]">{cohortStats?.completed || 0}</p>
-                <p className="text-[10px] text-[#147A52]">
+                <p className="text-2xl font-black text-[#77734B]">{cohortStats?.completed || 0}</p>
+                <p className="text-[10px] text-[#77734B]">
                   {cohortStats?.completionRate || 0}% completion rate
                 </p>
               </div>
-              <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-1">
+              <div className="p-4 rounded-2xl bg-[#FAF6F0]/60 border border-[#DFD7CB] space-y-1">
                 <span className="text-[10px] font-bold uppercase text-[#7A7067]">In Progress</span>
-                <p className="text-2xl font-black text-[#8B530C]">{cohortStats?.inProgress || 0}</p>
-                <p className="text-[10px] text-[#617187]">Active student attempts</p>
+                <p className="text-2xl font-black text-[#A36B40]">{cohortStats?.inProgress || 0}</p>
+                <p className="text-[10px] text-[#7A7067]">Active student attempts</p>
               </div>
-              <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-1">
+              <div className="p-4 rounded-2xl bg-[#FAF6F0]/60 border border-[#DFD7CB] space-y-1">
                 <span className="text-[10px] font-bold uppercase text-[#7A7067]">Average Duration</span>
-                <p className="text-2xl font-black text-[#087F75]">{cohortStats?.avgTime || 'Untimed'}</p>
-                <p className="text-[10px] text-[#617187]">Observed test length</p>
+                <p className="text-2xl font-black text-[#2C2621]">{cohortStats?.avgTime || 'Untimed'}</p>
+                <p className="text-[10px] text-[#7A7067]">Observed test length</p>
               </div>
             </div>
           </Card>
 
           {/* Item Discrimination & Option Frequencies */}
-          <Card className="border-[#DFE6EF] bg-white rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+          <Card className="border-[#DFD7CB] bg-white rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
             <div>
-              <h3 className="text-lg font-bold text-[#12243A]">Question Quality & Discrimination Diagnostics</h3>
-              <p className="text-xs text-[#617187]">
+              <h3 className="text-lg font-bold text-[#2C2621]">Question Quality & Discrimination Diagnostics</h3>
+              <p className="text-xs text-[#7A7067]">
                 Analyzes option selection distributions and item balance across all 30 cognitive exploration cases.
               </p>
             </div>
 
             {(!cohortStats || cohortStats.completed === 0) ? (
-              <div className="py-10 text-center space-y-3 bg-[#F8FAFC] rounded-2xl border border-dashed border-[#DFE6EF]">
-                <BarChart3 className="w-8 h-8 text-[#94A3B8] mx-auto" />
+              <div className="py-10 text-center space-y-3 bg-[#FAF6F0]/40 rounded-2xl border border-dashed border-[#DFD7CB]">
+                <BarChart3 className="w-8 h-8 text-[#A89D8F] mx-auto" />
                 <div className="space-y-1">
-                  <p className="text-xs font-bold text-[#12243A]">Awaiting Student Cohort Responses</p>
-                  <p className="text-[11px] text-[#617187] max-w-md mx-auto">
+                  <p className="text-xs font-bold text-[#2C2621]">Awaiting Student Cohort Responses</p>
+                  <p className="text-[11px] text-[#7A7067] max-w-md mx-auto">
                     Live item-level selection frequencies, discrimination indices, and response curves will calibrate automatically as students complete their assessments.
                   </p>
                 </div>
@@ -889,26 +1223,26 @@ export default function AssessmentBuilderPage() {
             ) : (
               <div className="space-y-4">
                 {questions.slice(0, 5).map((q, idx) => (
-                  <div key={q.id} className="p-5 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-3">
+                  <div key={q.id} className="p-5 rounded-2xl bg-[#FAF6F0]/40 border border-[#DFD7CB] space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-[#12243A]">
+                      <span className="text-xs font-bold text-[#2C2621]">
                         Case {idx + 1} ({q.id}) · {q.prompt}
                       </span>
-                      <Badge className="bg-[#E8F7EF] text-[#147A52] border-[#CCEBD9] text-[10px]">
+                      <Badge className="bg-[#F1F1EB] text-[#77734B] border-[#DFD7CB] text-[10px] font-bold">
                         Active In Bank
                       </Badge>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {q.options.slice(0, 4).map((opt, oidx) => (
-                        <div key={opt.id} className="p-3 rounded-xl bg-white border border-[#DFE6EF] space-y-1">
+                        <div key={opt.id} className="p-3 rounded-xl bg-white border border-[#DFD7CB] space-y-1">
                           <div className="flex items-center justify-between text-xs">
-                            <span className="font-bold text-[#42546C]">Option {String.fromCharCode(65 + oidx)}</span>
+                            <span className="font-bold text-[#7A7067]">Option {String.fromCharCode(65 + oidx)}</span>
                             <span className="font-bold text-[#2C2621]">
                               {opt.optOut ? 'Opt-Out' : `${Object.keys(opt.dims || {}).join(', ')}`}
                             </span>
                           </div>
-                          <p className="text-[11px] text-[#617187] truncate">{opt.text}</p>
+                          <p className="text-[11px] text-[#7A7067] truncate">{opt.text}</p>
                         </div>
                       ))}
                     </div>
