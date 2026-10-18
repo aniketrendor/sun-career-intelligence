@@ -123,29 +123,30 @@ export default async function StudentRoadmapPage() {
 
       {/* Roadmap Timeline */}
       <div className="space-y-6">
-        {(itemsByPhase.length > 0 ? itemsByPhase : [
-          {
-            phase: 'FOUNDATION',
-            items: [
-              { id: '1', title: 'SQL & Relational Database Mastery', description: 'Complete advanced query exercises, joins, CTEs and indexing.', item_type: 'COURSE', estimated_hours: 20, is_completed: true, skill: { name: 'SQL' } },
-              { id: '2', title: 'Data Cleaning & Wrangling in Python / Excel', description: 'Practical exercises dealing with missing values, normalization, and outliers.', item_type: 'PRACTICE', estimated_hours: 15, is_completed: true, skill: { name: 'Data Wrangling' } },
-            ]
-          },
-          {
-            phase: 'INTERMEDIATE',
-            items: [
-              { id: '3', title: 'Interactive Dashboard Design (Tableau / PowerBI)', description: 'Build enterprise BI dashboards with executive KPI tracking.', item_type: 'PROJECT', estimated_hours: 25, is_completed: false, skill: { name: 'PowerBI' } },
-              { id: '4', title: 'Business Problem Framing & Statistical Thinking', description: 'Analyze business case studies and translate hypotheses into analytical models.', item_type: 'READING', estimated_hours: 12, is_completed: false, skill: { name: 'Statistical Thinking' } },
-            ]
-          },
-          {
-            phase: 'ADVANCED',
-            items: [
-              { id: '5', title: 'End-to-End Business Intelligence Portfolio Project', description: 'Full pipeline from raw operational DB to automated reporting and stakeholder presentation deck.', item_type: 'PROJECT', estimated_hours: 35, is_completed: false, skill: { name: 'Portfolio Development' } },
-              { id: '6', title: 'Mock Technical Interview & Case Presentation', description: 'Schedule simulation session with assigned institutional counselor.', item_type: 'ASSESSMENT', estimated_hours: 4, is_completed: false, skill: { name: 'Communication' } },
-            ]
-          }
-        ]).map((phaseGroup, pIdx) => (
+        {itemsByPhase.length === 0 ? (
+          <Card className="p-8 text-center border-slate-200 bg-white rounded-2xl shadow-xs space-y-3">
+            <Map className="w-10 h-10 text-slate-400 mx-auto" />
+            <div className="space-y-1">
+              <h3 className="text-base font-bold text-slate-800">No Learning Roadmap Configured Yet</h3>
+              <p className="text-xs text-slate-500 max-w-md mx-auto">
+                Your personalized competency milestones and learning phases will be generated after completing your Career Exploration Assessment or upon review with your assigned mentor.
+              </p>
+            </div>
+            <div className="pt-2 flex items-center justify-center gap-3">
+              <Link href="/assessment">
+                <Button size="sm" className="bg-[#A36B40] hover:bg-[#8E5B33] text-white text-xs font-bold">
+                  Take Career Assessment
+                </Button>
+              </Link>
+              <Link href="/student/counseling">
+                <Button variant="outline" size="sm" className="text-xs font-bold">
+                  Connect with Mentor
+                </Button>
+              </Link>
+            </div>
+          </Card>
+        ) : (
+          itemsByPhase.map((phaseGroup, pIdx) => (
           <div key={pIdx} className="space-y-4">
             <div className="flex items-center gap-3">
               <Badge className="bg-slate-900 text-white text-xs px-3 py-1 font-semibold uppercase tracking-wider">
@@ -226,7 +227,7 @@ export default async function StudentRoadmapPage() {
               })}
             </div>
           </div>
-        ))}
+        )))}
       </div>
     </div>
   )

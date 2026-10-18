@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import {
   Sparkles, Plus, Layers, Clock, CheckCircle2,
@@ -8,6 +8,7 @@ import {
   Trash2, GripVertical, Check, RefreshCw, Smartphone, Tablet, Monitor,
   Sliders, ShieldCheck, ChevronDown, ChevronRight, X, Info
 } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -47,6 +48,55 @@ export default function AssessmentBuilderPage() {
     setToastMessage(msg)
     setTimeout(() => setToastMessage(null), 3500)
   }
+
+  // Live Cohort Response Metrics (loaded from database)
+  const [cohortStats, setCohortStats] = useState<{
+    totalSubmissions: number
+    completed: number
+    inProgress: number
+    completionRate: number
+    avgTime: string
+  } | null>(null)
+
+  useEffect(() => {
+    async function loadAttemptMetrics() {
+      try {
+        const supabase = createClient()
+        const { data: attempts } = await supabase
+          .from('assessment_attempts')
+          .select('id, status, started_at, completed_at')
+
+        if (attempts) {
+          const total = attempts.length
+          const completed = attempts.filter((a) => a.status === 'COMPLETED').length
+          const inProgress = attempts.filter((a) => a.status === 'IN_PROGRESS').length
+          const rate = total > 0 ? Math.round((completed / total) * 100) : 0
+
+          let avgMins = 0
+          const durations = attempts
+            .filter((a) => a.status === 'COMPLETED' && a.started_at && a.completed_at)
+            .map((a) => (new Date(a.completed_at).getTime() - new Date(a.started_at).getTime()) / 60000)
+            .filter((m) => m > 0 && m < 180)
+
+          if (durations.length > 0) {
+            avgMins = Math.round(durations.reduce((a, b) => a + b, 0) / durations.length)
+          }
+
+          setCohortStats({
+            totalSubmissions: total,
+            completed,
+            inProgress,
+            completionRate: rate,
+            avgTime: avgMins > 0 ? `${avgMins}m` : 'Untimed'
+          })
+        }
+      } catch (err) {
+        console.error('Error loading live attempt metrics in builder:', err)
+      }
+    }
+
+    loadAttemptMetrics()
+  }, [])
 
   // Active question currently focused in canvas & inspector
   const currentQ = questions[selectedQIndex] || questions[0]
@@ -781,32 +831,38 @@ export default function AssessmentBuilderPage() {
       {mode === 'analytics' && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-5 space-y-6">
           <Card className="border-[#DFE6EF] bg-white rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
-            <h3 className="text-lg font-bold text-[#12243A]">Cohort Response Metrics</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-[#12243A]">Cohort Response Metrics</h3>
+                <p className="text-xs text-[#617187]">Live statistics aggregated from student assessment attempts.</p>
+              </div>
+              <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#DFD7CB] text-[10px] font-bold">
+                Live Database Stream
+              </Badge>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-1">
                 <span className="text-[10px] font-bold uppercase text-[#7A7067]">Total Submissions</span>
-                <p className="text-2xl font-black text-[#12243A]">1,248</p>
+                <p className="text-2xl font-black text-[#12243A]">{cohortStats?.totalSubmissions || 0}</p>
                 <p className="text-[10px] text-[#617187]">Across all tracks</p>
               </div>
               <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-1">
                 <span className="text-[10px] font-bold uppercase text-[#7A7067]">Completed</span>
-                <p className="text-2xl font-black text-[#147A52]">1,102</p>
-                <p className="text-[10px] text-[#147A52]">88.3% completion rate</p>
+                <p className="text-2xl font-black text-[#147A52]">{cohortStats?.completed || 0}</p>
+                <p className="text-[10px] text-[#147A52]">
+                  {cohortStats?.completionRate || 0}% completion rate
+                </p>
               </div>
               <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-1">
-                <span className="text-[10px] font-bold uppercase text-[#7A7067]">Incomplete</span>
-                <p className="text-2xl font-black text-[#8B530C]">146</p>
-                <p className="text-[10px] text-[#617187]">11.7% drop-off</p>
+                <span className="text-[10px] font-bold uppercase text-[#7A7067]">In Progress</span>
+                <p className="text-2xl font-black text-[#8B530C]">{cohortStats?.inProgress || 0}</p>
+                <p className="text-[10px] text-[#617187]">Active student attempts</p>
               </div>
               <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-1">
-                <span className="text-[10px] font-bold uppercase text-[#7A7067]">Average Score</span>
-                <p className="text-2xl font-black text-[#2858D8]">67.4%</p>
-                <p className="text-[10px] text-[#617187]">Relative domain match</p>
-              </div>
-              <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-1">
-                <span className="text-[10px] font-bold uppercase text-[#7A7067]">Average Time</span>
-                <p className="text-2xl font-black text-[#087F75]">18m 42s</p>
-                <p className="text-[10px] text-[#617187]">Efficient test length</p>
+                <span className="text-[10px] font-bold uppercase text-[#7A7067]">Average Duration</span>
+                <p className="text-2xl font-black text-[#087F75]">{cohortStats?.avgTime || 'Untimed'}</p>
+                <p className="text-[10px] text-[#617187]">Observed test length</p>
               </div>
             </div>
           </Card>
@@ -814,43 +870,52 @@ export default function AssessmentBuilderPage() {
           {/* Item Discrimination & Option Frequencies */}
           <Card className="border-[#DFE6EF] bg-white rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
             <div>
-              <h3 className="text-lg font-bold text-[#12243A]">Question Quality & Discrimination Analytics</h3>
+              <h3 className="text-lg font-bold text-[#12243A]">Question Quality & Discrimination Diagnostics</h3>
               <p className="text-xs text-[#617187]">
-                Analyzes option selection distributions to identify non-discriminating questions or bias.
+                Analyzes option selection distributions and item balance across all 30 cognitive exploration cases.
               </p>
             </div>
 
-            <div className="space-y-4">
-              {questions.slice(0, 5).map((q, idx) => (
-                <div key={q.id} className="p-5 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#12243A]">
-                      Case {idx + 1} ({q.id}) · {q.prompt}
-                    </span>
-                    <Badge className="bg-[#E8F7EF] text-[#147A52] border-[#CCEBD9] text-[10px]">
-                      Healthy Discrimination
-                    </Badge>
-                  </div>
+            {(!cohortStats || cohortStats.completed === 0) ? (
+              <div className="py-10 text-center space-y-3 bg-[#F8FAFC] rounded-2xl border border-dashed border-[#DFE6EF]">
+                <BarChart3 className="w-8 h-8 text-[#94A3B8] mx-auto" />
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-[#12243A]">Awaiting Student Cohort Responses</p>
+                  <p className="text-[11px] text-[#617187] max-w-md mx-auto">
+                    Live item-level selection frequencies, discrimination indices, and response curves will calibrate automatically as students complete their assessments.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {questions.slice(0, 5).map((q, idx) => (
+                  <div key={q.id} className="p-5 rounded-2xl bg-[#F8FAFC] border border-[#DFE6EF] space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-[#12243A]">
+                        Case {idx + 1} ({q.id}) · {q.prompt}
+                      </span>
+                      <Badge className="bg-[#E8F7EF] text-[#147A52] border-[#CCEBD9] text-[10px]">
+                        Active In Bank
+                      </Badge>
+                    </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {q.options.slice(0, 4).map((opt, oidx) => {
-                      const mockFreq = [32, 28, 22, 18][oidx] || 15
-                      return (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {q.options.slice(0, 4).map((opt, oidx) => (
                         <div key={opt.id} className="p-3 rounded-xl bg-white border border-[#DFE6EF] space-y-1">
                           <div className="flex items-center justify-between text-xs">
                             <span className="font-bold text-[#42546C]">Option {String.fromCharCode(65 + oidx)}</span>
-                            <span className="font-black text-[#2858D8]">{mockFreq}%</span>
+                            <span className="font-bold text-[#2C2621]">
+                              {opt.optOut ? 'Opt-Out' : `${Object.keys(opt.dims || {}).join(', ')}`}
+                            </span>
                           </div>
-                          <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                            <div className="h-full bg-[#2858D8] rounded-full" style={{ width: `${mockFreq}%` }} />
-                          </div>
+                          <p className="text-[11px] text-[#617187] truncate">{opt.text}</p>
                         </div>
-                      )
-                    })}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </Card>
         </div>
       )}
