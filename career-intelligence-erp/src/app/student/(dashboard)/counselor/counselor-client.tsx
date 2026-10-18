@@ -5,7 +5,7 @@ import {
   Calendar, Clock, User, Video, MapPin, Plus, CheckCircle2,
   Mail, Phone, BookOpen, ShieldCheck, ArrowRight, X, AlertCircle,
   Sparkles, CheckSquare, ChevronRight, MessageSquare, RefreshCw,
-  ExternalLink
+  ExternalLink, Download
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -19,6 +19,12 @@ import {
   selectMentor,
   BookCounselingSlotInput
 } from '@/lib/actions/student.actions'
+import {
+  buildGoogleCalendarUrl,
+  downloadIcsFile,
+  getSessionLiveStatus,
+  CalendarEventData
+} from '@/lib/calendar-utils'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { formatDate } from '@/lib/utils'
@@ -581,11 +587,24 @@ export function CounselorClient({
                 const isResolved = session.status === 'RESOLVED' || session.status === 'CLOSED'
                 const isFollowUp = session.status === 'FOLLOW_UP' || session.status === 'IN_PROGRESS'
                 const isOpen = session.status === 'OPEN'
+                const liveStatus = getSessionLiveStatus(session.session_date, parsed.slot, isResolved)
+
+                const calData: CalendarEventData = {
+                  title: `Faculty Advisory Consultation with ${session.counselor?.full_name || 'Faculty Mentor'}`,
+                  details: `Topic: ${parsed.topic}\nYour Agenda: ${parsed.notes || 'Routine advisory consultation'}\nVenue: ${parsed.mode === 'GOOGLE_MEET' ? (parsed.venue || 'Google Meet') : (parsed.venue || 'Faculty Cabin')}`,
+                  location: parsed.mode === 'GOOGLE_MEET' ? (parsed.venue || 'Google Meet') : (parsed.venue || 'Faculty Cabin'),
+                  dateStr: session.session_date,
+                  slotStr: parsed.slot
+                }
 
                 return (
                   <div
                     key={session.id}
-                    className="p-5 rounded-2xl border border-[#DFD7CB] hover:border-[#A36B40]/60 transition-all space-y-3.5 bg-[#FAF6F0]/30"
+                    className={`p-5 rounded-2xl border transition-all space-y-3.5 ${
+                      liveStatus.status === 'LIVE_NOW'
+                        ? 'bg-emerald-50/40 border-emerald-300 ring-1 ring-emerald-300'
+                        : 'bg-[#FAF6F0]/30 border-[#DFD7CB] hover:border-[#A36B40]/60'
+                    }`}
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
@@ -611,6 +630,9 @@ export function CounselorClient({
                             >
                               {isResolved ? 'Completed' : isFollowUp ? 'Follow Up' : 'Scheduled'}
                             </Badge>
+                            <span className={`text-[10px] px-2 py-0.5 rounded-full border ${liveStatus.badgeClass}`}>
+                              {liveStatus.label}
+                            </span>
                           </div>
                           <p className="text-xs text-[#7A7067] mt-0.5">
                             Advisor: <span className="font-semibold text-[#2C2621]">{session.counselor?.full_name || 'Faculty Mentor'}</span>
@@ -625,7 +647,11 @@ export function CounselorClient({
                             href={parsed.venue}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors"
+                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-white font-bold text-xs shadow-xs transition-all ${
+                              liveStatus.status === 'LIVE_NOW'
+                                ? 'bg-emerald-600 hover:bg-emerald-700 animate-pulse ring-2 ring-emerald-400'
+                                : 'bg-emerald-600 hover:bg-emerald-700'
+                            }`}
                           >
                             <Video className="w-3.5 h-3.5" /> Join Meet
                             <ExternalLink className="w-3 h-3 opacity-80" />
@@ -644,6 +670,32 @@ export function CounselorClient({
                         )}
                       </div>
                     </div>
+
+                    {/* 1-Click Calendar Sync Bar for Student */}
+                    {isOpen && (
+                      <div className="flex items-center justify-between gap-2 pt-0.5 text-[11px] text-[#7A7067] border-t border-[#DFD7CB]/50">
+                        <span className="font-semibold text-[#2C2621]">Sync to Your Calendar:</span>
+                        <div className="flex items-center gap-1.5">
+                          <a
+                            href={buildGoogleCalendarUrl(calData)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FAF6F0] hover:bg-[#FAF6F0]/80 text-[#A36B40] font-semibold border border-[#DFD7CB] transition-colors cursor-pointer"
+                            title="Add appointment to your Google Calendar"
+                          >
+                            <Calendar className="w-3 h-3 text-[#A36B40]" /> Add to Google Calendar
+                          </a>
+                          <button
+                            type="button"
+                            onClick={() => downloadIcsFile(calData)}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white hover:bg-stone-50 text-[#7A7067] font-semibold border border-[#DFD7CB] transition-colors cursor-pointer"
+                            title="Download .ics for Apple Calendar or Outlook"
+                          >
+                            <Download className="w-3 h-3 text-[#7A7067]" /> .ics
+                          </button>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Topic badge & notes */}
                     <div className="space-y-2 pt-1 text-xs">

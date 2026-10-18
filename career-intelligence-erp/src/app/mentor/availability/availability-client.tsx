@@ -4,7 +4,8 @@ import { useState, useTransition } from 'react'
 import {
   Calendar, Clock, User, Video, MapPin, Plus, CheckCircle2,
   Trash2, Sparkles, X, Copy, ExternalLink, SlidersHorizontal,
-  ArrowRight, CheckSquare, MessageSquare, AlertCircle
+  ArrowRight, CheckSquare, MessageSquare, AlertCircle, Download,
+  FileText
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -18,6 +19,12 @@ import {
   updateMentorSlotsConfig,
   DynamicSlotsConfig
 } from '@/lib/actions/mentor.actions'
+import {
+  buildGoogleCalendarUrl,
+  downloadIcsFile,
+  getSessionLiveStatus,
+  CalendarEventData
+} from '@/lib/calendar-utils'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -83,11 +90,14 @@ const DAYS_OF_WEEK = [
   { key: 'Sat', label: 'Saturday' },
 ]
 
-// Helper to generate a realistic Google Meet link code: 3-4-3 lowercase letters
-function generateMeetCode(): string {
-  const chars = 'abcdefghijklmnopqrstuvwxyz'
-  const part = (len: number) => Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join('')
-  return `https://meet.google.com/${part(3)}-${part(4)}-${part(3)}`
+// Helper to format and validate original Google Meet links
+function formatMeetLink(input: string): string {
+  let trimmed = input.trim()
+  if (!trimmed) return ''
+  if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+    trimmed = 'https://' + trimmed
+  }
+  return trimmed
 }
 
 export function AvailabilityClient({
@@ -102,6 +112,14 @@ export function AvailabilityClient({
 
   // Modal State for Dynamic Slots & Google Meet Configuration
   const [isConfigModalOpen, setIsConfigModalOpen] = useState(false)
+
+  // Wrap-up & Outcomes Modal State (Option C)
+  const [wrapUpSession, setWrapUpSession] = useState<SessionRecord | null>(null)
+  const [wrapUpSummary, setWrapUpSummary] = useState<string>('')
+  const [wrapUpConcerns, setWrapUpConcerns] = useState<string>('')
+  const [wrapUpActions, setWrapUpActions] = useState<string>('')
+  const [wrapUpFollowUpDate, setWrapUpFollowUpDate] = useState<string>('')
+  const [wrapUpStatus, setWrapUpStatus] = useState<'RESOLVED' | 'FOLLOW_UP'>('RESOLVED')
 
   // Configuration Form State
   const [availableDays, setAvailableDays] = useState<string[]>(
@@ -195,12 +213,6 @@ export function AvailabilityClient({
     setCustomSlots(prev => prev.filter(s => s !== slotToRemove))
   }
 
-  function handleGenerateMeetLink() {
-    const newMeet = generateMeetCode()
-    setGoogleMeetLink(newMeet)
-    toast.success('Instant Google Meet link generated!')
-  }
-
   function handleCopyMeetLink(linkToCopy: string) {
     if (!linkToCopy) return
     navigator.clipboard.writeText(linkToCopy)
@@ -209,11 +221,14 @@ export function AvailabilityClient({
 
   function handleSaveSlotsConfig(e: React.FormEvent) {
     e.preventDefault()
+    const cleanedMeet = formatMeetLink(googleMeetLink)
+    setGoogleMeetLink(cleanedMeet)
+
     startTransition(async () => {
       const payload: DynamicSlotsConfig = {
         available_days: availableDays,
         custom_slots: customSlots,
-        google_meet_link: googleMeetLink.trim(),
+        google_meet_link: cleanedMeet,
         cabin: cabinOffice.trim(),
         consultation_hours: `${availableDays.join(', ')} (${customSlots.length} daily consultation slots)`
       }
@@ -229,22 +244,41 @@ export function AvailabilityClient({
     })
   }
 
-  function handleCompleteSession(session: SessionRecord) {
+  function handleOpenWrapUp(session: SessionRecord) {
+    setWrapUpSession(session)
+    setWrapUpSummary(session.discussion_summary || '')
+    setWrapUpConcerns(session.identified_concerns || '')
+    setWrapUpActions(session.recommended_actions || '')
+    setWrapUpFollowUpDate(session.follow_up_date || '')
+    setWrapUpStatus(session.status === 'FOLLOW_UP' ? 'FOLLOW_UP' : 'RESOLVED')
+  }
+
+  function handleSaveWrapUp(e: React.FormEvent) {
+    e.preventDefault()
+    if (!wrapUpSession) return
+
     startTransition(async () => {
       const res = await saveCounselingSession({
-        sessionId: session.id,
-        student_id: session.student.id,
-        session_date: session.session_date,
-        discussion_summary: session.discussion_summary || '',
-        identified_concerns: session.identified_concerns || undefined,
-        recommended_actions: session.recommended_actions || undefined,
-        status: 'RESOLVED'
+        sessionId: wrapUpSession.id,
+        student_id: wrapUpSession.student.id,
+        session_date: wrapUpSession.session_date,
+        discussion_summary: wrapUpSummary.trim() || wrapUpSession.discussion_summary || 'Consultation completed',
+        identified_concerns: wrapUpConcerns.trim() || undefined,
+        recommended_actions: wrapUpActions.trim() || undefined,
+        follow_up_date: wrapUpFollowUpDate || undefined,
+        status: wrapUpStatus
       })
+
       if (res.success) {
-        toast.success('Session marked as completed & archived to guidance logs')
+        toast.success(
+          wrapUpStatus === 'RESOLVED'
+            ? 'Advisory session marked as Completed & archived to logs!'
+            : 'Follow-up consultation milestone scheduled!'
+        )
+        setWrapUpSession(null)
         router.refresh()
       } else {
-        toast.error(res.error || 'Failed to update session')
+        toast.error(res.error || 'Failed to update session outcomes.')
       }
     })
   }
@@ -437,14 +471,23 @@ export function AvailabilityClient({
                   const parsed = parseSummary(session.discussion_summary)
                   const isVirtual = parsed.mode === 'GOOGLE_MEET'
                   const meetLink = isVirtual && parsed.venue.startsWith('http') ? parsed.venue : mentorProfile.google_meet_link
+                  const liveStatus = getSessionLiveStatus(session.session_date, parsed.slot, session.status === 'RESOLVED')
+
+                  const calData: CalendarEventData = {
+                    title: `Advisory Session: ${session.student.full_name} & Prof. ${mentorProfile.title}`,
+                    details: `Topic: ${parsed.topic}\nStudent Agenda: ${parsed.notes || 'Routine advisory consultation'}\nAdvisee Email: ${session.student.email}\nVenue: ${isVirtual ? (meetLink || 'Google Meet') : (parsed.venue || mentorProfile.cabin || 'Faculty Cabin')}`,
+                    location: isVirtual ? (meetLink || 'Google Meet') : (parsed.venue || mentorProfile.cabin || 'Faculty Cabin'),
+                    dateStr: session.session_date,
+                    slotStr: parsed.slot
+                  }
 
                   return (
                     <Card
                       key={session.id}
-                      className="border-[#DFD7CB] bg-white rounded-3xl shadow-xs overflow-hidden flex flex-col justify-between"
+                      className="border-[#DFD7CB] bg-white rounded-3xl shadow-xs overflow-hidden flex flex-col justify-between hover:border-[#A36B40]/50 transition-all"
                     >
                       <CardContent className="p-6 space-y-4">
-                        {/* Header: Student & Mode */}
+                        {/* Header: Student, Mode & Live Lifecycle Badge */}
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex items-center gap-3">
                             <div className="w-11 h-11 rounded-xl bg-[#FAF6F0] text-[#A36B40] flex items-center justify-center font-bold text-sm border border-[#DFD7CB] shrink-0">
@@ -455,17 +498,26 @@ export function AvailabilityClient({
                               <p className="text-xs text-[#7A7067]">{session.student?.email}</p>
                             </div>
                           </div>
-                          <Badge
-                            className={`text-xs px-2.5 py-0.5 rounded-full font-bold border-0 shrink-0 ${
-                              isVirtual ? 'bg-sky-50 text-sky-800' : 'bg-amber-50 text-amber-800'
-                            }`}
-                          >
-                            {isVirtual ? 'Google Meet' : 'In-Person Cabin'}
-                          </Badge>
+                          <div className="flex items-center gap-1.5 flex-wrap shrink-0 justify-end">
+                            <Badge
+                              className={`text-xs px-2.5 py-0.5 rounded-full font-bold border-0 ${
+                                isVirtual ? 'bg-sky-50 text-sky-800' : 'bg-amber-50 text-amber-800'
+                              }`}
+                            >
+                              {isVirtual ? 'Google Meet' : 'In-Person Cabin'}
+                            </Badge>
+                            <span className={`text-[10px] px-2.5 py-0.5 rounded-full border ${liveStatus.badgeClass}`}>
+                              {liveStatus.label}
+                            </span>
+                          </div>
                         </div>
 
-                        {/* Date & Time Slot Box */}
-                        <div className="p-3 rounded-2xl bg-[#FAF6F0]/60 border border-[#DFD7CB] flex items-center justify-between text-xs">
+                        {/* Date & Time Slot Box with Live Highlight */}
+                        <div className={`p-3 rounded-2xl border flex items-center justify-between text-xs transition-colors ${
+                          liveStatus.status === 'LIVE_NOW'
+                            ? 'bg-emerald-50/70 border-emerald-300 ring-1 ring-emerald-300'
+                            : 'bg-[#FAF6F0]/60 border-[#DFD7CB]'
+                        }`}>
                           <div className="flex items-center gap-2 text-[#2C2621] font-semibold">
                             <Calendar className="w-4 h-4 text-[#A36B40]" />
                             <span>{session.session_date}</span>
@@ -476,18 +528,46 @@ export function AvailabilityClient({
                           </div>
                         </div>
 
-                        {/* Google Meet Link Bar (if Virtual) */}
+                        {/* Google Calendar 1-Click Sync & .ics Export (Option A) */}
+                        <div className="flex items-center justify-between gap-2 pt-0.5 text-[11px] text-[#7A7067]">
+                          <span className="font-semibold text-[#2C2621]">Calendar Sync:</span>
+                          <div className="flex items-center gap-1.5">
+                            <a
+                              href={buildGoogleCalendarUrl(calData)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FAF6F0] hover:bg-[#FAF6F0]/80 text-[#A36B40] font-semibold border border-[#DFD7CB] transition-colors cursor-pointer"
+                              title="Add session to Google Calendar"
+                            >
+                              <Calendar className="w-3 h-3 text-[#A36B40]" /> Add to GCal
+                            </a>
+                            <button
+                              type="button"
+                              onClick={() => downloadIcsFile(calData)}
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white hover:bg-stone-50 text-[#7A7067] font-semibold border border-[#DFD7CB] transition-colors cursor-pointer"
+                              title="Download .ics file for Apple Calendar or Outlook"
+                            >
+                              <Download className="w-3 h-3 text-[#7A7067]" /> .ics
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Google Meet Link Bar (Option C Dynamic Room Launcher) */}
                         {isVirtual && meetLink && (
-                          <div className="p-3 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-between gap-2 text-xs">
+                          <div className={`p-3 rounded-2xl border flex items-center justify-between gap-2 text-xs transition-all ${
+                            liveStatus.status === 'LIVE_NOW'
+                              ? 'bg-emerald-50 border-emerald-300 ring-2 ring-emerald-400'
+                              : 'bg-sky-50 border-sky-200'
+                          }`}>
                             <div className="flex items-center gap-2 truncate text-sky-900 font-medium">
-                              <Video className="w-4 h-4 text-sky-600 shrink-0" />
-                              <span className="truncate">{meetLink}</span>
+                              <Video className={`w-4 h-4 shrink-0 ${liveStatus.status === 'LIVE_NOW' ? 'text-emerald-600 animate-pulse' : 'text-sky-600'}`} />
+                              <span className="truncate font-mono text-[11px]">{meetLink}</span>
                             </div>
                             <div className="flex items-center gap-1.5 shrink-0">
                               <button
                                 type="button"
                                 onClick={() => handleCopyMeetLink(meetLink)}
-                                className="p-1.5 rounded-lg hover:bg-sky-100 text-sky-700"
+                                className="p-1.5 rounded-lg hover:bg-white text-sky-700 cursor-pointer"
                                 title="Copy Meet Link"
                               >
                                 <Copy className="w-3.5 h-3.5" />
@@ -496,7 +576,11 @@ export function AvailabilityClient({
                                 href={meetLink}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-[11px] px-2.5 py-1 rounded-lg shadow-xs"
+                                className={`inline-flex items-center gap-1 font-bold text-xs px-3 py-1.5 rounded-xl shadow-xs cursor-pointer transition-all ${
+                                  liveStatus.status === 'LIVE_NOW'
+                                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white animate-pulse'
+                                    : 'bg-sky-600 hover:bg-sky-700 text-white'
+                                }`}
                               >
                                 Join Meet <ExternalLink className="w-3 h-3" />
                               </a>
@@ -552,10 +636,10 @@ export function AvailabilityClient({
                             <Button
                               size="sm"
                               disabled={isPending}
-                              onClick={() => handleCompleteSession(session)}
-                              className="bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-semibold h-8 px-3 gap-1 shadow-xs cursor-pointer"
+                              onClick={() => handleOpenWrapUp(session)}
+                              className="bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-semibold h-8 px-3 gap-1.5 shadow-xs cursor-pointer"
                             >
-                              <CheckCircle2 className="w-3.5 h-3.5" /> Complete
+                              <FileText className="w-3.5 h-3.5" /> Wrap Up & Log
                             </Button>
                           </div>
                         </div>
@@ -634,9 +718,9 @@ export function AvailabilityClient({
                     <Button
                       size="sm"
                       onClick={() => setIsConfigModalOpen(true)}
-                      className="bg-sky-600 hover:bg-sky-700 text-white text-xs h-7 px-2.5 rounded-lg"
+                      className="bg-sky-600 hover:bg-sky-700 text-white text-xs h-7 px-2.5 rounded-lg cursor-pointer"
                     >
-                      Generate Room Link
+                      Add Google Meet Link
                     </Button>
                   </div>
                 )}
@@ -759,39 +843,81 @@ export function AvailabilityClient({
             </div>
 
             <form onSubmit={handleSaveSlotsConfig} className="space-y-5">
-              {/* Google Meet Link Generator Feature */}
-              <div className="p-4 rounded-2xl bg-sky-50/80 border border-sky-200 space-y-2.5">
-                <div className="flex items-center justify-between">
+              {/* Original Google Meet Link Configuration */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-sky-50/80 border border-sky-200 space-y-3">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
                   <Label className="text-xs font-bold text-sky-950 flex items-center gap-1.5">
                     <Video className="w-4 h-4 text-sky-600" /> Virtual Consultation Room (Google Meet)
                   </Label>
-                  <Button
-                    type="button"
-                    size="sm"
-                    onClick={handleGenerateMeetLink}
-                    className="bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-xs font-semibold h-7 px-2.5 gap-1 shadow-xs cursor-pointer"
+                  <a
+                    href="https://meet.google.com/new"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 text-white shadow-xs transition-colors cursor-pointer"
                   >
-                    <Sparkles className="w-3 h-3" /> Generate Meet Link
-                  </Button>
+                    <ExternalLink className="w-3.5 h-3.5" /> Create on Google Meet
+                  </a>
                 </div>
-                <p className="text-[11px] text-sky-800 leading-tight">
-                  Generate a dedicated institutional Google Meet link or paste your personal room URL below. Students who book virtual consultations will automatically receive this link.
+
+                <p className="text-[11px] text-sky-800 leading-relaxed">
+                  Enter your original Google Meet link below (e.g., from your institutional Google Calendar or Google Meet). You can also click <strong>Create on Google Meet</strong> above to spin up an official room in a new tab, copy its meeting URL, and paste it here.
                 </p>
-                <div className="flex gap-2">
-                  <Input
-                    value={googleMeetLink}
-                    onChange={e => setGoogleMeetLink(e.target.value)}
-                    placeholder="https://meet.google.com/xxx-yyyy-zzz"
-                    className="border-sky-200 bg-white rounded-xl text-xs h-9 font-mono"
-                  />
+
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <div className="relative flex-1">
+                      <Input
+                        value={googleMeetLink}
+                        onChange={e => setGoogleMeetLink(e.target.value)}
+                        onBlur={e => setGoogleMeetLink(formatMeetLink(e.target.value))}
+                        placeholder="https://meet.google.com/xxx-yyyy-zzz"
+                        className="border-sky-200 bg-white rounded-xl text-xs h-9 font-mono pr-8 text-[#2C2621]"
+                      />
+                      {googleMeetLink && (
+                        <button
+                          type="button"
+                          onClick={() => setGoogleMeetLink('')}
+                          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 p-0.5 rounded cursor-pointer"
+                          title="Clear link"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+
+                    {googleMeetLink && (
+                      <div className="flex gap-1.5 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => handleCopyMeetLink(googleMeetLink)}
+                          className="px-3 border border-sky-200 bg-white hover:bg-sky-100 rounded-xl text-xs font-semibold text-sky-700 flex items-center gap-1 cursor-pointer transition-colors"
+                        >
+                          <Copy className="w-3.5 h-3.5" /> Copy
+                        </button>
+                        <a
+                          href={googleMeetLink.startsWith('http') ? googleMeetLink : `https://${googleMeetLink}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 border border-sky-300 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1 cursor-pointer transition-colors shadow-xs"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" /> Test Room
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
                   {googleMeetLink && (
-                    <button
-                      type="button"
-                      onClick={() => handleCopyMeetLink(googleMeetLink)}
-                      className="px-3 border border-sky-200 bg-white hover:bg-sky-100 rounded-xl text-xs font-semibold text-sky-700 flex items-center gap-1 shrink-0"
-                    >
-                      <Copy className="w-3.5 h-3.5" /> Copy
-                    </button>
+                    googleMeetLink.includes('meet.google.com') ? (
+                      <p className="text-[11px] text-emerald-800 font-medium flex items-center gap-1.5 bg-emerald-50/70 p-2 rounded-xl border border-emerald-200">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <span>Valid Google Meet URL. Advisees booking virtual sessions will automatically receive this link.</span>
+                      </p>
+                    ) : (
+                      <p className="text-[11px] text-amber-800 font-medium flex items-center gap-1.5 bg-amber-50/70 p-2 rounded-xl border border-amber-200">
+                        <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                        <span>Please make sure this is an authentic Google Meet URL (e.g. <code>https://meet.google.com/abc-defg-hij</code>).</span>
+                      </p>
+                    )
                   )}
                 </div>
               </div>
@@ -927,6 +1053,138 @@ export function AvailabilityClient({
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   {isPending ? 'Saving...' : 'Save Availability & Slots'}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ─── 5. WRAP UP & LOG ADVISORY OUTCOMES MODAL (OPTION C) ─────────────── */}
+      {wrapUpSession && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-[#DFD7CB] rounded-3xl p-6 sm:p-8 max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl animate-in fade-in-50 zoom-in-95 font-sans space-y-5">
+            <div className="flex items-start justify-between border-b border-[#DFD7CB]/60 pb-3">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 mb-1">
+                  <FileText className="w-3 h-3" /> Consultation Lifecycle
+                </div>
+                <h3 className="text-xl font-bold text-[#2C2621]">Wrap Up & Log Advisory Outcomes</h3>
+                <p className="text-xs text-[#7A7067] mt-0.5">
+                  Record key guidance takeaways and milestones for advisee <strong className="text-[#2C2621]">{wrapUpSession.student.full_name}</strong>.
+                </p>
+              </div>
+              <button
+                onClick={() => setWrapUpSession(null)}
+                className="text-[#7A7067] hover:text-[#2C2621] p-1.5 rounded-xl hover:bg-[#FAF6F0] cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveWrapUp} className="space-y-4 text-xs">
+              {/* Discussion Summary */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-[#2C2621]">
+                  Discussion Summary & Insights *
+                </Label>
+                <Textarea
+                  value={wrapUpSummary}
+                  onChange={e => setWrapUpSummary(e.target.value)}
+                  placeholder="Summarize the core topics discussed, student progress, academic roadmap, etc."
+                  rows={3}
+                  className="border-[#DFD7CB] rounded-xl text-xs text-[#2C2621]"
+                  required
+                />
+              </div>
+
+              {/* Identified Concerns */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-[#2C2621]">
+                  Identified Academic / Career Bottlenecks (Optional)
+                </Label>
+                <Input
+                  value={wrapUpConcerns}
+                  onChange={e => setWrapUpConcerns(e.target.value)}
+                  placeholder="e.g. Backlog in Math III, Lack of Cloud certs, Interview anxiety"
+                  className="border-[#DFD7CB] rounded-xl text-xs h-9 text-[#2C2621]"
+                />
+              </div>
+
+              {/* Recommended Next Actions */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-[#2C2621]">
+                  Recommended Next Steps for Student (Optional)
+                </Label>
+                <Textarea
+                  value={wrapUpActions}
+                  onChange={e => setWrapUpActions(e.target.value)}
+                  placeholder="e.g. 1. Complete Docker specialization module. 2. Draft capstone synopsis by next week."
+                  rows={2}
+                  className="border-[#DFD7CB] rounded-xl text-xs text-[#2C2621]"
+                />
+              </div>
+
+              {/* Follow-up Date */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-[#2C2621]">
+                  Follow-up Check-in Date (Optional)
+                </Label>
+                <Input
+                  type="date"
+                  value={wrapUpFollowUpDate}
+                  min={new Date().toISOString().split('T')[0]}
+                  onChange={e => setWrapUpFollowUpDate(e.target.value)}
+                  className="border-[#DFD7CB] rounded-xl text-xs h-9 text-[#2C2621]"
+                />
+              </div>
+
+              {/* Status Outcome Toggle */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-[#2C2621]">Outcome Status</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setWrapUpStatus('RESOLVED')}
+                    className={`p-2.5 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                      wrapUpStatus === 'RESOLVED'
+                        ? 'bg-emerald-700 text-white border-emerald-700 shadow-xs'
+                        : 'bg-white text-[#2C2621] border-[#DFD7CB] hover:bg-[#FAF6F0]'
+                    }`}
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Mark Completed
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setWrapUpStatus('FOLLOW_UP')}
+                    className={`p-2.5 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                      wrapUpStatus === 'FOLLOW_UP'
+                        ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
+                        : 'bg-white text-[#2C2621] border-[#DFD7CB] hover:bg-[#FAF6F0]'
+                    }`}
+                  >
+                    <Clock className="w-3.5 h-3.5" /> Follow-up Required
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Actions */}
+              <div className="pt-3 flex items-center justify-end gap-2 border-t border-[#DFD7CB]/60">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setWrapUpSession(null)}
+                  className="border-[#DFD7CB] text-[#2C2621] rounded-xl text-xs h-10 cursor-pointer"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className="bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-semibold h-10 px-5 gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  {isPending ? 'Saving...' : 'Save & Close Session'}
                 </Button>
               </div>
             </form>
