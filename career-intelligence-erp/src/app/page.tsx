@@ -908,12 +908,16 @@ export default async function LandingPage() {
           {/* Bottom Bar */}
           <div className="pt-6 sm:pt-8 border-t border-[#332D27] flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] sm:text-[11px] text-[#A89D8F] text-center sm:text-left">
             <p>© {new Date().getFullYear()} Sandip University Career Intelligence Platform. All rights reserved.</p>
-            <div className="flex items-center justify-center gap-2 sm:gap-3 text-[#C6A18D]">
-              <span>NAAC 'A' Grade</span>
-              <span>·</span>
-              <span>UGC Approved</span>
-              <span>·</span>
-              <span>AICTE Recognized</span>
+            <div className="flex items-center justify-center gap-1.5 text-[#C6A18D]">
+              <span>Powered by</span>
+              <a
+                href="https://mindsaar.onrender.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-white hover:text-[#A36B40] underline underline-offset-4 inline-flex items-center gap-1 transition-colors"
+              >
+                MindSaar <ExternalLink className="w-3 h-3 text-[#C6A18D]" />
+              </a>
             </div>
           </div>
 

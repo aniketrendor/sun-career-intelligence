@@ -641,8 +641,19 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
           </div>
         </div>
 
-        <div className="pt-2 border-t border-[#332D27] text-[10px] text-[#A89D8F] text-center">
-          © {new Date().getFullYear()} Sandip University Career Intelligence Platform.
+        <div className="pt-2 border-t border-[#332D27] text-[10px] text-[#A89D8F] text-center flex flex-col items-center gap-1">
+          <p>© {new Date().getFullYear()} Sandip University Career Intelligence Platform.</p>
+          <div className="flex items-center justify-center gap-1 text-[#C6A18D] text-[10px]">
+            <span>Powered by</span>
+            <a
+              href="https://mindsaar.onrender.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-white hover:text-[#A36B40] underline underline-offset-2 inline-flex items-center gap-0.5"
+            >
+              MindSaar <ExternalLink className="w-2.5 h-2.5 text-[#C6A18D]" />
+            </a>
+          </div>
         </div>
       </footer>
 
