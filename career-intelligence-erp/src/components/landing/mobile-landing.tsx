@@ -641,8 +641,13 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
           </div>
         </div>
 
-        <div className="pt-2 border-t border-[#332D27] text-[10px] text-[#A89D8F] text-center flex flex-col items-center gap-1">
+        <div className="pt-2 border-t border-[#332D27] text-[10px] text-[#A89D8F] text-center flex flex-col items-center gap-1.5">
           <p>© {new Date().getFullYear()} Sandip University Career Intelligence Platform.</p>
+          <div className="flex items-center justify-center gap-2 text-[#C6A18D] text-[10px]">
+            <Link href="/privacy" className="hover:text-white underline underline-offset-2">Privacy Policy</Link>
+            <span>·</span>
+            <Link href="/terms" className="hover:text-white underline underline-offset-2">Terms & Conditions</Link>
+          </div>
           <div className="flex items-center justify-center gap-1 text-[#C6A18D] text-[10px]">
             <span>Powered by</span>
             <a
