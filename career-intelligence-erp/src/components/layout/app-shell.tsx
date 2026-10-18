@@ -3,11 +3,12 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Menu, Bell, LogOut, Search, Sparkles, ChevronRight, User } from 'lucide-react'
+import { Menu, LogOut, Search, Sparkles, ChevronRight, User } from 'lucide-react'
 import { signOut } from '@/lib/actions/auth.actions'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Sidebar, type NavItem } from './sidebar'
+import { NotificationPopover } from './notification-popover'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -97,18 +98,8 @@ export function AppShell({
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Notification Bell */}
-            <div className="relative">
-              <button
-                type="button"
-                className="relative p-2 rounded-xl hover:bg-[#EFE2D0]/60 text-[#2C2621] transition-colors cursor-pointer"
-              >
-                <Bell className="w-4.5 h-4.5" />
-                {unreadCount > 0 && (
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#A36B40] rounded-full ring-2 ring-white" />
-                )}
-              </button>
-            </div>
+            {/* Notification Bell Popover */}
+            <NotificationPopover initialUnreadCount={unreadCount} />
 
             {/* User Profile Pill & Sign Out */}
             <div className="flex items-center gap-3 pl-3 border-l border-[#DFD7CB]">
