@@ -227,7 +227,9 @@ export function Sidebar({ navItems, userRole, userName, userEmail, isOpen, onClo
 
         {/* Sidebar Footer */}
         <div className="p-3 border-t border-[#332D27] bg-[#1A1613]">
-          <div className="flex items-center justify-between px-2 text-[11px] text-[#C6A18D]">
+          <div className="flex items-center px-2 text-[11px] text-[#C6A18D] gap-1.5 whitespace-nowrap">
+            <span className="text-[#8C8276] font-semibold">V2.01</span>
+            <span className="text-[#4E443B]">|</span>
             <div className="flex items-center gap-1.5">
               <span>Powered by</span>
               <a
