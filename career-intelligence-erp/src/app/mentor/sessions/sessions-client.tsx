@@ -189,12 +189,14 @@ export function SessionsClient({ advisees, sessions }: SessionsClientProps) {
   return (
     <div className="space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2">
+      <div className="bg-white border border-[#DFD7CB] rounded-3xl p-6 sm:p-7 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] mb-2">
-            <MessageSquare className="w-3.5 h-3.5 text-[#A36B40]" /> Advisee Advisory Log
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">Guidance Sessions & Action Plans</h1>
+          <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#DFD7CB] mb-2 gap-1.5 font-bold text-xs px-3 py-1">
+            <MessageSquare className="w-3.5 h-3.5" /> Advisee Advisory Log
+          </Badge>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">
+            Guidance Sessions & Action Plans
+          </h1>
           <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
             Log 1-on-1 mentoring discussions, track academic impediments, and monitor student action items.
           </p>

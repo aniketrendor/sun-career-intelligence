@@ -204,12 +204,14 @@ export function AvailabilityClient({
   return (
     <div className="space-y-8 font-sans">
       {/* Top Banner & Action */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2">
+      <div className="bg-white border border-[#DFD7CB] rounded-3xl p-6 sm:p-7 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] mb-2">
-            <Calendar className="w-3.5 h-3.5 text-[#A36B40]" /> Mentorship Operations
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">Available Slots & Scheduling</h1>
+          <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#DFD7CB] mb-2 gap-1.5 font-bold text-xs px-3 py-1">
+            <Calendar className="w-3.5 h-3.5" /> Mentorship Operations
+          </Badge>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">
+            Available Slots & Scheduling
+          </h1>
           <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
             Publish consultation slots, configure cabin/virtual consultation hours, and manage advisee appointments.
           </p>

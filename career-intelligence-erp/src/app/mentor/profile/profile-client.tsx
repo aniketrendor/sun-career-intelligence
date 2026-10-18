@@ -107,14 +107,18 @@ export function ProfileClient({
   return (
     <div className="space-y-8 font-sans">
       {/* Header */}
-      <div>
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] mb-2">
-          <User className="w-3.5 h-3.5 text-[#A36B40]" /> Faculty Identity & Credentials
+      <div className="bg-white border border-[#DFD7CB] rounded-3xl p-6 sm:p-7 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#DFD7CB] mb-2 gap-1.5 font-bold text-xs px-3 py-1">
+            <User className="w-3.5 h-3.5 text-[#A36B40]" /> Faculty Identity & Credentials
+          </Badge>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">
+            Faculty Mentor Profile & Expertise
+          </h1>
+          <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
+            Configure your academic specializations, cabin office hours, and advisory bio for institutional visibility.
+          </p>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">Faculty Mentor Profile & Expertise</h1>
-        <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
-          Configure your academic specializations, cabin office hours, and advisory bio for institutional visibility.
-        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
