@@ -106,14 +106,18 @@ export function WaitingRoomCard({ userEmail, userName, userRole }: WaitingRoomCa
             </div>
 
             <p className="text-xs text-[#7A7067] leading-relaxed">
-              If an Administrator or Mentor gave you an approval key (e.g. <span className="font-mono font-bold text-[#2C2621]">STU-PASS-XXXXX</span> or <span className="font-mono font-bold text-[#2C2621]">SUN-FRESHERS-2026</span>), enter it below for instant activation:
+              {isMentor ? (
+                <>Enter the Mentor Access Key issued by your Administrator (e.g. <span className="font-mono font-bold text-[#2C2621]">SUN-MNT-XXXXX</span>) to activate your account:</>
+              ) : (
+                <>If an Administrator or Mentor gave you an approval key (e.g. <span className="font-mono font-bold text-[#2C2621]">STU-PASS-XXXXX</span>), enter it below for instant activation:</>
+              )}
             </p>
 
             <form onSubmit={handleRedeem} className="space-y-3">
               <div className="relative">
                 <Input
                   type="text"
-                  placeholder="e.g. STU-PASS-9K2L4"
+                  placeholder={isMentor ? "e.g. SUN-MNT-7K2M9" : "e.g. STU-PASS-9K2L4"}
                   value={accessKey}
                   onChange={(e) => setAccessKey(e.target.value.toUpperCase())}
                   disabled={isPending}

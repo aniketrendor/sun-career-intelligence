@@ -60,7 +60,13 @@ export async function createAccessKey(data: {
   if (data.keyType === 'STUDENT_LOGIN') {
     prefix = 'STU-PASS'
   } else if (data.keyType === 'MENTOR_LOGIN') {
-    prefix = 'MNT-PASS'
+    if (data.mentorCode && data.mentorCode.trim()) {
+      const sanitized = data.mentorCode.trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '')
+      specificCodeCandidate = `SUN-MNT-${sanitized}`
+      prefix = `SUN-MNT-${sanitized}`
+    } else {
+      prefix = 'SUN-MNT'
+    }
   } else if (data.keyType === 'FRESHER_REFERRAL') {
     if (data.mentorCode && data.mentorCode.trim()) {
       const sanitized = data.mentorCode.trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '')
@@ -120,7 +126,8 @@ export async function createAccessKey(data: {
     return { success: false, error: 'Failed to generate unique code. Please try again with a different mentor code.' }
   }
 
-  const defaultMaxUses = data.maxUses && data.maxUses > 0 ? data.maxUses : 20
+  const defaultMaxUses = data.keyType === 'MENTOR_LOGIN' ? 20 : (data.maxUses && data.maxUses > 0 ? data.maxUses : 20)
+  const isAutoRefresh = data.keyType === 'MENTOR_LOGIN' ? false : (data.autoRefresh ?? true)
 
   const { data: newKey, error: insertError } = await adminClient
     .from('referral_codes')
@@ -131,7 +138,7 @@ export async function createAccessKey(data: {
       class_id: data.classId || null,
       max_uses: defaultMaxUses,
       usage_count: 0,
-      auto_refresh: data.autoRefresh ?? true,
+      auto_refresh: isAutoRefresh,
       expires_at: data.expiresAt || null,
       notes: data.notes || null,
       status: 'ACTIVE',
@@ -199,9 +206,18 @@ export async function redeemAccessKey(rawKey: string): Promise<ActionResult> {
     }
   }
 
-  // Check if disabled
+  // Check if disabled or full
   if (keyRecord.status === 'DISABLED') {
     return { success: false, error: 'This access key has been temporarily disabled by the administrator.' }
+  }
+
+  if (keyRecord.status === 'FULL') {
+    return {
+      success: false,
+      error: keyRecord.key_type === 'MENTOR_LOGIN'
+        ? 'This Mentor Access Key has reached its maximum capacity of 20 mentors. A new key must be issued by the administrator.'
+        : 'This access key has reached its maximum capacity.'
+    }
   }
 
   // Check if expired
@@ -215,10 +231,20 @@ export async function redeemAccessKey(rawKey: string): Promise<ActionResult> {
 
   // Check quota & auto-refresh logic
   if (currentCount >= maxUses) {
-    if (!keyRecord.auto_refresh) {
-      return { success: false, error: `This key has completed its quota of ${maxUses} students and is no longer active.` }
+    if (!keyRecord.auto_refresh || keyType === 'MENTOR_LOGIN') {
+      await adminClient
+        .from('referral_codes')
+        .update({ status: 'FULL' })
+        .eq('id', keyRecord.id)
+
+      return {
+        success: false,
+        error: keyType === 'MENTOR_LOGIN'
+          ? 'This Mentor Access Key has reached its maximum capacity of 20 mentors. A new key must be issued by the administrator.'
+          : `This key has completed its quota of ${maxUses} users and is no longer active.`
+      }
     }
-    // Auto-refresh: Reset counter for the next batch of 20 students smoothly
+    // Auto-refresh: Reset counter for the next batch of users smoothly
     await adminClient
       .from('referral_codes')
       .update({
@@ -229,12 +255,13 @@ export async function redeemAccessKey(rawKey: string): Promise<ActionResult> {
   } else {
     // Increment usage count
     const nextCount = currentCount + 1
-    const shouldDeactivate = !keyRecord.auto_refresh && nextCount >= maxUses
+    const isFull = nextCount >= maxUses
+    const shouldMarkFull = (!keyRecord.auto_refresh || keyType === 'MENTOR_LOGIN') && isFull
     await adminClient
       .from('referral_codes')
       .update({
         usage_count: nextCount,
-        status: shouldDeactivate ? 'DISABLED' : 'ACTIVE',
+        status: shouldMarkFull ? 'FULL' : 'ACTIVE',
       })
       .eq('id', keyRecord.id)
   }
@@ -246,7 +273,7 @@ export async function redeemAccessKey(rawKey: string): Promise<ActionResult> {
     if (keyType === 'MENTOR_LOGIN') {
       return {
         success: false,
-        error: 'This is a Mentor Approval Key and cannot be used for a Student account.'
+        error: 'This is a Mentor Access Key and cannot be used for a Student account.'
       }
     }
 
@@ -276,10 +303,10 @@ export async function redeemAccessKey(rawKey: string): Promise<ActionResult> {
 
     targetDashboard = '/student/dashboard'
   } else if (['MENTOR', 'COUNSELOR'].includes(profile.role)) {
-    if (keyType === 'STUDENT_LOGIN') {
+    if (keyType !== 'MENTOR_LOGIN') {
       return {
         success: false,
-        error: 'This is a Student Login Key and cannot be used for a Mentor account.'
+        error: 'This key is not authorized for Mentor onboarding. Please use a Mentor Access Key issued by the Administrator.'
       }
     }
 
