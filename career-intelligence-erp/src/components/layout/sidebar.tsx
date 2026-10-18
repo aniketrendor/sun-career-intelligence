@@ -227,7 +227,35 @@ export function Sidebar({ navItems, userRole, userName, userEmail, isOpen, onClo
 
         {/* Sidebar Footer */}
         <div className="p-3 border-t border-[#332D27] bg-[#1A1613]">
-          <div className="flex items-center px-2 text-[11px] text-[#C6A18D] gap-1.5 whitespace-nowrap">
+          {(userRole === 'student' || pathname.startsWith('/student')) && (
+            <div className="mb-3">
+              <a
+                href="https://admission.sandipuniversity.edu.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block p-3 rounded-xl bg-gradient-to-br from-[#2C2621] via-[#332D27] to-[#211D19] border border-[#443C34] hover:border-[#A36B40]/70 shadow-md text-center transition-all hover:scale-[1.01] active:scale-[0.99]"
+              >
+                <div className="flex flex-col items-center justify-center text-center space-y-1">
+                  <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#A36B40]/25 text-[#C6A18D] border border-[#A36B40]/40">
+                    <Sparkles className="w-2.5 h-2.5 text-amber-300" />
+                    <span>Admissions 2026–27 Open</span>
+                  </div>
+                  <h4 className="text-xs font-extrabold text-white group-hover:text-[#C6A18D] transition-colors flex items-center justify-center gap-1">
+                    <span>Sandip University Admissions</span>
+                  </h4>
+                  <p className="text-[10px] text-[#A89D8F] leading-tight">
+                    Explore Programs, Eligibility & Scholarships
+                  </p>
+                  <span className="mt-1 inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-[#A36B40] group-hover:bg-[#8E5B34] text-white text-[10px] font-bold shadow-xs transition-colors">
+                    <span>Apply Online</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </span>
+                </div>
+              </a>
+            </div>
+          )}
+
+          <div className="flex items-center justify-center text-[11px] text-[#C6A18D] gap-1.5 whitespace-nowrap text-center">
             <span className="text-[#8C8276] font-semibold">V2.01</span>
             <span className="text-[#4E443B]">|</span>
             <div className="flex items-center gap-1.5">
