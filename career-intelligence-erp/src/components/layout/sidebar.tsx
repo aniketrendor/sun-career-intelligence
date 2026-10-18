@@ -60,7 +60,6 @@ const iconMap: Record<string, any> = {
   '/admin/classes': ClipboardList,
   '/admin/referral-codes': KeyRound,
   '/admin/students': GraduationCap,
-  '/admin/analytics': BarChart2,
 
   // Legacy fallback mapping
   '/counselor/dashboard': LayoutDashboard,

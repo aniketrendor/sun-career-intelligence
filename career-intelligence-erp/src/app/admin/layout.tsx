@@ -11,7 +11,6 @@ const navItems = [
   { label: 'Programs', href: '/admin/programs' },
   { label: 'Mentor Access Keys', href: '/admin/referral-codes' },
   { label: 'Students', href: '/admin/students' },
-  { label: 'Analytics', href: '/admin/analytics' },
 ]
 
 export default async function DeanLayout({ children }: { children: React.ReactNode }) {

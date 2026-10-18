@@ -1,7 +1,7 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import {
-  KeyRound, ShieldCheck, Users, Sparkles, CheckCircle2, Lock
+  KeyRound, ShieldCheck, Users, Sparkles
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { CreateReferralCodeModal } from '@/components/dean/create-referral-code-modal'
@@ -11,6 +11,8 @@ export const dynamic = 'force-dynamic'
 
 export default async function AdminReferralCodesPage() {
   const supabase = await createClient()
+  const adminClient = await createAdminClient()
+
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
@@ -22,7 +24,13 @@ export default async function AdminReferralCodesPage() {
 
   if (!profile || !['ADMIN', 'DEAN_HOD'].includes(profile.role)) redirect('/login')
 
-  // Fetch programs and referral codes
+  // Automatically purge any non-mentor legacy keys so they never persist in the system
+  await adminClient
+    .from('referral_codes')
+    .delete()
+    .neq('key_type', 'MENTOR_LOGIN')
+
+  // Fetch programs and strictly mentor access keys
   const [
     { data: programs },
     { data: referralCodes },
@@ -32,16 +40,14 @@ export default async function AdminReferralCodesPage() {
       *,
       program:programs(name, code),
       class:classes(name, semester)
-    `).order('created_at', { ascending: false }),
+    `)
+    .eq('key_type', 'MENTOR_LOGIN')
+    .order('created_at', { ascending: false }),
   ])
 
-  const allCodes = referralCodes || []
-  const mentorCodes = allCodes.filter((c) => c.key_type === 'MENTOR_LOGIN')
+  const mentorCodes = referralCodes || []
   const activeMentorCodes = mentorCodes.filter(
     (c) => c.status === 'ACTIVE' && (c.usage_count || 0) < (c.max_uses || 20)
-  )
-  const fullMentorCodes = mentorCodes.filter(
-    (c) => c.status === 'FULL' || (c.usage_count || 0) >= (c.max_uses || 20)
   )
 
   const mentorsOnboarded = mentorCodes.reduce((sum, c) => sum + (c.usage_count || 0), 0)
@@ -143,7 +149,7 @@ export default async function AdminReferralCodesPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4 sm:p-6">
-          <ReferralCodesTable referralCodes={allCodes} />
+          <ReferralCodesTable referralCodes={mentorCodes} />
         </CardContent>
       </Card>
     </div>

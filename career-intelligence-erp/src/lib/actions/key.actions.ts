@@ -629,3 +629,48 @@ export async function assignMentorToFresherLead(
   return { success: true, data: updatedLead }
 }
 
+// ─── 6. DELETE REFERRAL KEY / PURGE LEGACY KEYS ─────────────────────────────
+
+export async function deleteReferralKey(keyId: string): Promise<ActionResult> {
+  const supabase = await createClient()
+  const adminClient = await createAdminClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Not authenticated.' }
+
+  const { data: profile } = await supabase
+    .from('users')
+    .select('id, role')
+    .eq('auth_user_id', user.id)
+    .single()
+
+  if (!profile || !['ADMIN', 'DEAN_HOD'].includes(profile.role)) {
+    return { success: false, error: 'Unauthorized: Only Administrators can remove keys.' }
+  }
+
+  const { error } = await adminClient
+    .from('referral_codes')
+    .delete()
+    .eq('id', keyId)
+
+  if (error) return { success: false, error: error.message }
+
+  revalidatePath('/admin/referral-codes')
+  return { success: true, message: 'Key permanently deleted.' }
+}
+
+export async function purgeLegacyReferralKeys(): Promise<ActionResult> {
+  const adminClient = await createAdminClient()
+
+  // Delete all referral keys that are NOT MENTOR_LOGIN
+  const { error } = await adminClient
+    .from('referral_codes')
+    .delete()
+    .neq('key_type', 'MENTOR_LOGIN')
+
+  if (error) return { success: false, error: error.message }
+
+  revalidatePath('/admin/referral-codes')
+  return { success: true, message: 'All legacy keys removed successfully.' }
+}
+

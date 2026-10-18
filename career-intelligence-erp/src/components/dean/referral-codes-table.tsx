@@ -5,23 +5,24 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import {
   Copy, Check, Power, PowerOff, KeyRound,
-  ShieldCheck, Sparkles, GraduationCap, Lock, Users, AlertCircle
+  ShieldCheck, Lock, Trash2
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { formatDate } from '@/lib/utils'
 import { toggleReferralCode } from '@/lib/actions/counselor.actions'
+import { deleteReferralKey } from '@/lib/actions/key.actions'
 
 interface ReferralCodesTableProps {
   referralCodes: any[]
 }
 
-type FilterMode = 'ALL_MENTOR' | 'ACTIVE_MENTOR' | 'FULL_MENTOR' | 'LEGACY'
+type FilterMode = 'ALL' | 'ACTIVE' | 'FULL'
 
 export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
   const router = useRouter()
   const [copiedId, setCopiedId] = useState<string | null>(null)
-  const [activeFilter, setActiveFilter] = useState<FilterMode>('ALL_MENTOR')
+  const [activeFilter, setActiveFilter] = useState<FilterMode>('ALL')
   const [isPending, startTransition] = useTransition()
 
   const handleCopy = (code: string, id: string) => {
@@ -44,28 +45,36 @@ export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
     })
   }
 
-  const mentorCodes = referralCodes.filter((rc) => rc.key_type === 'MENTOR_LOGIN')
-  const legacyCodes = referralCodes.filter((rc) => rc.key_type !== 'MENTOR_LOGIN')
+  const handleDelete = (id: string, code: string) => {
+    if (!confirm(`Are you sure you want to permanently delete mentor key "${code}"?`)) return
 
-  const activeMentorCodes = mentorCodes.filter(
+    startTransition(async () => {
+      const res = await deleteReferralKey(id)
+      if (res.success) {
+        toast.success(`Key "${code}" removed.`)
+        router.refresh()
+      } else {
+        toast.error(res.error || 'Failed to delete key.')
+      }
+    })
+  }
+
+  const activeMentorCodes = referralCodes.filter(
     (rc) => rc.status === 'ACTIVE' && (rc.usage_count || 0) < (rc.max_uses || 20)
   )
-  const fullMentorCodes = mentorCodes.filter(
+  const fullMentorCodes = referralCodes.filter(
     (rc) => rc.status === 'FULL' || (rc.usage_count || 0) >= (rc.max_uses || 20)
   )
 
   const filteredCodes = (() => {
     switch (activeFilter) {
-      case 'ACTIVE_MENTOR':
+      case 'ACTIVE':
         return activeMentorCodes
-      case 'FULL_MENTOR':
+      case 'FULL':
         return fullMentorCodes
-      case 'LEGACY':
-        return legacyCodes
-      case 'ALL_MENTOR':
+      case 'ALL':
       default:
-        // If there are mentor codes, show mentor codes. If none yet, fallback to all.
-        return mentorCodes.length > 0 ? mentorCodes : referralCodes
+        return referralCodes
     }
   })()
 
@@ -89,21 +98,21 @@ export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
       <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-[#DFD7CB]">
         <div className="flex flex-wrap items-center gap-1.5">
           <button
-            onClick={() => setActiveFilter('ALL_MENTOR')}
+            onClick={() => setActiveFilter('ALL')}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeFilter === 'ALL_MENTOR'
+              activeFilter === 'ALL'
                 ? 'bg-[#77734B] text-white shadow-xs'
                 : 'bg-[#FAF6F0] text-[#7A7067] hover:text-[#2C2621] border border-[#DFD7CB]'
             }`}
           >
             <ShieldCheck className="w-3.5 h-3.5" />
-            All Mentor Keys ({mentorCodes.length})
+            All Mentor Keys ({referralCodes.length})
           </button>
 
           <button
-            onClick={() => setActiveFilter('ACTIVE_MENTOR')}
+            onClick={() => setActiveFilter('ACTIVE')}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeFilter === 'ACTIVE_MENTOR'
+              activeFilter === 'ACTIVE'
                 ? 'bg-emerald-700 text-white shadow-xs'
                 : 'bg-[#FAF6F0] text-[#7A7067] hover:text-[#2C2621] border border-[#DFD7CB]'
             }`}
@@ -113,9 +122,9 @@ export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
           </button>
 
           <button
-            onClick={() => setActiveFilter('FULL_MENTOR')}
+            onClick={() => setActiveFilter('FULL')}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeFilter === 'FULL_MENTOR'
+              activeFilter === 'FULL'
                 ? 'bg-[#A36B40] text-white shadow-xs'
                 : 'bg-[#FAF6F0] text-[#7A7067] hover:text-[#2C2621] border border-[#DFD7CB]'
             }`}
@@ -123,23 +132,10 @@ export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
             <Lock className="w-3.5 h-3.5" />
             Capacity Full (20/20) ({fullMentorCodes.length})
           </button>
-
-          {legacyCodes.length > 0 && (
-            <button
-              onClick={() => setActiveFilter('LEGACY')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer text-[#8C8276] hover:text-[#2C2621] border border-[#DFD7CB]/60 ${
-                activeFilter === 'LEGACY'
-                  ? 'bg-stone-700 text-white shadow-xs'
-                  : 'bg-white'
-              }`}
-            >
-              Legacy Keys ({legacyCodes.length})
-            </button>
-          )}
         </div>
 
         <span className="text-xs text-[#7A7067]">
-          Showing {filteredCodes.length} {filteredCodes.length === 1 ? 'key' : 'keys'}
+          Showing {filteredCodes.length} of {referralCodes.length} {referralCodes.length === 1 ? 'key' : 'keys'}
         </span>
       </div>
 
@@ -147,7 +143,6 @@ export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
       <div className="divide-y divide-[#DFD7CB] bg-white border border-[#DFD7CB] rounded-3xl overflow-hidden shadow-xs">
         {filteredCodes.map((rc) => {
           const isCopied = copiedId === rc.id
-          const isMentorKey = rc.key_type === 'MENTOR_LOGIN'
           const maxUses = rc.max_uses || 20
           const usageCount = rc.usage_count || 0
           const isFull = rc.status === 'FULL' || usageCount >= maxUses
@@ -161,7 +156,7 @@ export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
                 isFull ? 'bg-[#FAF6F0]/60' : 'hover:bg-[#FAF6F0]/40'
               }`}
             >
-              {/* Left Column: Code, Type Badge, Department Info */}
+              {/* Left Column: Code, Type Badge, Scope Info */}
               <div className="space-y-2 flex-1">
                 <div className="flex flex-wrap items-center gap-2.5">
                   <button
@@ -176,20 +171,9 @@ export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
                     )}
                   </button>
 
-                  {/* Key Type Badge */}
-                  {isMentorKey ? (
-                    <Badge className="bg-[#F1F1EB] text-[#77734B] border-[#77734B]/30 text-[11px] font-bold flex items-center gap-1">
-                      <ShieldCheck className="w-3.5 h-3.5" /> Mentor Access Key
-                    </Badge>
-                  ) : rc.key_type === 'STUDENT_LOGIN' ? (
-                    <Badge className="bg-[#F7EFEA] text-[#A36B40] border-[#A36B40]/30 text-[11px] font-semibold flex items-center gap-1">
-                      <GraduationCap className="w-3 h-3" /> Student Login Key
-                    </Badge>
-                  ) : (
-                    <Badge className="bg-stone-100 text-stone-600 border-stone-300 text-[11px] font-semibold flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" /> Legacy Key
-                    </Badge>
-                  )}
+                  <Badge className="bg-[#F1F1EB] text-[#77734B] border-[#77734B]/30 text-[11px] font-bold flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5" /> Mentor Access Key
+                  </Badge>
 
                   {/* Status Badge */}
                   {isFull ? (
@@ -229,9 +213,7 @@ export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
                 {/* Progress Bar & Counter */}
                 <div className="w-44 sm:w-48 space-y-1.5">
                   <div className="flex items-center justify-between text-[11px] font-bold">
-                    <span className="text-[#7A7067]">
-                      {isMentorKey ? 'Mentor Registrations' : 'Usage Quota'}
-                    </span>
+                    <span className="text-[#7A7067]">Mentor Registrations</span>
                     <span className={isFull ? 'text-amber-800 font-extrabold' : 'text-[#2C2621]'}>
                       {usageCount} / {maxUses}
                     </span>
@@ -291,6 +273,17 @@ export function ReferralCodesTable({ referralCodes }: ReferralCodesTableProps) {
                         <Power className="w-3 h-3" /> Enable
                       </>
                     )}
+                  </Button>
+
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={isPending}
+                    onClick={() => handleDelete(rc.id, rc.code)}
+                    title="Delete key"
+                    className="h-8 w-8 p-0 text-[#7A7067] hover:text-rose-600 border-[#DFD7CB] hover:bg-rose-50 rounded-xl cursor-pointer"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
                   </Button>
                 </div>
               </div>
