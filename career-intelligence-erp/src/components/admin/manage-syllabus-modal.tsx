@@ -3,14 +3,13 @@
 import { useState } from 'react'
 import {
   FileText, Upload, Link as LinkIcon, CheckCircle2,
-  AlertCircle, Sparkles, X, Eye, Download, Save, Layers,
-  ExternalLink, Copy, HelpCircle
+  AlertCircle, Sparkles, X, Eye, Download, Save, Layers
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { extractGoogleDriveFileId, formatGoogleDriveUrls } from '@/lib/services/google-drive-syllabus'
+import { extractGoogleDriveFileId } from '@/lib/services/google-drive-syllabus'
 
 interface ManageSyllabusModalProps {
   isOpen: boolean
@@ -36,7 +35,7 @@ export function ManageSyllabusModal({
 }: ManageSyllabusModalProps) {
   const [uploadType, setUploadType] = useState<'full' | 'semester'>('full')
   const [selectedSem, setSelectedSem] = useState<number>(1)
-  const [method, setMethod] = useState<'link' | 'upload'>('link')
+  const [method, setMethod] = useState<'upload' | 'link'>('upload')
   const [driveLink, setDriveLink] = useState('')
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [title, setTitle] = useState('')
@@ -47,7 +46,6 @@ export function ManageSyllabusModal({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
-  const [showAppsScriptGuide, setShowAppsScriptGuide] = useState(false)
 
   if (!isOpen || !program) return null
 
@@ -62,7 +60,7 @@ export function ManageSyllabusModal({
   const existingSemesters: Record<string, any> = existingSyllabus?.semesters || {}
   const totalSems = program.total_semesters || 8
 
-  // Real-time Google Drive link check
+  // Real-time link check
   const parsedDriveId = extractGoogleDriveFileId(driveLink)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,13 +104,13 @@ export function ManageSyllabusModal({
         })
 
         const data = await res.json()
-        if (!res.ok) throw new Error(data.error || 'Failed to upload PDF via Google Apps Script')
+        if (!res.ok) throw new Error(data.error || 'Failed to upload syllabus PDF')
         setSuccessMsg(uploadType === 'semester'
-          ? `Semester ${selectedSem} approved PDF uploaded to Google Drive!`
-          : 'Full program approved PDF uploaded to Google Drive!')
+          ? `Semester ${selectedSem} approved syllabus PDF successfully uploaded!`
+          : 'Full program approved syllabus PDF successfully uploaded!')
       } else {
         if (!driveLink.trim()) {
-          throw new Error('Please enter a Google Drive shareable link or file ID')
+          throw new Error('Please enter a document share link or file URL')
         }
 
         const res = await fetch('/api/syllabus/manage', {
@@ -132,10 +130,10 @@ export function ManageSyllabusModal({
         })
 
         const data = await res.json()
-        if (!res.ok) throw new Error(data.error || 'Failed to update syllabus')
+        if (!res.ok) throw new Error(data.error || 'Failed to attach syllabus document')
         setSuccessMsg(uploadType === 'semester'
-          ? `Semester ${selectedSem} Google Drive syllabus link successfully connected!`
-          : 'Full program Google Drive syllabus link successfully connected!')
+          ? `Semester ${selectedSem} syllabus document successfully attached!`
+          : 'Full program syllabus document successfully attached!')
       }
 
       if (onSuccess) onSuccess()
@@ -163,15 +161,12 @@ export function ManageSyllabusModal({
               <Badge className="bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] text-xs font-bold">
                 {program.level || 'Degree'}
               </Badge>
-              <Badge className="bg-amber-50 text-amber-800 border-amber-200 text-xs font-bold">
-                Google Drive Storage
-              </Badge>
             </div>
             <h3 className="text-xl font-extrabold text-[#2C2621]">
-              Attach Approved Syllabus PDF (Google Drive)
+              Attach Approved Syllabus PDF
             </h3>
             <p className="text-xs text-[#7A7067]">
-              Connect university approved PDF documents for {program.name} hosted on Google Drive.
+              Upload or update the official university approved syllabus PDF for {program.name}.
             </p>
           </div>
 
@@ -186,21 +181,14 @@ export function ManageSyllabusModal({
         {/* Existing Uploads Summary */}
         <div className="px-6 pt-4 space-y-2">
           <div className="flex items-center justify-between text-xs font-bold text-[#7A7067]">
-            <span>Current Google Drive Attachments</span>
-            <button
-              type="button"
-              onClick={() => setShowAppsScriptGuide(!showAppsScriptGuide)}
-              className="text-[11px] text-[#A36B40] hover:underline flex items-center gap-1 cursor-pointer"
-            >
-              <HelpCircle className="w-3.5 h-3.5" /> Apps Script Setup Guide
-            </button>
+            <span>Attached Approved Documents</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
             {existingSyllabus?.preview_url && (
               <a href={existingSyllabus.preview_url} target="_blank" rel="noopener noreferrer">
                 <Badge className="bg-emerald-50 text-emerald-800 border-emerald-200 text-xs font-semibold gap-1.5 py-1 px-2.5 cursor-pointer hover:bg-emerald-100">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Full Program Drive PDF
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Full Program Approved PDF
                 </Badge>
               </a>
             )}
@@ -210,7 +198,7 @@ export function ManageSyllabusModal({
               return semData?.preview_url ? (
                 <a key={sNum} href={semData.preview_url} target="_blank" rel="noopener noreferrer">
                   <Badge className="bg-blue-50 text-blue-800 border-blue-200 text-xs font-semibold gap-1.5 py-1 px-2.5 cursor-pointer hover:bg-blue-100">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" /> Sem {sNum} Drive PDF
+                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" /> Sem {sNum} PDF Active
                   </Badge>
                 </a>
               ) : (
@@ -221,21 +209,6 @@ export function ManageSyllabusModal({
             })}
           </div>
         </div>
-
-        {/* Apps Script Guide Callout */}
-        {showAppsScriptGuide && (
-          <div className="mx-6 mt-3 bg-[#FAF6F0] p-4 rounded-2xl border border-[#DFD7CB] space-y-2 text-xs">
-            <h4 className="font-bold text-[#2C2621] flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-[#A36B40]" /> Automated Google Apps Script Upload Instructions
-            </h4>
-            <p className="text-[#5C544D] leading-relaxed text-[11px]">
-              Deploy the provided script at <code className="bg-white px-1.5 py-0.5 rounded border border-[#DFD7CB] font-mono">scripts/google-apps-script-syllabus-drive.gs</code> in Google Apps Script (<a href="https://script.google.com" target="_blank" className="text-[#A36B40] underline font-bold">script.google.com</a>) as a Web App with access set to &ldquo;Anyone&rdquo;. Add the Web App URL to your environment as <code className="font-mono bg-white px-1.5 py-0.5 rounded">GOOGLE_APPS_SCRIPT_WEBAPP_URL</code>.
-            </p>
-            <p className="text-[#5C544D] leading-relaxed text-[11px]">
-              Alternatively, simply copy any shareable Google Drive link from your Drive folder and paste it into the box below!
-            </p>
-          </div>
-        )}
 
         {errorMsg && (
           <div className="mx-6 mt-3 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
@@ -254,7 +227,7 @@ export function ManageSyllabusModal({
           {/* Target Syllabus Scope */}
           <div className="p-3.5 bg-[#FAF6F0] rounded-2xl border border-[#DFD7CB] space-y-3">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-[#2C2621]">Target Syllabus Scope</Label>
+              <Label className="text-xs font-bold text-[#2C2621]">Curriculum Scope</Label>
               <span className="text-[11px] text-[#7A7067]">
                 Choose full program curriculum or individual semester
               </span>
@@ -309,20 +282,11 @@ export function ManageSyllabusModal({
             )}
           </div>
 
-          {/* Integration Mode Switcher */}
+          {/* Attachment Mode Switcher */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-[#2C2621]">Google Drive Attachment Method</Label>
+              <Label className="text-xs font-bold text-[#2C2621]">Document Source</Label>
               <div className="flex items-center gap-1 bg-[#FAF6F0] p-1 rounded-xl border border-[#DFD7CB]">
-                <button
-                  type="button"
-                  onClick={() => setMethod('link')}
-                  className={`text-[11px] font-bold px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                    method === 'link' ? 'bg-white text-[#2C2621] shadow-xs' : 'text-[#7A7067]'
-                  }`}
-                >
-                  Paste Drive Link
-                </button>
                 <button
                   type="button"
                   onClick={() => setMethod('upload')}
@@ -330,46 +294,53 @@ export function ManageSyllabusModal({
                     method === 'upload' ? 'bg-white text-[#2C2621] shadow-xs' : 'text-[#7A7067]'
                   }`}
                 >
-                  Upload via Apps Script
+                  Upload PDF
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMethod('link')}
+                  className={`text-[11px] font-bold px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
+                    method === 'link' ? 'bg-white text-[#2C2621] shadow-xs' : 'text-[#7A7067]'
+                  }`}
+                >
+                  Paste Document Link
                 </button>
               </div>
             </div>
 
-            {method === 'link' ? (
-              <div className="space-y-2">
-                <Input
-                  type="url"
-                  value={driveLink}
-                  onChange={(e) => setDriveLink(e.target.value)}
-                  placeholder="https://drive.google.com/file/d/1A2B3C.../view?usp=sharing"
-                  className="text-xs rounded-xl border-[#DFD7CB] h-10 font-mono"
-                />
-                <div className="flex items-center justify-between text-[11px] text-[#7A7067]">
-                  <span>Paste any shareable Google Drive link from your Drive folder</span>
-                  {parsedDriveId ? (
-                    <span className="font-mono text-emerald-700 font-bold flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" /> Valid File ID: {parsedDriveId.slice(0, 10)}...
-                    </span>
-                  ) : driveLink.length > 0 ? (
-                    <span className="text-amber-700 font-medium">Please enter a valid Google Drive file URL</span>
-                  ) : null}
-                </div>
-              </div>
-            ) : (
-              <div className="border-2 border-dashed border-[#DFD7CB] hover:border-[#A36B40] rounded-2xl p-5 text-center bg-[#FAF6F0]/40 transition-colors cursor-pointer relative">
+            {method === 'upload' ? (
+              <div className="border-2 border-dashed border-[#DFD7CB] hover:border-[#A36B40] rounded-2xl p-6 text-center bg-[#FAF6F0]/40 transition-colors cursor-pointer relative">
                 <input
                   type="file"
                   accept="application/pdf"
                   onChange={handleFileChange}
                   className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                 />
-                <Upload className="w-7 h-7 mx-auto text-[#A36B40] mb-2" />
+                <Upload className="w-8 h-8 mx-auto text-[#A36B40] mb-2" />
                 <p className="text-xs font-bold text-[#2C2621]">
-                  {selectedFile ? selectedFile.name : `Select PDF to upload via Google Apps Script to Drive`}
+                  {selectedFile ? selectedFile.name : `Click to select or drag & drop approved PDF file`}
                 </p>
                 <p className="text-[11px] text-[#7A7067] mt-0.5">
-                  {selectedFile ? `${Math.round(selectedFile.size / 1024)} KB · Ready for Apps Script transfer` : 'Automatically stored in Google Drive folder: Sandip_University_Approved_Syllabi'}
+                  {selectedFile ? `${Math.round(selectedFile.size / 1024)} KB · Ready to save` : 'Official university approved PDF documents up to 50 MB'}
                 </p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <Input
+                  type="url"
+                  value={driveLink}
+                  onChange={(e) => setDriveLink(e.target.value)}
+                  placeholder="https://drive.google.com/file/d/... or document URL"
+                  className="text-xs rounded-xl border-[#DFD7CB] h-10 font-mono"
+                />
+                <div className="flex items-center justify-between text-[11px] text-[#7A7067]">
+                  <span>Paste any viewable document or Google Drive link</span>
+                  {parsedDriveId ? (
+                    <span className="font-mono text-emerald-700 font-bold flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" /> Valid Document Link Verified
+                    </span>
+                  ) : null}
+                </div>
               </div>
             )}
           </div>
@@ -383,7 +354,7 @@ export function ManageSyllabusModal({
               <Input
                 value={approvedBy}
                 onChange={(e) => setApprovedBy(e.target.value)}
-                placeholder="Sandip University Academic Council"
+                placeholder="Academic Council / Board of Studies"
                 className="text-xs rounded-xl border-[#DFD7CB] h-9"
               />
             </div>
@@ -443,11 +414,11 @@ export function ManageSyllabusModal({
               className="text-xs font-bold rounded-xl bg-[#A36B40] hover:bg-[#8E5B34] text-white h-9 px-5 gap-1.5 shadow-md shadow-[#A36B40]/25 cursor-pointer"
             >
               {isSubmitting ? (
-                <span>Connecting to Drive...</span>
+                <span>Saving Document...</span>
               ) : (
                 <>
                   <Save className="w-3.5 h-3.5" />
-                  <span>Attach Approved Drive PDF</span>
+                  <span>Save & Attach Syllabus PDF</span>
                 </>
               )}
             </Button>

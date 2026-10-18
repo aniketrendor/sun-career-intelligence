@@ -7,8 +7,7 @@ const navItems = [
   { label: 'Assessments', href: '/admin/assessments' },
   { label: 'Manage Users', href: '/admin/users' },
   { label: 'Mentors', href: '/admin/mentors' },
-  { label: 'Programs', href: '/admin/programs' },
-  { label: 'Syllabus Directory', href: '/admin/syllabus' },
+  { label: 'Programs & Syllabi', href: '/admin/programs' },
   { label: 'Mentor Access Keys', href: '/admin/referral-codes' },
   { label: 'Students', href: '/admin/students' },
 ]

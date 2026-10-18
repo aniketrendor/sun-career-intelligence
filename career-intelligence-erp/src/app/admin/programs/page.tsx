@@ -1,6 +1,6 @@
-import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { Building2, Sparkles, Plus, GraduationCap } from 'lucide-react'
+import { Building2, Sparkles, Plus, GraduationCap, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CreateProgramModal } from '@/components/dean/create-program-modal'
 import { AdminProgramsCatalog } from '@/components/admin/admin-programs-catalog'
@@ -8,7 +8,14 @@ import { SANDIP_MASTER_PROGRAMS } from '@/lib/services/sandip-catalog'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminProgramsPage() {
+export default async function AdminProgramsPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ tab?: string }>
+}) {
+  const params = await searchParams
+  const defaultTab = params?.tab === 'syllabus' ? 'syllabus' : 'catalog'
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -45,14 +52,14 @@ export default async function AdminProgramsPage() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#A36B40] bg-[#FAF6F0] px-3 py-1 rounded-full border border-[#DFD7CB]">
-              <Building2 className="w-3.5 h-3.5 text-[#A36B40]" /> Sandip University Official Catalog
+              <Building2 className="w-3.5 h-3.5 text-[#A36B40]" /> Sandip University Academic Registry
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">
-            Academic Degree Programs & Catalog
+            Academic Degree Programs & Syllabi Directory
           </h1>
           <p className="text-xs sm:text-sm text-[#7A7067] mt-1 max-w-3xl">
-            Official curriculum catalog of 114 undergraduate, postgraduate, and doctoral degree specializations mapped to the Career Intelligence recommendation matrix.
+            Official curriculum catalog of 114 degree programs with integrated university-approved semester-wise and full curriculum PDF management.
           </p>
         </div>
 
@@ -61,8 +68,8 @@ export default async function AdminProgramsPage() {
         </div>
       </div>
 
-      {/* Interactive Catalog Component */}
-      <AdminProgramsCatalog initialPrograms={programs} />
+      {/* Interactive Catalog Component with Tab support */}
+      <AdminProgramsCatalog initialPrograms={programs} defaultTab={defaultTab} />
     </div>
   )
 }
