@@ -392,15 +392,46 @@ export async function bookCounselingSlot(input: BookCounselingSlotInput): Promis
     venue = 'Google Meet (Link will be provided before session)'
   }
 
-  // 3. Ensure student_counselor_assignment exists
+  // 3. Collision check: Is this slot already booked for this counselor on this date?
+  const { data: existingBookings } = await adminClient
+    .from('counseling_sessions')
+    .select('id, discussion_summary, status')
+    .eq('counselor_id', counselor.id)
+    .eq('session_date', input.session_date)
+    .neq('status', 'CANCELLED')
+
+  const slotTaken = (existingBookings || []).some(s => {
+    const match = s.discussion_summary?.match(/\[Slot:\s*([^|]+)\s*\|/)
+    return match && match[1]?.trim() === input.time_slot.trim()
+  })
+
+  if (slotTaken) {
+    return {
+      success: false,
+      error: `The ${input.time_slot} slot is already booked for Prof. ${counselor.full_name} on ${input.session_date}. Please choose another available slot.`
+    }
+  }
+
+  // 4. Set this mentor as the student's active advisor (deactivating previous ones)
+  await adminClient
+    .from('student_counselor_assignments')
+    .update({ status: 'INACTIVE' })
+    .eq('student_id', student.id)
+    .eq('status', 'ACTIVE')
+
   const { data: existingAssignment } = await adminClient
     .from('student_counselor_assignments')
-    .select('id, status')
+    .select('id')
     .eq('student_id', student.id)
     .eq('counselor_id', counselor.id)
     .maybeSingle()
 
-  if (!existingAssignment) {
+  if (existingAssignment) {
+    await adminClient
+      .from('student_counselor_assignments')
+      .update({ status: 'ACTIVE', assigned_at: new Date().toISOString() })
+      .eq('id', existingAssignment.id)
+  } else {
     await adminClient
       .from('student_counselor_assignments')
       .insert({
@@ -409,14 +440,9 @@ export async function bookCounselingSlot(input: BookCounselingSlotInput): Promis
         status: 'ACTIVE',
         assigned_at: new Date().toISOString()
       })
-  } else if (existingAssignment.status !== 'ACTIVE') {
-    await adminClient
-      .from('student_counselor_assignments')
-      .update({ status: 'ACTIVE', assigned_at: new Date().toISOString() })
-      .eq('id', existingAssignment.id)
   }
 
-  // 4. Create counseling session
+  // 5. Create counseling session
   const structuredSummary = `[Slot: ${input.time_slot} | Mode: ${input.mode} | Venue: ${venue} | Topic: ${input.topic}]\nStudent Agenda: ${input.agenda || 'Routine career & academic advisory consultation'}`
 
   const { error: sessionError } = await adminClient
@@ -434,12 +460,12 @@ export async function bookCounselingSlot(input: BookCounselingSlotInput): Promis
     return { success: false, error: sessionError.message || 'Failed to schedule advisory session.' }
   }
 
-  // 5. Notify counselor
+  // 6. Notify counselor
   await adminClient.from('notifications').insert({
     user_id: counselor.id,
     type: 'COUNSELING_SCHEDULED',
     title: 'New Student Advisory Slot Booked',
-    message: `${student.full_name} booked a ${input.mode === 'IN_PERSON' ? 'cabin' : 'virtual'} advisory slot on ${input.session_date} (${input.time_slot}) for "${input.topic}".`
+    message: `${student.full_name} booked an advisory consultation slot on ${input.session_date} (${input.time_slot}) for "${input.topic}".`
   })
 
   // 6. Audit log
@@ -494,6 +520,79 @@ export async function cancelStudentSession(sessionId: string): Promise<ActionRes
   revalidatePath('/student/counselor')
   revalidatePath('/mentor/availability')
   revalidatePath('/mentor/sessions')
+
+  return { success: true }
+}
+
+export async function selectMentor(counselorId: string): Promise<ActionResult> {
+  const supabase = await createClient()
+  const adminClient = await createAdminClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Not authenticated.' }
+
+  const { data: student } = await supabase
+    .from('users')
+    .select('id, full_name')
+    .eq('auth_user_id', user.id)
+    .single()
+
+  if (!student) return { success: false, error: 'Student not found.' }
+
+  // Verify mentor exists
+  const { data: mentor } = await adminClient
+    .from('users')
+    .select('id, full_name, role')
+    .eq('id', counselorId)
+    .single()
+
+  if (!mentor || !['COUNSELOR', 'MENTOR', 'ADMIN', 'DEAN_HOD'].includes(mentor.role)) {
+    return { success: false, error: 'Selected mentor is invalid.' }
+  }
+
+  // Deactivate any existing active assignments
+  await adminClient
+    .from('student_counselor_assignments')
+    .update({ status: 'INACTIVE' })
+    .eq('student_id', student.id)
+    .eq('status', 'ACTIVE')
+
+  // Check if assignment record exists with this mentor
+  const { data: existing } = await adminClient
+    .from('student_counselor_assignments')
+    .select('id')
+    .eq('student_id', student.id)
+    .eq('counselor_id', counselorId)
+    .maybeSingle()
+
+  if (existing) {
+    await adminClient
+      .from('student_counselor_assignments')
+      .update({ status: 'ACTIVE', assigned_at: new Date().toISOString() })
+      .eq('id', existing.id)
+  } else {
+    await adminClient
+      .from('student_counselor_assignments')
+      .insert({
+        student_id: student.id,
+        counselor_id: counselorId,
+        status: 'ACTIVE',
+        assigned_at: new Date().toISOString()
+      })
+  }
+
+  // Notify mentor
+  await adminClient.from('notifications').insert({
+    user_id: mentor.id,
+    type: 'MENTOR_SELECTED',
+    title: 'New Student Advisee Assignment',
+    message: `${student.full_name} selected you as their Faculty Career Mentor.`
+  })
+
+  revalidatePath('/student/counselor')
+  revalidatePath('/mentor/dashboard')
+  revalidatePath('/mentor/students')
+  revalidatePath('/mentor/availability')
 
   return { success: true }
 }

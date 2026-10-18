@@ -1,11 +1,13 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { CounselorClient, CounselorItem, SessionItem } from './counselor-client'
+import { CounselorClient, CounselorItem, SessionItem, BookedSlot } from './counselor-client'
 
 export const dynamic = 'force-dynamic'
 
 export default async function StudentCounselorPage() {
   const supabase = await createClient()
+  const adminClient = await createAdminClient()
+
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
@@ -17,13 +19,16 @@ export default async function StudentCounselorPage() {
 
   if (!profile) redirect('/login')
 
-  // Concurrently fetch assignment, available counselors, and sessions
+  const todayStr = new Date().toISOString().split('T')[0]
+
+  // Concurrently fetch assignment, available counselors (via adminClient to bypass RLS), sessions, and active bookings
   const [
     { data: assignment },
     { data: rawCounselors },
-    { data: sessions }
+    { data: sessions },
+    { data: allActiveSessions }
   ] = await Promise.all([
-    supabase
+    adminClient
       .from('student_counselor_assignments')
       .select(`
         id,
@@ -41,19 +46,21 @@ export default async function StudentCounselorPage() {
       .eq('student_id', profile.id)
       .eq('status', 'ACTIVE')
       .maybeSingle(),
-    supabase
+    adminClient
       .from('users')
       .select(`
         id,
         full_name,
         email,
         phone,
+        role,
         counselor_profile:counselor_profiles(
           designation,
           employee_id
         )
       `)
       .in('role', ['COUNSELOR', 'MENTOR'])
+      .eq('status', 'ACTIVE')
       .order('full_name', { ascending: true }),
     supabase
       .from('counseling_sessions')
@@ -69,12 +76,17 @@ export default async function StudentCounselorPage() {
         counselor:users!counselor_id(full_name)
       `)
       .eq('student_id', profile.id)
-      .order('session_date', { ascending: false })
+      .order('session_date', { ascending: false }),
+    adminClient
+      .from('counseling_sessions')
+      .select('counselor_id, session_date, discussion_summary, status')
+      .gte('session_date', todayStr)
+      .neq('status', 'CANCELLED')
   ])
 
   // Helper to parse counselor metadata
   function parseCounselorMeta(designation: string | null | undefined) {
-    let title = 'Institutional Career & Faculty Mentor'
+    let title = 'Career & Faculty Mentor'
     let cabin = ''
     let consultation_hours = ''
     let expertise: string[] = []
@@ -128,8 +140,7 @@ export default async function StudentCounselorPage() {
     if (foundInAvailable) {
       assignedCounselor = foundInAvailable
     } else {
-      // Query specific profile
-      const { data: cp } = await supabase
+      const { data: cp } = await adminClient
         .from('counselor_profiles')
         .select('*')
         .eq('user_id', rawAssignedUser.id)
@@ -161,7 +172,7 @@ export default async function StudentCounselorPage() {
     }
   }
 
-  // Format sessions
+  // Format student's sessions
   const formattedSessions: SessionItem[] = (sessions || []).map((s: any) => {
     const counselorUser = Array.isArray(s.counselor) ? s.counselor[0] : s.counselor
     return {
@@ -177,6 +188,19 @@ export default async function StudentCounselorPage() {
     }
   })
 
+  // Extract all booked slots for active mentors to block double-booking
+  const bookedSlots: BookedSlot[] = []
+  for (const s of allActiveSessions || []) {
+    const match = s.discussion_summary?.match(/\[Slot:\s*([^|]+)\s*\|/)
+    if (match && match[1]) {
+      bookedSlots.push({
+        counselor_id: s.counselor_id,
+        session_date: s.session_date,
+        time_slot: match[1].trim()
+      })
+    }
+  }
+
   return (
     <CounselorClient
       student={{
@@ -187,6 +211,7 @@ export default async function StudentCounselorPage() {
       assignedCounselor={assignedCounselor}
       availableCounselors={availableCounselors}
       sessions={formattedSessions}
+      bookedSlots={bookedSlots}
       endorsement={endorsementData}
     />
   )
