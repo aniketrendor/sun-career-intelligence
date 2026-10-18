@@ -4,9 +4,8 @@ import { AppShell } from '@/components/layout/app-shell'
 
 const navItems = [
   { label: 'Mentor Dashboard', href: '/mentor/dashboard' },
-  { label: 'Referral Codes & Freshers', href: '/mentor/referral-codes' },
   { label: 'Advisee Profiles', href: '/mentor/students' },
-  { label: 'Degree Programs', href: '/mentor/programs' },
+  { label: 'Program Directory & Syllabus', href: '/mentor/programs' },
   { label: 'Department Analytics', href: '/mentor/analytics' },
 ]
 

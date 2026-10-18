@@ -8,7 +8,7 @@ import {
   MessageSquare, User, Users, ClipboardList, Building2,
   QrCode, GraduationCap, X, Sparkles, ShieldCheck,
   ChevronRight, Compass, UserCheck, KeyRound, Award,
-  ClipboardCheck, Layers
+  ClipboardCheck, Layers, FileText
 } from 'lucide-react'
 
 export interface NavItem {
@@ -56,6 +56,7 @@ const iconMap: Record<string, any> = {
   '/admin/users': Users,
   '/admin/mentors': Award,
   '/admin/programs': Building2,
+  '/admin/syllabus': FileText,
   '/admin/classes': ClipboardList,
   '/admin/referral-codes': KeyRound,
   '/admin/students': GraduationCap,

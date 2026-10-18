@@ -2,14 +2,13 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import {
-  Users, Search, Filter, BookOpen, Target,
-  ArrowRight, ShieldCheck, CheckCircle2, Clock, AlertCircle
+  Users, Search, BookOpen, Target,
+  ArrowRight, CheckCircle2, Clock, ShieldCheck, UserCheck
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { formatDate } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
 
@@ -25,52 +24,67 @@ export default async function CounselorStudentsPage({
 
   const { data: profile } = await supabase
     .from('users')
-    .select('id, role')
+    .select('id, role, full_name')
     .eq('auth_user_id', user.id)
     .single()
 
   if (!profile || !['MENTOR', 'COUNSELOR', 'ADMIN', 'DEAN_HOD'].includes(profile.role)) redirect('/login')
 
-  // Query students with profiles, enrollments, and career profiles
-  let query = supabase
-    .from('users')
-    .select(`
-      id,
-      full_name,
-      email,
-      phone,
-      status,
-      created_at,
-      student_profile:student_profiles(
-        prn,
-        current_program,
-        current_semester,
-        academic_year
-      ),
-      enrollments:enrollments(
-        id,
-        status,
-        program:programs(name, code),
-        class:classes(name, semester)
-      ),
-      career_profile:career_profiles(
-        primary_domain:career_domains!primary_domain_id(name),
-        secondary_domain:career_domains!secondary_domain_id(name)
-      ),
-      assessment_attempts:assessment_attempts(
-        id,
-        status,
-        completed_at
-      )
-    `)
-    .eq('role', 'STUDENT')
-    .order('created_at', { ascending: false })
+  // Query ONLY students assigned to this mentor via student_counselor_assignments
+  const { data: assignments } = await supabase
+    .from('student_counselor_assignments')
+    .select('student_id')
+    .eq('counselor_id', profile.id)
+    .eq('status', 'ACTIVE')
 
-  if (params.q) {
-    query = query.ilike('full_name', `%${params.q}%`)
+  const assignedStudentIds = (assignments || []).map(a => a.student_id).filter(Boolean)
+
+  let students: any[] = []
+
+  if (assignedStudentIds.length > 0) {
+    let query = supabase
+      .from('users')
+      .select(`
+        id,
+        full_name,
+        email,
+        phone,
+        status,
+        created_at,
+        student_profile:student_profiles(
+          prn,
+          current_program,
+          current_semester,
+          academic_year,
+          school
+        ),
+        enrollments:enrollments(
+          id,
+          status,
+          program:programs(name, code),
+          class:classes(name, semester)
+        ),
+        career_profile:career_profiles(
+          primary_domain:career_domains!primary_domain_id(name),
+          secondary_domain:career_domains!secondary_domain_id(name)
+        ),
+        assessment_attempts:assessment_attempts(
+          id,
+          status,
+          completed_at
+        )
+      `)
+      .eq('role', 'STUDENT')
+      .in('id', assignedStudentIds)
+      .order('created_at', { ascending: false })
+
+    if (params.q) {
+      query = query.ilike('full_name', `%${params.q}%`)
+    }
+
+    const { data: fetchedStudents } = await query
+    students = fetchedStudents || []
   }
-
-  const { data: students } = await query
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto font-sans pb-10">
@@ -78,17 +92,19 @@ export default async function CounselorStudentsPage({
       <div className="bg-white border border-[#DFD7CB] rounded-3xl p-6 sm:p-7 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <Badge className="bg-[#FAF6F0] text-[#A36B40] border-[#DFD7CB] mb-2 gap-1.5 font-bold text-xs px-3 py-1">
-            <Users className="w-3.5 h-3.5" /> Institutional Roster
+            <Users className="w-3.5 h-3.5" /> Assigned Advisees
           </Badge>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">Student Directory & Profiles</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">
+            My Advisee Directory
+          </h1>
           <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
-            Search, monitor assessment completion, review psychometric traits, and manage student interventions.
+            Monitor your assigned students, review career diagnostic assessments, track domain fit, and manage guidance interventions.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Badge variant="outline" className="px-3.5 py-1.5 text-xs font-bold border-[#DFD7CB] bg-[#FAF6F0] text-[#2C2621] rounded-xl">
-            Total Students: {students?.length || 0}
+            Assigned Advisees: {students.length}
           </Badge>
         </div>
       </div>
@@ -97,24 +113,41 @@ export default async function CounselorStudentsPage({
       <Card className="bg-white border-[#DFD7CB] rounded-3xl shadow-sm overflow-hidden">
         <CardHeader className="bg-[#FAF6F0]/60 border-b border-[#DFD7CB] p-5 sm:p-6">
           <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
-            <CardTitle className="text-base font-bold text-[#2C2621]">Enrolled Students</CardTitle>
-            <form className="flex items-center gap-2 w-full sm:w-80">
-              <Input
-                name="q"
-                defaultValue={params.q || ''}
-                placeholder="Search by student name..."
-                className="text-xs rounded-xl bg-white border-[#DFD7CB] text-[#2C2621] h-9"
-              />
-              <Button type="submit" size="sm" className="shrink-0 text-xs bg-[#A36B40] hover:bg-[#8E5B34] text-white rounded-xl h-9 px-3.5 font-bold cursor-pointer">
-                <Search className="w-3.5 h-3.5" />
-              </Button>
-            </form>
+            <div>
+              <CardTitle className="text-base font-bold text-[#2C2621]">Assigned Students</CardTitle>
+              <CardDescription className="text-xs text-[#7A7067] mt-0.5">
+                Students paired with you for academic advising and career mentoring
+              </CardDescription>
+            </div>
+            {assignedStudentIds.length > 0 && (
+              <form className="flex items-center gap-2 w-full sm:w-80">
+                <Input
+                  name="q"
+                  defaultValue={params.q || ''}
+                  placeholder="Search by student name..."
+                  className="text-xs rounded-xl bg-white border-[#DFD7CB] text-[#2C2621] h-9"
+                />
+                <Button type="submit" size="sm" className="shrink-0 text-xs bg-[#A36B40] hover:bg-[#8E5B34] text-white rounded-xl h-9 px-3.5 font-bold cursor-pointer">
+                  <Search className="w-3.5 h-3.5" />
+                </Button>
+              </form>
+            )}
           </div>
         </CardHeader>
         <CardContent className="p-4 sm:p-6">
-          {!students || students.length === 0 ? (
-            <div className="text-center py-10 text-[#7A7067] text-sm">
-              No students found matching your criteria.
+          {students.length === 0 ? (
+            <div className="text-center py-12 px-4 space-y-3">
+              <div className="w-14 h-14 rounded-2xl bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] flex items-center justify-center mx-auto shadow-xs">
+                <Users className="w-7 h-7" />
+              </div>
+              <h3 className="font-bold text-[#2C2621] text-base">
+                {assignedStudentIds.length === 0 ? 'No Advisee Students Assigned Yet' : 'No Students Matching Search'}
+              </h3>
+              <p className="text-xs text-[#7A7067] max-w-md mx-auto leading-relaxed">
+                {assignedStudentIds.length === 0
+                  ? 'You are only able to see students assigned directly to your mentorship caseload. When students select you as their mentor via the student portal or are allocated by the Dean, their academic profiles and diagnostic results will appear here.'
+                  : 'Try adjusting your search query to find students assigned to your caseload.'}
+              </p>
             </div>
           ) : (
             <div className="divide-y divide-[#DFD7CB]/60">
@@ -135,10 +168,12 @@ export default async function CounselorStudentsPage({
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
                           <h4 className="font-bold text-[#2C2621] text-sm">{student.full_name}</h4>
-                          <span className="text-xs text-[#7A7067] font-mono">({student.student_profile?.prn || 'No PRN'})</span>
+                          <span className="text-xs text-[#7A7067] font-mono">
+                            ({student.student_profile?.prn || 'No PRN'})
+                          </span>
                         </div>
                         <p className="text-xs text-[#5C544D]">
-                          {enrollment?.program?.name || student.student_profile?.current_program || 'Not enrolled in program'}
+                          {enrollment?.program?.name || student.student_profile?.current_program || 'Program pending enrollment'}
                           {enrollment?.class?.name ? ` · ${enrollment.class.name}` : ''}
                         </p>
                         <p className="text-[11px] text-[#8C8276] font-mono">{student.email}</p>
@@ -171,7 +206,7 @@ export default async function CounselorStudentsPage({
                       )}
 
                       <Link href={`/mentor/students/${student.id}`}>
-                        <Button size="sm" variant="outline" className="text-xs font-semibold gap-1.5 border-[#DFD7CB] hover:bg-[#A36B40] hover:text-white rounded-xl h-8 px-3">
+                        <Button size="sm" variant="outline" className="text-xs font-semibold gap-1.5 border-[#DFD7CB] hover:bg-[#A36B40] hover:text-white rounded-xl h-8 px-3 cursor-pointer">
                           <span>Student 360</span>
                           <ArrowRight className="w-3.5 h-3.5" />
                         </Button>
