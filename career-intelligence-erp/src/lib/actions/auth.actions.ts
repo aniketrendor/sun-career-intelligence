@@ -121,6 +121,118 @@ export async function signInWithGoogle(targetRole: string = 'STUDENT'): Promise<
   }
 }
 
+export async function signInWithGoogleOneTap(
+  idToken: string,
+  targetRole: string = 'STUDENT'
+): Promise<{ success: boolean; redirectUrl?: string; error?: string }> {
+  try {
+    const supabase = await createClient()
+    const adminClient = await createAdminClient()
+
+    const { data, error } = await supabase.auth.signInWithIdToken({
+      provider: 'google',
+      token: idToken,
+    })
+
+    if (error || !data.user) {
+      return { success: false, error: error?.message || 'Google One-Tap sign-in failed.' }
+    }
+
+    // Check if user has an app profile in public.users
+    let { data: profile } = await adminClient
+      .from('users')
+      .select('id, role, status')
+      .eq('auth_user_id', data.user.id)
+      .maybeSingle()
+
+    // If first-time user, auto-provision role
+    if (!profile) {
+      const role = (
+        targetRole === 'mentor' || targetRole === 'COUNSELOR'
+          ? 'COUNSELOR'
+          : targetRole === 'admin' || targetRole === 'DEAN_HOD'
+          ? 'DEAN_HOD'
+          : 'STUDENT'
+      ) as 'STUDENT' | 'COUNSELOR' | 'DEAN_HOD'
+
+      const fullName =
+        data.user.user_metadata?.full_name ||
+        data.user.user_metadata?.name ||
+        data.user.email?.split('@')[0] ||
+        (role === 'COUNSELOR' ? 'Mentor' : role === 'DEAN_HOD' ? 'Admin' : 'Student')
+
+      const avatarUrl =
+        data.user.user_metadata?.avatar_url ||
+        data.user.user_metadata?.picture ||
+        null
+
+      const { data: newUser, error: createError } = await adminClient
+        .from('users')
+        .insert({
+          auth_user_id: data.user.id,
+          email: data.user.email!,
+          full_name: fullName,
+          avatar_url: avatarUrl,
+          role,
+          status: 'ACTIVE',
+        })
+        .select('id, role, status')
+        .single()
+
+      if (!createError && newUser) {
+        profile = newUser
+        if (role === 'STUDENT') {
+          await adminClient.from('student_profiles').insert({
+            user_id: newUser.id,
+          })
+        } else if (role === 'COUNSELOR') {
+          await adminClient.from('counselor_profiles').insert({
+            user_id: newUser.id,
+            designation: 'Career & Admissions Mentor',
+            can_manage_assessments: true,
+          })
+        } else if (role === 'DEAN_HOD') {
+          await adminClient.from('dean_hod_profiles').insert({
+            user_id: newUser.id,
+            designation: 'Institutional Administrator',
+          })
+        }
+
+        // Audit log
+        await adminClient.from('audit_logs').insert({
+          actor_user_id: newUser.id,
+          action: 'GOOGLE_ONE_TAP_REGISTRATION',
+          entity_type: 'users',
+          entity_id: newUser.id,
+          metadata: { provider: 'google_one_tap', role },
+        })
+      }
+    }
+
+    if (profile) {
+      if (profile.status === 'PENDING') {
+        return { success: true, redirectUrl: '/pending-approval' }
+      }
+
+      const dashboardPaths: Record<string, string> = {
+        STUDENT: '/student/dashboard',
+        MENTOR: '/mentor/dashboard',
+        COUNSELOR: '/mentor/dashboard',
+        ADMIN: '/admin/dashboard',
+        DEAN_HOD: '/admin/dashboard',
+      }
+
+      revalidatePath('/', 'layout')
+      return { success: true, redirectUrl: dashboardPaths[profile.role] || '/student/dashboard' }
+    }
+
+    return { success: true, redirectUrl: '/student/dashboard' }
+  } catch (err: any) {
+    console.error('Google One-Tap Error:', err)
+    return { success: false, error: err?.message || 'Google One-Tap processing failed.' }
+  }
+}
+
 export async function signUpWithEmail(
   _prev: AuthActionResult,
   formData: FormData

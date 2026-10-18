@@ -11,6 +11,7 @@ import {
 import { signInWithGoogle, sendOtpCode, verifyOtpCode } from '@/lib/actions/auth.actions'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { GoogleOneTap } from '@/components/auth/google-one-tap'
 
 type PortalRole = 'student' | 'mentor' | 'admin'
 
@@ -434,6 +435,9 @@ export default function LoginPage() {
           </div>
 
         </div>
+
+        {/* ─── GOOGLE ONE-TAP INSTANT SIGN-IN PROMPT ───────────────── */}
+        <GoogleOneTap targetRole={selectedPortal === 'mentor' ? 'COUNSELOR' : selectedPortal === 'admin' ? 'DEAN_HOD' : 'STUDENT'} />
 
       </div>
     </div>
