@@ -246,9 +246,8 @@ export function Sidebar({ navItems, userRole, userName, userEmail, isOpen, onClo
                   <p className="text-[10px] text-[#A89D8F] leading-tight">
                     Explore Programs, Eligibility & Scholarships
                   </p>
-                  <span className="mt-1 inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-[#A36B40] group-hover:bg-[#8E5B34] text-white text-[10px] font-bold shadow-xs transition-colors">
+                  <span className="mt-1 inline-flex items-center justify-center px-3 py-1 rounded-lg bg-[#A36B40] group-hover:bg-[#8E5B34] text-white text-[10px] font-bold shadow-xs transition-colors">
                     <span>Apply Online</span>
-                    <ExternalLink className="w-2.5 h-2.5" />
                   </span>
                 </div>
               </a>
