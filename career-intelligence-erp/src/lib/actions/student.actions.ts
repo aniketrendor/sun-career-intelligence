@@ -327,3 +327,173 @@ export async function updateStudentProfile(
   revalidatePath('/student/career-profile')
   return { success: true }
 }
+
+// ─── STUDENT ADVISORY SLOT BOOKING ──────────────────────────────────────────
+
+export interface BookCounselingSlotInput {
+  counselor_id: string
+  session_date: string // YYYY-MM-DD
+  time_slot: string
+  mode: 'IN_PERSON' | 'GOOGLE_MEET'
+  topic: string
+  agenda?: string
+}
+
+export async function bookCounselingSlot(input: BookCounselingSlotInput): Promise<ActionResult> {
+  const supabase = await createClient()
+  const adminClient = await createAdminClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Not authenticated.' }
+
+  const { data: student } = await supabase
+    .from('users')
+    .select('id, full_name, email')
+    .eq('auth_user_id', user.id)
+    .single()
+
+  if (!student) return { success: false, error: 'Student profile not found.' }
+
+  if (!input.counselor_id || !input.session_date || !input.time_slot) {
+    return { success: false, error: 'Please provide all required slot details.' }
+  }
+
+  // 1. Verify counselor exists
+  const { data: counselor } = await adminClient
+    .from('users')
+    .select('id, full_name, email, role')
+    .eq('id', input.counselor_id)
+    .single()
+
+  if (!counselor || !['COUNSELOR', 'MENTOR', 'ADMIN', 'DEAN_HOD'].includes(counselor.role)) {
+    return { success: false, error: 'Selected advisor is not valid.' }
+  }
+
+  // 2. Fetch counselor metadata for cabin / meet location
+  const { data: cp } = await adminClient
+    .from('counselor_profiles')
+    .select('designation')
+    .eq('user_id', counselor.id)
+    .maybeSingle()
+
+  let venue = ''
+  if (input.mode === 'IN_PERSON') {
+    if (cp?.designation?.startsWith('{')) {
+      try {
+        const parsed = JSON.parse(cp.designation)
+        venue = parsed.cabin || 'Faculty Cabin, Academic Block'
+      } catch {
+        venue = 'Faculty Cabin, Academic Block'
+      }
+    } else {
+      venue = 'Faculty Cabin, Academic Block'
+    }
+  } else {
+    venue = 'Google Meet (Link will be provided before session)'
+  }
+
+  // 3. Ensure student_counselor_assignment exists
+  const { data: existingAssignment } = await adminClient
+    .from('student_counselor_assignments')
+    .select('id, status')
+    .eq('student_id', student.id)
+    .eq('counselor_id', counselor.id)
+    .maybeSingle()
+
+  if (!existingAssignment) {
+    await adminClient
+      .from('student_counselor_assignments')
+      .insert({
+        student_id: student.id,
+        counselor_id: counselor.id,
+        status: 'ACTIVE',
+        assigned_at: new Date().toISOString()
+      })
+  } else if (existingAssignment.status !== 'ACTIVE') {
+    await adminClient
+      .from('student_counselor_assignments')
+      .update({ status: 'ACTIVE', assigned_at: new Date().toISOString() })
+      .eq('id', existingAssignment.id)
+  }
+
+  // 4. Create counseling session
+  const structuredSummary = `[Slot: ${input.time_slot} | Mode: ${input.mode} | Venue: ${venue} | Topic: ${input.topic}]\nStudent Agenda: ${input.agenda || 'Routine career & academic advisory consultation'}`
+
+  const { error: sessionError } = await adminClient
+    .from('counseling_sessions')
+    .insert({
+      counselor_id: counselor.id,
+      student_id: student.id,
+      session_date: input.session_date,
+      discussion_summary: structuredSummary,
+      identified_concerns: input.agenda || null,
+      status: 'OPEN'
+    })
+
+  if (sessionError) {
+    return { success: false, error: sessionError.message || 'Failed to schedule advisory session.' }
+  }
+
+  // 5. Notify counselor
+  await adminClient.from('notifications').insert({
+    user_id: counselor.id,
+    type: 'COUNSELING_SCHEDULED',
+    title: 'New Student Advisory Slot Booked',
+    message: `${student.full_name} booked a ${input.mode === 'IN_PERSON' ? 'cabin' : 'virtual'} advisory slot on ${input.session_date} (${input.time_slot}) for "${input.topic}".`
+  })
+
+  // 6. Audit log
+  await adminClient.from('audit_logs').insert({
+    actor_user_id: student.id,
+    action: 'STUDENT_ADVISORY_SLOT_BOOKED',
+    entity_type: 'counseling_sessions',
+    metadata: {
+      counselor_id: counselor.id,
+      session_date: input.session_date,
+      time_slot: input.time_slot,
+      mode: input.mode,
+      topic: input.topic
+    }
+  })
+
+  revalidatePath('/student/counselor')
+  revalidatePath('/mentor/availability')
+  revalidatePath('/mentor/sessions')
+  revalidatePath('/mentor/students')
+  revalidatePath('/mentor/dashboard')
+
+  return { success: true }
+}
+
+export async function cancelStudentSession(sessionId: string): Promise<ActionResult> {
+  const supabase = await createClient()
+  const adminClient = await createAdminClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Not authenticated.' }
+
+  const { data: student } = await supabase
+    .from('users')
+    .select('id')
+    .eq('auth_user_id', user.id)
+    .single()
+
+  if (!student) return { success: false, error: 'Student not found.' }
+
+  const { error } = await adminClient
+    .from('counseling_sessions')
+    .delete()
+    .eq('id', sessionId)
+    .eq('student_id', student.id)
+    .eq('status', 'OPEN')
+
+  if (error) {
+    return { success: false, error: error.message || 'Failed to cancel appointment.' }
+  }
+
+  revalidatePath('/student/counselor')
+  revalidatePath('/mentor/availability')
+  revalidatePath('/mentor/sessions')
+
+  return { success: true }
+}

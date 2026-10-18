@@ -1,14 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import Link from 'next/link'
-import {
-  MessageSquare, User, Calendar, Clock, CheckCircle2,
-  AlertCircle, ArrowRight, ShieldCheck, Mail, Phone, BookOpen
-} from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { formatDate, formatDateTime } from '@/lib/utils'
+import { CounselorClient, CounselorItem, SessionItem } from './counselor-client'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,15 +11,16 @@ export default async function StudentCounselorPage() {
 
   const { data: profile } = await supabase
     .from('users')
-    .select('id, full_name, role')
+    .select('id, full_name, email, role')
     .eq('auth_user_id', user.id)
     .single()
 
   if (!profile) redirect('/login')
 
-  // Concurrently fetch assigned counselor and counseling session history
+  // Concurrently fetch assignment, available counselors, and sessions
   const [
     { data: assignment },
+    { data: rawCounselors },
     { data: sessions }
   ] = await Promise.all([
     supabase
@@ -49,6 +42,20 @@ export default async function StudentCounselorPage() {
       .eq('status', 'ACTIVE')
       .maybeSingle(),
     supabase
+      .from('users')
+      .select(`
+        id,
+        full_name,
+        email,
+        phone,
+        counselor_profile:counselor_profiles(
+          designation,
+          employee_id
+        )
+      `)
+      .in('role', ['COUNSELOR', 'MENTOR'])
+      .order('full_name', { ascending: true }),
+    supabase
       .from('counseling_sessions')
       .select(`
         id,
@@ -65,41 +72,80 @@ export default async function StudentCounselorPage() {
       .order('session_date', { ascending: false })
   ])
 
-  const counselorUser = (assignment as any)?.counselor
-  const sessionList = sessions || []
+  // Helper to parse counselor metadata
+  function parseCounselorMeta(designation: string | null | undefined) {
+    let title = 'Institutional Career & Faculty Mentor'
+    let cabin = ''
+    let consultation_hours = ''
+    let expertise: string[] = []
+    let bio = ''
 
-  // Fetch mentor profile metadata if counselor assigned
-  let mentorMeta = {
-    title: 'Institutional Career & Faculty Mentor',
-    cabin: 'Cabin 304, Academic Block, Sandip University',
-    expertise: [] as string[],
-    consultation_hours: 'Mon & Wed: 02:00 PM - 04:30 PM',
-    bio: ''
+    if (designation) {
+      try {
+        if (designation.startsWith('{')) {
+          const parsed = JSON.parse(designation)
+          title = parsed.title || title
+          cabin = parsed.cabin || ''
+          consultation_hours = parsed.consultation_hours || ''
+          expertise = Array.isArray(parsed.expertise) ? parsed.expertise : []
+          bio = parsed.bio || ''
+        } else {
+          title = designation
+        }
+      } catch {
+        title = designation
+      }
+    }
+
+    return { title, cabin, consultation_hours, expertise, bio }
   }
 
-  if (counselorUser?.id) {
-    const { data: cp } = await supabase
-      .from('counselor_profiles')
-      .select('*')
-      .eq('user_id', counselorUser.id)
-      .maybeSingle()
+  // Format available counselors list
+  const availableCounselors: CounselorItem[] = (rawCounselors || []).map((u: any) => {
+    const rawCp = Array.isArray(u.counselor_profile) ? u.counselor_profile[0] : u.counselor_profile
+    const meta = parseCounselorMeta(rawCp?.designation)
+    return {
+      id: u.id,
+      full_name: u.full_name,
+      email: u.email,
+      phone: u.phone || null,
+      title: meta.title,
+      cabin: meta.cabin,
+      consultation_hours: meta.consultation_hours,
+      expertise: meta.expertise,
+      bio: meta.bio
+    }
+  })
 
-    if (cp?.designation) {
-      try {
-        if (cp.designation.startsWith('{')) {
-          const parsed = JSON.parse(cp.designation)
-          mentorMeta = {
-            title: parsed.title || mentorMeta.title,
-            cabin: parsed.cabin || mentorMeta.cabin,
-            expertise: Array.isArray(parsed.expertise) ? parsed.expertise : [],
-            consultation_hours: parsed.consultation_hours || mentorMeta.consultation_hours,
-            bio: parsed.bio || ''
-          }
-        } else {
-          mentorMeta.title = cp.designation
-        }
-      } catch (e) {
-        mentorMeta.title = cp.designation
+  // Format assigned counselor
+  let assignedCounselor: CounselorItem | null = null
+  const rawAssignedUser = Array.isArray((assignment as any)?.counselor)
+    ? (assignment as any)?.counselor[0]
+    : (assignment as any)?.counselor
+
+  if (rawAssignedUser?.id) {
+    const foundInAvailable = availableCounselors.find(c => c.id === rawAssignedUser.id)
+    if (foundInAvailable) {
+      assignedCounselor = foundInAvailable
+    } else {
+      // Query specific profile
+      const { data: cp } = await supabase
+        .from('counselor_profiles')
+        .select('*')
+        .eq('user_id', rawAssignedUser.id)
+        .maybeSingle()
+
+      const meta = parseCounselorMeta(cp?.designation)
+      assignedCounselor = {
+        id: rawAssignedUser.id,
+        full_name: rawAssignedUser.full_name,
+        email: rawAssignedUser.email,
+        phone: rawAssignedUser.phone || null,
+        title: meta.title,
+        cabin: meta.cabin,
+        consultation_hours: meta.consultation_hours,
+        expertise: meta.expertise,
+        bio: meta.bio
       }
     }
   }
@@ -115,217 +161,33 @@ export default async function StudentCounselorPage() {
     }
   }
 
+  // Format sessions
+  const formattedSessions: SessionItem[] = (sessions || []).map((s: any) => {
+    const counselorUser = Array.isArray(s.counselor) ? s.counselor[0] : s.counselor
+    return {
+      id: s.id,
+      session_date: s.session_date,
+      discussion_summary: s.discussion_summary,
+      identified_concerns: s.identified_concerns,
+      recommended_actions: s.recommended_actions,
+      follow_up_date: s.follow_up_date,
+      status: s.status,
+      created_at: s.created_at,
+      counselor: counselorUser ? { full_name: counselorUser.full_name } : null
+    }
+  })
+
   return (
-    <div className="space-y-8 max-w-5xl mx-auto font-sans">
-      {/* Header */}
-      <div>
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] mb-2">
-          <MessageSquare className="w-3.5 h-3.5 text-[#A36B40]" /> Institutional Support
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2C2621] tracking-tight">Career Counseling & Mentorship</h1>
-        <p className="text-xs sm:text-sm text-[#7A7067] mt-1">
-          Connect with your assigned career advisor, review guidance notes, and track follow-up action items.
-        </p>
-      </div>
-
-      {/* Endorsement Banner if present */}
-      {endorsementData && (
-        <Card className="border-emerald-200 bg-emerald-50/80 rounded-3xl shadow-xs overflow-hidden">
-          <CardContent className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-2">
-                <Badge className="bg-emerald-700 text-white border-0 text-xs font-bold rounded-full px-2.5 py-0.5">
-                  Official Faculty Endorsement
-                </Badge>
-                <span className="text-xs text-emerald-800 font-semibold">{endorsementData.header}</span>
-              </div>
-              <h3 className="text-base font-extrabold text-[#2C2621]">
-                Specialization Track: {endorsementData.track}
-              </h3>
-              <p className="text-xs text-emerald-900 leading-relaxed italic">
-                &quot;{endorsementData.note}&quot;
-              </p>
-            </div>
-            <div className="w-12 h-12 rounded-2xl bg-white border border-emerald-200 flex items-center justify-center text-emerald-700 shrink-0 shadow-xs">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Counselor Profile Card */}
-      <Card className="border-[#DFD7CB] bg-white rounded-3xl shadow-xs overflow-hidden">
-        <div className="h-3 w-full bg-[#A36B40]" />
-        <CardContent className="p-6 md:p-8 space-y-6">
-          {counselorUser ? (
-            <div className="space-y-6">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div className="flex items-center gap-5">
-                  <div className="w-16 h-16 rounded-2xl bg-[#FAF6F0] text-[#A36B40] flex items-center justify-center font-bold text-xl border border-[#DFD7CB] shadow-xs shrink-0">
-                    {counselorUser.full_name?.split(' ').map((n: string) => n[0]).join('').slice(0, 2) || 'CA'}
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h2 className="text-xl font-bold text-[#2C2621]">{counselorUser.full_name}</h2>
-                      <Badge className="bg-[#77734B]/15 text-[#77734B] border-0 text-xs rounded-full px-2.5 py-0.5 font-bold">
-                        Assigned Advisor
-                      </Badge>
-                    </div>
-                    <p className="text-xs text-[#7A7067] font-medium">{mentorMeta.title}</p>
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-[#7A7067] pt-1">
-                      {counselorUser.email && (
-                        <span className="flex items-center gap-1">
-                          <Mail className="w-3.5 h-3.5 text-[#A36B40]" /> {counselorUser.email}
-                        </span>
-                      )}
-                      {counselorUser.phone && (
-                        <span className="flex items-center gap-1">
-                          <Phone className="w-3.5 h-3.5 text-[#A36B40]" /> {counselorUser.phone}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="shrink-0 flex gap-3">
-                  <a href={`mailto:${counselorUser.email || ''}?subject=Advisory%20Consultation%20Request`}>
-                    <Button className="gap-2 bg-[#A36B40] hover:bg-[#8E5B34] text-white rounded-2xl h-10 px-5 shadow-md shadow-[#A36B40]/25 cursor-pointer font-bold">
-                      <Mail className="w-4 h-4" /> Request Meeting
-                    </Button>
-                  </a>
-                </div>
-              </div>
-
-              {/* Bio if available */}
-              {mentorMeta.bio && (
-                <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] text-xs text-[#7A7067] italic leading-relaxed">
-                  &quot;{mentorMeta.bio}&quot;
-                </div>
-              )}
-
-              {/* Location, Hours & Specializations */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-[#DFD7CB]/60 text-xs">
-                <div className="p-3.5 rounded-xl bg-white border border-[#DFD7CB] space-y-1">
-                  <p className="font-semibold text-[#7A7067]">Cabin Office Location</p>
-                  <p className="font-bold text-[#2C2621]">{mentorMeta.cabin}</p>
-                </div>
-                <div className="p-3.5 rounded-xl bg-white border border-[#DFD7CB] space-y-1">
-                  <p className="font-semibold text-[#7A7067]">Consultation Hours</p>
-                  <p className="font-bold text-[#2C2621]">{mentorMeta.consultation_hours}</p>
-                </div>
-              </div>
-
-              {mentorMeta.expertise.length > 0 && (
-                <div className="space-y-2 pt-1">
-                  <p className="text-xs font-bold text-[#7A7067] uppercase tracking-wider">
-                    Faculty Mentorship Specializations
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {mentorMeta.expertise.map(tag => (
-                      <Badge
-                        key={tag}
-                        className="bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] text-xs font-semibold rounded-md px-2.5 py-0.5"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="text-center py-6 space-y-3">
-              <div className="w-12 h-12 bg-[#FAF6F0] text-[#7A7067] rounded-2xl flex items-center justify-center mx-auto border border-[#DFD7CB]">
-                <User className="w-6 h-6" />
-              </div>
-              <h3 className="font-bold text-[#2C2621]">No Counselor Assigned Yet</h3>
-              <p className="text-xs text-[#7A7067] max-w-md mx-auto">
-                Your institution will assign a dedicated counselor after you complete your initial career assessment and program enrollment.
-              </p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Counseling Sessions & Guidance Logs */}
-      <Card className="border-[#DFD7CB] bg-white rounded-3xl shadow-xs">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-lg font-bold text-[#2C2621]">Advisory Sessions & Action Plans</CardTitle>
-              <CardDescription className="text-xs text-[#7A7067]">
-                Official notes and recommended development items from your counseling sessions
-              </CardDescription>
-            </div>
-            <Badge variant="outline" className="text-xs font-semibold bg-[#FAF6F0] text-[#7A7067] border-[#DFD7CB] rounded-full px-3 py-1">
-              {sessionList.length} Sessions Logged
-            </Badge>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {sessionList.length === 0 ? (
-            <div className="text-center py-10 text-[#7A7067] space-y-2">
-              <BookOpen className="w-8 h-8 text-[#DFD7CB] mx-auto" />
-              <p className="text-sm font-semibold text-[#2C2621]">No counseling sessions recorded yet.</p>
-              <p className="text-xs text-[#7A7067]">
-                Notes from meetings with your counselor will appear here automatically.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {sessionList.map((session: any) => {
-                const statusBadge = {
-                  OPEN: 'bg-[#A36B40]/15 text-[#A36B40] border-[#A36B40]/30',
-                  FOLLOW_UP: 'bg-[#C6A18D]/20 text-[#A36B40] border-[#C6A18D]/30',
-                  RESOLVED: 'bg-[#77734B]/15 text-[#77734B] border-[#77734B]/30',
-                }[session.status as string] || 'bg-[#FAF6F0] text-[#7A7067]'
-
-                return (
-                  <div
-                    key={session.id}
-                    className="p-5 rounded-2xl border border-[#DFD7CB] hover:border-[#A36B40] transition-all space-y-3 bg-[#FAF6F0]/40"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="font-bold text-sm text-[#2C2621] flex items-center gap-1.5">
-                          <Calendar className="w-4 h-4 text-[#A36B40]" />
-                          Session on {formatDate(session.session_date)}
-                        </span>
-                        <span className="text-xs text-[#7A7067]">
-                          with {(session.counselor as any)?.full_name || 'Counselor'}
-                        </span>
-                      </div>
-                      <Badge variant="outline" className={`text-xs uppercase font-bold rounded-full px-2.5 py-0.5 ${statusBadge}`}>
-                        {session.status}
-                      </Badge>
-                    </div>
-
-                    {session.discussion_summary && (
-                      <div className="text-xs text-[#2C2621] bg-white p-3.5 rounded-xl border border-[#DFD7CB]">
-                        <span className="font-bold block text-[#2C2621] mb-1">Discussion Summary:</span>
-                        <p className="leading-relaxed text-[#7A7067]">{session.discussion_summary}</p>
-                      </div>
-                    )}
-
-                    {session.recommended_actions && (
-                      <div className="text-xs text-[#2C2621] bg-[#77734B]/10 p-3.5 rounded-xl border border-[#77734B]/30">
-                        <span className="font-bold block text-[#77734B] mb-1">Recommended Action Items:</span>
-                        <p className="leading-relaxed">{session.recommended_actions}</p>
-                      </div>
-                    )}
-
-                    {session.follow_up_date && (
-                      <div className="flex items-center gap-1.5 text-xs text-[#A36B40] pt-1 font-bold">
-                        <Clock className="w-3.5 h-3.5" /> Next Follow-up Scheduled: {formatDate(session.follow_up_date)}
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+    <CounselorClient
+      student={{
+        id: profile.id,
+        full_name: profile.full_name,
+        email: profile.email
+      }}
+      assignedCounselor={assignedCounselor}
+      availableCounselors={availableCounselors}
+      sessions={formattedSessions}
+      endorsement={endorsementData}
+    />
   )
 }
