@@ -5,7 +5,11 @@ import { AppShell } from '@/components/layout/app-shell'
 const navItems = [
   { label: 'Mentor Dashboard', href: '/mentor/dashboard' },
   { label: 'Advisee Profiles', href: '/mentor/students' },
-  { label: 'Program Directory & Syllabus', href: '/mentor/programs' },
+  { label: 'Available Slots & Scheduling', href: '/mentor/availability' },
+  { label: 'Guidance Sessions', href: '/mentor/sessions' },
+  { label: 'Diagnostic Evaluations', href: '/mentor/evaluations' },
+  { label: 'Programs & Syllabi', href: '/mentor/programs' },
+  { label: 'My Faculty Profile', href: '/mentor/profile' },
 ]
 
 export default async function CounselorLayout({ children }: { children: React.ReactNode }) {

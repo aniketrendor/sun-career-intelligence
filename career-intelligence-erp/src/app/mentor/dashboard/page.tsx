@@ -115,7 +115,7 @@ export default async function CounselorDashboardPage() {
       subtext: 'Assessments evaluated',
       icon: BookOpen,
       iconBg: 'bg-[#F1F1EB] text-[#77734B] border-[#77734B]/30',
-      href: '/mentor/students'
+      href: '/mentor/evaluations'
     },
     {
       label: 'Mentorship Sessions',
@@ -123,7 +123,7 @@ export default async function CounselorDashboardPage() {
       subtext: '1-on-1 guidance notes logged',
       icon: Calendar,
       iconBg: 'bg-[#FAF6F0] text-[#C6A18D] border-[#C6A18D]/40',
-      href: '/mentor/students'
+      href: '/mentor/sessions'
     },
     {
       label: 'Degree Programs Directory',
@@ -152,10 +152,15 @@ export default async function CounselorDashboardPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5 shrink-0">
-          <Link href="/mentor/programs">
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+          <Link href="/mentor/availability">
             <Button size="sm" variant="outline" className="gap-2 text-xs font-bold border-[#DFD7CB] bg-[#FAF6F0] text-[#2C2621] hover:bg-[#F2EAE0] h-10 px-4 rounded-2xl transition-all cursor-pointer">
-              <Building2 className="w-3.5 h-3.5 text-[#A36B40]" /> Program Syllabi
+              <Calendar className="w-3.5 h-3.5 text-[#A36B40]" /> Available Slots
+            </Button>
+          </Link>
+          <Link href="/mentor/sessions">
+            <Button size="sm" variant="outline" className="gap-2 text-xs font-bold border-[#DFD7CB] bg-[#FAF6F0] text-[#2C2621] hover:bg-[#F2EAE0] h-10 px-4 rounded-2xl transition-all cursor-pointer">
+              <Clock className="w-3.5 h-3.5 text-[#77734B]" /> Guidance Sessions
             </Button>
           </Link>
           <Link href="/mentor/students">
@@ -305,13 +310,18 @@ export default async function CounselorDashboardPage() {
 
       {/* Recent Mentorship Sessions */}
       <Card className="bg-white border-[#DFD7CB] rounded-3xl shadow-sm">
-        <CardHeader className="pb-3 border-b border-[#DFD7CB] flex-row items-center justify-between">
+        <CardHeader className="pb-3 border-b border-[#DFD7CB] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <CardTitle className="text-base font-bold text-[#2C2621]">Recent Mentorship Sessions</CardTitle>
             <CardDescription className="text-xs text-[#7A7067]">
               1-on-1 advisory notes & guidance action plans
             </CardDescription>
           </div>
+          <Link href="/mentor/sessions">
+            <Button variant="outline" size="sm" className="text-xs font-semibold rounded-xl border-[#DFD7CB] text-[#2C2621] hover:bg-[#FAF6F0] gap-1 h-9 cursor-pointer">
+              All Sessions & Action Plans <ArrowRight className="w-3.5 h-3.5 text-[#A36B40]" />
+            </Button>
+          </Link>
         </CardHeader>
 
         <CardContent className="p-4 sm:p-6 space-y-3">

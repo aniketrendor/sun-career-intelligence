@@ -8,7 +8,7 @@ import {
   MessageSquare, User, Users, ClipboardList, Building2,
   QrCode, GraduationCap, X, Sparkles, ShieldCheck,
   ChevronRight, Compass, UserCheck, KeyRound, Award,
-  ClipboardCheck, Layers, FileText
+  ClipboardCheck, Layers, FileText, Calendar
 } from 'lucide-react'
 
 export interface NavItem {
@@ -43,8 +43,12 @@ const iconMap: Record<string, any> = {
   // Mentor
   '/mentor/dashboard': LayoutDashboard,
   '/mentor/students': Users,
-  '/mentor/assessments': BookOpen,
+  '/mentor/availability': Calendar,
+  '/mentor/sessions': MessageSquare,
+  '/mentor/evaluations': ClipboardCheck,
   '/mentor/programs': Building2,
+  '/mentor/profile': User,
+  '/mentor/assessments': BookOpen,
   '/mentor/referral-codes': KeyRound,
   '/mentor/analytics': BarChart2,
   '/mentor/approvals': ClipboardList,

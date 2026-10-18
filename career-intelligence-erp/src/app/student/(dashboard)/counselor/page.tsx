@@ -68,6 +68,53 @@ export default async function StudentCounselorPage() {
   const counselorUser = (assignment as any)?.counselor
   const sessionList = sessions || []
 
+  // Fetch mentor profile metadata if counselor assigned
+  let mentorMeta = {
+    title: 'Institutional Career & Faculty Mentor',
+    cabin: 'Cabin 304, Academic Block, Sandip University',
+    expertise: [] as string[],
+    consultation_hours: 'Mon & Wed: 02:00 PM - 04:30 PM',
+    bio: ''
+  }
+
+  if (counselorUser?.id) {
+    const { data: cp } = await supabase
+      .from('counselor_profiles')
+      .select('*')
+      .eq('user_id', counselorUser.id)
+      .maybeSingle()
+
+    if (cp?.designation) {
+      try {
+        if (cp.designation.startsWith('{')) {
+          const parsed = JSON.parse(cp.designation)
+          mentorMeta = {
+            title: parsed.title || mentorMeta.title,
+            cabin: parsed.cabin || mentorMeta.cabin,
+            expertise: Array.isArray(parsed.expertise) ? parsed.expertise : [],
+            consultation_hours: parsed.consultation_hours || mentorMeta.consultation_hours,
+            bio: parsed.bio || ''
+          }
+        } else {
+          mentorMeta.title = cp.designation
+        }
+      } catch (e) {
+        mentorMeta.title = cp.designation
+      }
+    }
+  }
+
+  // Parse faculty endorsement note from assignment if present
+  let endorsementData = null
+  if (assignment?.notes?.startsWith('[ENDORSED:')) {
+    const lines = assignment.notes.split('\n')
+    endorsementData = {
+      header: lines[0]?.replace('[', '').replace(']', '') || '',
+      track: lines.find((l: string) => l.startsWith('Target Track:'))?.replace('Target Track:', '').trim() || '',
+      note: lines.find((l: string) => l.startsWith('Faculty Note:'))?.replace('Faculty Note:', '').trim() || ''
+    }
+  }
+
   return (
     <div className="space-y-8 max-w-5xl mx-auto font-sans">
       {/* Header */}
@@ -81,46 +128,110 @@ export default async function StudentCounselorPage() {
         </p>
       </div>
 
+      {/* Endorsement Banner if present */}
+      {endorsementData && (
+        <Card className="border-emerald-200 bg-emerald-50/80 rounded-3xl shadow-xs overflow-hidden">
+          <CardContent className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2">
+                <Badge className="bg-emerald-700 text-white border-0 text-xs font-bold rounded-full px-2.5 py-0.5">
+                  Official Faculty Endorsement
+                </Badge>
+                <span className="text-xs text-emerald-800 font-semibold">{endorsementData.header}</span>
+              </div>
+              <h3 className="text-base font-extrabold text-[#2C2621]">
+                Specialization Track: {endorsementData.track}
+              </h3>
+              <p className="text-xs text-emerald-900 leading-relaxed italic">
+                &quot;{endorsementData.note}&quot;
+              </p>
+            </div>
+            <div className="w-12 h-12 rounded-2xl bg-white border border-emerald-200 flex items-center justify-center text-emerald-700 shrink-0 shadow-xs">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Counselor Profile Card */}
       <Card className="border-[#DFD7CB] bg-white rounded-3xl shadow-xs overflow-hidden">
         <div className="h-3 w-full bg-[#A36B40]" />
-        <CardContent className="p-6 md:p-8">
+        <CardContent className="p-6 md:p-8 space-y-6">
           {counselorUser ? (
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-              <div className="flex items-center gap-5">
-                <div className="w-16 h-16 rounded-2xl bg-[#FAF6F0] text-[#A36B40] flex items-center justify-center font-bold text-xl border border-[#DFD7CB] shadow-xs">
-                  {counselorUser.full_name?.split(' ').map((n: string) => n[0]).join('').slice(0, 2) || 'CA'}
+            <div className="space-y-6">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="flex items-center gap-5">
+                  <div className="w-16 h-16 rounded-2xl bg-[#FAF6F0] text-[#A36B40] flex items-center justify-center font-bold text-xl border border-[#DFD7CB] shadow-xs shrink-0">
+                    {counselorUser.full_name?.split(' ').map((n: string) => n[0]).join('').slice(0, 2) || 'CA'}
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h2 className="text-xl font-bold text-[#2C2621]">{counselorUser.full_name}</h2>
+                      <Badge className="bg-[#77734B]/15 text-[#77734B] border-0 text-xs rounded-full px-2.5 py-0.5 font-bold">
+                        Assigned Advisor
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-[#7A7067] font-medium">{mentorMeta.title}</p>
+                    <div className="flex flex-wrap items-center gap-4 text-xs text-[#7A7067] pt-1">
+                      {counselorUser.email && (
+                        <span className="flex items-center gap-1">
+                          <Mail className="w-3.5 h-3.5 text-[#A36B40]" /> {counselorUser.email}
+                        </span>
+                      )}
+                      {counselorUser.phone && (
+                        <span className="flex items-center gap-1">
+                          <Phone className="w-3.5 h-3.5 text-[#A36B40]" /> {counselorUser.phone}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-xl font-bold text-[#2C2621]">{counselorUser.full_name}</h2>
-                    <Badge className="bg-[#77734B]/15 text-[#77734B] border-0 text-xs rounded-full px-2.5 py-0.5 font-bold">
-                      Assigned Advisor
-                    </Badge>
-                  </div>
-                  <p className="text-xs text-[#7A7067]">Institutional Career & Placement Counselor</p>
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-[#7A7067] pt-1">
-                    {counselorUser.email && (
-                      <span className="flex items-center gap-1">
-                        <Mail className="w-3.5 h-3.5 text-[#A36B40]" /> {counselorUser.email}
-                      </span>
-                    )}
-                    {counselorUser.phone && (
-                      <span className="flex items-center gap-1">
-                        <Phone className="w-3.5 h-3.5 text-[#A36B40]" /> {counselorUser.phone}
-                      </span>
-                    )}
-                  </div>
+
+                <div className="shrink-0 flex gap-3">
+                  <a href={`mailto:${counselorUser.email || ''}?subject=Advisory%20Consultation%20Request`}>
+                    <Button className="gap-2 bg-[#A36B40] hover:bg-[#8E5B34] text-white rounded-2xl h-10 px-5 shadow-md shadow-[#A36B40]/25 cursor-pointer font-bold">
+                      <Mail className="w-4 h-4" /> Request Meeting
+                    </Button>
+                  </a>
                 </div>
               </div>
 
-              <div className="shrink-0 flex gap-3">
-                <a href={`mailto:${counselorUser.email || ''}`}>
-                  <Button className="gap-2 bg-[#A36B40] hover:bg-[#8E5B34] text-white rounded-2xl h-10 px-5 shadow-md shadow-[#A36B40]/25 cursor-pointer font-bold">
-                    <Mail className="w-4 h-4" /> Request Meeting
-                  </Button>
-                </a>
+              {/* Bio if available */}
+              {mentorMeta.bio && (
+                <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#DFD7CB] text-xs text-[#7A7067] italic leading-relaxed">
+                  &quot;{mentorMeta.bio}&quot;
+                </div>
+              )}
+
+              {/* Location, Hours & Specializations */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-[#DFD7CB]/60 text-xs">
+                <div className="p-3.5 rounded-xl bg-white border border-[#DFD7CB] space-y-1">
+                  <p className="font-semibold text-[#7A7067]">Cabin Office Location</p>
+                  <p className="font-bold text-[#2C2621]">{mentorMeta.cabin}</p>
+                </div>
+                <div className="p-3.5 rounded-xl bg-white border border-[#DFD7CB] space-y-1">
+                  <p className="font-semibold text-[#7A7067]">Consultation Hours</p>
+                  <p className="font-bold text-[#2C2621]">{mentorMeta.consultation_hours}</p>
+                </div>
               </div>
+
+              {mentorMeta.expertise.length > 0 && (
+                <div className="space-y-2 pt-1">
+                  <p className="text-xs font-bold text-[#7A7067] uppercase tracking-wider">
+                    Faculty Mentorship Specializations
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {mentorMeta.expertise.map(tag => (
+                      <Badge
+                        key={tag}
+                        className="bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] text-xs font-semibold rounded-md px-2.5 py-0.5"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-center py-6 space-y-3">
