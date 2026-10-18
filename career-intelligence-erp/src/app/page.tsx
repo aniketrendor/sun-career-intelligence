@@ -10,8 +10,8 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
 import { MobileLandingView } from '@/components/landing/mobile-landing'
+import { CookieConsent } from '@/components/landing/cookie-consent'
 
 export const dynamic = 'force-dynamic'
 
@@ -930,6 +930,9 @@ export default async function LandingPage() {
 
         </div>
       </footer>
+
+      {/* ─── COOKIE & PRIVACY CONSENT BANNER ──────────────────────── */}
+      <CookieConsent />
 
       </div>
     </div>
