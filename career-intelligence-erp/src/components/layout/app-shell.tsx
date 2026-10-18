@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Menu, Bell, LogOut, Search, Sparkles, ChevronRight, User } from 'lucide-react'
 import { signOut } from '@/lib/actions/auth.actions'
@@ -47,7 +48,7 @@ export function AppShell({
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top App Header */}
         <header className="h-16 bg-white/90 backdrop-blur-md border-b border-[#DFD7CB] flex items-center justify-between px-4 md:px-8 z-20 flex-shrink-0">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <button
               onClick={() => setSidebarOpen(true)}
               className="lg:hidden p-2 rounded-xl hover:bg-[#EFE2D0]/60 text-[#2C2621] transition-colors"
@@ -55,21 +56,43 @@ export function AppShell({
               <Menu className="w-5 h-5" />
             </button>
 
+            {/* Sandip University Official Logo */}
+            <a
+              href="https://sandipuniversity.edu.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center hover:opacity-90 transition-opacity shrink-0"
+              title="Sandip University - NAAC Grade A"
+            >
+              <div className="relative h-8 sm:h-9 w-32 sm:w-40">
+                <Image
+                  src="/sandip-university-logo.png"
+                  alt="Sandip University - NAAC Grade A"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                />
+              </div>
+            </a>
+
             {breadcrumbs && breadcrumbs.length > 0 && (
-              <nav className="flex items-center gap-2 text-xs font-medium text-[#7A7067]">
-                {breadcrumbs.map((crumb, index) => (
-                  <span key={index} className="flex items-center gap-2">
-                    {index > 0 && <ChevronRight className="w-3 h-3 text-[#7A7067]" />}
-                    {crumb.href ? (
-                      <Link href={crumb.href} className="hover:text-[#A36B40] transition-colors">
-                        {crumb.label}
-                      </Link>
-                    ) : (
-                      <span className="text-[#2C2621] font-semibold">{crumb.label}</span>
-                    )}
-                  </span>
-                ))}
-              </nav>
+              <>
+                <span className="text-xs text-[#DFD7CB] hidden sm:inline">/</span>
+                <nav className="hidden sm:flex items-center gap-2 text-xs font-medium text-[#7A7067]">
+                  {breadcrumbs.map((crumb, index) => (
+                    <span key={index} className="flex items-center gap-2">
+                      {index > 0 && <ChevronRight className="w-3 h-3 text-[#7A7067]" />}
+                      {crumb.href ? (
+                        <Link href={crumb.href} className="hover:text-[#A36B40] transition-colors">
+                          {crumb.label}
+                        </Link>
+                      ) : (
+                        <span className="text-[#2C2621] font-semibold">{crumb.label}</span>
+                      )}
+                    </span>
+                  ))}
+                </nav>
+              </>
             )}
           </div>
 

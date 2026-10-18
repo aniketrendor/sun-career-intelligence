@@ -751,68 +751,63 @@ export default async function LandingPage() {
                   Evaluate your strengths across 10 psychometric & aptitude dimensions. Get instant course match rankings and personalized counseling from Sandip University subject and industry mentors.
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 pt-1 sm:pt-2 text-xs text-[#EFE2D0] text-left">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#77734B] shrink-0" />
-                    <span>100% Free · Zero Sign-Up Fees</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#77734B] shrink-0" />
-                    <span>Instant Assessment Report</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#77734B] shrink-0" />
-                    <span>1-on-1 Mentor Consultation</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Launch Action Box */}
-              <div className="lg:col-span-5 bg-[#FAF6F0] text-[#2C2621] p-5 sm:p-7 rounded-2xl sm:rounded-3xl border border-[#DFD7CB] shadow-xl space-y-4 sm:space-y-5">
-                
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#A36B40] bg-[#FAF6F0] px-2 py-0.5 rounded-md border border-[#DFD7CB]">
-                      Free Access
-                    </span>
-                    <span className="text-[11px] sm:text-xs text-[#7A7067] font-bold">~15 Minutes</span>
-                  </div>
-                  <h3 className="text-base sm:text-lg font-extrabold text-[#2C2621]">Launch Career Assessment</h3>
-                  <p className="text-xs text-[#7A7067]">
-                    Choose your candidate track and begin your 30-MCQ diagnostic test immediately.
-                  </p>
-                </div>
-
-                <div className="space-y-2.5 sm:space-y-3 pt-1">
-                  <Link href="/login" className="block w-full">
-                    <Button className="w-full h-11 sm:h-12 bg-[#A36B40] hover:bg-[#8E5B34] text-white font-extrabold text-xs rounded-xl sm:rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
+                <div className="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                  <Link href="/login">
+                    <Button className="h-11 sm:h-12 px-6 bg-[#A36B40] hover:bg-[#8E5B34] text-white font-extrabold text-xs sm:text-sm rounded-xl sm:rounded-2xl shadow-lg shadow-[#A36B40]/25 transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center gap-2 cursor-pointer">
                       <Sparkles className="w-4 h-4 text-amber-200" />
-                      <span>Start Free Assessment (Fresher Track)</span>
+                      <span>Start Free Assessment</span>
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
-
-                  <Link href="/login" className="block w-full">
-                    <Button variant="outline" className="w-full h-10 sm:h-11 border-[#DFD7CB] bg-white text-[#2C2621] hover:bg-[#FAF6F0] font-bold text-xs rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 cursor-pointer shadow-xs">
-                      <GraduationCap className="w-4 h-4 text-[#77734B]" />
-                      <span>Existing Student PRN / Mentor Login</span>
+                  <Link href="/login">
+                    <Button variant="outline" className="h-11 sm:h-12 px-5 border-[#443C34] bg-[#2C2621]/80 hover:bg-[#332D27] text-[#EFE2D0] hover:text-white font-bold text-xs sm:text-sm rounded-xl sm:rounded-2xl transition-all cursor-pointer">
+                      <GraduationCap className="w-4 h-4 text-[#C6A18D]" />
+                      <span>Student / Mentor Login</span>
                     </Button>
                   </Link>
                 </div>
+              </div>
 
-                <div className="pt-2 border-t border-[#DFD7CB] flex items-center justify-between text-[10px] sm:text-[11px] text-[#7A7067]">
-                  <span>Direct Admissions Portal:</span>
-                  <a
-                    href="https://admission.sandipuniversity.edu.in/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-bold text-[#A36B40] hover:underline inline-flex items-center gap-1"
-                  >
-                    <span>Sandip Portal</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
+              {/* Right Column: Cards from Image-2 */}
+              <div className="lg:col-span-5 space-y-3.5">
+                {/* Card 1 */}
+                <div className="bg-[#FAF6F0] text-[#2C2621] p-4.5 sm:p-5 rounded-2xl border border-[#DFD7CB] shadow-md flex items-start gap-3.5 transition-transform hover:-translate-y-0.5">
+                  <div className="w-10 h-10 rounded-xl bg-[#A36B40]/15 flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-5 h-5 text-[#A36B40]" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-sm sm:text-base font-extrabold text-[#2C2621]">100% Free · Zero Sign-Up Fees</h4>
+                    <p className="text-xs text-[#7A7067] leading-relaxed">
+                      Complimentary access for all 10th, 12th, Diploma & Degree students. No hidden charges or registration fees.
+                    </p>
+                  </div>
                 </div>
 
+                {/* Card 2 */}
+                <div className="bg-[#FAF6F0] text-[#2C2621] p-4.5 sm:p-5 rounded-2xl border border-[#DFD7CB] shadow-md flex items-start gap-3.5 transition-transform hover:-translate-y-0.5">
+                  <div className="w-10 h-10 rounded-xl bg-[#A36B40]/15 flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-5 h-5 text-[#A36B40]" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-sm sm:text-base font-extrabold text-[#2C2621]">Instant Assessment Report</h4>
+                    <p className="text-xs text-[#7A7067] leading-relaxed">
+                      Immediate diagnostic report with primary personality archetype, strengths matrix, and program compatibility scores.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card 3 */}
+                <div className="bg-[#FAF6F0] text-[#2C2621] p-4.5 sm:p-5 rounded-2xl border border-[#DFD7CB] shadow-md flex items-start gap-3.5 transition-transform hover:-translate-y-0.5">
+                  <div className="w-10 h-10 rounded-xl bg-[#A36B40]/15 flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-5 h-5 text-[#A36B40]" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-sm sm:text-base font-extrabold text-[#2C2621]">1-on-1 Mentor Consultation</h4>
+                    <p className="text-xs text-[#7A7067] leading-relaxed">
+                      Direct video advisory session with Sandip University academic mentors to plan specializations and scholarships.
+                    </p>
+                  </div>
+                </div>
               </div>
 
             </div>
