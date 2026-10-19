@@ -10,7 +10,6 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { MobileLandingView } from '@/components/landing/mobile-landing'
 import { CookieConsent } from '@/components/landing/cookie-consent'
 
 export const dynamic = 'force-dynamic'
@@ -151,28 +150,22 @@ export default async function LandingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#FAF6F0] font-sans text-[#2C2621] selection:bg-[#A36B40]/20 selection:text-[#A36B40]">
+    <div className="min-h-screen bg-[#FAF6F0] font-sans text-[#2C2621] selection:bg-[#A36B40]/20 selection:text-[#A36B40] pb-16 md:pb-0 overflow-x-hidden">
       
-      {/* ─── DEDICATED MOBILE VIEW (HIGH PERFORMANCE, INTERACTIVE & COMPACT) ─── */}
-      <div className="block md:hidden">
-        <MobileLandingView dashboardHref={dashboardHref} />
-      </div>
-
-      {/* ─── DESKTOP VIEW (FULL & UNCHANGED) ─────────────────────────────────── */}
-      <div className="hidden md:block">
-        {/* ─── TOP INSTITUTIONAL ACCREDITATION STRIP (DESKTOP) ───────────── */}
-        <div className="bg-[#211D19] text-[#EFE2D0] py-2 px-4 text-xs font-medium border-b border-[#332D27]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+      {/* ─── TOP INSTITUTIONAL ACCREDITATION STRIP ──────────────────────── */}
+      <div className="bg-[#211D19] text-[#EFE2D0] py-2 px-3 sm:px-4 text-[11px] sm:text-xs font-medium border-b border-[#332D27]">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-2 text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 flex-wrap">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             <span className="font-semibold text-white">Sandip University, Nashik</span>
-            <span className="text-[#C6A18D] hidden md:inline">· NAAC 'A' Grade Accredited · UGC Recognized · 250+ Acres Campus</span>
+            <span className="text-[#C6A18D] text-[10px] sm:text-xs">· NAAC 'A' Grade Accredited · UGC Recognized</span>
+            <span className="text-[#C6A18D] hidden md:inline">· 250+ Acres Campus</span>
           </div>
-          <div className="flex items-center gap-4 text-[11px] text-[#C6A18D]">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 text-[10px] sm:text-[11px] text-[#C6A18D] flex-wrap">
             <span className="flex items-center gap-1 font-semibold text-emerald-400">
-              <CheckCircle2 className="w-3.5 h-3.5" /> 100% Free Career Diagnostic Open
+              <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> 100% Free Career Diagnostic Open
             </span>
-            <span className="hidden sm:inline">Admissions 2026–27 Helpline: 1800-212-2714</span>
+            <a href="tel:18002122714" className="hover:text-white transition-colors">Toll-Free: 1800-212-2714</a>
           </div>
         </div>
       </div>
@@ -180,8 +173,8 @@ export default async function LandingPage() {
       {/* ─── NAVBAR ──────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 bg-[#FAF6F0]/95 backdrop-blur-md border-b border-[#DFD7CB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative h-10 sm:h-11 w-10 sm:w-11 rounded-full overflow-hidden shrink-0 shadow-xs ring-1 ring-[#DFD7CB] bg-white group-hover:scale-105 transition-transform">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+            <div className="relative h-9 sm:h-11 w-9 sm:w-11 rounded-full overflow-hidden shrink-0 shadow-xs ring-1 ring-[#DFD7CB] bg-white group-hover:scale-105 transition-transform">
               <Image
                 src="/sun-career-intelligence-logo.png"
                 alt="SUN Career Intelligence Logo"
@@ -194,13 +187,13 @@ export default async function LandingPage() {
               <span className="text-xs sm:text-sm font-extrabold text-[#2C2621] uppercase tracking-wider leading-tight">
                 SUN Career Intelligence
               </span>
-              <span className="text-[10px] text-[#A36B40] font-semibold">
+              <span className="text-[9px] sm:text-[10px] text-[#A36B40] font-semibold">
                 Sandip University · Institutional System
               </span>
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-[#7A7067]">
+          <nav className="hidden lg:flex items-center gap-6 text-xs font-semibold text-[#7A7067]">
             <a href="#assessment" className="hover:text-[#A36B40] transition-colors">Free Assessment</a>
             <a href="#mentorship" className="hover:text-[#A36B40] transition-colors">Expert Mentors</a>
             <a href="#schools" className="hover:text-[#A36B40] transition-colors">Academic Schools</a>
@@ -210,8 +203,8 @@ export default async function LandingPage() {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <Link href="/login">
-              <Button className="bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-[11px] sm:text-xs h-8 sm:h-9 px-3 sm:px-4 rounded-xl shadow-md shadow-[#A36B40]/25 transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer">
-                <span>Go to Login</span>
+              <Button className="bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-[11px] sm:text-xs h-8 sm:h-9 px-3 sm:px-4 rounded-xl shadow-md shadow-[#A36B40]/25 transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer active:scale-95">
+                <span>Login / Portal</span>
                 <ArrowRight className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
               </Button>
             </Link>
@@ -300,7 +293,7 @@ export default async function LandingPage() {
             </div>
 
             {/* Right Interactive Preview Card */}
-            <div className="lg:col-span-5 relative">
+            <div className="lg:col-span-5 relative w-full max-w-md mx-auto lg:max-w-none">
               
               {/* Outer decorative card frame */}
               <div className="relative bg-white border border-[#DFD7CB] rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-2xl shadow-[#A36B40]/10 space-y-4 sm:space-y-6">
@@ -944,7 +937,25 @@ export default async function LandingPage() {
       {/* ─── COOKIE & PRIVACY CONSENT BANNER ──────────────────────── */}
       <CookieConsent />
 
+      {/* ─── FLOATING STICKY ACTION PILL (MOBILE ONLY) ─────────────── */}
+      <div className="md:hidden fixed bottom-3 left-3 right-3 z-40 pointer-events-none">
+        <div className="bg-[#211D19]/95 backdrop-blur-xl border border-white/15 p-2 px-3.5 rounded-2xl shadow-2xl flex items-center justify-between text-white pointer-events-auto">
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-[10px] font-extrabold uppercase text-[#EAE2D7] tracking-wider">100% Free Test</span>
+            </div>
+            <p className="text-[10px] text-[#C6A18D]">15 Mins · Self-Select Mentor</p>
+          </div>
+          <Link href="/login">
+            <Button size="sm" className="bg-[#A36B40] hover:bg-[#8E5B34] text-white font-black text-xs h-8.5 px-3.5 rounded-xl shadow-md shadow-[#A36B40]/30 active:scale-95 flex items-center gap-1.5 cursor-pointer">
+              <span>Start Now</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Button>
+          </Link>
+        </div>
       </div>
+
     </div>
   )
 }
