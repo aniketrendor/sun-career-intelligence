@@ -879,9 +879,9 @@ export default async function LandingPage() {
                     href="https://admission.sandipuniversity.edu.in/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-white transition-colors inline-flex items-center gap-1 text-[#EFE2D0] font-semibold"
+                    className="hover:text-white transition-colors"
                   >
-                    Apply for Admissions <ExternalLink className="w-3 h-3 text-[#C6A18D]" />
+                    Sandip University Admissions
                   </a>
                 </li>
                 <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>

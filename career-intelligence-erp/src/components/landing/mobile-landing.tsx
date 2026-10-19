@@ -636,7 +636,7 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
             <p className="font-bold text-white uppercase text-[10px] tracking-wider">Portals</p>
             <p><Link href="/login" className="hover:text-white">Student Login</Link></p>
             <p><Link href="/login" className="hover:text-white">Mentor Login</Link></p>
-            <p><a href="https://admission.sandipuniversity.edu.in/" target="_blank" rel="noopener noreferrer" className="hover:text-white inline-flex items-center gap-1">Admissions <ExternalLink className="w-2.5 h-2.5" /></a></p>
+            <p><a href="https://admission.sandipuniversity.edu.in/" target="_blank" rel="noopener noreferrer" className="hover:text-white">Sandip University Admissions</a></p>
           </div>
           <div className="space-y-1.5">
             <p className="font-bold text-white uppercase text-[10px] tracking-wider">Contact</p>
