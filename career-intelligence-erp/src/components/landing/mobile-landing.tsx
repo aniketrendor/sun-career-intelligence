@@ -53,7 +53,7 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
     },
     {
       step: '03',
-      title: 'Assessment Report',
+      title: 'Instant Archetype & Degree Match',
       time: 'Instant Analytics',
       icon: Compass,
       tag: 'Archetype Blueprint',
@@ -62,12 +62,12 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
     },
     {
       step: '04',
-      title: '1-on-1 Mentor Guidance',
-      time: 'Expert Counseling',
+      title: 'Self-Select Mentor & Live Video',
+      time: '1-on-1 Google Meet',
       icon: Users,
-      tag: 'Industry & Subject Mentors',
-      desc: 'Connect directly with Sandip University faculty and corporate mentors to finalize your roadmap.',
-      highlights: ['Custom degree roadmap', 'Elective specialization', 'Priority admission pathway']
+      tag: 'Choose Your Mentor',
+      desc: 'Directly browse and choose your preferred mentor, book a dynamic real-time slot, and join via Google Meet.',
+      highlights: ['Choose your mentor', 'Real-time slot booking', 'Google Meet with 1-click sync']
     }
   ]
 
@@ -165,19 +165,19 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
   const faqs = [
     {
       q: 'Is this career diagnostic test completely free?',
-      a: 'Yes! The Sandip University Career Intelligence Assessment is 100% free of cost for all 10th, 12th, Diploma, and Graduate students.'
+      a: 'Yes! The Sandip University Career Intelligence Assessment, analytical report, and 1-on-1 mentor consultations are 100% free of cost.'
     },
     {
-      q: 'How long does the assessment take?',
-      a: 'The test contains 30 multiple-choice questions designed to be completed in 15 to 20 minutes directly on your phone.'
+      q: 'Can I pick my own mentor and consultation time?',
+      a: 'Yes! You can directly browse faculty and industry mentors, select your preferred advisor, and book a dynamic real-time slot that fits your schedule.'
     },
     {
-      q: 'What do I receive after finishing?',
-      a: 'You immediately receive a comprehensive Career Intelligence Report with your primary archetype, program compatibility scores, and 1-on-1 mentor guidance.'
+      q: 'How does the 1-on-1 video session work?',
+      a: 'Consultations are conducted over Google Meet. You get an instant confirmation link with 1-click Google Calendar sync.'
     },
     {
       q: 'Do I need any prior preparation?',
-      a: 'No preparation is needed. The questions evaluate your natural cognitive instincts and interests through realistic scenarios.'
+      a: 'No preparation is needed. The 30 scenario-based questions evaluate your natural cognitive instincts and domain affinity.'
     }
   ]
 
@@ -248,7 +248,7 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
               </span>
             </h1>
             <p className="text-[13px] text-[#6E645A] leading-relaxed">
-              Take the scientific 15-minute diagnostic test engineered by Sandip University experts. Discover your top degree matches and connect with 1-on-1 mentors.
+              Take the scientific 15-minute diagnostic test engineered by Sandip University experts. Discover your top degree matches, self-select your preferred mentor, and join 1-on-1 Google Meet sessions.
             </p>
           </div>
 
@@ -290,7 +290,7 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
               <div className="grid grid-cols-3 gap-1.5 pt-1 text-center text-[10px] font-medium text-[#C6A18D]">
                 <div className="bg-white/5 rounded-lg py-1 px-1">⚡ 15 Mins</div>
                 <div className="bg-white/5 rounded-lg py-1 px-1">🎯 30 MCQs</div>
-                <div className="bg-white/5 rounded-lg py-1 px-1">🤝 1-on-1 Mentor</div>
+                <div className="bg-white/5 rounded-lg py-1 px-1">🤝 Self-Pick Mentor</div>
               </div>
             </div>
 
@@ -308,13 +308,13 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
           {/* Quick Sub-trust Checkmarks */}
           <div className="flex items-center justify-around text-[11px] font-semibold text-[#6E645A] pt-1">
             <span className="flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Instant Assessment Report
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Instant Match
             </span>
             <span className="flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> 100% Free Access
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Self-Select Mentor
             </span>
             <span className="flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Expert Guidance
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Google Meet Sync
             </span>
           </div>
 
@@ -521,31 +521,35 @@ export function MobileLandingView({ dashboardHref }: MobileLandingProps) {
         <div className="bg-gradient-to-br from-[#211D19] via-[#2A241F] to-[#1A1613] text-[#FAF7F2] p-4.5 rounded-3xl border border-[#3E362F] shadow-xl space-y-3.5 relative overflow-hidden">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#A36B40]/30 text-[#C6A18D] border border-[#A36B40]/40">
-              <Users className="w-3 h-3 text-[#C6A18D]" /> 1-on-1 Counseling
+              <Users className="w-3 h-3 text-[#C6A18D]" /> Self-Service Mentor Selection
             </div>
             <h2 className="text-base font-black text-[#FAF7F2] leading-snug">
-              Guided by Subject & Industry Mentors
+              Choose Your Subject & Industry Mentor
             </h2>
             <p className="text-xs text-[#C6A18D]/90 leading-relaxed">
-              Every student gets paired with domain experts to review test scores, clarify specializations, and explore scholarship options.
+              Browse faculty and industry mentors, pick your preferred guide, and book a dynamic real-time slot for 1-on-1 Google Meet with 1-click calendar sync.
             </p>
           </div>
 
           <div className="space-y-2 pt-1">
             <div className="flex items-center gap-2 text-[11px] text-[#EAE2D7]">
               <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 stroke-[3]" />
-              <span>Personalized cognitive strength breakdown</span>
+              <span>Self-select mentor from 7 academic faculties</span>
             </div>
             <div className="flex items-center gap-2 text-[11px] text-[#EAE2D7]">
               <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 stroke-[3]" />
-              <span>1-on-1 career mentor consultation</span>
+              <span>Real-time slot booking with collision protection</span>
+            </div>
+            <div className="flex items-center gap-2 text-[11px] text-[#EAE2D7]">
+              <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 stroke-[3]" />
+              <span>Direct Google Meet with 1-click calendar sync</span>
             </div>
           </div>
 
           <Link href="/login" className="block w-full pt-1">
             <Button className="w-full h-11 bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-xs rounded-2xl shadow-xs gap-2 active:scale-95">
               <MessageSquare className="w-3.5 h-3.5" />
-              <span>Book Mentor Session with Free Test</span>
+              <span>Select Mentor & Start Free Test</span>
             </Button>
           </Link>
         </div>

@@ -100,49 +100,49 @@ export default async function LandingPage() {
     {
       step: '01',
       title: 'Quick Profile Setup',
-      time: '0 Mins · Free',
+      time: '0 Mins · Free Access',
       desc: '100% free access with zero registration fees. Simply enter your basic candidate details or school referral code.',
       icon: Sparkles,
-      highlights: ['No credit card needed', 'Instant mobile/laptop access', 'Secure profile generation']
+      highlights: ['No credit card or paperwork', 'Instant mobile & laptop access', 'Secure candidate profile']
     },
     {
       step: '02',
       title: 'Adaptive Diagnostic Test',
       time: '15 Mins · 30 MCQs',
-      desc: 'Complete 30 interactive multiple-choice questions assessing your cognitive strengths, logic, and subject interests.',
+      desc: 'Complete 30 interactive multiple-choice questions assessing your cognitive strengths, logic, and subject affinity.',
       icon: Brain,
       highlights: ['Psychometric evaluation', 'Domain-specific problem scenarios', 'Adaptive difficulty engine']
     },
     {
       step: '03',
-      title: 'Assessment Report',
+      title: 'Instant Archetype & Degree Match',
       time: 'Instant Report',
-      desc: 'Instantly receive your comprehensive analytical report revealing your core archetype and program rankings.',
+      desc: 'Instantly view your comprehensive analytical report revealing your core archetype and top degree compatibility rankings.',
       icon: Compass,
-      highlights: ['Archetype fingerprint', 'Top 5 career domain fits', 'Skill gap & strength analysis']
+      highlights: ['Archetype fingerprint', 'Top 5 career domain fits', 'Strengths & skill gap analysis']
     },
     {
       step: '04',
-      title: 'Expert Mentor Consultation',
-      time: '1-on-1 Guidance',
-      desc: 'Connect with Sandip University subject experts and industry mentors to discuss degree pathways and admissions.',
+      title: 'Self-Select Mentor & Live Video',
+      time: '1-on-1 Google Meet',
+      desc: 'Directly browse and choose your preferred faculty or industry mentor, book a dynamic real-time slot, and connect via Google Meet.',
       icon: Users,
-      highlights: ['Personalized degree roadmap', 'Elective specialization planning', 'Priority admission pathway']
+      highlights: ['Choose your preferred mentor', 'Dynamic real-time slot booking', 'Google Meet with 1-click sync']
     }
   ]
 
   const faqs = [
     {
       q: 'Is this career diagnostic test completely free?',
-      a: 'Yes! The Sandip University Career Intelligence Assessment is 100% free of cost for all 10th, 12th, Diploma, and Graduate students exploring their next career move.'
+      a: 'Yes! The Sandip University Career Intelligence Assessment, detailed analytical report, and 1-on-1 mentor consultations are 100% free for all 10th, 12th, Diploma, and Graduate students.'
     },
     {
-      q: 'How long does the assessment take?',
-      a: 'The test comprises 30 adaptive multiple-choice questions designed to be completed in approximately 15 to 20 minutes on any smartphone, tablet, or laptop.'
+      q: 'Can I choose my own mentor and consultation time?',
+      a: 'Yes! Our self-service mentor booking system lets you browse available faculty and industry mentors, view their areas of expertise, and pick any open real-time slot that fits your schedule.'
     },
     {
-      q: 'What happens after I complete the test?',
-      a: 'You immediately receive a comprehensive Career Intelligence Report with your primary archetype, domain compatibility scores, recommended specializations, and direct booking for mentor consultation.'
+      q: 'How does the 1-on-1 video consultation take place?',
+      a: 'Consultations are conducted over secure Google Meet video links. Once you book a slot, you receive an instant confirmation with the Google Meet link, plus 1-click Google Calendar and .ics sync.'
     },
     {
       q: 'Do I need any preparation before taking the test?',
@@ -250,7 +250,7 @@ export default async function LandingPage() {
 
               {/* Subheadline */}
               <p className="text-xs sm:text-sm lg:text-base text-[#7A7067] leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Stop guessing your future. Take the scientific 30-question diagnostic assessment engineered by Sandip University’s subject and industry experts. Discover your top-matched programs, specializations, and get 1-on-1 career mentor counseling.
+                Stop guessing your future. Take the scientific 30-question diagnostic assessment engineered by Sandip University’s subject and industry experts. Discover your top-matched programs, self-select your preferred mentor, and book a 1-on-1 Google Meet consultation with instant calendar sync.
               </p>
 
               {/* Value Points Pill Grid */}
@@ -261,11 +261,11 @@ export default async function LandingPage() {
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2 bg-white p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-[#DFD7CB] shadow-xs text-center sm:text-left">
                   <Clock className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#A36B40] shrink-0" />
-                  <span className="leading-tight">~15 Mins</span>
+                  <span className="leading-tight">~15 Mins · 30 MCQs</span>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2 bg-white p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-[#DFD7CB] shadow-xs text-center sm:text-left">
                   <Award className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#77734B] shrink-0" />
-                  <span className="leading-tight">Mentor Review</span>
+                  <span className="leading-tight">Self-Select Mentor</span>
                 </div>
               </div>
 
@@ -294,7 +294,7 @@ export default async function LandingPage() {
                   <div className="w-6 sm:w-7 h-6 sm:h-7 rounded-full bg-[#77734B] text-white font-bold text-[9px] sm:text-[10px] flex items-center justify-center border-2 border-white">RD</div>
                   <div className="w-6 sm:w-7 h-6 sm:h-7 rounded-full bg-[#C6A18D] text-white font-bold text-[9px] sm:text-[10px] flex items-center justify-center border-2 border-white">PS</div>
                 </div>
-                <span>Guided by <strong>45+ Subject & Industry Mentors</strong></span>
+                <span>Guided by <strong>45+ Subject & Industry Mentors</strong> · Live Google Meet & Calendar Sync</span>
               </div>
 
             </div>
@@ -358,8 +358,8 @@ export default async function LandingPage() {
                 {/* Mentor Endorsement Strip */}
                 <div className="bg-[#211D19] text-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-[#332D27] flex items-center justify-between gap-3">
                   <div className="space-y-0.5">
-                    <span className="text-[9px] sm:text-[10px] text-[#C6A18D] uppercase font-bold tracking-wider">Advisory Outcome</span>
-                    <p className="text-[11px] sm:text-xs font-bold text-[#EFE2D0]">Recommended for B.Tech CSE (AI & ML)</p>
+                    <span className="text-[9px] sm:text-[10px] text-[#C6A18D] uppercase font-bold tracking-wider">Self-Select Mentor · Live Video</span>
+                    <p className="text-[11px] sm:text-xs font-bold text-[#EFE2D0]">Recommended: B.Tech CSE (AI & ML) · 1-on-1 Google Meet</p>
                   </div>
                   <Link href="/login" className="shrink-0">
                     <Button size="sm" className="bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-xs h-7 sm:h-8 px-2.5 sm:px-3 rounded-xl cursor-pointer">
@@ -483,22 +483,22 @@ export default async function LandingPage() {
             
             <div className="lg:col-span-7 space-y-4 sm:space-y-6">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#A36B40]/25 text-[#C6A18D] border border-[#A36B40]/40">
-                <Users className="w-3.5 h-3.5 text-[#C6A18D]" /> 1-on-1 Advisory Council
+                <Users className="w-3.5 h-3.5 text-[#C6A18D]" /> Self-Service Mentor Selection
               </div>
 
               <h2 className="text-xl sm:text-3xl lg:text-4xl font-extrabold text-[#EFE2D0] tracking-tight leading-tight">
-                Get Guided by Experienced Subject Experts & Industry Mentors
+                Choose Your Subject Expert or Industry Mentor for 1-on-1 Guidance
               </h2>
 
               <p className="text-xs sm:text-sm text-[#C6A18D]/90 leading-relaxed max-w-xl">
-                Unlike generic online tests, Sandip University pairs your psychometric diagnostic results with seasoned industry and domain experts. Review your strengths, explore elective specializations, and resolve curriculum doubts in personalized 1-on-1 sessions.
+                Unlike generic online tests, Sandip University empowers you to browse our distinguished faculty and industry mentor roster, select your preferred advisor, and book dynamic real-time slots. Discuss your diagnostic scores, elective specializations, and admissions roadmap via direct Google Meet with 1-click calendar sync.
               </p>
 
               <div className="pt-2 sm:pt-4">
                 <Link href="/login" className="block sm:inline-block">
                   <Button className="w-full sm:w-auto h-11 sm:h-12 px-6 sm:px-7 bg-[#A36B40] hover:bg-[#8E5B34] text-white font-bold text-xs rounded-2xl shadow-md shadow-[#A36B40]/25 transition-all gap-2 cursor-pointer">
                     <MessageSquare className="w-4 h-4" />
-                    <span>Book Mentor Guidance with Free Test</span>
+                    <span>Select Mentor & Start Free Test</span>
                   </Button>
                 </Link>
               </div>
@@ -508,20 +508,20 @@ export default async function LandingPage() {
             <div className="lg:col-span-5 space-y-3 sm:space-y-3.5">
               {[
                 {
-                  text: 'Personalized analysis of your cognitive aptitude & domain compatibility',
-                  tag: 'Cognitive Aptitude',
+                  text: 'Self-select your preferred mentor from across 7 academic schools and industry specializations',
+                  tag: 'Self-Service Selection',
                   icon: Brain,
                   borderHover: 'hover:border-[#A36B40]/60'
                 },
                 {
-                  text: 'In-depth breakdown of high-growth specializations and elective tracks',
-                  tag: 'Specialization Tracks',
+                  text: 'Dynamic real-time slot scheduling with collision protection and instant booking confirmation',
+                  tag: 'Real-Time Slots',
                   icon: Compass,
                   borderHover: 'hover:border-[#C87D55]/60'
                 },
                 {
-                  text: 'Prerequisite roadmap and readiness planning for competitive campus placements',
-                  tag: 'Placement Readiness',
+                  text: 'Direct 1-on-1 Google Meet video advisory with 1-click Google Calendar & .ics invite sync',
+                  tag: 'Google Meet & Calendar',
                   icon: Target,
                   borderHover: 'hover:border-[#77734B]/60'
                 }
@@ -802,9 +802,9 @@ export default async function LandingPage() {
                     <CheckCircle2 className="w-5 h-5 text-[#A36B40]" />
                   </div>
                   <div className="space-y-1">
-                    <h4 className="text-sm sm:text-base font-extrabold text-[#2C2621]">1-on-1 Mentor Consultation</h4>
+                    <h4 className="text-sm sm:text-base font-extrabold text-[#2C2621]">Self-Selected Mentor & Google Meet</h4>
                     <p className="text-xs text-[#7A7067] leading-relaxed">
-                      Direct video advisory session with Sandip University academic mentors to plan specializations and scholarships.
+                      Choose your faculty or industry mentor, book a dynamic real-time slot, and join a 1-on-1 Google Meet session with 1-click calendar sync.
                     </p>
                   </div>
                 </div>
@@ -874,6 +874,16 @@ export default async function LandingPage() {
                 <li><Link href="/login" className="hover:text-white transition-colors">Start Free Assessment</Link></li>
                 <li><Link href="/login" className="hover:text-white transition-colors">Student PRN Login</Link></li>
                 <li><Link href="/login" className="hover:text-white transition-colors">Mentor & Admin Portal</Link></li>
+                <li>
+                  <a
+                    href="https://admission.sandipuniversity.edu.in/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors inline-flex items-center gap-1 text-[#EFE2D0] font-semibold"
+                  >
+                    Apply for Admissions <ExternalLink className="w-3 h-3 text-[#C6A18D]" />
+                  </a>
+                </li>
                 <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
                 <li><Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link></li>
               </ul>
