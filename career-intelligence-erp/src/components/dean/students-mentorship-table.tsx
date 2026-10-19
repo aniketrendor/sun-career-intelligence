@@ -417,15 +417,15 @@ export function StudentsMentorshipTable({
 
       {/* Manual Admin Mentor Assignment Modal */}
       {assigningStudent && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl border border-[#DFD7CB] shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in-50 zoom-in-95 font-sans">
-            <div className="px-6 py-4 border-b border-[#DFD7CB] flex items-center justify-between bg-[#FAF6F0]">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-2.5 sm:p-4">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#DFD7CB] shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in-50 zoom-in-95 font-sans">
+            <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-b border-[#DFD7CB] flex items-center justify-between bg-[#FAF6F0]">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-[#F7EFEA] text-[#A36B40] border border-[#A36B40]/30 flex items-center justify-center font-bold">
-                  <UserCheck className="w-5 h-5" />
+                <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-[#F7EFEA] text-[#A36B40] border border-[#A36B40]/30 flex items-center justify-center font-bold">
+                  <UserCheck className="w-4 sm:w-5 h-4 sm:h-5" />
                 </div>
                 <div>
-                  <h3 className="font-extrabold text-[#2C2621] text-base">
+                  <h3 className="font-extrabold text-[#2C2621] text-sm sm:text-base">
                     Assign Faculty Mentor
                   </h3>
                   <p className="text-xs text-[#7A7067]">
@@ -441,7 +441,7 @@ export function StudentsMentorshipTable({
               </button>
             </div>
 
-            <form onSubmit={handleConfirmAssignment} className="p-6 space-y-4">
+            <form onSubmit={handleConfirmAssignment} className="p-4 sm:p-6 space-y-4">
               <div className="bg-[#FAF6F0] p-3.5 rounded-2xl border border-[#DFD7CB] text-xs space-y-1">
                 <span className="text-[#8C8276] text-[10px] uppercase font-bold tracking-wider block">
                   Student Degree & Academic Program

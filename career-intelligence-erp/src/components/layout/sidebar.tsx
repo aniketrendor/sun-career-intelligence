@@ -195,7 +195,7 @@ export function Sidebar({ navItems, userRole, userName, userEmail, isOpen, onClo
                 prefetch={true}
                 onClick={onClose}
                 className={cn(
-                  'group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-medium transition-all duration-200 relative overflow-hidden cursor-pointer',
+                  'group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-medium transition-all duration-200 relative overflow-hidden cursor-pointer min-h-[44px] active:scale-[0.98]',
                   isActive
                     ? 'bg-[#A36B40] text-white font-semibold shadow-md shadow-[#A36B40]/25'
                     : 'text-[#DFD7CB] hover:text-white hover:bg-[#2C2621]'

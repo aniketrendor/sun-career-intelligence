@@ -562,7 +562,7 @@ export function TwoStageAssessmentView({
       {view === 'home' && (
         <div className="space-y-6">
           {/* Hero Card - Warm Espresso & Bronze Luxury Banner */}
-          <div className="rounded-3xl p-8 sm:p-10 text-white bg-gradient-to-br from-[#2C2621] via-[#352D26] to-[#453A31] border border-[#2C2621] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div className="rounded-3xl p-5 sm:p-8 md:p-10 text-white bg-gradient-to-br from-[#2C2621] via-[#352D26] to-[#453A31] border border-[#2C2621] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8">
             <div className="max-w-2xl space-y-3 relative z-10">
               <span className="text-[11px] font-extrabold tracking-widest text-amber-200 uppercase flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5" /> Explore · Try · Choose
@@ -576,22 +576,22 @@ export function TwoStageAssessmentView({
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 shrink-0 relative z-10">
-              <div className="p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm">
-                <span className="text-2xl font-black block text-amber-100">30</span>
-                <span className="text-[11px] text-[#DFD7CB]">Stage 1 case questions</span>
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3 shrink-0 relative z-10">
+              <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm">
+                <span className="text-xl sm:text-2xl font-black block text-amber-100">30</span>
+                <span className="text-[10px] sm:text-[11px] text-[#DFD7CB]">Stage 1 case questions</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm">
-                <span className="text-2xl font-black block text-amber-100">20</span>
-                <span className="text-[11px] text-[#DFD7CB]">Shared dimensions</span>
+              <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm">
+                <span className="text-xl sm:text-2xl font-black block text-amber-100">20</span>
+                <span className="text-[10px] sm:text-[11px] text-[#DFD7CB]">Shared dimensions</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm">
-                <span className="text-2xl font-black block text-amber-100">20</span>
-                <span className="text-[11px] text-[#DFD7CB]">Personalized Stage 2 cases</span>
+              <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm">
+                <span className="text-xl sm:text-2xl font-black block text-amber-100">20</span>
+                <span className="text-[10px] sm:text-[11px] text-[#DFD7CB]">Personalized Stage 2 cases</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm">
-                <span className="text-2xl font-black block text-amber-100">79</span>
-                <span className="text-[11px] text-[#DFD7CB]">Specific career domains</span>
+              <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm">
+                <span className="text-xl sm:text-2xl font-black block text-amber-100">79</span>
+                <span className="text-[10px] sm:text-[11px] text-[#DFD7CB]">Specific career domains</span>
               </div>
             </div>
           </div>
@@ -1669,18 +1669,18 @@ export function TwoStageAssessmentView({
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 shrink-0">
-              <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
-                <span className="text-xl font-black block text-amber-100">{Object.keys(s1Answers).length}/30</span>
-                <span className="text-[10px] text-[#DFD7CB]">Stage 1 answered</span>
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 shrink-0">
+              <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+                <span className="text-lg sm:text-xl font-black block text-amber-100">{Object.keys(s1Answers).length}/30</span>
+                <span className="text-[9px] sm:text-[10px] text-[#DFD7CB]">Stage 1 answered</span>
               </div>
-              <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
-                <span className="text-xl font-black block text-amber-100">{Object.keys(s2Answers).length}/20</span>
-                <span className="text-[10px] text-[#DFD7CB]">Stage 2 answered</span>
+              <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+                <span className="text-lg sm:text-xl font-black block text-amber-100">{Object.keys(s2Answers).length}/20</span>
+                <span className="text-[9px] sm:text-[10px] text-[#DFD7CB]">Stage 2 answered</span>
               </div>
-              <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
-                <span className="text-xl font-black block text-amber-100">{DOMAINS.length}</span>
-                <span className="text-[10px] text-[#DFD7CB]">Domains evaluated</span>
+              <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+                <span className="text-lg sm:text-xl font-black block text-amber-100">{DOMAINS.length}</span>
+                <span className="text-[9px] sm:text-[10px] text-[#DFD7CB]">Domains evaluated</span>
               </div>
             </div>
           </div>

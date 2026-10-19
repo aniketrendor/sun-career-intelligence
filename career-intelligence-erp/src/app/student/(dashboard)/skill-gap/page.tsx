@@ -118,9 +118,9 @@ export default async function SkillGapPage({
 
       {/* Target Role Selector Bar */}
       <Card className="border-[#DFD7CB] shadow-xs bg-white rounded-2xl">
-        <CardContent className="p-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-bold text-[#7A7067] uppercase tracking-wider">Select Target Role:</span>
+        <CardContent className="p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3 w-full">
+            <span className="text-xs font-bold text-[#7A7067] uppercase tracking-wider shrink-0">Select Target Role:</span>
             <div className="flex flex-wrap gap-2">
               {(allRoles || []).slice(0, 5).map((r: any) => (
                 <Link key={r.id} href={`/student/skill-gap?role=${r.id}`}>

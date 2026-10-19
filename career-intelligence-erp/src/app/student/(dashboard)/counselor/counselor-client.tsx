@@ -737,21 +737,21 @@ export function CounselorClient({
 
       {/* ─── 5. INTERACTIVE SLOT SELECTION MODAL ─────────────────────────────── */}
       {isBookingModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-[#DFD7CB] rounded-3xl p-6 sm:p-8 max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl animate-in fade-in-50 zoom-in-95 font-sans space-y-5">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-2.5 sm:p-4">
+          <div className="bg-white border border-[#DFD7CB] rounded-2xl sm:rounded-3xl p-4 sm:p-7 max-w-xl w-full max-h-[94vh] overflow-y-auto shadow-2xl animate-in fade-in-50 zoom-in-95 font-sans space-y-4 sm:space-y-5">
             <div className="flex items-start justify-between border-b border-[#DFD7CB]/60 pb-3">
               <div>
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#FAF6F0] text-[#A36B40] border border-[#DFD7CB] mb-1">
                   <Calendar className="w-3 h-3" /> Consultation Scheduling
                 </div>
-                <h3 className="text-xl font-bold text-[#2C2621]">Select Advisory Consultation Slot</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-[#2C2621]">Select Advisory Consultation Slot</h3>
                 <p className="text-xs text-[#7A7067] mt-0.5">
                   Pick a mentor and available time slot. Already booked slots are blocked.
                 </p>
               </div>
               <button
                 onClick={() => setIsBookingModalOpen(false)}
-                className="text-[#7A7067] hover:text-[#2C2621] p-1.5 rounded-xl hover:bg-[#FAF6F0]"
+                className="text-[#7A7067] hover:text-[#2C2621] p-1.5 rounded-xl hover:bg-[#FAF6F0] cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -798,11 +798,11 @@ export function CounselorClient({
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label className="text-xs font-semibold text-[#2C2621]">Consultation Date *</Label>
-                  <span className="text-[11px] text-[#7A7067]">Pick upcoming business day</span>
+                  <span className="text-[10px] sm:text-[11px] text-[#7A7067]">Pick upcoming business day</span>
                 </div>
 
                 {/* Quick Date Chips */}
-                <div className="grid grid-cols-5 gap-1.5">
+                <div className="grid grid-cols-5 gap-1 sm:gap-1.5">
                   {upcomingDatePresets.map(preset => {
                     const isSelected = selectedDate === preset.dateStr
                     return (
@@ -810,14 +810,14 @@ export function CounselorClient({
                         key={preset.dateStr}
                         type="button"
                         onClick={() => setSelectedDate(preset.dateStr)}
-                        className={`p-2 rounded-xl border text-center transition-all ${
+                        className={`p-1.5 sm:p-2 rounded-xl border text-center transition-all cursor-pointer ${
                           isSelected
                             ? 'bg-[#A36B40] text-white border-[#A36B40] shadow-xs'
                             : 'bg-white text-[#2C2621] border-[#DFD7CB] hover:bg-[#FAF6F0]'
                         }`}
                       >
-                        <p className="text-[10px] uppercase font-bold tracking-wider opacity-80">{preset.dayName}</p>
-                        <p className="text-xs font-extrabold mt-0.5">{preset.label}</p>
+                        <p className="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider opacity-80">{preset.dayName}</p>
+                        <p className="text-[11px] sm:text-xs font-extrabold mt-0.5">{preset.label}</p>
                       </button>
                     )
                   })}

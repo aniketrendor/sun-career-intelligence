@@ -77,7 +77,7 @@ export default async function StudentRoadmapPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
           <Link href="/student/syllabus">
             <Button size="sm" className="bg-[#A36B40] hover:bg-[#8E5B33] text-white gap-2">
               <BookOpen className="w-4 h-4" /> Program Syllabus
@@ -132,13 +132,13 @@ export default async function StudentRoadmapPage() {
                 Your personalized competency milestones and learning phases will be generated after completing your Career Exploration Assessment or upon review with your assigned mentor.
               </p>
             </div>
-            <div className="pt-2 flex items-center justify-center gap-3">
-              <Link href="/assessment">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+              <Link href="/student/assessment">
                 <Button size="sm" className="bg-[#A36B40] hover:bg-[#8E5B33] text-white text-xs font-bold">
                   Take Career Assessment
                 </Button>
               </Link>
-              <Link href="/student/counseling">
+              <Link href="/student/counselor">
                 <Button variant="outline" size="sm" className="text-xs font-bold">
                   Connect with Mentor
                 </Button>

@@ -139,7 +139,7 @@ export default async function StudentDashboardPage() {
     <div className="space-y-6 max-w-7xl mx-auto font-sans pb-10">
       
       {/* 1. Header Hero Banner: Personalized Greeting + Integrated Status Capsule */}
-      <div className="bg-white border border-[#DFD7CB] rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative overflow-hidden">
+      <div className="bg-white border border-[#DFD7CB] rounded-3xl p-5 sm:p-8 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6 relative overflow-hidden">
         <div className="space-y-3 relative z-10 max-w-2xl">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#A36B40] bg-[#F7EFEA] px-3 py-1 rounded-full border border-[#A36B40]/30">
@@ -170,9 +170,9 @@ export default async function StudentDashboardPage() {
         </div>
 
         {/* Right Action: View Career Profile */}
-        <div className="relative z-10 flex items-center gap-3 shrink-0">
-          <Link href="/student/career-profile">
-            <Button className="h-12 px-6 bg-gradient-to-r from-[#A36B40] via-[#B87B4E] to-[#8E5B33] hover:from-[#8E5B33] hover:to-[#784A28] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md shadow-[#A36B40]/25 hover:shadow-lg hover:shadow-[#A36B40]/35 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-2.5 border border-white/20 group">
+        <div className="relative z-10 flex items-center gap-3 shrink-0 w-full sm:w-auto">
+          <Link href="/student/career-profile" className="w-full sm:w-auto">
+            <Button className="w-full sm:w-auto h-11 sm:h-12 px-5 sm:px-6 bg-gradient-to-r from-[#A36B40] via-[#B87B4E] to-[#8E5B33] hover:from-[#8E5B33] hover:to-[#784A28] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md shadow-[#A36B40]/25 hover:shadow-lg hover:shadow-[#A36B40]/35 transition-all hover:scale-[1.01] active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2.5 border border-white/20 group">
               <Sparkles className="w-4 h-4 text-amber-200" />
               <span>View Career Profile</span>
               <ArrowRight className="w-4 h-4" />
@@ -182,51 +182,51 @@ export default async function StudentDashboardPage() {
       </div>
 
       {/* 2. Key Metrics Strip */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-3xl bg-white border border-[#DFD7CB] shadow-sm flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-2xl bg-[#F7EFEA] text-[#A36B40] flex items-center justify-center shrink-0">
-            <Target className="w-5 h-5" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
+        <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white border border-[#DFD7CB] shadow-sm flex items-center gap-2.5 sm:gap-3.5">
+          <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-xl sm:rounded-2xl bg-[#F7EFEA] text-[#A36B40] flex items-center justify-center shrink-0">
+            <Target className="w-4 sm:w-5 h-4 sm:h-5" />
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] text-[#7A7067] font-bold uppercase tracking-wider">Career Alignment</p>
-            <p className="text-sm font-extrabold text-[#2C2621] truncate">
+            <p className="text-[10px] sm:text-[11px] text-[#7A7067] font-bold uppercase tracking-wider">Career Track</p>
+            <p className="text-xs sm:text-sm font-extrabold text-[#2C2621] truncate">
               {careerProfile?.primary_domain?.name || domainScores[0]?.domain?.name || (hasCompletedAssessment ? 'Evaluated' : 'Pending Test')}
             </p>
           </div>
         </div>
 
-        <div className="p-4 rounded-3xl bg-white border border-[#DFD7CB] shadow-sm flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-2xl bg-[#F6EFEA] text-[#C6A18D] flex items-center justify-center shrink-0">
-            <Layers className="w-5 h-5" />
+        <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white border border-[#DFD7CB] shadow-sm flex items-center gap-2.5 sm:gap-3.5">
+          <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-xl sm:rounded-2xl bg-[#F6EFEA] text-[#C6A18D] flex items-center justify-center shrink-0">
+            <Layers className="w-4 sm:w-5 h-4 sm:h-5" />
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] text-[#7A7067] font-bold uppercase tracking-wider">Specialization</p>
-            <p className="text-sm font-extrabold text-[#2C2621] truncate">
+            <p className="text-[10px] sm:text-[11px] text-[#7A7067] font-bold uppercase tracking-wider">Specialization</p>
+            <p className="text-xs sm:text-sm font-extrabold text-[#2C2621] truncate">
               {displaySpec || 'Not Assigned'}
             </p>
           </div>
         </div>
 
-        <div className="p-4 rounded-3xl bg-white border border-[#DFD7CB] shadow-sm flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-2xl bg-[#F1F1EB] text-[#77734B] flex items-center justify-center shrink-0">
-            <GraduationCap className="w-5 h-5" />
+        <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white border border-[#DFD7CB] shadow-sm flex items-center gap-2.5 sm:gap-3.5">
+          <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-xl sm:rounded-2xl bg-[#F1F1EB] text-[#77734B] flex items-center justify-center shrink-0">
+            <GraduationCap className="w-4 sm:w-5 h-4 sm:h-5" />
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] text-[#7A7067] font-bold uppercase tracking-wider">Faculty Mentor</p>
-            <p className="text-sm font-extrabold text-[#2C2621] truncate">
+            <p className="text-[10px] sm:text-[11px] text-[#7A7067] font-bold uppercase tracking-wider">Faculty Mentor</p>
+            <p className="text-xs sm:text-sm font-extrabold text-[#2C2621] truncate">
               {mentorName || 'Not Assigned'}
             </p>
           </div>
         </div>
 
-        <div className="p-4 rounded-3xl bg-white border border-[#DFD7CB] shadow-sm flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-2xl bg-[#F7EFEA] text-[#A36B40] flex items-center justify-center shrink-0">
-            <BrainCircuit className="w-5 h-5" />
+        <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white border border-[#DFD7CB] shadow-sm flex items-center gap-2.5 sm:gap-3.5">
+          <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-xl sm:rounded-2xl bg-[#F7EFEA] text-[#A36B40] flex items-center justify-center shrink-0">
+            <BrainCircuit className="w-4 sm:w-5 h-4 sm:h-5" />
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] text-[#7A7067] font-bold uppercase tracking-wider">Assessment Status</p>
-            <p className="text-sm font-extrabold text-[#2C2621] truncate">
-              {hasCompletedAssessment ? `${topScore}% Score` : hasStartedAssessment ? 'In Progress' : '30-MCQ Diagnostic Ready'}
+            <p className="text-[10px] sm:text-[11px] text-[#7A7067] font-bold uppercase tracking-wider">Assessment</p>
+            <p className="text-xs sm:text-sm font-extrabold text-[#2C2621] truncate">
+              {hasCompletedAssessment ? `${topScore}% Score` : hasStartedAssessment ? 'In Progress' : 'Diagnostic Ready'}
             </p>
           </div>
         </div>

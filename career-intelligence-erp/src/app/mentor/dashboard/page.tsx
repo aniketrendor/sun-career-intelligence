@@ -270,7 +270,7 @@ export default async function CounselorDashboardPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 text-xs shrink-0">
+                    <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs shrink-0">
                       {careerProfile?.primary_domain && (
                         <div className="text-left md:text-right">
                           <span className="text-[10px] text-[#7A7067] uppercase font-bold tracking-wider block">

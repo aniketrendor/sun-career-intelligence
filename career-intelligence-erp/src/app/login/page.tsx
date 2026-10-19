@@ -399,7 +399,7 @@ export default function LoginPage() {
           </div>
 
           {/* Right Avatar (Girl with Thoughts & Pattern Backdrop) */}
-          <div className="hidden md:flex flex-col items-center justify-end relative select-none pointer-events-none max-w-[280px] xl:max-w-[320px] shrink-0 self-end">
+          <div className="hidden lg:flex flex-col items-center justify-end relative select-none pointer-events-none max-w-[280px] xl:max-w-[320px] shrink-0 self-end">
             
             {/* Smooth Soft Lavender Circle Backdrop */}
             <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[290px] h-[290px] bg-[#E5DCF8]/85 rounded-full -z-10" />
@@ -438,6 +438,31 @@ export default function LoginPage() {
 
         {/* ─── GOOGLE ONE-TAP INSTANT SIGN-IN PROMPT ───────────────── */}
         <GoogleOneTap targetRole={selectedPortal === 'mentor' ? 'COUNSELOR' : selectedPortal === 'admin' ? 'DEAN_HOD' : 'STUDENT'} />
+
+        {/* ─── INSTITUTIONAL & LEGAL FOOTER ────────────────────────── */}
+        <div className="pt-2 text-center text-[11px] text-[#7A7067] flex flex-wrap items-center justify-center gap-2">
+          <Link href="/privacy" className="hover:text-[#1C1C1C] transition-colors underline underline-offset-2">
+            Privacy Policy
+          </Link>
+          <span className="text-[#D5C2A7]">|</span>
+          <Link href="/terms" className="hover:text-[#1C1C1C] transition-colors underline underline-offset-2">
+            Terms & Conditions
+          </Link>
+          <span className="text-[#D5C2A7]">|</span>
+          <span className="font-semibold text-[#5A5046]">V2.01</span>
+          <span className="text-[#D5C2A7]">|</span>
+          <span>
+            Powered by{' '}
+            <a
+              href="https://mindsaar.onrender.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-[#1C1C1C] hover:text-[#FF6B3D] underline underline-offset-2 inline-flex items-center gap-0.5"
+            >
+              MindSaar
+            </a>
+          </span>
+        </div>
 
       </div>
     </div>
